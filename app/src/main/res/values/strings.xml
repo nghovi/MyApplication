@@ -1,0 +1,1005 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="mail_address">mail address</string>
+    <string name="pass_word">Password</string>
+    <string name="sign_out">Sign out</string>
+    <string name="list">List</string>
+    <string name="form">Form</string>
+    <string name="setting">Setting</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add">Add</string>
+    <string name="camera">Camera</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="take_video">Take Video</string>
+    <string name="cancel">Cancel</string>
+    <string name="preview">Preview</string>
+    <string name="remind">You must take a photo, then enter the Title and the Description</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_main">Main</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_activity_with_frg">ActivityWithFrg</string>
+    <string name="title_activity_my">MyActivity</string>
+    <string name="title_activity_sign_up_in">SignUpInActivity</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="title_quicker_project">Quicker</string>
+
+    <!--common keys-->
+    <string name="qk_account_email_address">E-mail address</string>
+    <string name="qk_account_new_pass">New password</string>
+    <string name="qk_account_new_pass2">New password</string>
+
+    <string name="qk_account_new_pass_confirm">New password (confirmation)</string>
+    <string name="qk_account_new_pass_confirm2">New password (confirmation)</string>
+
+    <string name="qk_account_current_pass">Current password</string>
+
+    <string name="qk_account_email">E-mail</string>
+    <string name="qk_account_email_short">E-mail</string>
+    <string name="qk_account_pass">Password</string>
+    <string name="qk_account_name_ka">First Name</string>
+    <string name="qk_account_name_kn">First Name(Kana)</string>
+
+    <string name="qk_account_last_name_ka">Last Name</string>
+    <string name="qk_account_last_name_kn">Last Name(Kana)</string>
+
+    <string name="qk_common_action_edit">Edit</string>
+    <string name="qk_common_action_cancel">Cancel</string>
+    <string name="qk_common_action_ok">OK</string>
+    <string name="qk_common_action_not">NOT</string>
+    <string name="qk_common_action_delete">Delete</string>
+    <string name="qk_common_action_complete">Complete</string>
+    <string name="qk_common_action_call">Call</string>
+    <string name="qk_common_action_transmission">Transmission</string>
+    <string name="qk_common_action_next">Next</string>
+    <string name="qk_common_action_return">Return</string>
+    <string name="qk_common_action_skip">SKIP</string>
+    <string name="qk_common_action_update">Update</string>
+
+    <string name="qk_common_tel">Tel</string>
+    <string name="qk_common_contact">Contact</string>
+    <string name="qk_common_address">Address</string>
+    <string name="qk_common_confirm_pass_title">Password confirmation</string>
+    <string name="qk_common_confirm_pass_msg">The deletion of the account password is required</string>
+    <string name="qk_common_confirm_pass_reinput_title">Please refer to the re-input</string>
+    <string name="qk_common_confirm_pass_reinput_msg">Passwords do not match</string>
+
+    <string name="qk_common_format_yen">¥</string>
+    <string name="qk_common_format_year">年</string>
+    <string name="qk_common_format_month">月</string>
+    <string name="qk_common_format_day">日</string>
+    <string name="qk_common_format_name">名</string>
+    <string name="qk_common_format_minute">分</string>
+
+    <string name="qk_common_count_yen">%1$s円</string>
+    <string name="qk_common_yen">円</string>
+
+    <string name="qk_cl_common_tab_footer_recruitment">バイトを探す</string>
+    <string name="qk_cl_common_tab_footer_job_already">応募済み</string>
+    <string name="qk_cl_common_tab_footer_notification">通知</string>
+    <string name="qk_cl_common_tab_footer_mypage">マイページ</string>
+
+    <string name="qk_common_network_problem_msg">My Internet connection is offline</string>
+    <string name="qk_common_network_try_again">I try again</string>
+
+    <string name="qk_common_crop_adjust_msg">Adjust the position and size of the photos</string>
+
+    <string name="qk_common_count_age_gender">(%1$syear old・%2$s)</string>
+
+    <string name="qk_cl_common_day">%sDay</string>
+    <string name="qk_cl_common_hours">%sHours</string>
+    <string name="qk_cl_common_minute">%sMinute</string>
+    <string name="qk_cl_common_second">%sSecond</string>
+    <string name="qk_cl_acc_profile_recruitment_expiration">Recruitment expiration!</string>
+
+    <!-- Quicker format date -->
+    <string name="qk_format_datetime_1">MM\'月\'dd\'日\'</string>
+    <string name="qk_format_datetime_2">MM\'月\'dd\'日（\'E\'）\'</string>
+    <string name="qk_format_datetime_3">yyyy\'年\'MM\'月\'dd\'日\' HH:mm</string>
+    <string name="qk_format_datetime_4">yyyy\'年\'MM\'月\'dd\'日\'</string>
+    <!--Menus section-->
+    <string name="qk_menu_bottom_offer">Offer</string>
+    <string name="qk_menu_bottom_work">Work</string>
+    <string name="qk_menu_bottom_notify">Notification</string>
+    <string name="qk_menu_bottom_mypage">My page</string>
+
+    <string name="qk_menu_slice_title">Switching of shop</string>
+    <string name="qk_menu_slice_add_shop">You want to add a shop</string>
+
+    <!--Upgrade service-->
+    <string name="qk_upgrade_msg">from May 2015, it became possible application from job seekers to recruitment content. Please use the JobQuicker to solve the labor shortage of your shop in two hours by all means.</string>
+    <string name="qk_upgrade_btn_update">Update</string>
+
+    <!--Walk through service-->
+    <string name="qk_walkthrough1_msg1">Suddenly as soon as recruiting at such time that manpower is not enough!</string>
+    <string name="qk_walkthrough1_msg2">You can start the recruitment by creating immediately in the day of recruitment</string>
+    <string name="qk_walkthrough2_msg1">Creating a recruitment course Free!</string>
+    <string name="qk_walkthrough2_msg2">Wanted is totally free! The first time accounting work the adopted person will occur</string>
+    <string name="qk_walkthrough3_msg1">Immediately determine the adoption of propriety!</string>
+    <string name="qk_walkthrough3_msg2">Check the recruiter of photos and work experience and are determined to adopt immediately!</string>
+    <string name="qk_walkthrough4_msg1">The behalf of the salary transfer</string>
+    <string name="qk_walkthrough4_msg2">You can payment by credit card or invoice to all troublesome payroll Acting end of the month</string>
+    <string name="qk_walkthrough4_get_start_msg">Getting Started!</string>
+
+    <!-- TuVD -->
+    <string name="qk_common_txt_button">Click Button</string>
+
+    <!-- shop information-->
+    <string name="qk_shop_shop_name">いざかやジャパン東京スカイツリーソラマチ店</string>
+    <string name="qk_shop_business_industry_title">Business· Industry</string>
+    <string name="qk_shop_business_item">Business</string>
+    <string name="qk_shop_industry_item">Industry</string>
+    <string name="qk_shop_description_title">Description of Shop</string>
+    <string name="qk_shop_edit_description_title">Description</string>
+    <string name="qk_shop_contact_address_title">Contact · Address</string>
+    <string name="qk_shop_access_info_title">Access information</string>
+    <string name="qk_shop_edit_delegate_msg">Industries, business category, contacts, you will not be able to change from on the application for the address. If you would like to change, please contact the call center.</string>
+    <string name="qk_shop_delete_shop_msg">You can delete this shop</string>
+
+    <string name="qk_shop_manage_msg1">Let us set the management shop</string>
+    <string name="qk_shop_manage_msg2">The shop you want to manage is not yet. You can either newly registered a management shop</string>
+    <string name="qk_shop_manage_examination_msg">※ at the time of new registration has examination</string>
+    <string name="qk_shop_input_info_msg">Contents had it registered\nIt is displayed within the app as all Jobs</string>
+    <string name="qk_shop_input_info_crop">Registration of store photos</string>
+
+    <string name="qk_shop_billboard_photo">Add a billboard photo</string>
+    <string name="qk_shop_in_store_photo">Add a in-store photo</string>
+
+    <string name="qk_shop_input_information_testimonials">Testimonials of shop</string>
+
+    <!--D indicator header-->
+    <string name="qk_indicator_input_info_shop">Input info shop</string>
+    <string name="qk_indicator_taken_photo_shop">Taken photo</string>
+    <string name="qk_indicator_app_completion">App completion</string>
+
+    <!--D2-1 Photo Shop Register-->
+    <string name="qk_photo_shop_register_msg1">Stores check for signs and the photos store\nThank you for your submission</string>
+    <string name="qk_photo_shop_register_msg2">※The captured photo is used only to check the time of application</string>
+
+    <!--D8-1-->
+    <string name="qk_shop_examination_registered">It has been registered</string>
+    <string name="qk_shop_examination_msg">It is currently under review ...</string>
+    <string name="qk_shop_examination_ng_reason">We were allowed to send off the registration because it is not a currently registered possible category</string>
+
+    <!-- I -->
+    <string name="qk_payment_title">Payment method</string>
+
+    <string name="qk_payment_default_card_unselected">Unselected</string>
+    <string name="qk_payment_default_card_description_not_select">Payment method is not selected. Please select the settlement method.</string>
+    <string name="qk_payment_default_card_description_notify">It is not possible to start the recruitment and not the selection of settlement method</string>
+
+    <string name="qk_payment_select_credit_card_txt_button">To credit card registration</string>
+    <string name="qk_payment_select_credit_card_description_notify">In order to perform the credit card registration. Browser will rise</string>
+
+    <string name="qk_payment_register_credit_card">Credit</string>
+    <string name="qk_payment_register_credit_card_description">The change of payment method. Inquiry to the following call center is required.</string>
+    <string name="qk_payment_register_credit_card_txt_button">Query the call center</string>
+    <string name="qk_payment_register_credit_card_description_notify">Phone will start</string>
+    <!-- End I -->
+
+    <!--M7 - M11 Job-->
+    <string name="qk_job_merit_transportation">Transportation</string>
+    <string name="qk_job_merit_experience">Experience</string>
+    <string name="qk_job_merit_student">Student</string>
+    <string name="qk_job_merit_highschool">Highschool</string>
+    <string name="qk_job_merit_english">English</string>
+    <string name="qk_job_merit_station">Station</string>
+    <string name="qk_job_merit_car">Car</string>
+    <string name="qk_job_merit_hair">Free hair</string>
+    <string name="qk_job_merit_blond">Blond</string>
+    <string name="qk_job_merit_clothes">Clothes</string>
+    <string name="qk_job_merit_meal">Meal</string>
+    <string name="qk_job_merit_part_time">Part Time</string>
+    <string name="qk_job_merit_married">Married</string>
+
+    <string name="qk_job_type_title_hint">Please Select</string>
+    <string name="qk_job_description_title_hint">(例)\n配膳や注文をとってもらう仕事がメインになるかと思います。手が空いた時は皿洗いの可能性もあります。平均年齢21歳、大学生を中心としたスタッフ達と元気に働けます!</string>
+    <string name="qk_job_applicant_qualification_title_hint">(例)\n・きちんとした電話応対ができる方\n・居酒屋での勤務経験\n・コミュニケーションスキルの高い方</string>
+    <string name="qk_job_baggage_clothes_title_hint">(例)\n・動きやすい服装でお願いします(スカート不可)</string>
+    <string name="qk_recruitment_preference_condition_hint">Please Select</string>
+    <string name="qk_job_type_title">Job Type</string>
+    <string name="qk_job_description_title">Job Description Hint</string>
+    <string name="qk_job_applicant_qualification_title">Applicant qualification</string>
+    <string name="qk_job_baggage_clothes_title">Baggage - Clothes</string>
+    <string name="qk_job_treatment">Treatment</string>
+    <string name="qk_recruitment_transportation">Transportation expense: </string>
+    <string name="qk_recruitment_transportation_amount">Transportation expense</string>
+    <string name="qk_job_transportation">Transportation</string>
+    <string name="qk_recruitment_preference_condition">Preference condition</string>
+    <string name="qk_job_question">Question</string>
+    <string name="qk_recruitment_shop_description_title">Shop description</string>
+
+    <string name="qk_recruitment_applicant">Applicants</string>
+    <string name="qk_recruitment_applicant_remain">(The remain %1$s)</string>
+    <string name="qk_recruitment_applicant_remain_clone">(The remain %1$s)</string>
+    <string name="qk_recruitment_applicant_msg">%1$s has applied. Let\'s determine the adoption of acceptance</string>
+    <string name="qk_recruitment_applicant_name">名</string>
+    <string name="qk_recruitment_until_msg">Recruitment until</string>
+    <string name="qk_recruitment_enough_employee">We reached the number of employee</string>
+    <string name="qk_recruitment_not_enough_employee">We not reach the number of employee</string>
+    <string name="qk_recruitment_work_time">%1$s %2$s~%3$s</string>
+
+    <string name="qk_recruitment_status_before">Before</string>
+    <string name="qk_recruitment_status_normal">Normal</string>
+    <string name="qk_recruitment_status_stop">Stop</string>
+    <string name="qk_recruitment_status_selection">Selection</string>
+    <string name="qk_recruitment_status_decision">Already decision</string>
+    <string name="qk_recruitment_status_exit">Exit</string>
+    <string name="qk_recruitment_status_complete">Complete</string>
+    <string name="qk_recruitment_status_trial">Trial</string>
+
+    <string name="qk_job_type_hall_item">Hall</string>
+    <string name="qk_job_type_kitchen_cooking_item">Kitchen cooking auxiliary</string>
+    <string name="qk_job_type_courier_delivery_item">Courier delivery</string>
+    <string name="qk_job_type_select_title">Select job type</string>
+
+    <!--M-18 PaymentMethod-->
+    <string name="qk_payment_method_header_title">Payment method</string>
+    <string name="qk_payment_method_note1">Payment has not been set. Bank transfer, credit card payment, one of the. Please select the settlement method.</string>
+    <string name="qk_payment_method_bank_transfer_txt_btn">Bank transfer (invoice payment)</string>
+    <string name="qk_payment_method_credit_card_txt_btn">Credit card payment</string>
+    <string name="qk_payment_method_note2">※ It becomes the registration of an external site</string>
+
+    <string name="qk_payment_method_dialog_title">Do you want to determine the payment method ?</string>
+    <string name="qk_payment_method_dilog_msg">To change the once-determined payment method\nYou must have your procedure by phone separately</string>
+    <string name="qk_payment_method_positive">Determine</string>
+    <string name="qk_payment_method_negative">Cancel</string>
+    <!--M-19-20 BankTransfer & CreditCard-->
+    <string name="qk_payment_bank_transfer_credit_card_title">Payment method</string>
+    <string name="qk_payment_bank_transfer">Bank transfer</string>
+    <string name="qk_payment_credit_card">Credit card</string>
+    <string name="qk_payment_bank_transfer_invoice_title">Invoice destination address</string>
+    <string name="qk_payment_bank_transfer_invoice">Shibuya, Shibuya-ku, Tokyo 1-25-6 Shibuya Parkside Kyodo Building 95</string>
+    <string name="qk_payment_bank_transfer_credit_card_note">Change of payment method can not be from the app. Please contact the call center.</string>
+    <string name="qk_payment_bank_transfer_credit_card_txt_button">Contact about changing the payment method</string>
+    <!--M24 Past of Wokers-->
+    <string name="qk_past_workers_title">Past of workers</string>
+    <!--M-34-1 CallCenter-->
+    <string name="qk_mypage_call_center_header_title">Call center</string>
+    <string name="qk_mypage_call_center_note">We accept in the inquiries and workers with the trouble of such consultation call center of the service agreement.</string>
+    <string name="qk_mypage_call_center_contact_dedicated_txt_btn">Contact dedicated</string>
+    <string name="qk_qk_mypage_call_center_phone_contact_txt_btn">Phone contacts</string>
+
+    <!--M-34-2 CallCenterDialog-->
+    <string name="qk_mypage_call_center_dialog_phone_title">You make the call to the call center</string>
+    <string name="qk_mypage_call_center_dialog_phone">0120-1234-5678</string>
+    <string name="qk_mypage_call_center_dialog_cancel">Cancel</string>
+    <string name="qk_mypage_call_center_dialog_call">Call</string>
+    <!--G-1-->
+    <string name="qk_recruitment_select_title">New recruitment</string>
+    <string name="qk_recruitment_select_btn">Create new</string>
+    <string name="qk_recruitment_select_note">The work content that you want to recruit\nPlease choose</string>
+    <string name="qk_recruitment_list_past">Replication from the past of recruitment</string>
+    <!--G2 JobTypeSetting-->
+    <string name="qk_job_offer_setting_header_title">Setting of recruitment conditions</string>
+    <string name="qk_job_offer_setting_note">Let is start the recruitment by setting the conditions</string>
+    <string name="qk_job_offer_setting_type">Hall staff</string>
+    <string name="qk_job_offer_setting_adopted_persons">Adopted persons</string>
+    <string name="qk_job_offer_setting_working_hours">Working hours</string>
+    <string name="qk_job_offer_setting_start">Start</string>
+    <string name="qk_job_offer_setting_end">End</string>
+    <string name="qk_job_offer_setting_break">Break</string>
+    <string name="qk_job_offer_setting_set_time">Set time</string>
+    <string name="qk_job_offer_setting_wages">Wages</string>
+    <string name="qk_job_offer_setting_hourly_wage">Hourly wage</string>
+    <string name="qk_job_offer_setting_btn_next">Next</string>
+
+    <string name="qk_job_offer_setting_data_adopted_persons">2名</string>
+    <string name="qk_job_offer_setting_data_start">2015年4月2日 19:00</string>
+    <string name="qk_job_offer_setting_data_end">2015年4月2日 24:00 </string>
+    <string name="qk_job_offer_setting_data_break">0分</string>
+    <string name="qk_job_offer_setting_data_set_time">勤務開始15分前</string>
+    <string name="qk_job_offer_setting_data_hourly_wage">900円</string>
+
+    <!--G3 JobOfferQuestion-->
+    <string name="qk_job_offer_question_header_title">Question to the applicant</string>
+    <string name="qk_job_offer_question">Is there a question to this recruitment of applicants?</string>
+    <string name="qk_job_offer_question_type">Hall staff</string>
+    <string name="qk_job_offer_question_title">Question to the applicant (optional)</string>
+    <string name="qk_job_offer_question_btn">Check the recruiting content</string>
+    <!--G-3-1 New Recruitment-->
+    <string name="qk_new_recruitment_header_title">New recruitment</string>
+    <string name="qk_new_recruitment_msg_title">Let us start the recruitment\nby setting the conditions</string>
+    <string name="qk_new_recruitment_employee_number">Employee number</string>
+    <string name="qk_new_recruitment_salary_unit">Salary unit</string>
+    <string name="qk_new_recruitment_salary_hint">900円</string>
+    <string name="qk_new_recruitment_select_hint">Please Select</string>
+    <string name="qk_new_recruitment_treatment">Treatment</string>
+    <string name="qk_new_recruitment_start">Start</string>
+    <string name="qk_new_recruitment_end">End</string>
+    <string name="qk_new_recruitment_recess">Recess</string>
+    <string name="qk_new_recruitment_salary_msg">※ Salary to the applicants will be generated from the set time</string>
+    <string name="qk_new_recruitment_question">Question to the applicant</string>
+    <string name="qk_new_recruitment_question_hint">Question to the applicant</string>
+
+    <string name="qk_new_recruitment_content">Check the recruiting content</string>
+    <string name="qk_new_recruitment_content_msg">※ Please do not questions about personal information such as address and contact</string>
+    <!--G4 JobOfferConfirm-->
+    <string name="qk_job_offer_create_recruitment">Create recruitment</string>
+    <string name="qk_job_offer_confirm_header_title">Confirmation of recruiting content</string>
+    <string name="qk_job_offer_confirm_shop_type">Tavern</string>
+    <string name="qk_job_offer_confirm_detail_position">hall staff</string>
+    <string name="qk_job_offer_confirm_note">採用人数や時給、 勤務時間など募集に必要な条件は、 ○月○日のサービス本リリース後実際に募集ができるようになった時点から設定できるようになります</string>
+    <string name="qk_job_offer_confirm_baggage_clothes_title">Belongings  :</string>
+    <string name="qk_job_offer_confirm_working_hours_title">Working hours</string>
+    <string name="qk_job_offer_confirm_working_date">March 30 (Mon)</string>
+    <string name="qk_job_offer_confirm_working_time">16:00 +20: 00 / set time 15:45</string>
+    <string name="qk_job_offer_confirm_break_title">Break:</string>
+    <string name="qk_job_offer_confirm_break">1 hour</string>
+    <string name="qk_job_offer_confirm_salary_title">Salary</string>
+    <string name="qk_job_offer_confirm_salary">3412¥ (hourly wage ¥ 1,050 x production 3 hours and 15 minutes)</string>
+    <string name="qk_job_offer_confirm_btn_experience">未経験 OK</string>
+    <string name="qk_job_offer_confirm_btn_transportation">交通費支給</string>
+    <string name="qk_job_offer_confirm_job_desc_title">Job description</string>
+    <string name="qk_job_offer_confirm_app_qualification_title">Qualification requirements</string>
+    <string name="qk_job_offer_confirm_recruitment_staff">Recruitment staff</string>
+    <string name="qk_job_offer_confirm_txt_btn_question">Question</string>
+    <string name="qk_job_offer_confirm_question_note">After the adoption finalized, you can also ask in the direct message or phone.</string>
+    <string name="qk_job_offer_confirm_user_track_title">User track:</string>
+    <string name="qk_job_offer_confirm_user_track_no">16</string>
+    <string name="qk_job_offer_confirm_shop_desc_title">Shop description</string>
+    <string name="qk_job_offer_confirm_txt_btn_favorite_shop">Favorite Shop</string>
+    <string name="qk_job_offer_confirm_note_favorite_shop">You can receive a notification when a new byte information of this shop has been added.</string>
+    <string name="qk_job_offer_confirm_shop_location_title">Location</string>
+    <string name="qk_job_offer_confirm_direction1_title">Tokyo ...</string>
+    <string name="qk_job_offer_confirm_direction1">Shibuya Station 2-minute walk</string>
+    <string name="qk_job_offer_confirm_direction2_title">Tokyo Line</string>
+    <string name="qk_job_offer_confirm_direction2">Daikanyama Station 8-minute walk</string>
+    <string name="qk_job_offer_confirm_direction3_title">JR Yamanote Line</string>
+    <string name="qk_job_offer_confirm_direction3">Harajuku Station 14 mins access method</string>
+    <string name="qk_job_offer_confirm_access_way_title">Access way</string>
+    <string name="qk_job_offer_confirm_btn_save_recruiting">You want to save this recruiting</string>
+    <string name="qk_job_offer_confirm_btn_note">It can be used in recruitment after this release</string>
+    <!-- End TuVD -->
+
+    <!--G6-1-->
+    <string name="qk_confirm_recruitment_title">Confirmation of recruiting content</string>
+    <string name="qk_confirm_recruitment_working_hour">Working hours %1$s</string>
+    <string name="qk_confirm_recruitment_msg1">4:00p.m. to 8:00p.m./ Set time 15:45</string>
+    <string name="qk_confirm_recruitment_msg2">Break: Includes 1 hour</string>
+    <string name="qk_confirm_recruitment_msg3">Gross pay</string>
+    <string name="qk_confirm_recruitment_msg4">3412 yen(1050 yen hourly wage × production 3 hours and 15 minutes)</string>
+    <string name="qk_confirm_recruitment_msg5">Transportation expenses: Separately paid 1000 yen</string>
+    <string name="qk_confirm_recruitment_employment_status">Employment :</string>
+    <string name="qk_confirm_recruitment_employment_parttime">Part time</string>
+    <string name="qk_confirm_recruitment_employee_number">Employee Number :</string>
+    <string name="qk_confirm_recruitment_btn_ok">Inexperienced OK</string>
+    <string name="qk_confirm_recruitment_btn_trans">Transportation paid</string>
+    <string name="qk_confirm_recruitment_btn_free">Hairstyle free</string>
+    <string name="qk_confirm_recruitment_btn_start">It wants to start recruiting</string>
+    <string name="qk_confirm_recruitment_gross_pay">Gross pay</string>
+    <string name="qk_confirm_recruitment_break">Break: %1$s minutes</string>
+    <string name="qk_confirm_recruitment_break_none">Break: none</string>
+    <string name="qk_confirm_recruitment_salary_info">%1$s円（時給%2$s円×実働%3$s時間%4$s分）</string>
+    <string name="qk_confirm_recruitment_transportation">Transportation：</string>
+    <string name="qk_confirm_recruitment_transportation_info">別途%1$s円を支給</string>
+    <string name="qk_confirm_recruitment_none_transportation">None Paid</string>
+    <string name="qk_confirm_recruitment_complete_msg1">Recruitment has started</string>
+    <string name="qk_confirm_recruitment_complete_msg2">Recruitment will be terminated %1$s days %2$s o\'clock</string>
+    <string name="qk_confirm_recruitment_complete_msg3">※After the end of, it will be able to recruit to replicate the current recruitment content again</string>
+
+
+    <!-- VietNH worker list-->
+    <string name="qk_worker_list_title">Tavern Japan Shibuya</string>
+    <string name="qk_worker_list_empty_title">No adoption found</string>
+    <string name="qk_worker_list_empty_description">Please adopt applicants to recruitment</string>
+    <string name="qk_worker_list_frame1_header_1">Work before</string>
+    <string name="qk_worker_list_frame1_header_2">Work to start</string>
+    <string name="qk_worker_list_frame1_header_3">2 hours 34 minutes after</string>
+    <string name="qk_worker_list_frame1_title_1">キッチン・デリバリースタッフ</string>
+    <string name="qk_worker_list_frame1_title_2">MM\'月\'dd\'日 \'</string>
+    <string name="qk_cl_job_detail_working_time">%1$s~%2$s</string>
+    <string name="qk_worker_list_frame1_worker_name">Takumi Wantanabe</string>
+    <string name="qk_worker_list_frame1_worker_info">(%1$s ages・%2$s)</string>
+
+    <string name="qk_worker_list_frame2_header_1">Work completion</string>
+    <string name="qk_worker_list_frame2_header_2">Complete the payment of salary</string>
+    <string name="qk_worker_list_frame2_title_1">Kitchen delivery staff</string>
+    <string name="qk_worker_list_frame2_title_2">19:00〜24:00</string>
+    <string name="qk_worker_list_frame2_worker_name">Hiroki Matsushima</string>
+    <string name="qk_worker_list_frame2_worker_info">(%1$s ages・%2$s)</string>
+    <string name="qk_common_female">Female</string>
+    <string name="qk_common_male">Male</string>
+    <string name="qk_worker_list_frame2_btn_text">You pay the salary</string>
+    <string name="qk_worker_list_frame2_note">Cancel the service \></string>
+    <!-- End VietNH -->
+
+    <!--worker detail-->
+    <string name="qk_worker_detail_title">Workers details</string>
+    <string name="qk_worker_detail_note1">It is before starting work</string>
+    <string name="qk_worker_detail_note2">Check on work and questions please use the message</string>
+    <string name="qk_worker_detail_work_experience">Work experience</string>
+    <string name="qk_worker_detail_past_career">Past career</string>
+    <string name="qk_worker_detail_self_promotion">Self-promotion</string>
+    <string name="qk_worker_detail_educational">Educational</string>
+    <string name="qk_worker_detail_txt_btn1_count_msg">Message (%s)</string>
+    <string name="qk_worker_detail_txt_btn1_msg">Message</string>
+    <string name="qk_worker_detail_txt_btn2">Phone</string>
+    <string name="qk_worker_detail_note_payment_1">Please complete the payment of the salary that was working end</string>
+    <string name="qk_worker_detail_note_payment_2">You cancel the service due to circumstances, such as the workers did not come, please choose to "undo the work" if DoTsutomu is not two realized.</string>
+    <string name="qk_worker_detail_cancel_payment_service">Cancel the service</string>
+    <string name="qk_worker_detail_to_payment_service">You pay the salary</string>
+    <string name="qk_worker_detail_job_canceled_note_1">Work has been canceled</string>
+    <string name="qk_worker_detail_job_canceled_note_2">( 取り消しの仕擸が不明確なため、 一旦保留 )</string>
+    <string name="qk_worker_detail_payment_note_waiting_salary">It is remittance waiting for salary</string>
+    <string name="qk_worker_detail_payment_note_waiting_time">%1$sに送金が予定されています</string>
+    <string name="qk_worker_detail_payment_note_salary_paid">Salary is paid</string>
+    <string name="qk_worker_detail_payment_note_salary_complete">%1$sに送金が完了しています</string>
+    <string name="qk_worker_detail_payment_note_appeal">Appeals have been made from workers</string>
+    <string name="qk_worker_detail_payment_note_check_msg_appeal">Please check the messages for content</string>
+    <string name="qk_worker_detail_payment_note_appeal_btn_txt">We will modify the amount paid</string>
+    <string name="qk_worker_detail_payment_work_content">Work content</string>
+    <string name="qk_worker_detail_payment_job_category">Job category</string>
+    <string name="qk_worker_detail_payment_hourly_wage">Hourly wage</string>
+    <string name="qk_worker_detail_payment_length_service">Length service</string>
+    <string name="qk_worker_detail_payment_start">Start</string>
+    <string name="qk_worker_detail_payment_end">End</string>
+    <string name="qk_worker_detail_payment_actual_hours">Actual hours</string>
+    <string name="qk_worker_detail_payment_breakdown">Payment breakdown</string>
+    <string name="qk_worker_detail_payment_total_amount_paid">The total amount paid</string>
+    <string name="qk_worker_detail_payment_base_salary">Base salary</string>
+    <string name="qk_worker_detail_payment_overtime_pay">Overtime pay</string>
+    <string name="qk_worker_detail_payment_trans_expense">Transportation expense</string>
+    <string name="qk_worker_detail_payments">Payments</string>
+    <string name="qk_worker_detail_payment_tax_withholding">Tax withholding</string>
+    <string name="qk_worker_detail_payment_you_feel">You feel</string>
+    <!--End worker detail-->
+
+    <!--WorkerPaymentFragment-->
+    <string name="qk_worker_payment_count_actual_hour">%1$s hours %2$s minutes</string>
+    <string name="qk_worker_payment_count_recess">(Break %1$s minutes)</string>
+    <string name="qk_worker_payment_total_amount_paid">The total amount paid</string>
+    <string name="qk_worker_payment_job_category">Job category</string>
+    <string name="qk_worker_payment_basic_salary">Basic salary</string>
+    <string name="qk_worker_payment_overtime_pay">Overtime pay</string>
+    <string name="qk_worker_payment_transportation_expense">Transportation expense</string>
+    <string name="qk_worker_payment_deduction">Deduction</string>
+    <string name="qk_worker_payment_tax_withholding">Tax withholding</string>
+    <string name="qk_worker_payment_count_tax_withholding">-%1$s円</string>
+    <string name="qk_worker_payment_other">Other</string>
+    <string name="qk_worker_payment_item_name">Item name</string>
+    <string name="qk_worker_payment_add_item">+ Add items</string>
+    <string name="qk_worker_payment_deductible">Deductible</string>
+    <!--End WorkerPaymentFragment-->
+
+    <string name="qk_applicant_detail_title">Applicant details</string>
+    <string name="qk_applicant_detail_note1">Please have decided to adopt acceptance</string>
+    <string name="qk_applicant_detail_note2">And after work experience and employment history, the appeal contents of the check\nPlease decide within %1$s for adoption acceptance</string>
+    <string name="qk_applicant_detail_question">Question to the applicant</string>
+    <string name="qk_applicant_detail_position_title">Position information of the applicant</string>
+    <string name="qk_applicant_detail_txt_btn1">It wants to reject</string>
+    <string name="qk_applicant_detail_txt_btn2">Adopt</string>
+    <string name="qk_applicant_dialog_msg_adopt_title">Do you want to adopt?</string>
+    <string name="qk_applicant_dialog_msg_adopt">Interaction with the adopted applicants can be done from the "work management"</string>
+    <string name="qk_applicant_dialog_btn_adopt">Adopt</string>
+    <string name="qk_applicant_dialog_btn_do_not">Do not</string>
+    <string name="qk_applicant_dialog_msg_reject_title">Do you want to reject?</string>
+    <string name="qk_applicant_dialog_msg_reject">You can not cancel it and would have been west to once reject</string>
+    <string name="qk_applicant_dialog_btn_reject">Reject</string>
+    <string name="qk_applicant_dialog_result_adopted">It was adopted</string>
+    <string name="qk_applicant_dialog_result_rejected">We decided to rejected</string>
+    <string name="qk_applicant_shk_career_summary_work_count">勤務回数： %s回</string>
+    <string name="qk_applicant_career_list_work_count">勤務年数: %s</string>
+    <string name="qk_applicant_detail_applicant_promote">Applicants promote</string>
+
+    <!-- L-11 Notification -->
+    <string name="qk_notification_title">Notification</string>
+    <string name="qk_notification_notice_title">Do not have notifications.</string>
+    <string name="qk_message_title">Message Fragment Title</string>
+    <string name="qk_message_edittext_hint">Enter your message here</string>
+    <string name="qk_message_already_read">Read</string>
+    <string name="qk_message_btn_send">Send</string>
+
+
+    <!--M-39 Favorite -->
+    <string name="qk_favourite_title">Favourite</string>
+    <string name="qk_favourite_notice_title">Do not have favourite workers.</string>
+    <string name="qk_favourite_notice">When one favourite register, it will be displayed here</string>
+
+    <string name="qk_favourite_remove_message">Do you want to remove this worker?</string>
+
+    <!-- Job Offer Detail -->
+    <string name="qk_job_new_title">Job Offer</string>
+    <string name="offer_detail_application_tab">Status</string>
+    <string name="offer_detail_application_tab_count">Status(%1$s)</string>
+    <string name="offer_detail_want_tab">Contents</string>
+    <string name="offer_detail_question_tab">Question</string>
+    <string name="offer_detail_question_tab_count">Question(%1$s)</string>
+    <string name="offer_detail_adopter_really">Adopted</string>
+    <string name="offer_detail_hall_staff">Hall Staff</string>
+
+
+    <!-- Message -->
+    <string name="qk_message_comm_offline">You are offline</string>
+    <string name="qk_message_comm_security">Security error</string>
+    <string name="qk_message_comm_error">Unexpected error</string>
+
+
+    <!--Sign up-->
+    <string name="qk_account_sign_up">Sign up</string>
+    <string name="qk_account_sign_up_password_note">Password within 30 characters or more 8 characters</string>
+    <string name="qk_account_sign_up_note">It is regarded as fly bar policy to those agreed to Terms of Use by proceeding</string>
+
+    <!-- Sign in service-->
+    <string name="qk_account_infor_title">Account information</string>
+    <string name="qk_account_infor_confirm_password">Confirm password</string>
+    <string name="qk_account_incorrect_account_msg">User name or password are not correct</string>
+    <string name="qk_account_forget_password">Forget password</string>
+
+    <string name="qk_account_signin">Sign in</string>
+    <string name="qk_account_signup_title">Account registration</string>
+    <string name="qk_account_signup_msg">The account registration is required input of confirm code. Please enter the receive destination e-mail address.</string>
+    <string name="qk_account_signup_dialog_msg1">The confirmation code sent</string>
+    <string name="qk_account_signup_dialog_msg2">A confirmation code is sent to the entered email address.</string>
+
+    <string name="qk_account_signin_facebook">Sign in Facebook</string>
+
+    <string name="qk_account_confirm_code_dialog_msg1">Account creation is complete</string>
+    <string name="qk_account_confirm_code_dialog_msg2">Information that you create in "My Page"</string>
+    <string name="qk_account_confirm_code_dialog_msg3">You can change.</string>
+    <string name="qk_account_confirm_code_dialog_btn">OK</string>
+
+    <string name="qk_account_resend_confirm_code_msg1">I was re-send the confirmation code</string>
+    <string name="qk_account_resend_confirm_code_msg2">To the entered email address\nI was re-send the confirmation code</string>
+
+    <string name="qk_account_signup_btn">I agree and next</string>
+    <string name="qk_account_signup_pass_valid">6～20 Characters Alphanumeric</string>
+    <string name="qk_account_signup_agree_terms">It is assumed to have agreed to Policies and Terms of Use in that proceeding</string>
+    <string name="qk_account_registration_msg">We send a confirmation code\nto the entered email address.\nPlease, enter verification code in here.</string>
+    <string name="qk_account_registration_resend">re-send the confirmation code</string>
+    <string name="qk_account_registration_24_valid">(Confirmation code will be valid for 24 hours)</string>
+    <string name="qk_account_registration_code_error">Please check again the confirmation code is different</string>
+    <string name="qk_account_change_action">Change</string>
+    <string name="qk_account_email_change_action">Change</string>
+    <string name="qk_account_change_action2">Change</string>
+
+    <string name="qk_account_email_change_email">New mail address</string>
+
+    <string name="qk_account_forget_pass_title">Forget password</string>
+    <string name="qk_account_entry_email_msg">Your name and e-mail address that you used to register</string>
+    <string name="qk_account_entry_email_msg1">Please enter</string>
+    <string name="qk_account_entry_email_msg2">We will send you the steps to reset the password</string>
+    <string name="qk_account_entry_email_transmission">Transmission</string>
+    <string name="qk_account_entry_pass_reconfig">Reconfigure</string>
+    <string name="qk_account_entry_email_completed">Transmission has been completed</string>
+    <string name="qk_account_entry_email_sent_mail">We send you the procedure for resetting the password.</string>
+    <string name="qk_account_change_pass_completed">Setting up a new password</string>
+    <string name="qk_account_change_pass_guide">6-20 characters</string>
+
+    <string name="qk_account_change_pass_completed_msg1">has been completed</string>
+
+
+    <!-- Other -->
+    <string name="txt_notice">Is that it can not use current recruitment management function. Please wait interim ease until this release</string>
+    <string name="txt_notice_title">Notice</string>
+    <string name="txt_offer_title">Offer</string>
+    <string name="txt_work_title">Work</string>
+    <string name="qk_common_crop_picture">Cropping</string>
+
+
+    <!-- Staff service -->
+
+    <string name="qk_account_get_verification_code_title">Get verification code</string>
+    <string name="qk_account_input_verification_code_title">Input verification code</string>
+    <string name="qk_account_verification_code_title">Verification code</string>
+    <string name="qk_account_confirm_verification_code_title">Confirm verification code</string>
+    <string name="qk_account_information_first_name_item">First name</string>
+    <string name="qk_account_information_middle_name_item">Middle name</string>
+    <string name="qk_account_information_last_name_item">Last name</string>
+    <string name="qk_account_information_phone_number_item">Phone number</string>
+    <string name="qk_account_information_zip_code_item">Zip code</string>
+    <string name="qk_account_information_search_zip_code">Search zip code</string>
+    <string name="qk_account_information_prefecture_item">Prefecture</string>
+    <string name="qk_account_information_city_item">City</string>
+    <string name="qk_account_information_address_item">Address</string>
+    <string name="qk_account_information_house_number_item">House number</string>
+    <string name="qk_account_information_go_to_confirm">Go to confirmation screen</string>
+    <string name="qk_account_information_title">Confirmation of input content</string>
+
+    <string name="qk_account_verification_code_msg1">Account registration has been completed</string>
+    <string name="qk_account_verification_code_msg2">The registered information can be changed from 「My Page」.</string>
+    <string name="qk_account_verification_code_msg3">Input store information</string>
+    <string name="qk_account_information_thanks_msg">Thank you for your fill</string>
+    <string name="qk_account_information_review_msg">Right now it is under review</string>
+    <string name="qk_account_information_completed_examination_msg">Examination has been completed</string>
+
+    <string name="qk_account_logout_confirm_msg">Do you want to log out?</string>
+
+
+    <!--My page service-->
+    <string name="qk_mypage_title">My page</string>
+    <string name="qk_mypage_payment_history_title">Payment history</string>
+    <string name="qk_mypage_payment_method_item">Payment method</string>
+    <string name="qk_mypage_billing_info_item">Billing information</string>
+    <string name="qk_mypage_work_history_title">Work history</string>
+    <string name="qk_mypage_past_worker_item">Past of workers</string>
+    <string name="qk_mypage_favorite_worker_item">Favorite workers</string>
+    <string name="qk_mypage_setting_title">Setting</string>
+    <string name="qk_mypage_current_balance">Current Balance</string>
+    <string name="qk_mypage_account_info_item">Account information</string>
+    <string name="qk_mypage_push_notify_item">Push notifications</string>
+    <string name="qk_mypage_guidelines">Guidelines</string>
+    <string name="qk_mypage_terms_use_item">Terms of use</string>
+    <string name="qk_mypage_policy_item">Privacy Policy</string>
+    <string name="qk_mypage_copyright_item">Copyright Notice</string>
+    <string name="qk_mypage_about_app_item">About this app</string>
+    <string name="qk_mypage_contact_item">Contact call center</string>
+    <string name="qk_mypage_logout_item">Logout</string>
+    <string name="qk_mypage_work_condition_item">Working conditions notice</string>
+
+
+    <string name="qk_mypage_template_list">Template list</string>
+    <string name="qk_mypage_template_create_title">Create template</string>
+    <string name="qk_mypage_your_job">Whats your job</string>
+    <string name="qk_mypage_job_category">Job category</string>
+    <string name="qk_mypage_template_job_description">Job description</string>
+    <string name="qk_mypage_template_create">To create</string>
+    <string name="qk_mypage_template_update">Template update</string>
+    <string name="qk_mypage_template_edit">Edit</string>
+    <string name="qk_mypage_template_recruit">I recruit in this template</string>
+    <string name="qk_mypage_template_position">Position</string>
+    <string name="qk_mypage_template_form_msg">募集したい職種は\nどんなお仕事ですか?</string>
+    <string name="qk_mypage_template_register_time_recruitment">Please register at the time of recruitment</string>
+
+    <string name="qk_mypage_template_confirm_treatment">Treatment</string>
+    <string name="qk_mypage_template_confirm_set_time">Set time</string>
+    <string name="qk_mypage_template_confirm_such_work">It is such work</string>
+
+    <string name="qk_mypage_photo_account_info_title">Account information</string>
+    <string name="qk_mypage_account_info_delete_msg">You can delete this account </string>
+    <string name="qk_mypage_account_info_delete_account">Delete account</string>
+    <string name="qk_mypage_delete_account_confirm">Are you sure you want to delete your account?</string>
+    <string name="qk_mypage_delete_account_confirm_msg">If you delete, store information, work history, billing information, your account information, all of the information, such as registration credit card information is deleted.</string>
+    <string name="qk_mypage_update_account_confirm">Do you wanna update your account?</string>
+    <string name="qk_mypage_update_account_confirm_msg">update account information.</string>
+    <string name="qk_mypage_photo_account_name">Account name</string>
+    <string name="qk_mypage_photo_account_email">Email</string>
+    <string name="qk_mypage_photo_account_pass">Password</string>
+    <string name="qk_mypage_photo_completed_register">Account registration has been completed</string>
+
+    <string name="qk_mypage_photo_face_title">Register face photo</string>
+    <string name="qk_mypage_photo_face_update">Face photo update</string>
+
+    <string name="qk_mypage_photo_tips_title">Photo tips</string>
+
+    <string name="qk_mypage_photo_change_name_title">Change name</string>
+    <string name="qk_mypage_photo_change_email_title">Change email</string>
+    <string name="qk_mypage_photo_change_pass_title">Change password</string>
+
+    <string name="qk_mypage_account_info_email_address_change_title">E-Mail Address Change</string>
+    <string name="qk_mypage_account_info_change_pass_title">Change Password</string>
+
+    <!--M38 AboutApp-->
+    <string name="qk_mypage_about_app_license">License</string>
+    <!--M38 AboutApp-->
+
+    <!--M42 MyPage Guide-->
+    <string name="qk_mypage_guide_1">Notational conventions</string>
+    <string name="qk_mypage_guide_2">Participation criteria</string>
+    <string name="qk_mypage_guide_3">Notes in the image published</string>
+    <!--End M42 MyPage Guide-->
+    <string name="qk_mypage_logout_txt_dialog">Do you want to log out ?</string>
+    <string name="qk_mypage_logout_positive">Log out</string>
+    <string name="qk_mypage_logout_negative">Do Not</string>
+
+    <string name="qk_mypage_logout_complete">It was logged out</string>
+
+    <string name="qk_mypage_delete_account_notify">You have to delete the account</string>
+    <string name="qk_mypage_update_account_notify">You\'ve updated account information</string>
+    <string name="qk_mypage_update_account_dialog_title">Update Account Info</string>
+    <string name="qk_mypage_update_account_dialog_header">Are you sure ?</string>
+    <string name="qk_mypage_update_account_dialog_cancel">Cancel</string>
+    <string name="qk_mypage_update_account_dialog_ok">Ok</string>
+
+
+    <!-- QA -->
+    <string name="qk_qa_title">QA</string>
+    <string name="qk_qa_detail_title">Answering questions</string>
+    <string name="qk_qa_detail_msg_delete">Are you sure you want to delete the selected question?</string>
+    <string name="qk_qa_detail_btn_delete">Delete</string>
+    <string name="qk_qa_answer">Answer</string>
+    <string name="qk_qa_below_txt_count">Questions and Answers content will be published</string>
+    <string name="qk_qa_button_answer">Answer</string>
+    <!--Shop service-->
+    <string name="qk_shop_register_title">Register a new shop</string>
+    <string name="qk_shop_register_confirm_title">Confirmation of registration contents</string>
+    <string name="qk_shop_company_name_item">Company name</string>
+    <string name="qk_shop_shop_name_item">Shop name</string>
+    <string name="qk_shop_shop_name_item2">Shop name (Kana)</string>
+    <string name="qk_shop_tel_item">Tel</string>
+    <string name="qk_shop_post_code_item">Post code</string>
+    <string name="qk_shop_prefecture_item">Prefecture</string>
+    <string name="qk_shop_city_item">City</string>
+    <string name="qk_shop_address1_item">Address1</string>
+    <string name="qk_shop_address2_item">Address2</string>
+    <string name="qk_shop_search_address">Search address from post code</string>
+    <string name="qk_shop_register_photo">And proceed to shoot shop photos</string>
+    <string name="qk_shop_register_content">Apply in this registration contents</string>
+    <string name="qk_shop_register_msg1">Please give me the input of the store information for the preliminary review required for the application</string>
+    <string name="qk_shop_register_msg2">※ It takes 2-3 business days at most to review</string>
+    <string name="qk_shop_register_confirm_msg">It will be displayed within the app as all registered contents jobs</string>
+
+    <string name="qk_shop_information_title">Shop Information</string>
+    <string name="qk_shop_input_information_title">Input Shop Information</string>
+    <string name="qk_shop_information_business_hint">food</string>
+    <string name="qk_shop_information_industry_hint">tarvern</string>
+    <string name="qk_shop_information_description_hint">This is a young people traditional Japanese culture "dried fish" yeah Den \ n, it had no Reborn \ n in the thought that I want to taste the taste is the dried fish shop. The Edo era of fishing village Ime </string>
+    <string name="qk_shop_information_access_way_hint">is the A3 exit nearest if Shibuya Station. Tokyu Plaza behind the, is the 3F of the building\'s noodle shop is in the 1F</string>
+    <string name="qk_shop_inquire_change_msg">Inquire about the change of the shop information</string>
+    <string name="qk_shop_dialog_contact_msg">You make the call to the call center</string>
+    <string name="qk_shop_dialog_confirm_title">Are you sure you want to delete the store?</string>
+    <string name="qk_shop_dialog_confirm_msg">If you delete, store information, work history billing information, all information, such as registration credit card information is deleted.</string>
+    <string name="qk_shop_input_info_register">Process to register shop photos</string>
+
+    <string name="qk_shop_photo_register_title">Registration of shop photos</string>
+    <string name="qk_shop_photo_register_msg">Let\'s register the photograph to be published at the time of recruitment.Photos seen introspection of how and shops that are working with staff GOOD!</string>
+    <string name="qk_shop_photo_note_push_photo">Notes in the image published</string>
+    <string name="qk_shop_photo_confirm_push_photo"> Please be sure to confirm</string>
+    <string name="qk_shop_photo_complete_register">Complete the shop registration</string>
+    <string name="qk_shop_photo_register_check">It will check the application contents</string>
+
+    <string name="qk_shop_photo_register_complete">Shop registration has been completed</string>
+    <string name="qk_shop_photo_register_complete_msg2">Information that you create in "My Page"</string>
+    <string name="qk_shop_photo_register_complete_msg3">You can change</string>
+
+    <string name="qk_shop_photo_tip_title">Advice</string>
+    <string name="qk_shop_photo_tip_1">Take photo on bright place</string>
+    <string name="qk_shop_photo_tip_2">Include shop mood</string>
+    <string name="qk_shop_photo_tip_3">Include staff with smile</string>
+    <string name="qk_shop_photo_tip_note">※ Please take care copyright\n※ Please take care background item.</string>
+    <string name="qk_shop_photo_tip_btn">Take photo</string>
+
+    <string name="qk_shop_examination_result_title">Confirmation of the examination results</string>
+    <string name="qk_shop_examination_result">Examination results</string>
+    <string name="qk_shop_examination_indicator1">Completion of application</string>
+    <string name="qk_shop_examination_indicator2">Input of store information</string>
+    <string name="qk_shop_examination_indicator3">Photographing the store photograph</string>
+    <string name="qk_shop_not_display_msg">Do not recognize the store is displayed ></string>
+    <string name="qk_shop_register_shop">We continue to register at this restaurant</string>
+    <string name="qk_shop_call_to_center_shop">Call to Center</string>
+
+    <string name="qk_store_remove_message">The deletion of the store is required password. Please enter a password.</string>
+    <string name="qk_store_exist_code_input_title">Confirmation code input</string>
+    <string name="qk_store_exist_add_msg">We send a confirmation code to the entered email address.\nPlease, enter verification code that is listed.</string>
+    <string name="qk_store_exist_input_information">Proceed to the input of the account information</string>
+    <string name="qk_shop_edit_title">Edit shop information</string>
+
+    <!--D6-->
+    <string name="qk_shop_register_completed_msg1">We have accepted the application of the new registration</string>
+    <string name="qk_shop_register_completed_msg2">2-3 business days at most to examination.\nConsuming or, more details of the guide mail</string>
+    <string name="qk_shop_register_completed_msg3">Please check the contents.</string>
+    <string name="qk_shop_register_btn_ok">OK</string>
+
+    <string name="qk_shop_notify_delete_shop">I removed the shop</string>
+    <string name="qk_shop_notify_delete_shop_msg">It will move automatically to another store to manage</string>
+
+    <!-- Working Condition -->
+    <string name="qk_working_condition_title">Working Conditions Notice</string>
+    <string name="qk_working_condition_label">Working Conditions Notice</string>
+    <string name="qk_working_condition_check_browser">Check browser</string>
+    <string name="qk_working_condition_send_mail">Send mail</string>
+    <string name="qk_working_condition_1">Working conditions, and please note that cormorants\'m not illegal for wages.</string>
+    <string name="qk_working_condition_2">Please be concluded with hires in before starting work the employment contract that the conditions of the labor notification harm or usually use here always.</string>
+    <string name="qk_working_condition_3">When you entered into the recruits and employment contract, please verify your identity always asked to show identity card.</string>
+    <string name="qk_working_condition_4">When you entered into the recruits and employment contract, please verify your identity always asked to show identity card.</string>
+
+    <!-- Account -->
+    <string name="qk_account_stop_title">It has been utilized stop</string>
+    <string name="qk_account_stop_subtitle">During the suspension of use does not allow operation of Te to base</string>
+    <string name="qk_account_stop_guide">From the release of the stop below ball evening down. Support one Bok Sen evening one contact us</string>
+    <string name="qk_account_stop_call_btn">Call Center</string>
+
+    <string name="qk_account_warning_title">It has been frozen</string>
+    <string name="qk_account_warning_subtitle">We can not continue to use</string>
+
+    <!--Map value constant-->
+    <string name="title_billing_infor">Billing Information</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_shop_tip">ShopTipActivity</string>
+    <string name="title_activity_qk_upgrade">QkUpgradeActivity</string>
+
+    <!--F-01-1-->
+    <string name="set_payment_method_msg">You want to set the payment method</string>
+    <string name="set_payment_method_title">Before starting the recruitment\nLet us set the payment method of salary</string>
+
+    <!--F1-5-->
+    <string name="qk_cl_non_recruitment_msg">There is no byte in recruitment\nLet us create a new recruitment if you become busy</string>
+    <string name="qk_cl_create_new_recruitment_btn">Create a new recruitment</string>
+    <string name="qk_new_recruitment">New recruitment</string>
+    <!--H01-1 - H-6-1 -->
+    <string name="title_cl_job_offer">Recruitment Details</string>
+    <string name="cl_job_offer_currently_recruiting">We are currently recruiting</string>
+    <string name="button_title_cl_job_offer">We want to stop the recruitment</string>
+    <string name="title_cl_question_history">Question history</string>
+
+    <string name="dialog_stop_recruitment">Do you want to stop the recruitment ?</string>
+    <string name="dialog_stop_recruitment_msg">Are applicants and posts and to stop the recruitment\nQuestion was is lost.</string>
+    <string name="dialog_stop_recruitment_msg1">Question was is lost.</string>
+    <string name="dialog_stop_recruitment_positive">Stop the recruitment</string>
+    <string name="dialog_stop_recruitment_negative">Cancel</string>
+
+    <string name="dialog_confirm_stop_recruitment">I aborted the recruitment</string>
+    <string name="dialog_confirm_stop_recruitment_msg">By duplicating the current recruitment content\nYou can recruit again</string>
+    <string name="qk_cl_recruitment_currently_recruiting">We are currently recruiting</string>
+
+    <string name="qk_done_worker_recruitment">This recruitment it was finished</string>
+    <string name="qk_done_recruitment">It did not reach the number of people employed</string>
+    <string name="qk_done_recruitment_msg">By duplicating the recruitment content\nYou can be a new recruitment</string>
+    <string name="qk_done_recruitment_btn">Make a payment of salary</string>
+    <!---->
+    <string name="cl_register_payment">Choose a payment method</string>
+
+    <string name="qk_cl_common_privacy_policy"><u>Privacy policy</u> and</string>
+    <string name="qk_cl_common_terms"><u>Terms of use</u> .</string>
+    <string name="fb_cl_application_id">"1595757200700065"</string>
+
+    <string name="qk_cl_set_profile_photo_line">If you set the profile photo the applicant is likely to recruitment decision</string>
+    <string name="qk_account_signin_automatic">You want to enable automatic login</string>
+
+    <string name="qk_shop_welcome_job_qk">Welcome to Job Quicker !</string>
+    <string name="qk_shop_register_the_shop">Let us register the store to Recruitment</string>
+    <string name="qk_shop_line1">Currently only becomes Shibuya eateries</string>
+    <string name="qk_shop_line2">You will be able to also register other store future</string>
+    <string name="qk_shop_line3">The copy of the in-store signage and store at the time of new registration</string>
+    <string name="qk_shop_line4">You will need a true shooting</string>
+    <string name="qk_shop_manage_register">You want to register a new store</string>
+
+    <string name="qk_reg_shop_business_type">Business Type</string>
+    <string name="qk_reg_shop_corporate_name">Corporate Name</string>
+    <string name="qk_reg_shop_name">Shop Name</string>
+    <string name="qk_reg_shop_name_kana">Shop Name(Kana)</string>
+    <string name="qk_reg_shop_phone">Phone Number of The Shop</string>
+    <string name="qk_reg_shop_postal">Postal Code of The Shop</string>
+    <string name="qk_reg_shop_prefectures">Prefectures</string>
+    <string name="qk_reg_shop_city">City</string>
+    <string name="qk_reg_shop_city_hint">Tokyo</string>
+    <string name="qk_reg_shop_address">Address</string>
+    <string name="qk_reg_shop_bill">Bill Apartment Name(Optional)</string>
+    <string name="qk_reg_shop_corporation_type">Corporation</string>
+    <string name="qk_reg_shop_individual_type">Individual</string>
+
+    <!--Notice-->
+    <string name="qk_cl_notice_msg1">There is no information to notify</string>
+    <string name="qk_cl_notice_msg2">Such as payment of salary or if there is an application to recruitment</string>
+    <string name="qk_cl_notice_msg3">It appears that there is an important announcement</string>
+
+    <!--Profile Tips-->
+    <string name="qk_cl_profile_tip_title">Shooting tips</string>
+    <string name="qk_cl_profile_tip_title2">Number of applications depending on the impression of your pictures also UP !</string>
+    <string name="qk_cl_profile_tip_title3">Three points for taking good pictures</string>
+    <string name="qk_cl_profile_first">By firmly become not relax, facial expression smile</string>
+    <string name="qk_cl_profile_second">The cleanliness in the hairstyle and clothes</string>
+    <string name="qk_cl_profile_second_1">(In what attire is close to uniform or actual work clothes stores)</string>
+    <string name="qk_cl_profile_third">Let\'s Shooting in bright places</string>
+
+    <string name="common_dialog_not_match_password">Passwords do not match</string>
+    <string name="common_dialog_not_match_password_msg">Please refer to the re-input</string>
+
+    <string name="common_dialog_confirm_password_msg1">The deletion of the store requires a password.</string>
+    <string name="common_dialog_confirm_password_edit_shop_msg1">The deletion of the store requires a password.</string>
+    <string name="common_dialog_delete_shop_title">Are you sure you want to delete the store ?</string>
+
+    <string name="qk_cl_applicant">Applicant</string>
+    <string name="qk_applicant_none">Applicants do not have yet</string>
+    <string name="qk_cl_adoption">Adoption completed</string>
+    <string name="qk_cl_stop_recruitment">I want to stop this recruitment</string>
+
+    <string name="qk_cl_none_question_msg1">Question is not yet</string>
+    <string name="qk_cl_none_question_msg2">If there is a question when you recruit</string>
+    <string name="qk_cl_none_question_msg3">It will be displayed here</string>
+    <string name="qk_mypage_person"> person</string>
+    <string name="qk_mypage_word_shop"> store</string>
+    <!--Countdown-->
+    <string name="qk_countdown_recruitment_end">Recruitment end !</string>
+    <string name="qk_countdown_after">After</string>
+    <string name="qk_countdown_minute_recruitment_end">Min for Recruitment end !</string>
+    <string name="qk_countdown_hours">Hours</string>
+    <string name="qk_countdown_minute"> Minute</string>
+    <string name="qk_countdown_in_recruitment_end">In Recruitment the end!</string>
+    <string name="qk_cl_recruitment_unanswered">Unanswered</string>
+    <string name="qk_cl_recruitment_answered">Answered</string>
+
+    <!--M2-4 - N1-5-->
+    <string name="qk_msg_body_delete_shop">If you delete, store information, work history, Billing information, registered credit card information All information such as boric will be deleted.</string>
+    <string name="qk_msg_cancel">Cancel</string>
+    <string name="qk_msg_delete_M2_4">Delete</string>
+    <string name="qk_msg_delete_N1_5">Delete</string>
+    <string name="qk_qa_detail_msg_delete_done">This question has been deleted</string>
+    <string name="qk_qa_change_answer_btn">Delete this question</string>
+
+    <!-- D-7-1 -->
+    <string name="qk_shop_examining_title">It is pending the current shop</string>
+    <string name="qk_shop_examining_message">For store confirmation, to the registered telephone number\nWe will put your phone</string>
+    <string name="qk_shop_examining_tab1">Steps after applying</string>
+    <string name="qk_shop_examining_tab2">Frequently Asked Questions</string>
+    <string name="qk_cl_favorite_withdrawal">The workers are already withdrawal</string>
+    <string name="qk_cl_favorite_msg_delete">Do you want to remove the selected workers from your favorite?</string>
+    <string name="qk_cl_favorite_remove">外す</string>
+
+    <string name="qk_worker_past">勤務者 : %s Pp</string>
+    <string name="qk_qa_history">History</string>
+
+    <!--P1 Dialog-->
+    <string name="qk_call_phone_title">永崎りさへ電話をかけます</string>
+    <string name="qk_call_phone_note">(※緊急時のみ使用してください）</string>
+    <!--End P1-->
+
+    <!-- QkMapValConst -->
+    <string name="qk_worker_status_before">勤務開始前</string>
+    <string name="qk_worker_status_working">勤務中</string>
+    <string name="qk_worker_status_end">勤務終了</string>
+
+    <string name="qk_applicant_status_in_application">応募中</string>
+    <string name="qk_applicant_status_adopted">採用</string>
+    <string name="qk_applicant_status_non_adoption">不採用</string>
+    <string name="qk_applicant_status_self_cancelation">キャンセル(応募者都合)</string>
+    <string name="qk_applicant_status_shop_cancel">キャンセル(店舗都合)</string>
+    <string name="qk_applicant_status_other_adopted">他応募採用済み</string>
+
+    <string name="qk_notes_in_the_image_published">画像掲載における注意事項</string>
+
+    <string name="qk_cl_applicant_recruitment_end">End in: </string>
+    <string name="qk_cl_applicant_recruitment_expired">Recruitment End</string>
+    <string name="qk_salary_payment">Salary payment</string>
+    <string name="qk_worker_delete_txt1">Convenience of the store</string>
+    <string name="qk_worker_delete_txt2">Please choose one of the reason to cancel the current work</string>
+    <string name="qk_cl_applicant_delete_reason1">Circumstances of store side</string>
+    <string name="qk_cl_applicant_delete_reason2">The worker did not come</string>
+    <string name="qk_cl_applicant_delete_reason3">Cancel for other reason</string>
+    <string name="qk_cl_applicant_delete_button">Make a payment of salary</string>
+    <string name="qk_worker_cancel_title">Cancellation of work</string>
+    <string name="qk_worker_delete_title">Do you want to cancel the work？</string>
+    <string name="qk_worker_delete_msg">You will not be able to contact to this work and the payments and salary of worker</string>
+    <string name="qk_negative_cancel">Yes</string>
+    <string name="qk_worker_cancel_success">The work was cancel successfully</string>
+
+    <string name="qk_payment_method_cash">Cash</string>
+    <string name="qk_payment_method_cash_later">Cash later</string>
+    <string name="qk_payment_method_bank">Bank</string>
+
+    <string name="qk_recruitment_payment_method_amount">Payment Methods</string>
+    <string name="qk_worker_list_dialog_cancel_title">Do you want to cancel worker？</string>
+    <string name="qk_worker_list_dialog_cancel_msg">繰り返しクライアント都合でキャンセルされると アカウントが停止となる都合ございます（仮）</string>
+
+    <!--Period-->
+    <string name="qk_map_service_year_kind_single_engine">Single-engine</string>
+    <string name="qk_map_service_year_kind_about_week">About a week</string>
+    <string name="qk_map_service_year_kind_about_month">About one month</string>
+    <string name="qk_map_service_year_kind_about_half_year">About half a year</string>
+    <string name="qk_map_service_year_kind_more_than_year">More than a year</string>
+
+    <!-- employmentStatus-->
+    <string name="qk_map_employment_status">就業</string>
+    <string name="qk_map_employment_status_non_app">不就業（ 応募者都合） </string>
+    <string name="qk_map_employment_status_non_store">不就業（ 店舗都合）</string>
+
+    <!-- workActualStatus-->
+    <string name="qk_map_work_actual_status_before">実績入力前</string>
+    <string name="qk_map_work_actual_status_already">実績入力済</string>
+    <string name="qk_map_work_actual_status_pending">異議申請中</string>
+    <string name="qk_map_work_actual_status_approval">実績承認</string>
+
+    <string name="qk_cl_policy_title">プライバシーポリシ</string>
+    <string name="qk_cl_terms_title">利用規約</string>
+    <string name="qk_cl_copyright_title">著作権</string>
+</resources>

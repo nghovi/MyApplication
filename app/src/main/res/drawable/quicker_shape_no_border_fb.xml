@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/qk_common_button_fb" />
+    <corners android:radius="@dimen/margin_2dp" />
+</shape><!-- From: file:/D:/projects/Quicker-adr/quicker-cs-adr/src/main/res/drawable/shape_quicker_no_border2.xml -->

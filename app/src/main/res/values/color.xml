@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="core_bg_light_green">#F4FAFA</color>
+    <color name="core_gray">#AAAAAA</color>
+    <color name="core_white">#FFFFFF</color>
+    <color name="core_red">#904040</color>
+    <color name="core_orange">#F28D41</color>
+    <color name="core_btn1">#58979A</color>
+    <color name="core_btn2">#5C677A</color>
+
+    <color name="qk_common_header_bg">#68BDC0</color>
+    <color name="qk_common_crop_bg">#CC000000</color>
+
+    <!--Quicker button-->
+
+    <!--Quicker fonts-->
+
+
+    <color name="chiase_white">#FFFFFF</color>
+    <color name="chiase_black">#000000</color>
+    <color name="chiase_red">#FF0000</color>
+    <color name="chiase_green">#00FF00</color>
+    <color name="chiase_blue">#0000FF</color>
+    <color name="chiase_gray">#808080</color>
+    <color name="chiase_green2">#6EBDC1</color>
+
+    <!--chiase file draw throung-->
+    <color name="chiase_footer_text">#333333</color>
+
+    <!--chiase file chooser-->
+    <color name="chiase_filechooser_list_bg">#303030</color>
+    <color name="chiase_filechooser_list_bg_pressed">#992416</color>
+    <color name="chiase_filechooser_counter_txt_bg">#626262</color>
+    <color name="chiase_filechooser_txt_normal">#c5c4c4</color>
+    <color name="chiase_filechooser_txt_actived">#1CA6EB</color>
+    <color name="chiase_txt_gray">#A4A4A4</color>
+    <color name="chiase_message_bg_button">#AAAAAA</color>
+    <color name="chiase_message_text">#CCCCCC</color>
+    <color name="chiase_message_text_enable">#5C677A</color>
+    <color name="chiase_message_border_input">#ADADAD</color>
+    <color name="chiase_message_bg_input">#F7F7F7</color>
+    <color name="delete_account">#C9283B</color>
+
+    <color name="qk_gray_border">#7F7F7F</color>
+
+    <!--Header-->
+    <color name="qk_header_bck">#68BDC0</color>
+
+    <!--Slice menu-->
+    <color name="qk_slice_menu_bck">#2C3E50</color>
+    <color name="qk_slice_menu_shop_item_actived">#4F5868</color>
+    <color name="qk_slice_menu_shop_item_tapped">#273747</color>
+
+    <!--Account service-->
+    <color name="qk_confirm_code_title_bck">#D8D8D8</color>
+
+    <color name="qk_common_background">#EDEDED</color>
+    <color name="qk_common_green_background">#F4FAFA</color>
+    <color name="qk_common_gray_f7f7f7">#F7F7F7</color>
+    <color name="qk_common_background_new">#F4FAFA</color>
+    <color name="qk_common_txt_color">#9B9B9B</color>
+    <color name="qk_common_button_background">#898788</color>
+    <color name="qk_common_footer_dialog">#F0C9F8</color>
+    <color name="qk_common_btn_dialog">#E49FF2</color>
+    <color name="qk_common_txt_btn_dialog">#927ED9</color>
+
+    <color name="qk_common_crop_background">#CC000000</color>
+
+    <!--My page-->
+    <color name="qk_mypage_header_background">#D8D8D8</color>
+
+    <color name="qk_common_transparent">#00000000</color>
+
+    <!--Color-->
+    <color name="qk_common_color_base">#6EBDC1</color>
+    <color name="qk_common_color_bg">#F4FAFA</color>
+    <color name="qk_common_color_btn_primary">#58979A</color>
+    <color name="qk_common_color_btn_secondary">#5C677A</color>
+    <color name="qk_common_color_disable">#CCCCCC</color>
+    <color name="qk_common_color_success">#67BF93</color>
+    <color name="qk_common_color_caution">#C9283B</color>
+
+    <color name="qk_common_font_color_f0">#444</color>
+    <color name="qk_common_font_color_f1">#fff</color>
+
+    <color name="qk_common_font_color_f2">#444</color>
+    <color name="qk_common_font_color_f3">#888</color>
+    <color name="qk_common_font_color_f4">#ccc</color>
+    <color name="qk_common_font_color_f5">#fff</color>
+    <color name="qk_common_font_color_f6">#67bf93</color>
+
+    <color name="qk_common_font_color_f7">#444</color>
+    <color name="qk_common_font_color_f8">#888</color>
+    <color name="qk_common_font_color_f9">#ccc</color>
+    <color name="qk_common_font_color_f10">#fff</color>
+
+    <color name="qk_common_font_color_f11">#444</color>
+    <color name="qk_common_font_color_f12">#888</color>
+    <color name="qk_common_font_color_f13">#ccc</color>
+
+    <color name="qk_common_font_color_f14">#888</color>
+    <color name="qk_common_font_color_f15">#c94152</color>
+    <color name="qk_common_font_color_f16">#444</color>
+    <color name="qk_common_font_color_f17">#ccc</color>
+    <color name="qk_common_font_color_f22">#444</color>
+
+    <color name="qk_recruitment_working">#F28E42</color>
+    <color name="qk_recruitment_done">#888888</color>
+
+
+
+    <color name="qk_splash_background">#AAAAAA</color>
+
+
+    <color name="qk_common_txt_color_bold">#4F5869</color>
+    <color name="qk_common_button_1">#58989A</color>
+    <color name="qk_common_button_2">#5C677A</color>
+    <color name="qk_common_button_fb">#425D9E</color>
+
+    <color name="qk_common_header_background">#6EBDC1</color>
+    <color name="qk_common_orange">#F28D41</color>
+    <color name="qk_common_color_divider">#E3E3E2</color>
+    <color name="qk_common_color_red">#904040</color>
+
+
+    <!--common colors-->
+    <color name="qk_common_black_dialog_bck">#7F7F7F</color>
+
+    <!--Color-->
+
+    <color name="qk_common_font_color_f18">#444</color>
+    <color name="qk_common_font_color_f19">#FFF</color>
+    <color name="qk_common_font_color_f20">#7F7F7F</color>
+    <color name="qk_common_font_color_f21">#C9283B</color>
+    <color name="qk_common_font_color_f28">#5C677A</color>
+
+    <color name="qk_common_font_color_f23">#999</color>
+    <color name="qk_common_font_color_f24">#6EBDC1</color>
+
+    <color name="qk_common_font_color_f25">#000</color>
+
+    <color name="qk_picture_register_color">#E0E2E2</color>
+    <color name="qk_common_font_color_tips">#97D486</color>
+</resources>

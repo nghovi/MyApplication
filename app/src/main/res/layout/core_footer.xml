@@ -1,0 +1,82 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <View style="@style/core_line_divider" />
+
+    <com.example.vietnguyen.core.views.component
+        android:id="@+id/qk_common_footer"
+        android:background="@color/core_white"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
+                android:id="@+id/img_id_footer_recruitment"
+                android:layout_weight="1"
+                android:src="@drawable/state_tab_recruitment"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/txt_id_footer_recruitment"
+                android:gravity="center"
+                android:text="ent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
+                android:id="@+id/img_id_footer_work"
+                android:layout_weight="1"
+                android:src="@drawable/state_tab_work" />
+
+            <TextView
+                android:id="@+id/txt_id_footer_jobs_already"
+                android:gravity="center"
+                android:text="ady" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
+                android:id="@+id/img_id_footer_notify"
+                android:layout_weight="1"
+                android:src="@drawable/state_tab_notification" />
+
+
+            <TextView
+                android:id="@+id/txt_id_footer_notify"
+                android:gravity="center"
+                android:text="tion" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
+                android:id="@+id/img_id_footer_mypage"
+                android:layout_weight="1"
+                android:src="@drawable/state_tab_mypage" />
+
+            <TextView
+                android:id="@+id/txt_id_footer_mypage"
+                android:gravity="center"
+                android:text="tion"/>
+        </LinearLayout>
+
+    </com.example.vietnguyen.core.views.component>
+
+</merge>
