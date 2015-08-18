@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="core_footer_item1">Item1</string>
+    <string name="core_footer_item2">Item2</string>
+    <string name="core_footer_item3">Item3</string>
+    <string name="core_footer_item4">Item4</string>
+
 
     <string name="sign_in">Sign in</string>
     <string name="mail_address">mail address</string>

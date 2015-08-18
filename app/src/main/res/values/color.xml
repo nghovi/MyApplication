@@ -3,6 +3,7 @@
     <color name="core_bg_light_green">#F4FAFA</color>
     <color name="core_gray">#AAAAAA</color>
     <color name="core_white">#FFFFFF</color>
+    <color name="core_black">#000000</color>
     <color name="core_red">#904040</color>
     <color name="core_orange">#F28D41</color>
     <color name="core_btn1">#58979A</color>

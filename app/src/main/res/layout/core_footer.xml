@@ -1,82 +1,113 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <View style="@style/core_line_divider" />
+    <View
+        android:id="@+id/view_footer_divider"
+        style="@style/core_line_divider" />
 
-    <com.example.vietnguyen.core.views.component
-        android:id="@+id/qk_common_footer"
+    <LinearLayout
+        android:id="@+id/lnr_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/core_white"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/lnr_footer_item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
-                android:id="@+id/img_id_footer_recruitment"
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/state_tab_recruitment"
-                android:layout_height="0dp" />
+                android:src="@drawable/core_footer_item1" />
 
             <TextView
-                android:id="@+id/txt_id_footer_recruitment"
+                android:id="@+id/txt_footer_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="ent" />
+                android:text="@string/core_footer_item1"
+                android:textColor="@drawable/core_text_selector" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lnr_footer_item2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
-                android:id="@+id/img_id_footer_work"
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/state_tab_work" />
+                android:src="@drawable/core_footer_item2" />
 
             <TextView
-                android:id="@+id/txt_id_footer_jobs_already"
+                android:id="@+id/txt_footer_item2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="ady" />
+                android:text="@string/core_footer_item2"
+                android:textColor="@drawable/core_text_selector" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/lnr_footer_item3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
-                android:id="@+id/img_id_footer_notify"
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/state_tab_notification" />
+                android:src="@drawable/core_footer_item3" />
 
 
             <TextView
-                android:id="@+id/txt_id_footer_notify"
+                android:id="@+id/txt_footer_item3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="tion" />
+                android:text="@string/core_footer_item3"
+                android:textColor="@drawable/core_text_selector" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lnr_footer_item4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <com.example.vietnguyen.core.views.widgets.QkCheckableImageView
-                android:id="@+id/img_id_footer_mypage"
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/state_tab_mypage" />
+                android:src="@drawable/core_footer_item4" />
 
             <TextView
-                android:id="@+id/txt_id_footer_mypage"
+                android:id="@+id/txt_footer_item4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="tion"/>
+                android:text="@string/core_footer_item4"
+                android:textColor="@drawable/core_text_selector" />
         </LinearLayout>
 
-    </com.example.vietnguyen.core.views.component>
+    </LinearLayout>
 
 </merge>
