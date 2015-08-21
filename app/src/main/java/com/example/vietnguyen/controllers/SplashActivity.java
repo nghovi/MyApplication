@@ -26,14 +26,13 @@ public class SplashActivity extends MyActivity{
 
 			@Override
 			public void run(){
-
 				int sessionId = getIntPreference(Const.PREF_KEY_SESSION_ID, 0);
 				if(sessionId == 0){
-					Intent i = new Intent(SplashActivity.this, SignUpInActivity.class);
-					startActivity(i);
-					finish();
+					SignUpInFragment fragment = new SignUpInFragment();
+					replaceWithFragment(fragment);
 				}else{
-					startActivity(new Intent(SplashActivity.this, MainActivity.class));
+					Intent i = new Intent(SplashActivity.this, MainActivity.class);
+					startActivity(i);
 					finish();
 				}
 			}

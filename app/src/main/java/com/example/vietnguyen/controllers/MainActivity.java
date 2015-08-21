@@ -16,28 +16,28 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		MainFragment main = new MainFragment();
-		replaceWithFragment(main);
+		MainFragment mainFragment = new MainFragment();
+		replaceWithFragment(mainFragment);
 		onCreateFooter();
 	}
 
 	private void onCreateFooter(){
 		this.footer = new Footer(this);
 		footer.setOnItemsClickListener(this);
-        footer.checkFooterItem(0);
+		footer.checkFooterItem(0);
 	}
 
 	@Override
 	public void onClick(View view){
 		switch(view.getId()){
 		case R.id.lnr_footer_item1:
-            onClickFooterItem1();
+			onClickFooterItem1();
 			break;
 		case R.id.lnr_footer_item2:
-            onClickFooterItem2();
+			onClickFooterItem2();
 			break;
 		case R.id.lnr_footer_item3:
-            onClickFooterItem3();
+			onClickFooterItem3();
 			break;
 		case R.id.lnr_footer_item4:
 			onClickFooterItem4();
@@ -47,22 +47,22 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		}
 	}
 
-    public void onClickFooterItem1() {
-        MU.log("Footer item 1 onClicked");
-        replaceWithFragment(new ListFragment());
-    }
+	public void onClickFooterItem1(){
+		MU.log("Footer item 1 onClicked");
+		replaceWithFragment(new ListFragment());
+	}
 
-    public void onClickFooterItem2() {
-        MU.log("Footer item 2 onClicked");
-        replaceWithFragment(new FormFragment());
-    }
+	public void onClickFooterItem2(){
+		MU.log("Footer item 2 onClicked");
+		replaceWithFragment(new FormFragment());
+	}
 
-    public void onClickFooterItem3() {
-        MU.log("Footer item 3 onClicked");
-        replaceWithFragment(new SettingFragment());
-    }
+	public void onClickFooterItem3(){
+		MU.log("Footer item 3 onClicked");
+		replaceWithFragment(new SettingFragment());
+	}
 
-    public void onClickFooterItem4() {
-        MU.log("Footer item 4 onClicked");
-    }
+	public void onClickFooterItem4(){
+		MU.log("Footer item 4 onClicked");
+	}
 }
