@@ -23,6 +23,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	 */
 	protected MyActivity	activity;
 
+
 	public MyFragment(){
 		super();
 	}
@@ -69,6 +70,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	public void onCreate(Bundle savedInstanceState){
 		MU.log("Fragment onCreate: " + this.getClass().toString());
 		super.onCreate(savedInstanceState);
+
 	}
 
 	@Override

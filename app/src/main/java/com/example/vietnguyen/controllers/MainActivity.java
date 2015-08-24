@@ -49,7 +49,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem1(){
 		MU.log("Footer item 1 onClicked");
-		replaceWithFragment(new ListFragment());
+		replaceWithFragment(new PrimaryCardFragment());
 	}
 
 	public void onClickFooterItem2(){

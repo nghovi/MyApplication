@@ -6,6 +6,30 @@
     <string name="core_footer_item4">Item4</string>
 
 
+    <!-- footer -->
+    <string name="footer_item1">Primary</string>
+    <string name="footer_item2">Photo</string>
+    <string name="footer_item3">Book</string>
+    <string name="footer_item4">Blog</string>
+
+    <!-- primary card -->
+    <string name="field_name">Name</string>
+    <string name="field_sex">Sex</string>
+    <string name="field_birth">Birth</string>
+    <string name="field_phone">Phone</string>
+    <string name="field_site">Site</string>
+    <string name="mock_name">Viet</string>
+    <string name="mock_sex">Male</string>
+    <string name="mock_birth">12/03/90</string>
+    <string name="mock_phone">01253546364</string>
+    <string name="mock_site">vietnh90@gmail.com</string>
+
+
+
+
+
+
+
     <string name="sign_in">Sign in</string>
     <string name="mail_address">mail address</string>
     <string name="pass_word">Password</string>

@@ -13,6 +13,6 @@
         android:layout_weight="1"
         android:orientation="vertical" />
 
-    <include layout="@layout/core_footer" />
+    <include layout="@layout/ecard_footer" />
 </LinearLayout>
 

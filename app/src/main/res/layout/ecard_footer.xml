@@ -1,0 +1,113 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <View
+        android:id="@+id/view_footer_divider"
+        style="@style/core_line_divider" />
+
+    <LinearLayout
+        android:id="@+id/lnr_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/core_white"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/lnr_footer_item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/core_footer_item1" />
+
+            <TextView
+                android:id="@+id/txt_footer_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/footer_item1"
+                android:textColor="@drawable/core_text_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_footer_item2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/core_footer_item2" />
+
+            <TextView
+                android:id="@+id/txt_footer_item2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/footer_item2"
+                android:textColor="@drawable/core_text_selector" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lnr_footer_item3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/core_footer_item3" />
+
+
+            <TextView
+                android:id="@+id/txt_footer_item3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/footer_item3"
+                android:textColor="@drawable/core_text_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_footer_item4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/core_footer_item4" />
+
+            <TextView
+                android:id="@+id/txt_footer_item4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/footer_item4"
+                android:textColor="@drawable/core_text_selector" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</merge>
