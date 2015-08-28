@@ -1,22 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="core_bg_light_green">#F4FAFA</color>
-    <color name="core_gray">#AAAAAA</color>
-    <color name="core_white">#FFFFFF</color>
+    <!--https://simple.wikipedia.org/wiki/List_of_colors-->
+    <color name="core_amaranth">#E52B50</color>
+    <color name="core_amber">#FFBF00</color>
+    <color name="core_amethyst">#9966CC</color>
+    <color name="core_apricot">#FBCEB1</color>
+    <color name="core_aquamarine">#7FFFD4</color>
+    <color name="core_azure">#007FFF</color>
+    <color name="core_baby_blue">#89CFF0</color>
+    <color name="core_beige">#F5F5DC</color>
     <color name="core_black">#000000</color>
-    <color name="core_red">#904040</color>
-    <color name="core_orange">#F28D41</color>
-    <color name="core_btn1">#58979A</color>
-    <color name="core_btn2">#5C677A</color>
+    <color name="core_blue">#0000FF</color>
+    <color name="core_blue_green">#0095B6</color>
+    <color name="core_blue_violet">#8A2BE2</color>
+    <color name="core_blush">#DE5D83</color>
+    <color name="core_bronze">#CD7F32</color>
+    <color name="core_brown">#964B00</color>
+    <color name="core_burgundy">#800020</color>
+    <color name="core_byzantium">#702963</color>
+    <color name="core_carmine">#960018</color>
+    <color name="core_cerise">#DE3163</color>
+    <color name="core_cerulean">#007BA7</color>
+    <color name="core_champagne">#F7E7CE</color>
+    <color name="core_chartreuse_green">#7FFF00</color>
+    <color name="core_chocolate">#7B3F00</color>
+    <color name="core_cobalt_blue">#0047AB</color>
+    <color name="core_coffee">#6F4E37</color>
+    <color name="core_copper">#B87333</color>
+    <color name="core_coral">#F88379</color>
+    <color name="core_crimson">#DC143C</color>
+    <color name="core_cyan">#00FFFF</color>
+    <color name="core_desert_sand">#EDC9AF</color>
+    <color name="core_electric_blue">#7DF9FF</color>
+    <color name="core_emerald">#50C878</color>
+    <color name="core_erin">#00FF3F</color>
+    <color name="core_gold">#FFD700</color>
+    <color name="core_gray">#808080</color>
+    <color name="core_green">#00FF00</color>
+    <color name="core_harlequin">#3FFF00</color>
+    <color name="core_indigo">#4B0082</color>
+    <color name="core_ivory">#FFFFF0</color>
+    <color name="core_jade">#00A86B</color>
+    <color name="core_jungle_green">#29AB87</color>
+    <color name="core_lavender">#B57EDC</color>
+    <color name="core_lemon">#FFF700</color>
+    <color name="core_lilac">#C8A2C8</color>
+    <color name="core_lime">#BFFF00</color>
+    <color name="core_magenta">#FF00FF</color>
+    <color name="core_magenta_rose">#FF00AF</color>
+    <color name="core_maroon">#800000</color>
+    <color name="core_mauve">#E0B0FF</color>
+    <color name="core_navy_blue">#000080</color>
+    <color name="core_ocher">#CC7722</color>
+    <color name="core_olive">#808000</color>
+    <color name="core_orange">#FFA500</color>
+    <color name="core_orange_red">#FF4500</color>
+    <color name="core_orchid">#DA70D6</color>
+    <color name="core_peach">#FFE5B4</color>
+    <color name="core_pear">#D1E231</color>
+    <color name="core_periwinkle">#CCCCFF</color>
+    <color name="core_persian_lue">#1C39BB</color>
+    <color name="core_pink">#FFC0CB</color>
+    <color name="core_plum">#8E4585</color>
+    <color name="core_prussian_blue">#003153</color>
+    <color name="core_puce">#CC8899</color>
+    <color name="core_purple">#800080</color>
+    <color name="core_raspberry">#E30B5C</color>
+    <color name="core_red">#FF0000</color>
+    <color name="core_red_violet">#C71585</color>
+    <color name="core_rose">#FF007F</color>
+    <color name="core_ruby">#E0115F</color>
+    <color name="core_salmon">#FA8072</color>
+    <color name="core_sangria">#92000A</color>
+    <color name="core_sapphire">#0F52BA</color>
+    <color name="core_scarlet">#FF2400</color>
+    <color name="core_silver">#C0C0C0</color>
+    <color name="core_slate_gray">#708090</color>
+    <color name="core_spring_bud">#A7FC00</color>
+    <color name="core_spring_green">#00FF7F</color>
+    <color name="core_tan">#D2B48C</color>
+    <color name="core_taupe">#483C32</color>
+    <color name="core_teal">#008080</color>
+    <color name="core_turquoise">#40E0D0</color>
+    <color name="core_violet">#EE82EE</color>
+    <color name="core_viridian">#40826D</color>
+    <color name="core_white">#FFFFFF</color>
+    <color name="core_yankees_blue">#1C2841</color>
+    <color name="core_yellow">#FFFF00</color>
 
+
+    <!-- Project -->
+    <color name="facebook">#3b5998</color>
+    <color name="facebook1">#8b9dc3</color>
+    <color name="facebook2">#dfe3ee</color>
+    <color name="facebook3">#f7f7f7</color>
+
+
+    <color name="core_btn2">#5C677A</color>
     <color name="qk_common_header_bg">#68BDC0</color>
     <color name="qk_common_crop_bg">#CC000000</color>
-
-    <!--Quicker button-->
-
-    <!--Quicker fonts-->
-
-
     <color name="chiase_white">#FFFFFF</color>
     <color name="chiase_black">#000000</color>
     <color name="chiase_red">#FF0000</color>
@@ -24,7 +106,6 @@
     <color name="chiase_blue">#0000FF</color>
     <color name="chiase_gray">#808080</color>
     <color name="chiase_green2">#6EBDC1</color>
-
     <!--chiase file draw throung-->
     <color name="chiase_footer_text">#333333</color>
 
@@ -36,7 +117,6 @@
     <color name="chiase_filechooser_txt_actived">#1CA6EB</color>
     <color name="chiase_txt_gray">#A4A4A4</color>
     <color name="chiase_message_bg_button">#AAAAAA</color>
-    <color name="chiase_message_text">#CCCCCC</color>
     <color name="chiase_message_text_enable">#5C677A</color>
     <color name="chiase_message_border_input">#ADADAD</color>
     <color name="chiase_message_bg_input">#F7F7F7</color>

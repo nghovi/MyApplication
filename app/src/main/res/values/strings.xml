@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="facebook_app_id">966395066741035</string>
+
     <string name="core_footer_item1">Item1</string>
     <string name="core_footer_item2">Item2</string>
     <string name="core_footer_item3">Item3</string>
     <string name="core_footer_item4">Item4</string>
+    <string name="core_menu_item_test">Setting</string>
+
 
 
     <!-- footer -->
@@ -23,6 +27,10 @@
     <string name="mock_birth">12/03/90</string>
     <string name="mock_phone">01253546364</string>
     <string name="mock_site">vietnh90@gmail.com</string>
+
+
+
+
 
 
 

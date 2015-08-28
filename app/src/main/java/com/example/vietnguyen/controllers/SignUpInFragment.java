@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
@@ -15,7 +16,10 @@ import com.example.vietnguyen.myapplication.R;
 /**
  * Created by viet on 8/20/2015.
  */
+
 public class SignUpInFragment extends MyFragment{
+
+	private Button	btnFacebookLogin;
 
 	public SignUpInFragment(){
 	}
@@ -37,6 +41,12 @@ public class SignUpInFragment extends MyFragment{
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.fragment_sign_up_in, container, false);
 	}
@@ -44,6 +54,7 @@ public class SignUpInFragment extends MyFragment{
 	@Override
 	public void buildLayout(){
 		super.buildLayout();
+
 		JSONObject param = new JSONObject();
 		try{
 			param.put("accessToken", "6af65192bde50a2849a69b2f634b41a38b6afc3b");

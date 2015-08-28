@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
+import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +18,11 @@ import org.json.JSONObject;
  * A placeholder fragment containing a simple view.
  */
 public class MainFragment extends MyFragment{
+    private ProfilePictureView fbProfilePictureView;
+    private TextView userNameView;
 
-	public MainFragment(){
+
+    public MainFragment(){
 	}
 
 

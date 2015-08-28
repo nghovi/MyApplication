@@ -5,12 +5,12 @@
     android:shape="rectangle">
 
     <!-- view background color -->
-    <solid android:color="@color/chiase_message_text"></solid>
+    <solid android:color="@color/core_slate_gray"></solid>
 
     <!-- view border color and width -->
     <stroke
         android:width="@dimen/margin_1dp"
-        android:color="@color/chiase_message_text"></stroke>
+        android:color="@color/core_slate_gray"></stroke>
 
     <!-- If you want to add some padding -->
     <padding

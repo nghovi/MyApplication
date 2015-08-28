@@ -6,5 +6,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.vietnguyen.core.controllers.MyActivity"
-    android:background="@color/core_bg_light_green">
+    android:background="@color/core_baby_blue">
 </RelativeLayout>

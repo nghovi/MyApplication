@@ -1,5 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -19,13 +21,25 @@
     <EditText android:id="@+id/pass_word"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/pass_word" />
+        android:hint="@string/pass_word"
+        android:layout_marginBottom="200dp" />
 
     <Button android:id="@+id/btn_sign_in"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/sign_in"
         android:layout_gravity="center_horizontal"
-        android:onClick="onClickSignIn"/>
+        android:background="@color/core_btn2" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_facebook_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/facebook"
+        android:text="Login = Facebook"
+        android:textColor="@color/core_white" />
 </LinearLayout>

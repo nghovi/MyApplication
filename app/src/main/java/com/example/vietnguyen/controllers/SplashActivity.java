@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyActivity;
 import com.example.vietnguyen.myapplication.R;
 
@@ -16,7 +15,7 @@ public class SplashActivity extends MyActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash_screen);
+		setContentView(R.layout.activity_splash);
 
 		/*
 		 * Showing splash screen with a timer. This will be useful when you
@@ -26,15 +25,9 @@ public class SplashActivity extends MyActivity{
 
 			@Override
 			public void run(){
-				int sessionId = getIntPreference(Const.PREF_KEY_SESSION_ID, 0);
-				if(sessionId == 0){
-					SignUpInFragment fragment = new SignUpInFragment();
-					replaceWithFragment(fragment);
-				}else{
-					Intent i = new Intent(SplashActivity.this, MainActivity.class);
-					startActivity(i);
-					finish();
-				}
+				Intent i = new Intent(SplashActivity.this, MainActivity.class);
+				startActivity(i);
+				finish();
 			}
 		}, SPLASH_TIME_OUT);
 	}

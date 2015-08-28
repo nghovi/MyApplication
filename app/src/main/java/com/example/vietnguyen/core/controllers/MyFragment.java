@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -70,7 +72,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	public void onCreate(Bundle savedInstanceState){
 		MU.log("Fragment onCreate: " + this.getClass().toString());
 		super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -79,6 +81,12 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		MU.log("Fragment onCreateView: " + this.getClass().toString());
 		return inflater.inflate(R.layout.core_fragment_my, container, false);
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.core_options_myfragment, menu);
+    }
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
