@@ -3,14 +3,19 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_height="fill_parent"
     tools:context=".MainActivity"
-    android:background="@color/core_baby_blue">
+    android:background="@color/core_baby_blue"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/img_primary_card_main"
         android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentEnd="false"
+        android:layout_above="@+id/lnr_primary_card_info" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,19 +30,29 @@
             android:layout_height="wrap_content"
             >
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/field_name"
-                android:id="@+id/textView2"
-                android:layout_marginRight="10dp" />
+                android:id="@+id/icn_sex"
+                android:src="@drawable/common_ic_notice"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp" />
 
             <com.example.vietnguyen.core.views.widgets.CoreTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_name"
                 custom:jsonKey="name"
-                android:id="@+id/textView3" />
+                android:id="@+id/textView2"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold" />
+
+            <com.example.vietnguyen.core.views.widgets.CoreTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                custom:jsonKey="age"
+                android:id="@+id/textView3"
+                android:text="@string/mock_age" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,10 +61,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout" >
 
-            <TextView
+            <com.example.vietnguyen.core.views.widgets.CoreTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/field_sex"
+                android:text="@string/mock_motto"
+                custom:jsonKey="motto"
                 android:id="@+id/textView4"
                 android:layout_marginRight="10dp" />
 
@@ -57,8 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_sex"
-                custom:jsonKey="sex"
-                android:id="@+id/textView5" />
+                android:id="@+id/textView5"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

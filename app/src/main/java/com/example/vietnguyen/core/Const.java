@@ -10,4 +10,7 @@ public class Const {
 
     //https://developers.facebook.com/apps/966395066741035/dashboard/
     public static final String FACEBOOK_APP_ID = "966395066741035";
+
+    public static final String SERVER_URL = "";
+    public static final String GET_PRIMARY_CARD_INFO = SERVER_URL + "get_primary_card_info";
 }

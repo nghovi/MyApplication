@@ -22,7 +22,9 @@
     <string name="field_birth">Birth</string>
     <string name="field_phone">Phone</string>
     <string name="field_site">Site</string>
-    <string name="mock_name">Viet</string>
+    <string name="mock_name">Viet,</string>
+    <string name="mock_age">25</string>
+    <string name="mock_motto">Don\'t work hard, work intelligent</string>
     <string name="mock_sex">Male</string>
     <string name="mock_birth">12/03/90</string>
     <string name="mock_phone">01253546364</string>

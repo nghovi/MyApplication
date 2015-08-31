@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.utils.MU;
@@ -22,7 +23,7 @@ public class PrimaryCardFragment extends MyFragment{
 
 	private DBHelper		dbHelper;
 	private ListView		listView;
-	private final String	IMAGE_NAME	= "main_card.png";
+	private final String	IMAGE_NAME	= "main_card1.png";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -45,10 +46,26 @@ public class PrimaryCardFragment extends MyFragment{
 		if(mainImage.exists()){
 			MU.loadImage(IMAGE_NAME, imgMain, activity);
 		}else{
-			MU.picassaLoadAndSaveImage("http://i.huffpost.com/gen/1653793/thumbs/o-EMMA-WATSON-OSCARS-2014-570.jpg?8", imgMain, activity, IMAGE_NAME);
+			MU.picassaLoadAndSaveImage("https://s-media-cache-ak0.pinimg.com/736x/cd/c6/d3/cdc6d3066ce29d922df73f2549ad72c3.jpg", imgMain, activity, IMAGE_NAME);
 		}
 		LinearLayout lnrCardInfo = (LinearLayout)getView().findViewById(R.id.lnr_primary_card_info);
-		JSONObject jsonObject = MU.buildJsonObj(Arrays.asList("name", "Hoang Viet", "sex", "Male"));
+		JSONObject jsonObject = MU.buildJsonObj(Arrays.asList("name", "Hoang Viet", "sex", "Male", "age", "25", "motto", "Don't work hard, work intelligent"));
 		MU.interpolate(lnrCardInfo, jsonObject);
 	}
+
+    @Override
+    public void onApiResponse(String url, JSONObject response) {
+        switch(url) {
+            case Const.GET_PRIMARY_CARD_INFO:
+                break;
+            default:
+                MU.log("hehehe url is ....... " + url);
+                break;
+        }
+    }
+
+    @Override
+    public void onApiError(String url, String errorMsg) {
+
+    }
 }

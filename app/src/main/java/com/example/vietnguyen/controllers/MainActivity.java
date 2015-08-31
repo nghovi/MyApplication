@@ -1,5 +1,6 @@
 package com.example.vietnguyen.controllers;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
@@ -24,7 +26,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public Footer				footer;
 	private SignUpInFragment	signUpInFragment;
-	private MainFragment		mainFragment;
 	private CallbackManager		fbCallbackManager;
 	private ProfileTracker		fbProfileTracker;
 	private Profile				fbProfile;
@@ -37,22 +38,30 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		FacebookSdk.sdkInitialize(getApplicationContext());
 
 		setContentView(R.layout.activity_main);
-        onCreateFooter();
+		onCreateFooter();
 
-		AccessToken accessToken = AccessToken.getCurrentAccessToken();
-		if(accessToken == null){
-			signUpInFragment = new SignUpInFragment();
-			replaceWithFragment(signUpInFragment);
-            footer.hide();
-		}else{
-            footer.show();
-			mainFragment = new MainFragment();
-			replaceWithFragment(mainFragment);
-		}
 		setUpFacebookCallbacks();
 		// Ensure that our profile is up to date
 		Profile.fetchProfileForCurrentAccessToken();
 		setProfile(Profile.getCurrentProfile());
+		AccessToken accessToken = AccessToken.getCurrentAccessToken();
+		if(accessToken == null){
+			gotoSignUpInFragment();
+		}else if(!accessToken.isExpired()){
+			gotoPrimaryCardFragment();
+		}
+	}
+
+	private void gotoPrimaryCardFragment(){
+		footer.show();
+		Fragment primaryCardFragment = new PrimaryCardFragment();
+		replaceWithFragment(primaryCardFragment);
+	}
+
+	private void gotoSignUpInFragment(){
+		footer.hide();
+		signUpInFragment = new SignUpInFragment();
+		replaceWithFragment(signUpInFragment);
 	}
 
 	private void onCreateFooter(){
@@ -141,7 +150,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
-		replaceWithFragment(new SettingFragment());
+		replaceWithFragment(new BookFragment());
 	}
 
 	public void onClickFooterItem4(){
@@ -151,18 +160,15 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	@Override
 	protected void onResume(){
 		super.onResume();
-
 		// facebook
 		// Logs 'install' and 'app activate' App Events.
-		// todo why dont work ? don't instantiate before ?
-		// AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
 	}
 
 	@Override
 	protected void onPause(){
 		super.onPause();
-
 		// Logs 'app deactivate' App Event.
-		// AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
 	}
 }
