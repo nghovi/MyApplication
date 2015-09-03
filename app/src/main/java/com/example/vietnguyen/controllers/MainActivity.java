@@ -104,6 +104,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			@Override
 			protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
 				Profile.fetchProfileForCurrentAccessToken();
+                gotoPrimaryCardFragment();
 			}
 		};
 	}
