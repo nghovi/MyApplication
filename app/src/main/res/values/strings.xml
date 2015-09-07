@@ -14,7 +14,7 @@
     <string name="footer_item1">Primary</string>
     <string name="footer_item2">Photo</string>
     <string name="footer_item3">Book</string>
-    <string name="footer_item4">Blog</string>
+    <string name="footer_item4">Todo</string>
 
     <!-- primary card -->
     <string name="field_name">Name</string>

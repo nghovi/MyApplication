@@ -104,7 +104,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			@Override
 			protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
 				Profile.fetchProfileForCurrentAccessToken();
-                gotoPrimaryCardFragment();
+				gotoPrimaryCardFragment();
 			}
 		};
 	}
@@ -141,21 +141,26 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem1(){
 		MU.log("Footer item 1 onClicked");
-		replaceWithFragment(new PrimaryCardFragment());
+		PrimaryCardFragment frg = new PrimaryCardFragment();
+		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem2(){
 		MU.log("Footer item 2 onClicked");
-		replaceWithFragment(new FormFragment());
+		FormFragment frg = new FormFragment();
+		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
-		replaceWithFragment(new BookFragment());
+		BookFragment frg = new BookFragment();
+		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem4(){
 		MU.log("Footer item 4 onClicked");
+		TaskFragment frg = new TaskFragment();
+		replaceWithFragment(frg);
 	}
 
 	@Override

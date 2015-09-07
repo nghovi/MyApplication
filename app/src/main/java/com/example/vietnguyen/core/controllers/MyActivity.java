@@ -42,6 +42,10 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		fragmentTransaction.commit();
 	}
 
+    public void backOneFragment() {
+        mFragmentManager.popBackStack();
+    }
+
 	public void registerOnClickListener(List<View> views, View.OnClickListener listener){
 		for(View view : views){
 			view.setOnClickListener(listener);

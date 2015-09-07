@@ -4,12 +4,16 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
@@ -25,7 +29,6 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	 */
 	protected MyActivity	activity;
 
-
 	public MyFragment(){
 		super();
 	}
@@ -34,12 +37,24 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		return getView().findViewById(viewId);
 	}
 
-	public void getApi(String url, JSONObject response){
-		activity.getApi(url, response, this);
+	public TextView getTextView(int viewId){
+		return (TextView)getView().findViewById(viewId);
 	}
 
-	public void postApi(String url, JSONObject response){
-		activity.postApi(url, response, this);
+	public EditText getEditText(int viewId){
+		return (EditText)getView().findViewById(viewId);
+	}
+
+	public ImageView getImageView(int viewId){
+		return (ImageView)getView().findViewById(viewId);
+	}
+
+	public void getApi(String url, JSONObject param){
+		activity.getApi(url, param, this);
+	}
+
+	public void postApi(String url, JSONObject param){
+		activity.postApi(url, param, this);
 	}
 
 	@Override
@@ -72,7 +87,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	public void onCreate(Bundle savedInstanceState){
 		MU.log("Fragment onCreate: " + this.getClass().toString());
 		super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -82,11 +97,11 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		return inflater.inflate(R.layout.core_fragment_my, container, false);
 	}
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.core_options_myfragment, menu);
-    }
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.core_options_myfragment, menu);
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
