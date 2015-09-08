@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+
     <style name="core_line_divider">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">1px</item>
@@ -11,18 +12,15 @@
     </style>
 
 
+    <!-- TopDown Dialog -->
+    <style name="dialog_animation_top_down">
+        <item name="android:windowEnterAnimation">@layout/core_slide_top_down_dialog</item>
+        <item name="android:windowExitAnimation">@layout/core_slide_up_top_dialog</item>
+    </style>
 
-
-
-
-
-
-
-
-
-
-
-
+    <style name="dialog_slide_anim_top_down" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/dialog_animation_top_down</item>
+    </style>
 
 
     <style name="qk_common_header_style">
@@ -48,7 +46,6 @@
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:orientation">vertical</item>
     </style>
-
 
 
     <style name="qk_mypage_title_style">
@@ -208,9 +205,6 @@
     </style>
 
 
-
-
-
     <!-- Shop -->
     <style name="qk_shop_picture_register">
         <item name="android:layout_width">@dimen/margin_320dp</item>
@@ -225,7 +219,7 @@
         <item name="android:textColor">@color/qk_common_font_color_f22</item>
     </style>
 
-     <style name="qk_common_match">
+    <style name="qk_common_match">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/qk_common_color_bg</item>
@@ -502,8 +496,6 @@
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/qk_common_font_color_f4</item>
     </style>
-
-
 
 
     <style name="cs_common_match">

@@ -37,7 +37,7 @@ public class TaskAdapter extends ArrayAdapter<Task>{
 		Task task = data.get(position);
         if (task.status == Task.STATUS_FINISHED) {
             ImageView imgStatus = (ImageView)convertView.findViewById(R.id.img_icon);
-            imgStatus.setImageResource((R.drawable.dialog_pic_done));
+            imgStatus.setImageResource((R.drawable.ico_checked));
         }
 		TextView txt1 = (TextView)convertView.findViewById(R.id.txt1);
 		txt1.setText(task.priority + "." + task.name);

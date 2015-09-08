@@ -92,7 +92,7 @@ public class TaskAddFragment extends MyFragment{
 		TextView txtDescription = getTextView(R.id.txt_description);
 		JSONObject param = MU.buildJsonObj(Arrays.asList("name", edtName.getText().toString(), "description", edtDescription.getText().toString(), "date", targetDate.toString()));
 		// postApi(Const.SAVE_TASK, param);
-		onApiResponse(Const.SAVE_TASK, new JSONObject());
+		onApiResponse(Const.EDIT_TASK, new JSONObject());
 	}
 
 
@@ -126,7 +126,7 @@ public class TaskAddFragment extends MyFragment{
             case Const.ADD_TASK:
                 backToTaskList();
                 break;
-            case Const.SAVE_TASK:
+            case Const.EDIT_TASK:
                 gotoTaskDetail();
                 break;
         }

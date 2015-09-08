@@ -4,7 +4,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +27,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	 * The Activity.
 	 */
 	protected MyActivity	activity;
+	protected DialogBuilder	dlgBuilder;
 
 	public MyFragment(){
 		super();
@@ -78,6 +78,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		super.onAttach(activity);
 		try{
 			this.activity = (MyActivity)activity;
+			dlgBuilder = new DialogBuilder(this.activity);
 		}catch(ClassCastException e){
 			throw new ClassCastException(activity.toString() + " must be " + MyActivity.class.toString());
 		}

@@ -121,6 +121,7 @@ public class TaskFragment extends MyFragment{
             }
         });
     }
+
 	private void loadTasks(Date targetDate){
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
 		activity.getApi(Const.GET_TASK, params, this);
