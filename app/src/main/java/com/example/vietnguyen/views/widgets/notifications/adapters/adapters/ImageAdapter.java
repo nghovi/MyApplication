@@ -55,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         View vi = convertView;
         if(vi == null){
-            vi = inflater.inflate(R.layout.image_item, null);
+            vi = inflater.inflate(R.layout.item_image, null);
         }
         TextView imgItemTitle = (TextView) vi.findViewById(R.id.imgItemTitle);
         TextView imgItemDescription = (TextView) vi.findViewById(R.id.imgItemDescription);

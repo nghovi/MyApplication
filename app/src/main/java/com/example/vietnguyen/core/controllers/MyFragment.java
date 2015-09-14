@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.vietnguyen.core.network.Api;
@@ -39,6 +40,10 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	public TextView getTextView(int viewId){
 		return (TextView)getView().findViewById(viewId);
+	}
+
+	public LinearLayout getLinearLayout(int viewId){
+		return (LinearLayout)getView().findViewById(viewId);
 	}
 
 	public EditText getEditText(int viewId){

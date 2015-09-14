@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BookFragment extends MyFragment{
@@ -31,9 +32,9 @@ public class BookFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book(0, "abcd1234", "Shacksepear", "Romeo and Juliet", "good book"));
-        books.add(new Book(1, "abcd1234", "Shacksepear", "Romeo and Juliet", "good book"));
-        books.add(new Book(2, "abcd1234", "Shacksepear", "Romeo and Juliet", "good book"));
+        books.add(new Book(0, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Titan's Curse", Arrays.asList("incredible", "what is it", "why not me")));
+        books.add(new Book(1, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Lightning Thief", Arrays.asList("incredible", "what is it", "why not me")));
+        books.add(new Book(2, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Sea Of Monster", Arrays.asList("incredible", "what is it", "why not me")));
 		BookAdapter adapter = new BookAdapter(activity, R.layout.item_book, books);
 
         ListView lstBook = (ListView)getView(R.id.lst_book);

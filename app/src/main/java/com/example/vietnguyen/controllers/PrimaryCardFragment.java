@@ -42,6 +42,13 @@ public class PrimaryCardFragment extends MyFragment{
 	public void buildLayout(){
 		ImageView imgMain = (ImageView)getView().findViewById(R.id.img_primary_card_main);
 		imgMain.setScaleType(ImageView.ScaleType.FIT_XY);
+
+		ImageView imgSex = getImageView(R.id.icn_sex);
+		// todo if it's female
+		if(false){
+			imgSex.setImageResource(R.drawable.ico_female_16);
+		}
+
 		File mainImage = MU.getImageFile(IMAGE_NAME, activity);
 		if(mainImage.exists()){
 			MU.loadImage(IMAGE_NAME, imgMain, activity);
@@ -53,19 +60,19 @@ public class PrimaryCardFragment extends MyFragment{
 		MU.interpolate(lnrCardInfo, jsonObject);
 	}
 
-    @Override
-    public void onApiResponse(String url, JSONObject response) {
-        switch(url) {
-            case Const.GET_PRIMARY_CARD_INFO:
-                break;
-            default:
-                MU.log("hehehe url is ....... " + url);
-                break;
-        }
-    }
+	@Override
+	public void onApiResponse(String url, JSONObject response){
+		switch(url){
+		case Const.GET_PRIMARY_CARD_INFO:
+			break;
+		default:
+			MU.log("hehehe url is ....... " + url);
+			break;
+		}
+	}
 
-    @Override
-    public void onApiError(String url, String errorMsg) {
+	@Override
+	public void onApiError(String url, String errorMsg){
 
-    }
+	}
 }

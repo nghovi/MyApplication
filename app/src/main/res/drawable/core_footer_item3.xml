@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/tab_btn_notice_active" android:state_checked="true" />
-    <item android:drawable="@drawable/tab_btn_notice_active" android:state_selected="true" />
-    <item android:drawable="@drawable/tab_btn_notice_inactive" />
+    <item android:drawable="@drawable/ico_book_32_on" android:state_checked="true" />
+    <item android:drawable="@drawable/ico_book_32_on" android:state_selected="true" />
+    <item android:drawable="@drawable/ico_book_32_2_off" />
 </selector>

@@ -11,6 +11,14 @@
         <item name="android:background">@android:color/darker_gray</item>
     </style>
 
+    <style name="core_line_divider_with_margin">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
 
     <!-- TopDown Dialog -->
     <style name="dialog_animation_top_down">

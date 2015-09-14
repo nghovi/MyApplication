@@ -45,7 +45,9 @@ public class Footer{
 			TextView txt = (TextView)lnrItem.getChildAt(1);
 			if(i == index){
 				img.setChecked(true);
-				txt.setTextColor(Color.RED);
+                if (txt != null) {
+                    txt.setTextColor(Color.RED);
+                }
 			}else{
 				img.setChecked(false);
 				txt.setTextColor(Color.BLACK);
@@ -62,7 +64,9 @@ public class Footer{
 	}
 
 	private void setVisibility(int visibility){
-		this.viewDivider.setVisibility(visibility);
+		if(this.viewDivider != null){
+			this.viewDivider.setVisibility(visibility);
+		}
 		this.lnrFooter.setVisibility(visibility);
 	}
 
