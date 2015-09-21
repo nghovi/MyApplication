@@ -3,81 +3,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.vietnguyen.controllers.PrimaryCardFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
-        android:orientation="vertical"
+    <com.andtinder.view.CardContainer
+        android:id="@+id/layoutview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal|top"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/camera"
-            android:id="@+id/textView"
-            android:layout_weight="0.11" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="218dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/titleText"
-                android:layout_gravity="right|top" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:layout_gravity="left|center_vertical" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.11">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:layout_gravity="left|center_vertical" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="85dp"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/descriptionText"
-                android:layout_gravity="right|center_vertical" />
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preview"
-            android:id="@+id/previewText"
-            android:layout_gravity="center_horizontal" />
-
-        <ImageView
-            android:layout_width="206dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.59"
-            android:background="#ff5589ff" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:id="@+id/btnSave"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 </FrameLayout>
