@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BookFragment extends MyFragment{
+public class BookListFragment extends MyFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -32,9 +32,9 @@ public class BookFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book(0, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Titan's Curse", Arrays.asList("incredible", "what is it", "why not me")));
-        books.add(new Book(1, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Lightning Thief", Arrays.asList("incredible", "what is it", "why not me")));
-        books.add(new Book(2, "abcd1234", "Shacksepear", "Romeo and Juliet", "The Sea Of Monster", Arrays.asList("incredible", "what is it", "why not me")));
+        books.add(new Book(0, "abcd1", "Shacksepear", "Romeo and J1uliet", "The Titan's Curse", Arrays.asList("incre2dible", "what is2 it", "why23 not me"), "mood", "link"));
+        books.add(new Book(1, "abcd2", "Shacksepear", "Romeo and Jul2iet", "The Lightning Thief", Arrays.asList("incredi12ble", "what 23is it", "why 2not me"), "mood2", "link2"));
+        books.add(new Book(2, "abcd3", "Shacksepear", "Romeo and J3uliet", "The Sea Of Monster", Arrays.asList("incredi2ble", "what is 23it", "why n7ot me"), "mood3", "link3"));
 		BookAdapter adapter = new BookAdapter(activity, R.layout.item_book, books);
 
         ListView lstBook = (ListView)getView(R.id.lst_book);

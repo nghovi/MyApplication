@@ -31,7 +31,7 @@ import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.TaskAdapter;
 import com.google.gson.Gson;
 
-public class TaskFragment extends MyFragment{
+public class TaskListFragment extends MyFragment{
 
 	private Date						targetDate;
 	private Map<Date, ArrayList<Task>>	map;

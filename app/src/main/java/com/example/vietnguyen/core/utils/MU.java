@@ -11,17 +11,23 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.views.widgets.CoreTextView;
+import com.example.vietnguyen.myapplication.R;
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -108,6 +114,17 @@ public class MU{
 		return jsonObject;
 	}
 
+	public static JSONObject buildJsonObjFromModel(Object obj){
+		Gson gson = new Gson();
+		String json = gson.toJson(obj);
+		try{
+			return new JSONObject(json);
+		}catch(JSONException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static void picassaLoadImage(final String url, final ImageView imageView, final Context context){
 		Picasso.with(context).load(url).into(imageView, new Callback.EmptyCallback() {
 
@@ -173,5 +190,23 @@ public class MU{
 	public static boolean isImageExist(String fileName, Context context){
 		File file = getImageFile(fileName, context);
 		return file.exists();
+	}
+
+	public static void setLinkFor(final MyFragment frg, int resource, String url){
+		TextView txtLink = frg.getTextView(resource);
+		if(!url.startsWith("http://") && !url.startsWith("https://")){
+			url = "http://" + url;
+		}
+
+		final String finalUrl = url;
+		txtLink.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl));
+				frg.getActivity().startActivity(browserIntent);
+			}
+		});
 	}
 }

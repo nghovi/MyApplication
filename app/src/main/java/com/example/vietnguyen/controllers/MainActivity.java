@@ -111,6 +111,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	private void setProfile(Profile profile){
 		fbProfile = profile;
+//		fbProfile.
 	}
 
 	@Override
@@ -147,19 +148,19 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem2(){
 		MU.log("Footer item 2 onClicked");
-		FormFragment frg = new FormFragment();
+		PhotoFragment frg = new PhotoFragment();
 		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
-		BookFragment frg = new BookFragment();
+		BookListFragment frg = new BookListFragment();
 		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem4(){
 		MU.log("Footer item 4 onClicked");
-		TaskFragment frg = new TaskFragment();
+		TaskListFragment frg = new TaskListFragment();
 		replaceWithFragment(frg);
 	}
 

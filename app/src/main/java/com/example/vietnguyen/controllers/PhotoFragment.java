@@ -15,13 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.app.Activity;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,20 +26,15 @@ import com.andtinder.view.CardContainer;
 import com.andtinder.view.SimpleCardStackAdapter;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
-import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookAdapter;
-import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
-public class FormFragment extends MyFragment{
+public class PhotoFragment extends MyFragment{
 
 	public static final int	MEDIA_TYPE_IMAGE					= 1;
 	public static final int	MEDIA_TYPE_VIDEO					= 2;
@@ -68,7 +59,7 @@ public class FormFragment extends MyFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.fragment_form, container, false);
+		return inflater.inflate(R.layout.fragment_photo, container, false);
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -249,7 +240,7 @@ public class FormFragment extends MyFragment{
 	 * After taking a photo
 	 */
 	// public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	// if (requestCode == FormFragment.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+	// if (requestCode == PhotoFragment.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	// if (resultCode == Activity.RESULT_OK) {
 	// ImageView preview = (ImageView) getView().findViewById(R.id.imageView);
 	// photo = (Bitmap) data.getExtras().get("data");

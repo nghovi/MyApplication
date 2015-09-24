@@ -1,9 +1,12 @@
 package com.example.vietnguyen.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.json.JSONObject;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,14 +46,10 @@ public class BookDetailFragment extends MyFragment{
 			}
 		});
 
-		TextView txtMood = getTextView(R.id.txt_mood);
-		txtMood.setText("");
-
-		TextView txtName = getTextView(R.id.txt_name);
-		txtName.setText(this.book.name);
-
-		TextView txtComment = getTextView(R.id.txt_comment);
-		txtName.setText(this.book.comment);
+		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
+		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
+		MU.interpolate(lnrContent, jsonObject);
+		MU.setLinkFor(this, R.id.txt_book_link, book.link);
 
 		buildVocabulary();
 	}

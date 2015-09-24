@@ -1,93 +1,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lnr_book_detail_main_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/core_white"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.BookFragment"
-    android:background="@color/core_white">
+    tools:context="com.example.vietnguyen.controllers.BookListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/chiase_gray"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@color/chiase_gray">
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/img_back"
-            android:src="@drawable/nav_btn_back"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="left" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I&apos;m Percy"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_btn_back" />
+
+        <com.example.vietnguyen.core.views.widgets.CoreTextView
             android:id="@+id/txt_mood"
-            android:textColor="@color/core_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            android:text="I&apos;m Percy"
+            android:textColor="@color/core_white"
+            custom:jsonKey="mood" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The Titan&apos;s Curse"
-            android:id="@+id/txt_name"
-            android:textStyle="bold"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+            <com.example.vietnguyen.core.views.widgets.CoreTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="The Titan&apos;s Curse"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                custom:jsonKey="name" />
+
+            <com.example.vietnguyen.core.views.widgets.CoreTextView
+                android:id="@+id/txt_book_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="New Text"
+                custom:jsonKey="link" />
+        </LinearLayout>
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
             android:layout_marginBottom="20dp">
 
-            <TextView
+            <com.example.vietnguyen.core.views.widgets.CoreTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="&quot;Ongoing great book&quot;"
-                android:id="@+id/txt_comment"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                custom:jsonKey="comment" />
         </ScrollView>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="Vocabulary:"
-                android:id="@+id/textView7"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
+                android:textStyle="bold" />
 
             <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/scrollView2" >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/lnr_vocabulary_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/lnr_vocabulary_list"></LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
             </ScrollView>
 
         </LinearLayout>
