@@ -24,14 +24,24 @@ import android.widget.Toast;
 import com.andtinder.model.CardModel;
 import com.andtinder.view.CardContainer;
 import com.andtinder.view.SimpleCardStackAdapter;
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class PhotoFragment extends MyFragment{
@@ -71,6 +81,29 @@ public class PhotoFragment extends MyFragment{
 		Resources r = getResources();
 
 		SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(activity);
+//		AccessToken accessToken = activity.getAccessToken();
+//		GraphRequestAsyncTask request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+//			@Override
+//			public void onCompleted(JSONObject user, GraphResponse response) {
+//				MU.log("klsdjfsjfsjf" + response.toString());
+//                /* handle the result */
+//			}
+//		}).executeAsync();
+
+		new GraphRequest(
+				AccessToken.getCurrentAccessToken(),
+				"/me/photos",
+				null,
+				HttpMethod.GET,
+				new GraphRequest.Callback() {
+					public void onCompleted(GraphResponse response) {
+            /* handle the result */
+						MU.log("klsdjfsjfsjf" + response.getJSONObject().toString());
+					}
+				}
+		).executeAsync();
+
+//		getApi(Const.FACEBOOK_GET_ALBUMS, MU.buildJsonObj(Arrays.asList("access_token", activity.getAccessToken())));
 
 		if(android.os.Build.VERSION.SDK_INT >= 21){
 			adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1, activity.getTheme())));

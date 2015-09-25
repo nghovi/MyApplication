@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
+import com.facebook.AccessToken;
 
 /**
  * Created by viet on 8/7/2015.
@@ -22,7 +23,10 @@ import com.example.vietnguyen.myapplication.R;
 public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener,MyFragment.onFragmentActionListenter{
 
 	protected final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
+	protected Api			api;
+
 	private FragmentManager	mFragmentManager;
+	private AccessToken		accessToken;
 
 	/*
 	 * To use this function, make sure that activity's layout file include fragment_container.
@@ -42,9 +46,9 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		fragmentTransaction.commit();
 	}
 
-    public void backOneFragment() {
-        mFragmentManager.popBackStack();
-    }
+	public void backOneFragment(){
+		mFragmentManager.popBackStack();
+	}
 
 	public void registerOnClickListener(List<View> views, View.OnClickListener listener){
 		for(View view : views){
@@ -78,11 +82,11 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	// //////////////////////////////////Preferences/////////////////////////////////////
 
 	public void getApi(String url, JSONObject param, Api.OnCallApiListener onCallApiListener){
-		Api.get(this, url, param, onCallApiListener);
+		api.get(this, url, param, onCallApiListener);
 	}
 
 	public void postApi(String url, JSONObject param, Api.OnCallApiListener onCallApiListener){
-		Api.post(this, url, param, onCallApiListener);
+		api.post(this, url, param, onCallApiListener);
 	}
 
 	@Override
@@ -91,6 +95,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		super.onCreate(savedInstanceState);
 		mFragmentManager = getFragmentManager();
 		mFragmentManager.addOnBackStackChangedListener(this);
+		api = new Api();
 		// setContentView(R.layout.activity_my);
 	}
 
@@ -130,5 +135,13 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	@Override
 	public void onFragmentAction(Bundle args){
 		MU.log("onFragmentAction " + this.getLocalClassName() + " with" + args.toString());
+	}
+
+	public void setAccessToken(AccessToken accessToken){
+		this.accessToken = accessToken;
+	}
+
+	public AccessToken getAccessToken(){
+		return this.accessToken;
 	}
 }

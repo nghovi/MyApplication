@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
+import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
 
 /**
  * Created by viet on 8/20/2015.
@@ -19,7 +23,8 @@ import com.example.vietnguyen.myapplication.R;
 
 public class SignUpInFragment extends MyFragment{
 
-	private Button	btnFacebookLogin;
+	private LoginButton	btnFacebookLogin;
+	private boolean		isSigningUp	= false;
 
 	public SignUpInFragment(){
 	}
@@ -55,6 +60,26 @@ public class SignUpInFragment extends MyFragment{
 	public void buildLayout(){
 		super.buildLayout();
 
+		btnFacebookLogin = (LoginButton)getView().findViewById(R.id.btn_facebook_login);
+		btnFacebookLogin.setReadPermissions(Arrays.asList("user_status", "user_photos"));
+
+		Button btnSignIn = getButton(R.id.btn_sign_up_in);
+		btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				signIn();
+			}
+		});
+
+		setOnClickFor(R.id.txt_sign_up, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				updateLayoutToSignUp();
+			}
+		});
+
 		JSONObject param = new JSONObject();
 		try{
 			param.put("accessToken", "6af65192bde50a2849a69b2f634b41a38b6afc3b");
@@ -68,6 +93,27 @@ public class SignUpInFragment extends MyFragment{
 
 		String url = "http://dev01clnt.shk.x.recruit.co.jp/api/shop/detail/";
 		getApi(url, param);
+	}
+
+	private void updateLayoutToSignUp(){
+		this.isSigningUp = !this.isSigningUp;
+		if(this.isSigningUp){
+			setTextFor(R.id.btn_sign_up_in, getString(R.string.sign_up));
+			setTextFor(R.id.txt_sign_up, getString(R.string.sign_in));
+		}else{
+			setTextFor(R.id.btn_sign_up_in, getString(R.string.sign_in));
+			setTextFor(R.id.txt_sign_up, getString(R.string.sign_up));
+		}
+	}
+
+	private void signIn(){
+		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
+		getApi(Const.SIGN_IN, param);
+	}
+
+	private void signUp(){
+		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
+		getApi(Const.SIGN_UP, param);
 	}
 
 }

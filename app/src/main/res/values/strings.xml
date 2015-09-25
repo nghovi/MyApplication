@@ -37,6 +37,7 @@
 
 
     <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
     <string name="mail_address">mail address</string>
     <string name="pass_word">Password</string>
     <string name="sign_out">Sign out</string>

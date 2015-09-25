@@ -22,6 +22,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import java.util.Arrays;
+
 public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public Footer				footer;
@@ -41,13 +43,18 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		onCreateFooter();
 
 		setUpFacebookCallbacks();
+
 		// Ensure that our profile is up to date
 		Profile.fetchProfileForCurrentAccessToken();
 		setProfile(Profile.getCurrentProfile());
 		AccessToken accessToken = AccessToken.getCurrentAccessToken();
-		if(accessToken == null){
+		// for(String p : accessToken.getPermissions()){
+		// MU.log("lsfslfasfsf ++++++++++ " + p);
+		// }
+		if(accessToken == null || accessToken.isExpired()){
 			gotoSignUpInFragment();
 		}else if(!accessToken.isExpired()){
+			setAccessToken(accessToken);
 			gotoPrimaryCardFragment();
 		}
 	}
@@ -73,6 +80,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	private void setUpFacebookCallbacks(){
 		fbCallbackManager = CallbackManager.Factory.create();
 		fbLoginManager = LoginManager.getInstance();
+		// fbLoginManager.logInWithReadPermissions(this, Arrays.asList("user_photos"));
 		fbLoginManager.registerCallback(fbCallbackManager, new FacebookCallback<LoginResult>() {
 
 			@Override
@@ -104,6 +112,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			@Override
 			protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
 				Profile.fetchProfileForCurrentAccessToken();
+				setAccessToken(currentAccessToken);
 				gotoPrimaryCardFragment();
 			}
 		};
@@ -111,7 +120,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	private void setProfile(Profile profile){
 		fbProfile = profile;
-//		fbProfile.
+		// fbProfile.
 	}
 
 	@Override

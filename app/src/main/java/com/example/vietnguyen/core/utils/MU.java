@@ -21,12 +21,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.views.widgets.CoreTextView;
-import com.example.vietnguyen.myapplication.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -192,21 +190,4 @@ public class MU{
 		return file.exists();
 	}
 
-	public static void setLinkFor(final MyFragment frg, int resource, String url){
-		TextView txtLink = frg.getTextView(resource);
-		if(!url.startsWith("http://") && !url.startsWith("https://")){
-			url = "http://" + url;
-		}
-
-		final String finalUrl = url;
-		txtLink.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl));
-				frg.getActivity().startActivity(browserIntent);
-			}
-		});
-	}
 }

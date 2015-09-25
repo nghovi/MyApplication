@@ -1,6 +1,7 @@
 package com.example.vietnguyen.core.network;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -10,42 +11,73 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vietnguyen.core.utils.MU;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Iterator;
+
 /**
  * Created by viet on 8/19/2015.
  */
 public class Api{
 
 	public interface OnCallApiListener{
+
 		public void onApiResponse(String url, JSONObject response);
-        public void onApiError(String url, String errorMsg);
+
+		public void onApiError(String url, String errorMsg);
 	}
 
-	public static void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
+	public void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
 		makeRequest(Request.Method.GET, context, url, param, onCallApiListener);
 	}
 
-    public static void post(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
-        makeRequest(Request.Method.POST, context, url, param, onCallApiListener);
-    }
+	public void post(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
+		makeRequest(Request.Method.POST, context, url, param, onCallApiListener);
+	}
 
-    private static void makeRequest(int method, Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
-        JsonObjectRequest jsonObjRequest = new JsonObjectRequest(method, url, param, new Response.Listener<JSONObject>() {
+	private void makeRequest(int method, Context context, String url, JSONObject param, final OnCallApiListener onCallApiListener){
+		MU.log("<<<< param: " + param.toString());
+		final String originUrl = url;
+		final String finalUrl = Api.getUrl(url, method, param);
+		JsonObjectRequest jsonObjRequest = new JsonObjectRequest(method, url, param, new Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(JSONObject response){
-                MU.log("Response for " + url + ": " + response.toString());
-                onCallApiListener.onApiResponse(url, response);
-            }
-        }, new Response.ErrorListener() {
+			@Override
+			public void onResponse(JSONObject response){
+				MU.log("Response for " + finalUrl + ": ");
+				MU.log("Response:" + response.toString());
+				onCallApiListener.onApiResponse(originUrl, response);
+			}
+		}, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error){
-                MU.log("Error for " + url + ": ERROR! " + error.toString());
-               onCallApiListener.onApiError(url, error.toString());
-            }
-        });
+			@Override
+			public void onErrorResponse(VolleyError error){
+				MU.log("Error for " + finalUrl + ": ERROR! " + error.toString());
+				onCallApiListener.onApiError(originUrl, error.toString());
+			}
+		});
 
-        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjRequest);
-    }
+		VolleySingleton.getInstance(context).addToRequestQueue(jsonObjRequest);
+	}
+
+	public static String getUrl(String url, int method, JSONObject jsonObject){
+		if(method == Request.Method.GET){
+			return url + "?" + getQueryString(jsonObject);
+		}
+		return url;
+	}
+
+	private static String getQueryString(JSONObject jsonObject){
+		StringBuilder builder = new StringBuilder();
+		Iterator<String> iterator = jsonObject.keys();
+		while(iterator.hasNext()){
+			String key = iterator.next();
+			try{
+				builder.append(key + "=" + URLEncoder.encode(jsonObject.optString(key), "UTF-8") + "&");
+			}catch(UnsupportedEncodingException e){
+				e.printStackTrace();
+			}
+		}
+		return builder.toString();
+	}
 
 }

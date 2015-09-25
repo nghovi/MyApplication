@@ -49,7 +49,7 @@ public class BookDetailFragment extends MyFragment{
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
-		MU.setLinkFor(this, R.id.txt_book_link, book.link);
+		setLinkFor(R.id.txt_book_link, book.link);
 
 		buildVocabulary();
 	}
