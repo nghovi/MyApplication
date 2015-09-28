@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -25,7 +28,10 @@ import android.widget.ImageView;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.views.widgets.CoreTextView;
+import com.example.vietnguyen.models.GsonModel;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -123,19 +129,36 @@ public class MU{
 		return null;
 	}
 
-	public static void picassaLoadImage(final String url, final ImageView imageView, final Context context){
-		Picasso.with(context).load(url).into(imageView, new Callback.EmptyCallback() {
+	public static <T>T convertToModel(String jsonString, Class<T> cls){
+		T result = null;
 
-			@Override
-			public void onSuccess(){
-				super.onSuccess();
+		try{
+			Gson ex = (new GsonBuilder()).setDateFormat("yyyy/MM/dd").create();
+			if(jsonString != null){
+				result = ex.fromJson(jsonString, cls);
+			}
+		}catch(Exception var4){
+			var4.printStackTrace();
+			return null;
+		}
+
+		return result;
+	}
+
+	public static <T>List<T> convertToModelList(String jsonString, Class<T> cls){
+		Object result = new ArrayList();
+
+		try{
+			Gson ex = (new GsonBuilder()).setDateFormat("yyyy/MM/dd").create();
+			if(jsonString != null){
+				result = (List)ex.fromJson(jsonString, new GsonModel(cls));
 			}
 
-			@Override
-			public void onError(){
-				log("picassaLoadImage failed for url " + url);
-			}
-		});
+			return (List)result;
+		}catch(Exception var4){
+			var4.printStackTrace();
+			return new ArrayList();
+		}
 	}
 
 	public static void picassaLoadAndSaveImage(final String url, final ImageView imageView, final Context context, final String fileName){
@@ -145,6 +168,21 @@ public class MU{
 			public void onSuccess(){
 				super.onSuccess();
 				saveImage(imageView, fileName, context);
+			}
+
+			@Override
+			public void onError(){
+				log("picassaLoadAndSaveImage failed for url " + url);
+			}
+		});
+	}
+
+	public static void picassaLoadImage(final String url, final ImageView imageView, Context context){
+		Picasso.with(context).load(url).into(imageView, new Callback.EmptyCallback() {
+
+			@Override
+			public void onSuccess(){
+				super.onSuccess();
 			}
 
 			@Override

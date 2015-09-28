@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class CardStackAdapter extends BaseCardStackAdapter {
-	private final Context mContext;
+	private Context mContext;
 
 	/**
 	 * Lock used to modify the content of {@link #mData}. Any write operation
