@@ -29,16 +29,16 @@ public final class MyCardStackAdapter extends CardStackAdapter {
 	public View getCardView(int position, CardModel model, View convertView, ViewGroup parent){
 		if(convertView == null){
 			LayoutInflater inflater = LayoutInflater.from(getContext());
-			convertView = inflater.inflate(com.andtinder.R.layout.std_card_inner, parent, false);
+			convertView = inflater.inflate(R.layout.std_card_inner, parent, false);
 			assert convertView != null;
 		}
 
-		ImageView imgView = (ImageView)convertView.findViewById(com.andtinder.R.id.image);
+		ImageView imgView = (ImageView)convertView.findViewById(R.id.img_cardstack);
 
 		MU.picassaLoadImage(model.getImageUrl(), imgView, getContext());
 
-		((TextView)convertView.findViewById(com.andtinder.R.id.title)).setText(model.getTitle());
-		((TextView)convertView.findViewById(com.andtinder.R.id.description)).setText(model.getDescription());
+		((TextView)convertView.findViewById(R.id.pic_title)).setText(model.getTitle());
+		//((TextView)convertView.findViewById(R.id.img_cardstack)).setText(model.getDescription());
 
 		return convertView;
 	}

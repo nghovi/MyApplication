@@ -93,6 +93,8 @@ public class PhotoFragment extends MyFragment {
         for (FacebookPhoto album : albums) {
             adapter.add(new CardModel("Title5", "Description goes here", album.source));
         }
+        //only setAdapter when it contains enough data.
+        mCardContainer.setAdapter(adapter);
     }
 
 
@@ -111,31 +113,32 @@ public class PhotoFragment extends MyFragment {
         // getApi(Const.FACEBOOK_GET_ALBUMS, MU.buildJsonObj(Arrays.asList("access_token", activity.getAccessToken())));
 
 
-        CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
-        cardModel.setOnClickListener(new CardModel.OnClickListener() {
+//        CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
+//        cardModel.setOnClickListener(new CardModel.OnClickListener() {
+//
+//            @Override
+//            public void OnClickListener() {
+//                Log.i("Swipeable Cards", "I am pressing the card");
+//            }
+//        });
+//
+//        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+//
+//            @Override
+//            public void onLike() {
+//                Log.i("Swipeable Cards", "I like the card");
+//            }
+//
+//            @Override
+//            public void onDislike() {
+//                Log.i("Swipeable Cards", "I dislike the card");
+//            }
+//        });
+//
+//        adapter.add(cardModel);
+//        mCardContainer
 
-            @Override
-            public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
-            }
-        });
 
-        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
-
-            @Override
-            public void onLike() {
-                Log.i("Swipeable Cards", "I like the card");
-            }
-
-            @Override
-            public void onDislike() {
-                Log.i("Swipeable Cards", "I dislike the card");
-            }
-        });
-
-        adapter.add(cardModel);
-
-        mCardContainer.setAdapter(adapter);
     }
 
 
@@ -218,23 +221,6 @@ public class PhotoFragment extends MyFragment {
     public void onApiResponse(String url, JSONObject response) {
         JSONObject respons = response;
     }
-
-	/*
-     * After taking a photo
-	 */
-    // public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    // if (requestCode == PhotoFragment.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-    // if (resultCode == Activity.RESULT_OK) {
-    // ImageView preview = (ImageView) getView().findViewById(R.id.imageView);
-    // photo = (Bitmap) data.getExtras().get("data");
-    // preview.setImageBitmap(photo);
-    // } else if (resultCode == Activity.RESULT_CANCELED) {
-    // Log.e("#######", "Capture image: result canceled");
-    // } else {
-    // Log.e("#######", "Capture image: result undefined");
-    // }
-    // }
-    // }
 
     /**
      * Create a file Uri for saving an image or video
