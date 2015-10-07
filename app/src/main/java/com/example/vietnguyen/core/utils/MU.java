@@ -133,7 +133,7 @@ public class MU{
 		T result = null;
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat("yyyy/MM/dd").create();
+			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ssZZZ").create();
 			if(jsonString != null){
 				result = ex.fromJson(jsonString, cls);
 			}
@@ -149,7 +149,7 @@ public class MU{
 		Object result = new ArrayList();
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat("yyyy/MM/dd").create();
+			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ssZZZ").create();
 			if(jsonString != null){
 				result = (List)ex.fromJson(jsonString, new GsonModel(cls));
 			}

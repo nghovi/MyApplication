@@ -48,18 +48,14 @@ public class TaskListFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		buildCalendarPicker();
-        buildAddBtn();
+		buildAddBtn();
 
 		map = new HashMap<Date, ArrayList<Task>>();
 		this.targetDate = new Date();
-		// loadTasks(this.targetDate);
-		tasks = (ArrayList<Task>)getDummy();
-		map.put(this.targetDate, tasks);
-
-		taskAdapter = new TaskAdapter(activity, R.layout.item_task, tasks);
+		loadTasks(this.targetDate);
 
 		lstTask = (ListView)getView(R.id.lst_task);
-		lstTask.setAdapter(taskAdapter);
+
 		lstTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -110,17 +106,18 @@ public class TaskListFragment extends MyFragment{
 		});
 	}
 
-    private void buildAddBtn() {
-        TextView txtAdd = getTextView(R.id.txt_add);
-        txtAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TaskAddFragment frg = new TaskAddFragment();
-                frg.setEdit(false, null);
-                activity.addFragment(frg);
-            }
-        });
-    }
+	private void buildAddBtn(){
+		TextView txtAdd = getTextView(R.id.txt_add);
+		txtAdd.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				TaskAddFragment frg = new TaskAddFragment();
+				frg.setEdit(false, null);
+				activity.addFragment(frg);
+			}
+		});
+	}
 
 	private void loadTasks(Date targetDate){
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
@@ -132,7 +129,10 @@ public class TaskListFragment extends MyFragment{
 		// todo: put tasks of targetDate into map
 		// map.put("name", "demo");
 		// map.put("fname", "fdemo");
-		tasks = map.get(this.targetDate);
+		tasks = (ArrayList<Task>)MU.convertToModelList(response.optString("data"), Task.class);
+		taskAdapter = new TaskAdapter(activity, R.layout.item_task, tasks);
+		lstTask.setAdapter(taskAdapter);
+		map.put(this.targetDate, tasks);
 		taskAdapter.notifyDataSetChanged();
 	}
 

@@ -14,7 +14,9 @@ public class Const{
 	public static final String	FACEBOOK_GET_ALBUMS		= "https://graph.facebook.com/me/albums";
 	public static final String	FACEBOOK_GET_PHOTOS		= "https://graph.facebook.com/";
 
-	public static final String	SERVER_URL				= "";
+//	public static final String	SERVER_URL				= "http://ec2-54-175-13-221.compute-1.amazonaws.com:8000/ecard/";
+	public static final String	SERVER_URL				= "http://10.0.3.2:8000/ecard/";
+
 	public static final String	SIGN_IN					= "sign_in";
 	public static final String	SIGN_UP					= "sign_up";
 
