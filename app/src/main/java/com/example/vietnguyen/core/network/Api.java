@@ -40,7 +40,7 @@ public class Api{
 		MU.log("<<<< param: " + param.toString());
 		final String originUrl = url;
 		final String finalUrl = Api.getUrl(url, method, param);
-		JsonObjectRequest jsonObjRequest = new JsonObjectRequest(method, url, param, new Response.Listener<JSONObject>() {
+		JsonObjectRequest jsonObjRequest = new BasicJsonRequest(method, url, param, new Response.Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject response){

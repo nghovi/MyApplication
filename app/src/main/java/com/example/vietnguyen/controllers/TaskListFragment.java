@@ -127,8 +127,6 @@ public class TaskListFragment extends MyFragment{
 	@Override
 	public void onApiResponse(String url, JSONObject response){
 		// todo: put tasks of targetDate into map
-		// map.put("name", "demo");
-		// map.put("fname", "fdemo");
 		tasks = (ArrayList<Task>)MU.convertToModelList(response.optString("data"), Task.class);
 		taskAdapter = new TaskAdapter(activity, R.layout.item_task, tasks);
 		lstTask.setAdapter(taskAdapter);

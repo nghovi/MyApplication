@@ -117,6 +117,8 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		super.onDestroy();
 	}
 
+
+
 	@Override
 	public void onBackStackChanged(){
 		MU.log("Fragment backstack changed: ");
