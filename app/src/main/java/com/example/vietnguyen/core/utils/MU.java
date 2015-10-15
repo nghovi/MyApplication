@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONException;
@@ -20,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -226,6 +229,17 @@ public class MU{
 	public static boolean isImageExist(String fileName, Context context){
 		File file = getImageFile(fileName, context);
 		return file.exists();
+	}
+
+	public static Date getDayOnly(Date originDate) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(originDate);
+		cal.clear(Calendar.HOUR_OF_DAY);
+		cal.clear(Calendar.AM_PM);
+		cal.clear(Calendar.MINUTE);
+		cal.clear(Calendar.SECOND);
+		cal.clear(Calendar.MILLISECOND);
+		return cal.getTime();
 	}
 
 }

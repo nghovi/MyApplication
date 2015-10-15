@@ -1,46 +1,51 @@
 package com.example.vietnguyen.models;
 
 import com.google.gson.Gson;
+import com.orm.SugarRecord;
 
 import java.util.Date;
 
 /**
  * Created by viet on 9/3/2015.
  */
-public class Task{
+public class Task extends SugarRecord<Task>{
 
-    public static final int STATUS_UNFINISHED = 0;
-    public static final int STATUS_FINISHED = 1;
+	public static final int	STATUS_UNFINISHED	= 0;
+	public static final int	STATUS_FINISHED		= 1;
 
-	public Task(int id, int priority,int status, String name, String description, Date date){
-		this.id = id;
-		this.name = name;
-		this.description = description;
-        this.priority = priority;
-		this.date = date;
-        this.status = status;
+	public Task(){
+
 	}
 
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this).toString();
-    }
+	public Task(int priority, int status, String name, String description, Date date, Date lastupdated){
+		this.name = name;
+		this.description = description;
+		this.priority = priority;
+		this.date = date;
+		this.status = status;
+		this.lastupdated = lastupdated;
+	}
 
-    public static Task fromString(String task) {
-        Gson gson = new Gson();
-        return gson.fromJson(task, Task.class);
-    }
+	@Override
+	public String toString(){
+		Gson gson = new Gson();
+		return gson.toJson(this).toString();
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public static Task fromString(String task){
+		Gson gson = new Gson();
+		return gson.fromJson(task, Task.class);
+	}
+
+	public void setStatus(int status){
+		this.status = status;
+	}
 
 	public String	description;
 	public Date		date;
+	public Date		lastupdated;
 	public String	name;
 	public String	comment;
-	public int		id;
-    public int priority;
-    public int status;
+	public int		priority;
+	public int		status;
 }

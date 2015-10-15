@@ -9,9 +9,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name="com.orm.SugarApp"
         android:theme="@style/AppTheme" >
+        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.vietnguyen.models" />
+
         <activity
             android:name="com.example.vietnguyen.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen" >

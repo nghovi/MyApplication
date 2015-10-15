@@ -32,22 +32,46 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	 * To use this function, make sure that activity's layout file include fragment_container.
 	 * no add to back stack
 	 */
+	public void replaceWithFragment(Fragment fragment, Bundle bundle){
+		mFragmentManager.popBackStack();
+		addFragment(fragment, bundle);
+	}
+
 	public void replaceWithFragment(Fragment fragment){
-		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.toString());
-		fragmentTransaction.commit();
+		mFragmentManager.popBackStack();
+		addFragment(fragment, null);
 	}
 
 	// add to back stack
-	public void addFragment(Fragment fragment){
+	public void addFragment(Fragment fragment, Bundle bundle){
+		fragment.setArguments(bundle);
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.toString());
-		fragmentTransaction.addToBackStack(fragment.toString());
+		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().toString());
+		fragmentTransaction.addToBackStack(fragment.getClass().toString());
 		fragmentTransaction.commit();
+	}
+
+	public void addFragment(Fragment fragment){
+		addFragment(fragment, null);
 	}
 
 	public void backOneFragment(){
 		mFragmentManager.popBackStack();
+	}
+
+	public void backToFragment(Class fragmentClass, Bundle bundle){
+		mFragmentManager.popBackStack(fragmentClass.toString(), 0);
+		MyFragment currentFragment = (MyFragment)mFragmentManager.findFragmentByTag(fragmentClass.toString());
+		currentFragment.setArguments(bundle);
+	}
+
+	public void backToFragment(Class fragmentClass){
+		backToFragment(fragmentClass, null);
+	}
+
+	public void backToBeforeFragment(Class fragmentClass){
+		String tag = fragmentClass.toString();
+		mFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 	}
 
 	public void registerOnClickListener(List<View> views, View.OnClickListener listener){
@@ -116,8 +140,6 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		MU.log("onDestroy " + this.getLocalClassName());
 		super.onDestroy();
 	}
-
-
 
 	@Override
 	public void onBackStackChanged(){

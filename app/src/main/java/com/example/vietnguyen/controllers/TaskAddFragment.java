@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
@@ -26,17 +27,17 @@ import com.google.gson.Gson;
 
 public class TaskAddFragment extends MyFragment{
 
-	private Date	targetDate;
-	private boolean	isEdit;
-	private Task	task;
-    private EditText edtName;
-    private EditText edtDescription;
-    private EditText edtComment;
+	private Date		targetDate;
+	private boolean		isEdit;
+	private Task		task;
+	private EditText	edtName;
+	private EditText	edtDescription;
+	private EditText	edtComment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		this.targetDate = new Date();
+		targetDate = new Date();
 	}
 
 	@Override
@@ -52,19 +53,22 @@ public class TaskAddFragment extends MyFragment{
 		String commitText = "Add";
 		if(isEdit){
 			commitText = "Done";
-            edtName = getEditText(R.id.txt_name);
-            edtName.setText(this.task.name);
-            edtDescription = getEditText(R.id.txt_description);
-            edtDescription.setText(this.task.description);
+			edtName = getEditText(R.id.txt_name);
+			edtName.setText(this.task.name);
+			edtDescription = getEditText(R.id.txt_description);
+			edtDescription.setText(this.task.description);
+			TextView txtDate = getTextView(R.id.txt_date);
+			targetDate = task.date;
+			txtDate.setText(targetDate.toString());
 		}
 		txtCommit.setText(commitText);
 		txtCommit.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(isEdit){
-					saveTask();
-				}else{
+			public void onClick(View view) {
+				if (isEdit) {
+					updateTask();
+				} else {
 					addNewTask();
 				}
 			}
@@ -73,7 +77,7 @@ public class TaskAddFragment extends MyFragment{
 		imgBack.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				backToTaskList();
 			}
 		});
@@ -82,30 +86,36 @@ public class TaskAddFragment extends MyFragment{
 	private void addNewTask(){
 		TextView txtName = getTextView(R.id.txt_name);
 		TextView txtDescription = getTextView(R.id.txt_description);
-		JSONObject param = MU.buildJsonObj(Arrays.asList("name", txtName.getText().toString(), "description", txtDescription.getText().toString(), "date", targetDate.toString()));
+		Task newTask = new Task(1, Task.STATUS_UNFINISHED, txtName.getText().toString(), txtDescription.getText().toString(), targetDate, targetDate);
+		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
+		newTask.save();
+		JSONObject param = MU.buildJsonObj(Arrays.asList("task", newTask.toString()));
 		postApi(Const.ADD_TASK, param);
 	}
 
-	private void saveTask(){
+	private void updateTask(){
 		TextView txtName = getTextView(R.id.txt_name);
 		TextView txtDescription = getTextView(R.id.txt_description);
-		JSONObject param = MU.buildJsonObj(Arrays.asList("name", edtName.getText().toString(), "description", edtDescription.getText().toString(), "date", targetDate.toString()));
-//		postApi(Const.SAVE_TASK, param);
-//		onApiResponse(Const.EDIT_TASK, new JSONObject());
+		task.name = txtName.getText().toString();
+		task.description = txtDescription.getText().toString();
+		task.date = targetDate;
+		task.save();
+		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
+		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+		postApi(Const.EDIT_TASK, param);
 	}
-
 
 	private void buildCalendarPicker(){
 		final TextView txtDate = getTextView(R.id.txt_date);
 		txtDate.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				DatePickerFragment datePicker = new DatePickerFragment();
 				datePicker.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
 
 					@Override
-					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
+					public void onDateSet(DatePicker datePicker, int i, int i2, int i3) {
 						txtDate.setText(i + "/" + i2 + "/" + i3);
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
@@ -119,35 +129,37 @@ public class TaskAddFragment extends MyFragment{
 
 	@Override
 	public void onApiResponse(String url, JSONObject response){
-        super.onApiResponse(url, response);
-		// todo: back and reload task list
-        switch (url) {
-            case Const.ADD_TASK:
-               JSONObject rp = response;
-                break;
-            case Const.EDIT_TASK:
-                gotoTaskDetail();
-                break;
-        }
+		super.onApiResponse(url, response);
+		switch(url){
+		case Const.ADD_TASK:
+			Toast.makeText(activity, "Save new task to server success", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
+		case Const.EDIT_TASK:
+			Toast.makeText(activity, "Save task to server success", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
+		}
 	}
 
-    private void backToTaskList(){
-        activity.backOneFragment();
-    }
-
-    public void gotoTaskDetail(){
-		TaskDetailFragment frg = new TaskDetailFragment();
-        this.task.name = edtName.getText().toString();
-        this.task.description = edtDescription.getText().toString();
-		backToTaskList();
+	@Override
+	public void onApiError(String url, String errorMsg){
+		switch(url){
+		case Const.ADD_TASK:
+			Toast.makeText(activity, "Save new task to server failed", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
+		case Const.EDIT_TASK:
+			Toast.makeText(activity, "Save to server failed", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
+		}
 	}
 
-	public void setTargetDate(Date targetDate){
-		this.targetDate = targetDate;
-	}
-
-	public Date getTargetDate(){
-		return this.targetDate;
+	private void backToTaskList(){
+		Bundle bundle = new Bundle();
+		bundle.putLong(TaskListFragment.KEY_TARGET_DATE_IN_MILISEC, targetDate.getTime());
+		activity.backToFragment(TaskListFragment.class, bundle);
 	}
 
 	public void setEdit(boolean isEdit, Task task){

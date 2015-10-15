@@ -22,6 +22,9 @@ import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by viet on 8/11/2015.
  * http://developer.android.com/guide/components/fragments.html
@@ -38,6 +41,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		super();
 	}
 
+	// ////////////////////// VIEW ////////////////////////////////////////////////
 	public View getView(int viewId){
 		return getView().findViewById(viewId);
 	}
@@ -91,6 +95,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		tv.setText(text);
 	}
 
+	// ///////////////////////////////// NET WORK ///////////////////////////////////////////
 	public void getApi(String url, JSONObject param){
 		activity.getApi(url, param, this);
 	}
@@ -109,11 +114,63 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	}
 
+	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
 	public static interface onFragmentActionListenter{
 
 		public void onFragmentAction(Bundle args);
 	}
 
+	// /////////////////////////// UTIL ///////////////////////////////////////
+	/*
+	 * Get string given from activity.addFragment(Fragment fragment, Bundle bundle)
+	 * @return given string or the default one
+	 */
+	public String getGivenString(String bundleKey, String defaultString){
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			return bundle.getString(bundleKey, defaultString);
+		}
+		return defaultString;
+	}
+
+	public Boolean getGivenBoolean(String bundleKey, Boolean defaultBool){
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			return bundle.getBoolean(bundleKey, defaultBool);
+		}
+		return defaultBool;
+	}
+
+	public int getGivenInt(String bundleKey, int defaultValue){
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			return bundle.getInt(bundleKey, defaultValue);
+		}
+		return defaultValue;
+	}
+
+	public long getGivenLong(String bundleKey, long defaultValue){
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			return bundle.getLong(bundleKey, defaultValue);
+		}
+		return defaultValue;
+	}
+
+	public Date getGivenDate(String bundleKey, Date defaultDate){
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			long milisec = bundle.getLong(bundleKey, 0);
+			if(milisec != 0){
+				Calendar c = Calendar.getInstance();
+				c.setTimeInMillis(milisec);
+				return c.getTime();
+			}
+		}
+		return defaultDate;
+	}
+
+	// ////////////////////////////////////////// BASIC ////////////////////////////////////////
 	@Override
 	public void onAttach(Activity activity){
 		// MU.log("Fragment onAttach: " + this.getClass().toString());
@@ -138,6 +195,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		// Inflate the layout for this fragment
 		// MU.log("Fragment onCreateView: " + this.getClass().toString());
 		return inflater.inflate(R.layout.core_fragment_my, container, false);
+
 	}
 
 	@Override

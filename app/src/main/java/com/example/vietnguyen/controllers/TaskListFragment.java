@@ -3,8 +3,10 @@ package com.example.vietnguyen.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +39,16 @@ public class TaskListFragment extends MyFragment{
 	private Date						targetDate;
 	private Map<Date, ArrayList<Task>>	map;
 	private ArrayList<Task>				tasks;
+	private ArrayList<Task>				showedTasks;
 	private TaskAdapter					taskAdapter;
 	private ListView					lstTask;
+
+	public static final String			KEY_TARGET_DATE_IN_MILISEC	= "targetDate";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.fragment_task, container, false);
+
 	}
 
 	@Override
@@ -50,12 +57,9 @@ public class TaskListFragment extends MyFragment{
 		buildCalendarPicker();
 		buildAddBtn();
 
-		map = new HashMap<Date, ArrayList<Task>>();
-		this.targetDate = new Date();
-		loadTasks(this.targetDate);
+		targetDate = getGivenDate(KEY_TARGET_DATE_IN_MILISEC, new Date());
 
 		lstTask = (ListView)getView(R.id.lst_task);
-
 		lstTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -64,16 +68,11 @@ public class TaskListFragment extends MyFragment{
 				gotoTaskDetail(Task);
 			}
 		});
-	}
-
-	private List<Task> getDummy(){
-		ArrayList<Task> tasks = new ArrayList<Task>();
-		tasks.add(new Task(0, 1, 1, "Do mediation", "Do mediation at least 5m each day, so you can be relieved", new Date()));
-		tasks.add(new Task(1, 2, 0, "Push a commit", "Do something to keep momentum for private project", new Date()));
-		tasks.add(new Task(2, 3, 0, "Install ubuntu", "Install ubuntu on this lenovo so you can work with server side", new Date()));
-		tasks.add(new Task(3, 4, 1, "Read an english article", "Remember that your ultimate goal now is merged into english culture", new Date()));
-		tasks.add(new Task(4, 5, 0, "Relax 5m", "Keep your chin up, your face clean", new Date()));
-		return tasks;
+		if(MU.getDayOnly(targetDate).compareTo(MU.getDayOnly(new Date())) != 0){
+			TextView txtDate = getTextView(R.id.txt_date);
+			txtDate.setText(targetDate.toString());
+		}
+		loadTasks(this.targetDate);
 	}
 
 	private void buildCalendarPicker(){
@@ -91,14 +90,7 @@ public class TaskListFragment extends MyFragment{
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
-						setTargetDate(targetDate);
-						ArrayList<Task> targetTasks = map.get(targetDate);
-						if(targetTasks != null){ // data is already on map
-							tasks = targetTasks;
-							taskAdapter.notifyDataSetChanged();
-						}else{
-							loadTasks(targetDate);
-						}
+						showTasks();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");
@@ -120,31 +112,131 @@ public class TaskListFragment extends MyFragment{
 	}
 
 	private void loadTasks(Date targetDate){
+		loadFromLocal(targetDate);
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
 		activity.getApi(Const.GET_TASK, params, this);
+		showTasks();
+	}
+
+	private void loadFromLocal(Date targetDate){
+		tasks = new ArrayList<Task>();
+		Iterator<Task> taskList = Task.findAll(Task.class);
+		while(taskList.hasNext()){
+			tasks.add(taskList.next());
+		}
 	}
 
 	@Override
 	public void onApiResponse(String url, JSONObject response){
-		// todo: put tasks of targetDate into map
-		tasks = (ArrayList<Task>)MU.convertToModelList(response.optString("data"), Task.class);
-		taskAdapter = new TaskAdapter(activity, R.layout.item_task, tasks);
+		super.onApiResponse(url, response);
+		// todo: back and reload task list
+		switch(url){
+		case Const.GET_TASK:
+			onSuccessLoadTasksFromServer(response);
+		case Const.EDIT_TASK:
+			break;
+		}
+	}
+
+	@Override
+	public void onApiError(String url, String errorMsg){
+		super.onApiError(url, errorMsg);
+		switch(url){
+		case Const.GET_TASK:
+			onFailureLoadTasksFromServer();
+		case Const.EDIT_TASK:
+			break;
+		}
+
+	}
+
+	public void onSuccessLoadTasksFromServer(JSONObject response){
+		ArrayList<Task> loadedTasks = (ArrayList<Task>)MU.convertToModelList(response.optString("data"), Task.class);
+		ArrayList<Task> needSaveToServer = new ArrayList<Task>();
+		ArrayList<Task> needSaveToLocal = new ArrayList<Task>();
+
+		for(Task localTask : tasks){
+			for(Task serverTask : loadedTasks){
+				if(serverTask.getId() == localTask.getId()){
+					if(serverTask.lastupdated.compareTo(localTask.lastupdated) >= 0){ // server task is newer
+						tasks.remove(localTask);
+						tasks.add(serverTask);
+						needSaveToLocal.add(serverTask);
+					}else{
+						needSaveToServer.add(localTask);
+					}
+
+				}
+			}
+		}
+
+		// Chek new task from server
+		Boolean isNew = true;
+		for(Task serverTask : loadedTasks){
+			isNew = true;
+			for(Task localTask : tasks){
+				if(localTask.getId() == serverTask.getId()){
+					isNew = false;
+					break;
+				}
+			}
+			if(isNew){
+				tasks.add(serverTask);
+				needSaveToLocal.add(serverTask);
+			}
+		}
+
+		mapTasksToDate();
+		showTasks();
+		saveToLocal(needSaveToLocal);
+		saveToServer(needSaveToServer);
+	}
+
+	// if error while loading from server, show local tasks only
+	public void onFailureLoadTasksFromServer(){
+		showTasks();
+	}
+
+	private void showTasks(){
+		mapTasksToDate();
+		this.showedTasks = map.get(MU.getDayOnly(targetDate));
+		if(this.showedTasks == null){
+			this.showedTasks = new ArrayList<Task>();
+		}
+		this.taskAdapter = new TaskAdapter(activity, R.layout.item_task, this.showedTasks);
 		lstTask.setAdapter(taskAdapter);
-		map.put(this.targetDate, tasks);
-		taskAdapter.notifyDataSetChanged();
+	}
+
+	private void saveToLocal(ArrayList<Task> tasks){
+		for(Task task : tasks){
+			task.save();
+		}
+	}
+
+	private void saveToServer(ArrayList<Task> tasks){
+		for(Task task : tasks){
+			JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+			postApi(Const.EDIT_TASK, param);
+		}
+	}
+
+	private void mapTasksToDate(){
+		map = new HashMap<Date, ArrayList<Task>>();
+		for(Task task : tasks){
+			Date mapKey = MU.getDayOnly(task.date);
+			if(map.containsKey(mapKey)){
+				map.get(mapKey).add(task);
+			}else{
+				ArrayList<Task> tasksOnDate = new ArrayList<Task>();
+				tasksOnDate.add(task);
+				map.put(mapKey, tasksOnDate);
+			}
+		}
 	}
 
 	public void gotoTaskDetail(Task task){
 		TaskDetailFragment frg = new TaskDetailFragment();
 		frg.setTask(task);
 		activity.addFragment(frg);
-	}
-
-	public void setTargetDate(Date targetDate){
-		this.targetDate = targetDate;
-	}
-
-	public Date getTargetDate(){
-		return this.targetDate;
 	}
 }

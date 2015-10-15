@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
@@ -16,6 +17,7 @@ import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class TaskDetailFragment extends MyFragment{
 
@@ -34,7 +36,7 @@ public class TaskDetailFragment extends MyFragment{
 		txtDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				gotoEdit();
 			}
 		});
@@ -65,6 +67,10 @@ public class TaskDetailFragment extends MyFragment{
 			}
 		});
 
+		TextView txtDate = getTextView(R.id.txt_date);
+		Date taskTime = task.date;
+		txtDate.setText(MU.getDayOnly(taskTime).toString());
+
 		TextView txtName = getTextView(R.id.txt_name);
 		txtName.setText(this.task.name);
 		TextView txtDescription = getTextView(R.id.txt_description);
@@ -83,9 +89,10 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void sendDeleteTask(){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("taskId", String.valueOf(this.task.id)));
-		// activity.postApi(Const.DELETE_TASK, params, this);
-		onApiResponse(Const.DELETE_TASK, new JSONObject());
+		this.task.delete();
+		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("taskId", String.valueOf(this.task.getId())));
+		postApi(Const.DELETE_TASK, params);
 	}
 
 	private void gotoEdit(){
@@ -95,7 +102,7 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void markTaskDone(){
-		JSONObject params = MU.buildJsonObj(Arrays.asList("taskId", String.valueOf(this.task.id), "status", String.valueOf(Task.STATUS_FINISHED)));
+		JSONObject params = MU.buildJsonObj(Arrays.asList("taskId", String.valueOf(this.task.getId()), "status", String.valueOf(Task.STATUS_FINISHED)));
 		// activity.postApi(Const.UPDATE_STATUS_TASK, params, this);
 		onApiResponse(Const.UPDATE_STATUS_TASK, new JSONObject());
 	}
@@ -103,6 +110,16 @@ public class TaskDetailFragment extends MyFragment{
 	private void backToTaskList(){
 		activity.backOneFragment();
 	}
+
+	@Override
+	public void onApiError(String url, String errorMsg){
+		switch(url){
+			case Const.EDIT_TASK:
+				Toast.makeText(activity, "Failed to delete task from server", Toast.LENGTH_SHORT).show();
+				break;
+		}
+	}
+
 
 	@Override
 	public void onApiResponse(String url, JSONObject response){
