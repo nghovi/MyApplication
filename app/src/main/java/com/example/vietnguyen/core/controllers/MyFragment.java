@@ -24,6 +24,9 @@ import com.example.vietnguyen.myapplication.R;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by viet on 8/11/2015.
@@ -36,6 +39,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	 */
 	protected MyActivity	activity;
 	protected DialogBuilder	dlgBuilder;
+	protected Map<String, Object> updatedData;
 
 	public MyFragment(){
 		super();
@@ -121,51 +125,16 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	// /////////////////////////// UTIL ///////////////////////////////////////
-	/*
-	 * Get string given from activity.addFragment(Fragment fragment, Bundle bundle)
-	 * @return given string or the default one
-	 */
-	public String getGivenString(String bundleKey, String defaultString){
-		Bundle bundle = getArguments();
-		if(bundle != null){
-			return bundle.getString(bundleKey, defaultString);
+	public void setUpdatedData(String key, Object value) {
+		if (updatedData == null) {
+			updatedData = new HashMap<String, Object>();
 		}
-		return defaultString;
+		updatedData.put(key, value);
 	}
 
-	public Boolean getGivenBoolean(String bundleKey, Boolean defaultBool){
-		Bundle bundle = getArguments();
-		if(bundle != null){
-			return bundle.getBoolean(bundleKey, defaultBool);
-		}
-		return defaultBool;
-	}
-
-	public int getGivenInt(String bundleKey, int defaultValue){
-		Bundle bundle = getArguments();
-		if(bundle != null){
-			return bundle.getInt(bundleKey, defaultValue);
-		}
-		return defaultValue;
-	}
-
-	public long getGivenLong(String bundleKey, long defaultValue){
-		Bundle bundle = getArguments();
-		if(bundle != null){
-			return bundle.getLong(bundleKey, defaultValue);
-		}
-		return defaultValue;
-	}
-
-	public Date getGivenDate(String bundleKey, Date defaultDate){
-		Bundle bundle = getArguments();
-		if(bundle != null){
-			long milisec = bundle.getLong(bundleKey, 0);
-			if(milisec != 0){
-				Calendar c = Calendar.getInstance();
-				c.setTimeInMillis(milisec);
-				return c.getTime();
-			}
+	public Date getUpdatedDate(String updatedDataKey, Date defaultDate) {
+		if (updatedData != null && updatedData.containsKey(updatedDataKey)) {
+			return (Date)updatedData.get(updatedDataKey);
 		}
 		return defaultDate;
 	}

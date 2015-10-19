@@ -3,18 +3,14 @@ package com.example.vietnguyen.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +25,8 @@ import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
-import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.TaskAdapter;
-import com.google.gson.Gson;
 
 public class TaskListFragment extends MyFragment{
 
@@ -43,7 +37,7 @@ public class TaskListFragment extends MyFragment{
 	private TaskAdapter					taskAdapter;
 	private ListView					lstTask;
 
-	public static final String			KEY_TARGET_DATE_IN_MILISEC	= "targetDate";
+	public static final String			KEY_TARGET_DATE	= "targetDate";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -57,7 +51,7 @@ public class TaskListFragment extends MyFragment{
 		buildCalendarPicker();
 		buildAddBtn();
 
-		targetDate = getGivenDate(KEY_TARGET_DATE_IN_MILISEC, new Date());
+		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
 
 		lstTask = (ListView)getView(R.id.lst_task);
 		lstTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {

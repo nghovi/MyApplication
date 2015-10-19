@@ -23,7 +23,6 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
-import com.google.gson.Gson;
 
 public class TaskAddFragment extends MyFragment{
 
@@ -51,24 +50,27 @@ public class TaskAddFragment extends MyFragment{
 		buildCalendarPicker();
 		TextView txtCommit = getTextView(R.id.txt_add);
 		String commitText = "Add";
+		edtName = getEditText(R.id.txt_name);
+		edtDescription = getEditText(R.id.txt_description);
 		if(isEdit){
 			commitText = "Done";
-			edtName = getEditText(R.id.txt_name);
 			edtName.setText(this.task.name);
-			edtDescription = getEditText(R.id.txt_description);
 			edtDescription.setText(this.task.description);
 			TextView txtDate = getTextView(R.id.txt_date);
 			targetDate = task.date;
 			txtDate.setText(targetDate.toString());
+		}else{
+			txtCommit.setVisibility(View.INVISIBLE);
+			MU.addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
 		}
 		txtCommit.setText(commitText);
 		txtCommit.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (isEdit) {
+			public void onClick(View view){
+				if(isEdit){
 					updateTask();
-				} else {
+				}else{
 					addNewTask();
 				}
 			}
@@ -77,7 +79,7 @@ public class TaskAddFragment extends MyFragment{
 		imgBack.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				backToTaskList();
 			}
 		});
@@ -110,12 +112,12 @@ public class TaskAddFragment extends MyFragment{
 		txtDate.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				DatePickerFragment datePicker = new DatePickerFragment();
 				datePicker.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
 
 					@Override
-					public void onDateSet(DatePicker datePicker, int i, int i2, int i3) {
+					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
 						txtDate.setText(i + "/" + i2 + "/" + i3);
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
@@ -157,9 +159,7 @@ public class TaskAddFragment extends MyFragment{
 	}
 
 	private void backToTaskList(){
-		Bundle bundle = new Bundle();
-		bundle.putLong(TaskListFragment.KEY_TARGET_DATE_IN_MILISEC, targetDate.getTime());
-		activity.backToFragment(TaskListFragment.class, bundle);
+		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
 	}
 
 	public void setEdit(boolean isEdit, Task task){

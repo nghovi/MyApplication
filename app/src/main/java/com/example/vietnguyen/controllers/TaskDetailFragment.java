@@ -36,7 +36,7 @@ public class TaskDetailFragment extends MyFragment{
 		txtDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				gotoEdit();
 			}
 		});
@@ -63,7 +63,7 @@ public class TaskDetailFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view){
-				markTaskDone();
+				onCheckIconClicked();
 			}
 		});
 
@@ -88,6 +88,31 @@ public class TaskDetailFragment extends MyFragment{
 		}).show();
 	}
 
+	private void onCheckIconClicked(){
+		int newStatus = Task.STATUS_UNFINISHED;
+		String option = "Mark as unfinished";
+		if (this.task.status == Task.STATUS_UNFINISHED) {
+			newStatus = Task.STATUS_FINISHED;
+			option = "Mark as finished";
+		}
+		final int finalNewStatus = newStatus;
+		dlgBuilder.build2OptsDlgTopDown(getString(R.string.cancel), option, null, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				sendUpdateTaskStatus(finalNewStatus);
+			}
+		}).show();
+	}
+
+	private void sendUpdateTaskStatus(int status) {
+		this.task.setStatus(status);
+		this.task.save();
+		Toast.makeText(activity, "Success to update task status locally", Toast.LENGTH_SHORT).show();
+		JSONObject params = MU.buildJsonObj(Arrays.asList("taskId", String.valueOf(this.task.getId()), "status", String.valueOf(Task.STATUS_FINISHED)));
+		activity.postApi(Const.UPDATE_STATUS_TASK, params, this);
+	}
+
 	private void sendDeleteTask(){
 		this.task.delete();
 		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
@@ -101,33 +126,33 @@ public class TaskDetailFragment extends MyFragment{
 		activity.addFragment(fragment);
 	}
 
-	private void markTaskDone(){
-		JSONObject params = MU.buildJsonObj(Arrays.asList("taskId", String.valueOf(this.task.getId()), "status", String.valueOf(Task.STATUS_FINISHED)));
-		// activity.postApi(Const.UPDATE_STATUS_TASK, params, this);
-		onApiResponse(Const.UPDATE_STATUS_TASK, new JSONObject());
-	}
-
 	private void backToTaskList(){
-		activity.backOneFragment();
+		activity.backToFragment(TaskListFragment.class);
 	}
 
 	@Override
 	public void onApiError(String url, String errorMsg){
 		switch(url){
-			case Const.EDIT_TASK:
-				Toast.makeText(activity, "Failed to delete task from server", Toast.LENGTH_SHORT).show();
-				break;
+		case Const.DELETE_TASK:
+			Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
+		case Const.UPDATE_STATUS_TASK:
+			Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
+			backToTaskList();
+			break;
 		}
 	}
-
 
 	@Override
 	public void onApiResponse(String url, JSONObject response){
 		switch(url){
 		case Const.UPDATE_STATUS_TASK:
+			Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
 			backToTaskList();
 			break;
 		case Const.DELETE_TASK:
+			Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
 			backToTaskList();
 			break;
 		default:

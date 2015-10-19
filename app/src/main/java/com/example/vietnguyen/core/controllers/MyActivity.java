@@ -32,19 +32,19 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	 * To use this function, make sure that activity's layout file include fragment_container.
 	 * no add to back stack
 	 */
-	public void replaceWithFragment(Fragment fragment, Bundle bundle){
+	public void replaceWithFragment(Fragment fragment, String updatedKey, Object updatedValue){
 		mFragmentManager.popBackStack();
-		addFragment(fragment, bundle);
+		addFragment(fragment, updatedKey, updatedValue);
 	}
 
 	public void replaceWithFragment(Fragment fragment){
 		mFragmentManager.popBackStack();
-		addFragment(fragment, null);
+		addFragment(fragment, null, null);
 	}
 
 	// add to back stack
-	public void addFragment(Fragment fragment, Bundle bundle){
-		fragment.setArguments(bundle);
+	public void addFragment(Fragment fragment, String updatedKey, Object updatedValue){
+		setUpdatedData(fragment.getClass(), updatedKey, updatedValue);
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().toString());
 		fragmentTransaction.addToBackStack(fragment.getClass().toString());
@@ -52,21 +52,20 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	}
 
 	public void addFragment(Fragment fragment){
-		addFragment(fragment, null);
+		addFragment(fragment, null, null);
 	}
 
 	public void backOneFragment(){
 		mFragmentManager.popBackStack();
 	}
 
-	public void backToFragment(Class fragmentClass, Bundle bundle){
+	public void backToFragment(Class fragmentClass, String updatedKey, Object updatedValue){
 		mFragmentManager.popBackStack(fragmentClass.toString(), 0);
-		MyFragment currentFragment = (MyFragment)mFragmentManager.findFragmentByTag(fragmentClass.toString());
-		currentFragment.setArguments(bundle);
+		setUpdatedData(fragmentClass, updatedKey, updatedValue);
 	}
 
 	public void backToFragment(Class fragmentClass){
-		backToFragment(fragmentClass, null);
+		backToFragment(fragmentClass, null, null);
 	}
 
 	public void backToBeforeFragment(Class fragmentClass){
@@ -77,6 +76,13 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public void registerOnClickListener(List<View> views, View.OnClickListener listener){
 		for(View view : views){
 			view.setOnClickListener(listener);
+		}
+	}
+
+	private void setUpdatedData(Class fragmentClass, String updatedKey, Object updatedValue) {
+		if (updatedKey != null) {
+			MyFragment currentFragment = (MyFragment) mFragmentManager.findFragmentByTag(fragmentClass.toString());
+			currentFragment.setUpdatedData(updatedKey, updatedValue);
 		}
 	}
 
