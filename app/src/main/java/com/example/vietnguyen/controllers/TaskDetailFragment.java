@@ -69,7 +69,7 @@ public class TaskDetailFragment extends MyFragment{
 
 		TextView txtDate = getTextView(R.id.txt_date);
 		Date taskTime = task.date;
-		txtDate.setText(MU.getDayOnly(taskTime).toString());
+		txtDate.setText(taskTime.toString());
 
 		TextView txtName = getTextView(R.id.txt_name);
 		txtName.setText(this.task.name);
@@ -116,7 +116,7 @@ public class TaskDetailFragment extends MyFragment{
 	private void sendDeleteTask(){
 		this.task.delete();
 		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("taskId", String.valueOf(this.task.getId())));
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", String.valueOf(this.task.getId())));
 		postApi(Const.DELETE_TASK, params);
 	}
 

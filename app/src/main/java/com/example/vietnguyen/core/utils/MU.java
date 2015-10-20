@@ -234,16 +234,25 @@ public class MU{
 		return file.exists();
 	}
 
-	public static Date getDayOnly(Date originDate) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(originDate);
-		cal.clear(Calendar.HOUR_OF_DAY);
-		cal.clear(Calendar.AM_PM);
-		cal.clear(Calendar.MINUTE);
-		cal.clear(Calendar.SECOND);
-		cal.clear(Calendar.MILLISECOND);
-		return cal.getTime();
+	public static boolean isSameDay(Date d1, Date d2){
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(d1);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(d2);
+		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
 	}
+
+	// Not working, don't know why
+	// public static Date getDayOnly(Date originDate) {
+	// Calendar cal = Calendar.getInstance();
+	// cal.setTime(originDate);
+	// cal.clear(Calendar.HOUR);
+	// cal.clear(Calendar.AM_PM);
+	// cal.clear(Calendar.MINUTE);
+	// cal.clear(Calendar.SECOND);
+	// cal.clear(Calendar.MILLISECOND);
+	// return cal.getTime();
+	// }
 
 	/*
 	 * Determine the enable/disable status of a button base on EditTexts or TextViews
@@ -268,7 +277,7 @@ public class MU{
 			@Override
 			public void afterTextChanged(Editable s){
 				for(View view : views){
-					if(( (TextView)view).getText().toString().equals("")){
+					if(((TextView)view).getText().toString().equals("")){
 						clickableText.setVisibility(View.INVISIBLE);
 						return;
 					}

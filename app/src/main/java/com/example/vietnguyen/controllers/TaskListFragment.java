@@ -30,14 +30,14 @@ import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.Task
 
 public class TaskListFragment extends MyFragment{
 
-	private Date						targetDate;
-	private Map<Date, ArrayList<Task>>	map;
-	private ArrayList<Task>				tasks;
-	private ArrayList<Task>				showedTasks;
-	private TaskAdapter					taskAdapter;
-	private ListView					lstTask;
+	private Date							targetDate;
+	private Map<String, ArrayList<Task>>	map;
+	private ArrayList<Task>					tasks;
+	private ArrayList<Task>					showedTasks;
+	private TaskAdapter						taskAdapter;
+	private ListView						lstTask;
 
-	public static final String			KEY_TARGET_DATE	= "targetDate";
+	public static final String				KEY_TARGET_DATE	= "targetDate";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -62,7 +62,7 @@ public class TaskListFragment extends MyFragment{
 				gotoTaskDetail(Task);
 			}
 		});
-		if(MU.getDayOnly(targetDate).compareTo(MU.getDayOnly(new Date())) != 0){
+		if(!MU.isSameDay(targetDate, new Date())){
 			TextView txtDate = getTextView(R.id.txt_date);
 			txtDate.setText(targetDate.toString());
 		}
@@ -107,9 +107,9 @@ public class TaskListFragment extends MyFragment{
 
 	private void loadTasks(Date targetDate){
 		loadFromLocal(targetDate);
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", targetDate.toString()));
 		activity.getApi(Const.GET_TASK, params, this);
-		showTasks();
+		// showTasks();
 	}
 
 	private void loadFromLocal(Date targetDate){
@@ -149,18 +149,25 @@ public class TaskListFragment extends MyFragment{
 		ArrayList<Task> needSaveToServer = new ArrayList<Task>();
 		ArrayList<Task> needSaveToLocal = new ArrayList<Task>();
 
+		boolean notSavedToServer = true;
 		for(Task localTask : tasks){
+			notSavedToServer = true;
 			for(Task serverTask : loadedTasks){
 				if(serverTask.getId() == localTask.getId()){
-					if(serverTask.lastupdated.compareTo(localTask.lastupdated) >= 0){ // server task is newer
+					notSavedToServer = false;
+					long serverTimeInSec = serverTask.lastupdated.getTime() / 1000;
+					long localTimeInSec = localTask.lastupdated.getTime() / 1000;
+					if(serverTimeInSec > localTimeInSec){ // server task is newer
 						tasks.remove(localTask);
 						tasks.add(serverTask);
 						needSaveToLocal.add(serverTask);
-					}else{
+					}else if(serverTimeInSec < localTimeInSec){
 						needSaveToServer.add(localTask);
 					}
-
 				}
+			}
+			if(notSavedToServer){
+				needSaveToServer.add(localTask);
 			}
 		}
 
@@ -180,10 +187,9 @@ public class TaskListFragment extends MyFragment{
 			}
 		}
 
-		mapTasksToDate();
-		showTasks();
 		saveToLocal(needSaveToLocal);
 		saveToServer(needSaveToServer);
+		showTasks();
 	}
 
 	// if error while loading from server, show local tasks only
@@ -193,7 +199,7 @@ public class TaskListFragment extends MyFragment{
 
 	private void showTasks(){
 		mapTasksToDate();
-		this.showedTasks = map.get(MU.getDayOnly(targetDate));
+		this.showedTasks = map.get(buildKey(targetDate));
 		if(this.showedTasks == null){
 			this.showedTasks = new ArrayList<Task>();
 		}
@@ -215,9 +221,9 @@ public class TaskListFragment extends MyFragment{
 	}
 
 	private void mapTasksToDate(){
-		map = new HashMap<Date, ArrayList<Task>>();
+		map = new HashMap<String, ArrayList<Task>>();
 		for(Task task : tasks){
-			Date mapKey = MU.getDayOnly(task.date);
+			String mapKey = buildKey(task.date);
 			if(map.containsKey(mapKey)){
 				map.get(mapKey).add(task);
 			}else{
@@ -232,5 +238,11 @@ public class TaskListFragment extends MyFragment{
 		TaskDetailFragment frg = new TaskDetailFragment();
 		frg.setTask(task);
 		activity.addFragment(frg);
+	}
+
+	private String buildKey(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		return "" + c.get(Calendar.YEAR) + c.get(Calendar.MONTH) + c.get(Calendar.DATE);
 	}
 }
