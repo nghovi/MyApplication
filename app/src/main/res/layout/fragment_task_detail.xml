@@ -49,6 +49,8 @@
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -60,10 +62,31 @@
             android:layout_height="wrap_content"
             android:text="Today"
             android:id="@+id/txt_date"
-            android:textColor="@color/core_blue"
             android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Priority: "
+                android:id="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:id="@+id/txt_priority" />
+
+        </LinearLayout>
 
         <com.example.vietnguyen.core.views.widgets.CoreTextView
             android:layout_width="wrap_content"
@@ -86,7 +109,9 @@
             android:layout_height="wrap_content"
             android:text="Comment"
             custom:jsonKey="comment"
-            android:id="@+id/txt_comment" />
+            android:id="@+id/txt_comment"
+            android:layout_marginBottom="@dimen/margin_10dp" />
+
 
     </LinearLayout>
 

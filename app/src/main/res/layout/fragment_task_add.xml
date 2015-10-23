@@ -44,6 +44,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -60,8 +62,54 @@
                 android:textColor="@color/core_blue"
                 android:layout_alignParentEnd="false"
                 android:layout_alignParentRight="true"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:textIsSelectable="true" />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Priority: "
+                android:id="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:id="@+id/txt_priority"
+                android:textColor="@color/core_blue"
+                android:textIsSelectable="true" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lnr_task_status">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:id="@+id/textView8"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Done"
+                    android:id="@+id/txt_task_status"
+                    android:textColor="@color/core_blue" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <EditText
             android:layout_width="match_parent"
@@ -76,7 +124,16 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/txt_description"
-            android:hint="Description" />
+            android:hint="Description"
+            android:layout_marginBottom="10dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/txt_comment"
+            android:hint="Comment" />
     </LinearLayout>
 
 </LinearLayout>

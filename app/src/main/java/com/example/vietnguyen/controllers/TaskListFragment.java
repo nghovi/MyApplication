@@ -3,6 +3,8 @@ package com.example.vietnguyen.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,7 +43,7 @@ public class TaskListFragment extends MyFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.fragment_task, container, false);
+		return inflater.inflate(R.layout.fragment_task_list, container, false);
 
 	}
 
@@ -107,6 +109,7 @@ public class TaskListFragment extends MyFragment{
 
 	private void loadTasks(Date targetDate){
 		loadFromLocal(targetDate);
+		showTasks();
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", targetDate.toString()));
 		activity.getApi(Const.GET_TASK, params, this);
 		// showTasks();
@@ -222,6 +225,13 @@ public class TaskListFragment extends MyFragment{
 
 	private void mapTasksToDate(){
 		map = new HashMap<String, ArrayList<Task>>();
+		Collections.sort(tasks, new Comparator<Task>() {
+
+			@Override
+			public int compare(Task t1, Task t2){
+				return String.valueOf(t1.priority).compareTo(String.valueOf(t2.priority));
+			}
+		});
 		for(Task task : tasks){
 			String mapKey = buildKey(task.date);
 			if(map.containsKey(mapKey)){

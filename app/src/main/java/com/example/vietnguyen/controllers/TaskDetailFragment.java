@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Task;
@@ -21,8 +22,8 @@ import java.util.Date;
 
 public class TaskDetailFragment extends MyFragment{
 
-	private Task				task;
-	public static final String	BUNDLE_KEY_TASK	= "TASK";
+	private Task					task;
+	public static final String		BUNDLE_KEY_TASK	= "TASK";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -36,7 +37,7 @@ public class TaskDetailFragment extends MyFragment{
 		txtDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				gotoEdit();
 			}
 		});
@@ -75,6 +76,10 @@ public class TaskDetailFragment extends MyFragment{
 		txtName.setText(this.task.name);
 		TextView txtDescription = getTextView(R.id.txt_description);
 		txtDescription.setText(this.task.description);
+		TextView txtComment = getTextView(R.id.txt_comment);
+		txtComment.setText(this.task.comment);
+		final TextView txtPriority = getTextView(R.id.txt_priority);
+		txtPriority.setText(String.valueOf(task.priority));
 	}
 
 	private void onDeleteIconClicked(){
@@ -91,7 +96,7 @@ public class TaskDetailFragment extends MyFragment{
 	private void onCheckIconClicked(){
 		int newStatus = Task.STATUS_UNFINISHED;
 		String option = "Mark as unfinished";
-		if (this.task.status == Task.STATUS_UNFINISHED) {
+		if(this.task.status == Task.STATUS_UNFINISHED){
 			newStatus = Task.STATUS_FINISHED;
 			option = "Mark as finished";
 		}
@@ -105,12 +110,12 @@ public class TaskDetailFragment extends MyFragment{
 		}).show();
 	}
 
-	private void sendUpdateTaskStatus(int status) {
+	private void sendUpdateTaskStatus(int status){
 		this.task.setStatus(status);
 		this.task.save();
 		Toast.makeText(activity, "Success to update task status locally", Toast.LENGTH_SHORT).show();
-		JSONObject params = MU.buildJsonObj(Arrays.asList("taskId", String.valueOf(this.task.getId()), "status", String.valueOf(Task.STATUS_FINISHED)));
-		activity.postApi(Const.UPDATE_STATUS_TASK, params, this);
+		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+		postApi(Const.EDIT_TASK, param);
 	}
 
 	private void sendDeleteTask(){
@@ -137,7 +142,7 @@ public class TaskDetailFragment extends MyFragment{
 			Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
 			backToTaskList();
 			break;
-		case Const.UPDATE_STATUS_TASK:
+		case Const.EDIT_TASK:
 			Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
 			backToTaskList();
 			break;
@@ -147,7 +152,7 @@ public class TaskDetailFragment extends MyFragment{
 	@Override
 	public void onApiResponse(String url, JSONObject response){
 		switch(url){
-		case Const.UPDATE_STATUS_TASK:
+		case Const.EDIT_TASK:
 			Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
 			backToTaskList();
 			break;

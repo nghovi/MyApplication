@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
@@ -26,12 +28,9 @@ import com.example.vietnguyen.myapplication.R;
 
 public class TaskAddFragment extends MyFragment{
 
-	private Date		targetDate;
-	private boolean		isEdit;
-	private Task		task;
-	private EditText	edtName;
-	private EditText	edtDescription;
-	private EditText	edtComment;
+	private Date	targetDate;
+	private boolean	isEdit;
+	private Task	task;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -50,19 +49,28 @@ public class TaskAddFragment extends MyFragment{
 		buildCalendarPicker();
 		TextView txtCommit = getTextView(R.id.txt_add);
 		String commitText = "Add";
-		edtName = getEditText(R.id.txt_name);
-		edtDescription = getEditText(R.id.txt_description);
+		LinearLayout lnrTaskStatus = getLinearLayout(R.id.lnr_task_status);
+
 		if(isEdit){
 			commitText = "Done";
-			edtName.setText(this.task.name);
-			edtDescription.setText(this.task.description);
 			TextView txtDate = getTextView(R.id.txt_date);
 			targetDate = task.date;
 			txtDate.setText(targetDate.toString());
 		}else{
+			task = new Task();
+			targetDate = new Date();
+			task.date = targetDate;
+			task.lastupdated = targetDate;
+			task.priority = Integer.parseInt(Task.TASK_PRIORITIES[0]);
+			lnrTaskStatus.setVisibility(View.GONE);
 			txtCommit.setVisibility(View.INVISIBLE);
-			MU.addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
 		}
+
+		EditText edtName = getEditText(R.id.txt_name);
+		EditText edtDescription = getEditText(R.id.txt_description);
+		MU.addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
+		edtName.setText(this.task.name);
+		edtDescription.setText(this.task.description);
 		txtCommit.setText(commitText);
 		txtCommit.setOnClickListener(new View.OnClickListener() {
 
@@ -83,24 +91,73 @@ public class TaskAddFragment extends MyFragment{
 				backToTaskList();
 			}
 		});
+
+		final TextView txtPriority = getTextView(R.id.txt_priority);
+		txtPriority.setText(String.valueOf(task.priority));
+		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
+
+			@Override
+			public void onClick(int selectedValue, String displayedValue){
+				task.priority = Integer.valueOf(displayedValue);
+				txtPriority.setText(String.valueOf(displayedValue));
+			}
+		};
+		txtPriority.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
+			}
+		});
+
+		TextView txtTaskStatus = getTextView(R.id.txt_task_status);
+		setOnClickFor(R.id.txt_task_status, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				// Todo implement
+				// int newStatus = Task.STATUS_UNFINISHED;
+				// String option = "Mark as unfinished";
+				// if(this.task.status == Task.STATUS_UNFINISHED){
+				// newStatus = Task.STATUS_FINISHED;
+				// option = "Mark as finished";
+				// }
+				// final int finalNewStatus = newStatus;
+				// dlgBuilder.build2OptsDlgTopDown(getString(R.string.cancel), option, null, new View.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(View view){
+				// sendUpdateTaskStatus(finalNewStatus);
+				// }
+				// }).show();
+			}
+		});
 	}
 
 	private void addNewTask(){
-		TextView txtName = getTextView(R.id.txt_name);
-		TextView txtDescription = getTextView(R.id.txt_description);
-		Task newTask = new Task(1, Task.STATUS_UNFINISHED, txtName.getText().toString(), txtDescription.getText().toString(), targetDate, targetDate);
+		buildTaskFromLayout();
+		task.save();
 		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
-		newTask.save();
-		JSONObject param = MU.buildJsonObj(Arrays.asList("task", newTask.toString()));
+		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.ADD_TASK, param);
 	}
 
-	private void updateTask(){
-		TextView txtName = getTextView(R.id.txt_name);
-		TextView txtDescription = getTextView(R.id.txt_description);
-		task.name = txtName.getText().toString();
-		task.description = txtDescription.getText().toString();
+	private void buildTaskFromLayout(){
+		EditText edtName = getEditText(R.id.txt_name);
+		EditText edtDescription = getEditText(R.id.txt_description);
+		EditText edtComment = getEditText(R.id.txt_comment);
+		TextView txtPriority = getTextView(R.id.txt_priority);
+
+		task.name = edtName.getText().toString();
+		task.description = edtDescription.getText().toString();
+		task.comment = edtComment.getText().toString();
+		task.priority = Integer.parseInt(txtPriority.getText().toString());
 		task.date = targetDate;
+		task.lastupdated = targetDate;
+	}
+
+	private void updateTask(){
+		buildTaskFromLayout();
 		task.save();
 		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));

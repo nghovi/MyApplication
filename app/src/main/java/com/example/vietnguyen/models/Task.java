@@ -10,16 +10,18 @@ import java.util.Date;
  */
 public class Task extends SugarRecord<Task>{
 
-	public static final int	STATUS_UNFINISHED	= 0;
-	public static final int	STATUS_FINISHED		= 1;
+	public static final int			STATUS_UNFINISHED	= 0;
+	public static final int			STATUS_FINISHED		= 1;
+	public static final String[]	TASK_PRIORITIES		= new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
 	public Task(){
 
 	}
 
-	public Task(int priority, int status, String name, String description, Date date, Date lastupdated){
+	public Task(int priority, int status, String name, String description, String comment, Date date, Date lastupdated){
 		this.name = name;
 		this.description = description;
+		this.comment = comment;
 		this.priority = priority;
 		this.date = date;
 		this.status = status;

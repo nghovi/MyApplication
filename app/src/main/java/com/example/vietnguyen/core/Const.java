@@ -25,7 +25,6 @@ public class Const{
 	public static final String	GET_TASK				= SERVER_URL + "get_tasks/";
 	public static final String	ADD_TASK				= SERVER_URL + "add_task/";
 	public static final String	EDIT_TASK				= SERVER_URL + "edit_task/";
-	public static final String	UPDATE_STATUS_TASK		= SERVER_URL + "update_status_task/";
 	public static final String	DELETE_TASK				= SERVER_URL + "delete_task/";
 
 }

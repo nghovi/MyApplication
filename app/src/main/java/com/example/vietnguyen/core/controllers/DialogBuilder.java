@@ -2,11 +2,14 @@ package com.example.vietnguyen.core.controllers;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.vietnguyen.core.utils.MU;
@@ -16,10 +19,15 @@ import com.example.vietnguyen.myapplication.R;
  * Created by viet on 9/8/2015.
  */
 
-public class DialogBuilder{
+public class DialogBuilder implements DialogInterface.OnDismissListener{
 
 	private Context	context;
 	private Dialog	dlg;
+
+	public interface OnNumberPickerBtnOkClickListener{
+
+		public void onClick(int selectedValue, String displayedValue);
+	}
 
 	public DialogBuilder(Context context){
 		this.context = context;
@@ -43,6 +51,29 @@ public class DialogBuilder{
 		return dlg;
 	}
 
+	public Dialog buildDialogNumberPicker(Context context, String title, final String[] displayedValue, final OnNumberPickerBtnOkClickListener listener, int defaultValue){
+		dlg = new Dialog(this.context);
+		dlg.setContentView(R.layout.dialog_number_picker);
+		dlg.setTitle(title);
+		final NumberPicker numberPicker = (NumberPicker)dlg.findViewById(R.id.dlg_number_picker);
+		numberPicker.setDisplayedValues(displayedValue);
+		numberPicker.setWrapSelectorWheel(true);
+		numberPicker.setMinValue(0);
+		numberPicker.setMaxValue(displayedValue.length - 1);
+		numberPicker.setValue(defaultValue);
+		Button btnOk = (Button)dlg.findViewById(R.id.dlg_number_picker_btn_ok);
+		btnOk.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+				int selectedValue = numberPicker.getValue();
+				listener.onClick(selectedValue, displayedValue[selectedValue]);
+			}
+		});
+		return dlg;
+	}
+
 	private void setListenerFor(View v, final View.OnClickListener listener){
 		v.setOnClickListener(new View.OnClickListener() {
 
@@ -54,7 +85,8 @@ public class DialogBuilder{
 		});
 	}
 
-	public void dismiss(){
-		this.dlg.dismiss();
+	@Override
+	public void onDismiss(DialogInterface dialogInterface){
+
 	}
 }
