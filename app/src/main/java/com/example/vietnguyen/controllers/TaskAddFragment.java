@@ -55,7 +55,7 @@ public class TaskAddFragment extends MyFragment{
 			commitText = "Done";
 			TextView txtDate = getTextView(R.id.txt_date);
 			targetDate = task.date;
-			txtDate.setText(targetDate.toString());
+			txtDate.setText(MU.getDateForDisplaying(targetDate));
 		}else{
 			task = new Task();
 			targetDate = new Date();
@@ -68,9 +68,11 @@ public class TaskAddFragment extends MyFragment{
 
 		EditText edtName = getEditText(R.id.txt_name);
 		EditText edtDescription = getEditText(R.id.txt_description);
+		EditText edtComment = getEditText(R.id.txt_comment);
 		MU.addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
 		edtName.setText(this.task.name);
 		edtDescription.setText(this.task.description);
+		edtComment.setText(this.task.comment);
 		txtCommit.setText(commitText);
 		txtCommit.setOnClickListener(new View.OnClickListener() {
 
@@ -111,27 +113,43 @@ public class TaskAddFragment extends MyFragment{
 		});
 
 		TextView txtTaskStatus = getTextView(R.id.txt_task_status);
+		setTextStatus(task.status);
 		setOnClickFor(R.id.txt_task_status, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				// Todo implement
-				// int newStatus = Task.STATUS_UNFINISHED;
-				// String option = "Mark as unfinished";
-				// if(this.task.status == Task.STATUS_UNFINISHED){
-				// newStatus = Task.STATUS_FINISHED;
-				// option = "Mark as finished";
-				// }
-				// final int finalNewStatus = newStatus;
-				// dlgBuilder.build2OptsDlgTopDown(getString(R.string.cancel), option, null, new View.OnClickListener() {
-				//
-				// @Override
-				// public void onClick(View view){
-				// sendUpdateTaskStatus(finalNewStatus);
-				// }
-				// }).show();
+				showTaskStatusChoosingDialog();
 			}
 		});
+	}
+
+	private void showTaskStatusChoosingDialog(){
+		String option1 = "Mark as unfinished";
+		String option2 = "Mark as finished";
+		dlgBuilder.build2OptsDlgTopDown(option1, option2, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				task.setStatus(Task.STATUS_UNFINISHED);
+				setTextStatus(Task.STATUS_UNFINISHED);
+			}
+		}, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				task.setStatus(Task.STATUS_FINISHED);
+				setTextStatus(Task.STATUS_FINISHED);
+			}
+		}).show();
+	}
+
+	private void setTextStatus(int status){
+		TextView txtTaskStatus = getTextView(R.id.txt_task_status);
+		if(status == Task.STATUS_FINISHED){
+			txtTaskStatus.setText("Done");
+		}else{
+			txtTaskStatus.setText("Not Done");
+		}
 	}
 
 	private void addNewTask(){
@@ -175,10 +193,10 @@ public class TaskAddFragment extends MyFragment{
 
 					@Override
 					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
-						txtDate.setText(i + "/" + i2 + "/" + i3);
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
+						txtDate.setText(MU.getDateForDisplaying(targetDate));
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");

@@ -2,6 +2,7 @@ package com.example.vietnguyen.controllers;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
@@ -57,6 +58,8 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			setAccessToken(accessToken);
 			gotoPrimaryCardFragment();
 		}
+		bg = new Background(this);
+		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private void gotoPrimaryCardFragment(){

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -240,6 +241,12 @@ public class MU{
 		Calendar c2 = Calendar.getInstance();
 		c2.setTime(d2);
 		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+	}
+
+	public static String getDateForDisplaying(Date date){
+		//http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+		SimpleDateFormat ex = new SimpleDateFormat("EEEE, MMM d, yyyy");
+		return ex.format(date);
 	}
 
 	// Not working, don't know why

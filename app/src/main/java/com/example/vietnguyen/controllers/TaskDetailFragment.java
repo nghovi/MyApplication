@@ -69,8 +69,7 @@ public class TaskDetailFragment extends MyFragment{
 		});
 
 		TextView txtDate = getTextView(R.id.txt_date);
-		Date taskTime = task.date;
-		txtDate.setText(taskTime.toString());
+		txtDate.setText(MU.getDateForDisplaying(task.date));
 
 		TextView txtName = getTextView(R.id.txt_name);
 		txtName.setText(this.task.name);

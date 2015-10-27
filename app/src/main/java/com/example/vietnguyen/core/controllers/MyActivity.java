@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.vietnguyen.controllers.Background;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
@@ -27,6 +28,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 
 	private FragmentManager	mFragmentManager;
 	private AccessToken		accessToken;
+	public Background		bg;
 
 	/*
 	 * To use this function, make sure that activity's layout file include fragment_container.
@@ -79,9 +81,9 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		}
 	}
 
-	private void setUpdatedData(Class fragmentClass, String updatedKey, Object updatedValue) {
-		if (updatedKey != null) {
-			MyFragment currentFragment = (MyFragment) mFragmentManager.findFragmentByTag(fragmentClass.toString());
+	private void setUpdatedData(Class fragmentClass, String updatedKey, Object updatedValue){
+		if(updatedKey != null){
+			MyFragment currentFragment = (MyFragment)mFragmentManager.findFragmentByTag(fragmentClass.toString());
 			currentFragment.setUpdatedData(updatedKey, updatedValue);
 		}
 	}

@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -66,7 +67,7 @@ public class TaskListFragment extends MyFragment{
 		});
 		if(!MU.isSameDay(targetDate, new Date())){
 			TextView txtDate = getTextView(R.id.txt_date);
-			txtDate.setText(targetDate.toString());
+			txtDate.setText(MU.getDateForDisplaying(targetDate));
 		}
 		loadTasks(this.targetDate);
 	}
@@ -82,10 +83,10 @@ public class TaskListFragment extends MyFragment{
 
 					@Override
 					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
-						txtDate.setText(i + "/" + i2 + "/" + i3);
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
+						txtDate.setText(MU.getDateForDisplaying(targetDate));
 						showTasks();
 					}
 				});
@@ -225,13 +226,6 @@ public class TaskListFragment extends MyFragment{
 
 	private void mapTasksToDate(){
 		map = new HashMap<String, ArrayList<Task>>();
-		Collections.sort(tasks, new Comparator<Task>() {
-
-			@Override
-			public int compare(Task t1, Task t2){
-				return String.valueOf(t1.priority).compareTo(String.valueOf(t2.priority));
-			}
-		});
 		for(Task task : tasks){
 			String mapKey = buildKey(task.date);
 			if(map.containsKey(mapKey)){
@@ -241,6 +235,22 @@ public class TaskListFragment extends MyFragment{
 				tasksOnDate.add(task);
 				map.put(mapKey, tasksOnDate);
 			}
+		}
+		sortTaskByPriority();
+	}
+
+	private void sortTaskByPriority(){
+		Iterator it = map.entrySet().iterator();
+		while(it.hasNext()){
+			Map.Entry pair = (Map.Entry)it.next();
+			ArrayList<Task> taskListByDay = (ArrayList<Task>)pair.getValue();
+			Collections.sort(taskListByDay, new Comparator<Task>() {
+
+				@Override
+				public int compare(Task t1, Task t2){
+					return t1.priority > t2.priority ? 1 : -1;
+				}
+			});
 		}
 	}
 
