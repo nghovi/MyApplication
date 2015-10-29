@@ -58,7 +58,7 @@ public class BookDetailFragment extends MyFragment{
 		LayoutInflater inflater = (LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_vocabulary_list);
 		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		for(String phrase : this.book.vocabulary){
+		for(String phrase : this.book.getVocabularyList()){
 			View itemPhrase = inflater.inflate(R.layout.item_text_divider, null);
 			TextView txtPhrase = (TextView)itemPhrase.findViewById(R.id.txt_content);
 			txtPhrase.setText(phrase);

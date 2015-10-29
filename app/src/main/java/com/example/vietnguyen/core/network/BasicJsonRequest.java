@@ -33,12 +33,12 @@ public class BasicJsonRequest extends JsonObjectRequest{
 		super(method, url, "", listener, errorListener);
 		try{
 			JSONArray array = jsonRequest.names();
-			for(int i = 0; i < array.length(); i++){
-				String key = array.getString(i);
-				String val = jsonRequest.getString(key);
-
-				mParams.put(key, val);
-
+			if(array != null){
+				for(int i = 0; i < array.length(); i++){
+					String key = array.getString(i);
+					String val = jsonRequest.getString(key);
+					mParams.put(key, val);
+				}
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();

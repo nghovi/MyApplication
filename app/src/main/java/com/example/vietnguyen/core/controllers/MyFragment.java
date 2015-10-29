@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
@@ -37,9 +39,9 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	/**
 	 * The Activity.
 	 */
-	protected MyActivity	activity;
-	protected DialogBuilder	dlgBuilder;
-	protected Map<String, Object> updatedData;
+	protected MyActivity			activity;
+	protected DialogBuilder			dlgBuilder;
+	protected Map<String, Object>	updatedData;
 
 	public MyFragment(){
 		super();
@@ -56,6 +58,10 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	public LinearLayout getLinearLayout(int viewId){
 		return (LinearLayout)getView().findViewById(viewId);
+	}
+
+	public ListView getListView(int viewId){
+		return (ListView)getView().findViewById(viewId);
 	}
 
 	public Button getButton(int viewId){
@@ -99,6 +105,14 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		tv.setText(text);
 	}
 
+	public void showShortToast(String msg){
+		Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+	}
+
+	public void showLongToast(String msg){
+		Toast.makeText(activity, msg, Toast.LENGTH_LONG).show();
+	}
+
 	// ///////////////////////////////// NET WORK ///////////////////////////////////////////
 	public void getApi(String url, JSONObject param){
 		activity.getApi(url, param, this);
@@ -125,15 +139,15 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	// /////////////////////////// UTIL ///////////////////////////////////////
-	public void setUpdatedData(String key, Object value) {
-		if (updatedData == null) {
+	public void setUpdatedData(String key, Object value){
+		if(updatedData == null){
 			updatedData = new HashMap<String, Object>();
 		}
 		updatedData.put(key, value);
 	}
 
-	public Date getUpdatedDate(String updatedDataKey, Date defaultDate) {
-		if (updatedData != null && updatedData.containsKey(updatedDataKey)) {
+	public Date getUpdatedDate(String updatedDataKey, Date defaultDate){
+		if(updatedData != null && updatedData.containsKey(updatedDataKey)){
 			return (Date)updatedData.get(updatedDataKey);
 		}
 		return defaultDate;

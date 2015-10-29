@@ -55,18 +55,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="The Titan&apos;s Curse"
+                android:text="The sociaist republic of Viet Nam Independence Freedom "
                 android:textSize="20sp"
                 android:textStyle="bold"
                 custom:jsonKey="name" />
 
             <com.example.vietnguyen.core.views.widgets.CoreTextView
                 android:id="@+id/txt_book_link"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="New Text"
-                custom:jsonKey="link" />
+                custom:jsonKey="link"
+                android:textColor="@color/core_blue"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp" />
         </LinearLayout>
 
         <ScrollView

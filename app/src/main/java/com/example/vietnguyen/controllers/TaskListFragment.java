@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -112,7 +111,7 @@ public class TaskListFragment extends MyFragment{
 		loadFromLocal(targetDate);
 		showTasks();
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", targetDate.toString()));
-		activity.getApi(Const.GET_TASK, params, this);
+		activity.getApi(Const.GET_TASKS, params, this);
 		// showTasks();
 	}
 
@@ -129,7 +128,7 @@ public class TaskListFragment extends MyFragment{
 		super.onApiResponse(url, response);
 		// todo: back and reload task list
 		switch(url){
-		case Const.GET_TASK:
+		case Const.GET_TASKS:
 			onSuccessLoadTasksFromServer(response);
 		case Const.EDIT_TASK:
 			break;
@@ -140,7 +139,7 @@ public class TaskListFragment extends MyFragment{
 	public void onApiError(String url, String errorMsg){
 		super.onApiError(url, errorMsg);
 		switch(url){
-		case Const.GET_TASK:
+		case Const.GET_TASKS:
 			onFailureLoadTasksFromServer();
 		case Const.EDIT_TASK:
 			break;

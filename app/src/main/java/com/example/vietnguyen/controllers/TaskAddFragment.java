@@ -155,7 +155,7 @@ public class TaskAddFragment extends MyFragment{
 	private void addNewTask(){
 		buildTaskFromLayout();
 		task.save();
-		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
+		showShortToast("Save to local");
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.ADD_TASK, param);
 	}
@@ -177,7 +177,7 @@ public class TaskAddFragment extends MyFragment{
 	private void updateTask(){
 		buildTaskFromLayout();
 		task.save();
-		Toast.makeText(activity, "Save to local", Toast.LENGTH_SHORT).show();
+		showShortToast("Save to local");
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.EDIT_TASK, param);
 	}
@@ -209,11 +209,11 @@ public class TaskAddFragment extends MyFragment{
 		super.onApiResponse(url, response);
 		switch(url){
 		case Const.ADD_TASK:
-			Toast.makeText(activity, "Save new task to server success", Toast.LENGTH_SHORT).show();
+			showShortToast("Save new task to server success");
 			backToTaskList();
 			break;
 		case Const.EDIT_TASK:
-			Toast.makeText(activity, "Save task to server success", Toast.LENGTH_SHORT).show();
+			showShortToast("Save task to server success");
 			backToTaskList();
 			break;
 		}
@@ -223,11 +223,11 @@ public class TaskAddFragment extends MyFragment{
 	public void onApiError(String url, String errorMsg){
 		switch(url){
 		case Const.ADD_TASK:
-			Toast.makeText(activity, "Save new task to server failed", Toast.LENGTH_SHORT).show();
+			showShortToast("Save new task to server failed");
 			backToTaskList();
 			break;
 		case Const.EDIT_TASK:
-			Toast.makeText(activity, "Save to server failed", Toast.LENGTH_SHORT).show();
+			showShortToast("Save to server failed");
 			backToTaskList();
 			break;
 		}
