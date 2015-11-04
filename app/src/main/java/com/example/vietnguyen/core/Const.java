@@ -23,6 +23,7 @@ public class Const{
 	public static final String	GET_PRIMARY_CARD_INFO	= SERVER_URL + "get_primary_card_info/";
 	public static final String	GET_BOOKS				= SERVER_URL + "get_books/";
 	public static final String	GET_TASKS				= SERVER_URL + "get_tasks/";
+	public static final String	GET_UNFINISHED_TASKS	= SERVER_URL + "get_unfinished_tasks/";
 	public static final String	ADD_TASK				= SERVER_URL + "add_task/";
 	public static final String	EDIT_TASK				= SERVER_URL + "edit_task/";
 	public static final String	DELETE_TASK				= SERVER_URL + "delete_task/";

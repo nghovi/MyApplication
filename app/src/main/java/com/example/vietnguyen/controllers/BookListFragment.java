@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
@@ -21,10 +23,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class BookListFragment extends MyFragment{
 
-	private ArrayList<Book>	books;
+	private List<Book>	books;
 	private BookAdapter		bookAdapter;
 	private ListView		lstBook;
 
@@ -57,12 +60,9 @@ public class BookListFragment extends MyFragment{
 	}
 
 	private void loadBookFromLocal(){
-		books = new ArrayList<Book>();
-		Iterator<Book> bookIterator = Book.findAll(Book.class);
-		while(bookIterator.hasNext()){
-			books.add(bookIterator.next());
-		}
-		bookAdapter = new BookAdapter(activity, R.layout.item_book, books);
+		books = new Select().from(Book.class).execute();
+
+		bookAdapter = new BookAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
 		lstBook.setAdapter(bookAdapter);
 	}
 
@@ -85,10 +85,9 @@ public class BookListFragment extends MyFragment{
 		}
 	}
 
-	public void saveBookToLocal(ArrayList<Book> bookList){
-		Book.deleteAll(Book.class);
+	public void saveBookToLocal(List<Book> bookList){
+		new Delete().from(Book.class).execute();
 		for(Book b : bookList){
-			b.setId(null); // todo why have to setId = null, Task doesn't need it
 			b.save();
 		}
 	}

@@ -53,7 +53,9 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// MU.log("lsfslfasfsf ++++++++++ " + p);
 		// }
 		if(accessToken == null || accessToken.isExpired()){
-			gotoSignUpInFragment();
+//			gotoSignUpInFragment(); //todo
+			setAccessToken(accessToken);
+			gotoPrimaryCardFragment();
 		}else if(!accessToken.isExpired()){
 			setAccessToken(accessToken);
 			gotoPrimaryCardFragment();

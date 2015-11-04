@@ -154,8 +154,6 @@ public class TaskAddFragment extends MyFragment{
 
 	private void addNewTask(){
 		buildTaskFromLayout();
-		task.save();
-		showShortToast("Save to local");
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.ADD_TASK, param);
 	}
@@ -176,8 +174,6 @@ public class TaskAddFragment extends MyFragment{
 
 	private void updateTask(){
 		buildTaskFromLayout();
-		task.save();
-		showShortToast("Save to local");
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.EDIT_TASK, param);
 	}

@@ -105,6 +105,18 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		tv.setText(text);
 	}
 
+	public void goneView(View v) {
+		v.setVisibility(View.GONE);
+	}
+
+	public void invisibleView(View v) {
+		v.setVisibility(View.VISIBLE);
+	}
+
+	public void visibleView(View v) {
+		v.setVisibility(View.VISIBLE);
+	}
+
 	public void showShortToast(String msg){
 		Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
 	}

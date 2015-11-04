@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by viet on 9/8/2015.
  */
@@ -74,6 +77,26 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
+	public Dialog buildDialogNotice(Context context, String title, String msg, int autoDissmissTime){
+		dlg = new Dialog(this.context);
+		dlg.setContentView(R.layout.dialog_notice);
+		dlg.setTitle(title);
+		TextView txtMsg = (TextView)dlg.findViewById(R.id.dlg_notice_msg);
+		txtMsg.setText(msg);
+
+		Button btnOk = (Button)dlg.findViewById(R.id.dlg_number_picker_btn_ok);
+		btnOk.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+			}
+		});
+
+		setAutoDismiss(dlg, autoDissmissTime);
+		return dlg;
+	}
+
 	private void setListenerFor(View v, final View.OnClickListener listener){
 		v.setOnClickListener(new View.OnClickListener() {
 
@@ -83,6 +106,19 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 				if(listener != null) listener.onClick(view);
 			}
 		});
+	}
+
+	private void setAutoDismiss(final Dialog dlg, int sec){
+		final Timer t = new Timer();
+		t.schedule(new TimerTask() {
+
+			public void run(){
+				if(dlg.isShowing()){
+					dlg.dismiss();
+					t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+				}
+			}
+		}, sec * 1000);
 	}
 
 	@Override

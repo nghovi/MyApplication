@@ -7,16 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
 
-    <application
+    <application android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:name="com.orm.SugarApp"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
-        <meta-data android:name="VERSION" android:value="2" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.vietnguyen.models" />
-
+        <meta-data android:name="AA_DB_NAME" android:value="ecard.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
         <activity
             android:name="com.example.vietnguyen.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen" >

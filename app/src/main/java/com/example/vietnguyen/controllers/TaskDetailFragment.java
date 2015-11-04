@@ -22,8 +22,8 @@ import java.util.Date;
 
 public class TaskDetailFragment extends MyFragment{
 
-	private Task					task;
-	public static final String		BUNDLE_KEY_TASK	= "TASK";
+	private Task				task;
+	public static final String	BUNDLE_KEY_TASK	= "TASK";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -37,7 +37,7 @@ public class TaskDetailFragment extends MyFragment{
 		txtDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				gotoEdit();
 			}
 		});
@@ -111,16 +111,13 @@ public class TaskDetailFragment extends MyFragment{
 
 	private void sendUpdateTaskStatus(int status){
 		this.task.setStatus(status);
-		this.task.save();
-		Toast.makeText(activity, "Success to update task status locally", Toast.LENGTH_SHORT).show();
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 		postApi(Const.EDIT_TASK, param);
 	}
 
 	private void sendDeleteTask(){
-		this.task.delete();
 		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", String.valueOf(this.task.getId())));
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", task.id));
 		postApi(Const.DELETE_TASK, params);
 	}
 
@@ -131,7 +128,7 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void backToTaskList(){
-		activity.backToFragment(TaskListFragment.class);
+		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, task.date);
 	}
 
 	@Override

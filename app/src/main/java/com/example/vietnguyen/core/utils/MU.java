@@ -126,7 +126,7 @@ public class MU{
 	}
 
 	public static JSONObject buildJsonObjFromModel(Object obj){
-		Gson gson = new Gson();
+		Gson gson = createNewGson();
 		String json = gson.toJson(obj);
 		try{
 			return new JSONObject(json);
@@ -134,6 +134,14 @@ public class MU{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static Gson createNewGson(){
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+		gsonBuilder.setDateFormat("yyyy-MM-dd HH:mm:ssZZZ");
+		Gson gson = gsonBuilder.create();
+		return gson;
 	}
 
 	public static <T>T convertToModel(String jsonString, Class<T> cls){
@@ -244,7 +252,7 @@ public class MU{
 	}
 
 	public static String getDateForDisplaying(Date date){
-		//http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+		// http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
 		SimpleDateFormat ex = new SimpleDateFormat("EEEE, MMM d, yyyy");
 		return ex.format(date);
 	}
