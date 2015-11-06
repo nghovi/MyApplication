@@ -52,12 +52,24 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		return getView().findViewById(viewId);
 	}
 
+	public View getView(View parent, int viewId){
+		return parent.findViewById(viewId);
+	}
+
 	public TextView getTextView(int viewId){
 		return (TextView)getView().findViewById(viewId);
 	}
 
+	public TextView getTextView(View v, int viewId){
+		return (TextView)v.findViewById(viewId);
+	}
+
 	public LinearLayout getLinearLayout(int viewId){
 		return (LinearLayout)getView().findViewById(viewId);
+	}
+
+	public LinearLayout getLinearLayout(View v, int viewId){
+		return (LinearLayout)v.findViewById(viewId);
 	}
 
 	public ListView getListView(int viewId){
@@ -70,6 +82,10 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	public EditText getEditText(int viewId){
 		return (EditText)getView().findViewById(viewId);
+	}
+
+	public EditText getEditText(View v, int viewId){
+		return (EditText)v.findViewById(viewId);
 	}
 
 	public ImageView getImageView(int viewId){
@@ -100,20 +116,36 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		view.setOnClickListener(listener);
 	}
 
+	public void setOnClickFor(View parent, int resource, View.OnClickListener listener){
+		View view = getView(parent, resource);
+		view.setOnClickListener(listener);
+	}
+
 	public void setTextFor(int resource, String text){
-		TextView tv = getEditText(resource);
+		TextView tv = getTextView(resource);
 		tv.setText(text);
 	}
 
-	public void goneView(View v) {
+	public void setTextFor(View v, int resource, String text){
+		TextView tv = getTextView(v, resource);
+		tv.setText(text);
+	}
+
+	public TextView createTextView(String str){
+		TextView tv = new TextView(activity);
+		tv.setText(str);
+		return tv;
+	}
+
+	public void goneView(View v){
 		v.setVisibility(View.GONE);
 	}
 
-	public void invisibleView(View v) {
+	public void invisibleView(View v){
 		v.setVisibility(View.VISIBLE);
 	}
 
-	public void visibleView(View v) {
+	public void visibleView(View v){
 		v.setVisibility(View.VISIBLE);
 	}
 

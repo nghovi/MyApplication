@@ -7,12 +7,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.Timer;
@@ -64,7 +63,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		numberPicker.setMinValue(0);
 		numberPicker.setMaxValue(displayedValue.length - 1);
 		numberPicker.setValue(defaultValue);
-		Button btnOk = (Button)dlg.findViewById(R.id.dlg_number_picker_btn_ok);
+		Button btnOk = (Button)dlg.findViewById(R.id.btn_dialog_number_picker_ok);
 		btnOk.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -84,7 +83,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		TextView txtMsg = (TextView)dlg.findViewById(R.id.dlg_notice_msg);
 		txtMsg.setText(msg);
 
-		Button btnOk = (Button)dlg.findViewById(R.id.dlg_number_picker_btn_ok);
+		Button btnOk = (Button)dlg.findViewById(R.id.btn_dialog_notice_ok);
 		btnOk.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -94,6 +93,37 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		});
 
 		setAutoDismiss(dlg, autoDissmissTime);
+		return dlg;
+	}
+
+	public interface OnDialogWithEdtDismiss{
+
+		public void onClickDone(String input);
+	}
+
+	public Dialog buildDialogWithEdt(Context context, String header, String hint, final OnDialogWithEdtDismiss listener){
+		dlg = new Dialog(this.context);
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dlg.setContentView(R.layout.dialog_with_edt);
+
+		TextView txtHeader = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_header);
+		txtHeader.setText(header);
+
+		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_edt);
+		edt.setHint(hint);
+//		edt.setMinLines(1);
+//		edt.setMaxLines(9);
+
+		TextView txtDone = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_done);
+		txtDone.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+				listener.onClickDone(edt.getText().toString());
+			}
+		});
+
 		return dlg;
 	}
 

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:id="@+id/dlg_number_picker_btn_ok"
+        android:id="@+id/btn_dialog_notice_ok"
         android:background="@color/core_baby_blue"
         android:layout_marginTop="10dp" />
 </LinearLayout>
