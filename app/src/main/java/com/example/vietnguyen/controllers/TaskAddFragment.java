@@ -69,7 +69,7 @@ public class TaskAddFragment extends MyFragment{
 		EditText edtName = getEditText(R.id.txt_name);
 		EditText edtDescription = getEditText(R.id.txt_description);
 		EditText edtComment = getEditText(R.id.txt_comment);
-		MU.addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
+		addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
 		edtName.setText(this.task.name);
 		edtDescription.setText(this.task.description);
 		edtComment.setText(this.task.comment);

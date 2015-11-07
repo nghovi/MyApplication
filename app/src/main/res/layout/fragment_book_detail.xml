@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:background="@color/chiase_gray"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/book_detail_header">
 
         <ImageView
             android:id="@+id/img_back"
@@ -36,63 +37,119 @@
             android:textColor="@color/core_white"
             custom:jsonKey="mood" />
 
+        <ImageView
+            android:id="@+id/img_book_detail_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_btn_back" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:id="@+id/book_detail_content">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+            android:id="@+id/book_detail_part1"
+            android:padding="16dp">
 
-            <com.example.vietnguyen.core.views.widgets.CoreTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="The sociaist republic of Viet Nam Independence Freedom "
-                android:textSize="20sp"
-                android:textStyle="bold"
-                custom:jsonKey="name" />
-
-            <com.example.vietnguyen.core.views.widgets.CoreTextView
-                android:id="@+id/txt_book_link"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="New Text"
-                custom:jsonKey="link"
-                android:textColor="@color/core_blue"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingLeft="60dp"
-                android:paddingRight="60dp" />
-        </LinearLayout>
+                android:layout_marginBottom="20dp">
 
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/img_book_detail_image"
+                    android:layout_marginRight="10dp" />
 
-            <com.example.vietnguyen.core.views.widgets.CoreTextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <com.example.vietnguyen.core.views.widgets.CoreTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="The sociaist republic of Viet Nam Independence Freedom "
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        custom:jsonKey="name" />
+
+                    <com.example.vietnguyen.core.views.widgets.CoreTextView
+                        android:id="@+id/txt_book_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="New Text"
+                        custom:jsonKey="link"
+                        android:textColor="@color/core_blue"
+                        android:ellipsize="middle"
+                        android:singleLine="true"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:paddingLeft="60dp"
+                        android:paddingRight="60dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_book_detail_fold"
+                    android:src="@drawable/ico_male_16"
+                    android:layout_marginRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comment"
+                    android:id="@+id/textView9" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/scr_book_detail_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&quot;Ongoing great book&quot;"
-                android:textStyle="italic"
-                custom:jsonKey="comment" />
-        </ScrollView>
+                android:layout_marginBottom="20dp">
+
+                <com.example.vietnguyen.core.views.widgets.CoreTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&quot;Ongoing great book&quot;"
+                    android:textStyle="italic"
+                    custom:jsonKey="comment" />
+            </ScrollView>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:paddingBottom="6dp"
+            android:background="@color/core_tan" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/lnr_book_detail_part2"
+            android:padding="16dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -108,15 +165,17 @@
                     android:text="Vocabulary:"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:layout_marginRight="10dp" />
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ico_book_detail_add_vocabulary"
-                    android:src="@drawable/ico_add_16"
-                    android:layout_gravity="center" />
+                    android:id="@+id/img_book_detail_add_vocabulary"
+                    android:src="@drawable/ico_star_16_on"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <ScrollView
@@ -125,7 +184,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/lnr_vocabulary_list"
+                    android:id="@+id/lnr_book_detail_vocabulary_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>

@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +29,7 @@ import com.example.vietnguyen.myapplication.R;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -49,7 +52,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	// ////////////////////// VIEW ////////////////////////////////////////////////
 	public View getView(int viewId){
-		return getView().findViewById(viewId);
+		return getView(getView(), viewId);
 	}
 
 	public View getView(View parent, int viewId){
@@ -92,6 +95,10 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		return (ImageView)getView().findViewById(viewId);
 	}
 
+	public void setImageResourceFor(int imgId, int resId) {
+		getImageView(imgId).setImageResource(resId);
+	}
+
 	public void setLinkFor(int resource, String url){
 		if(!url.startsWith("http://") && !url.startsWith("https://")){
 			url = "http://" + url;
@@ -112,8 +119,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	public void setOnClickFor(int resource, View.OnClickListener listener){
-		View view = getView(resource);
-		view.setOnClickListener(listener);
+		setOnClickFor(getView(), resource, listener);
 	}
 
 	public void setOnClickFor(View parent, int resource, View.OnClickListener listener){
@@ -122,8 +128,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	public void setTextFor(int resource, String text){
-		TextView tv = getTextView(resource);
-		tv.setText(text);
+		setTextFor(getView(), resource, text);
 	}
 
 	public void setTextFor(View v, int resource, String text){
@@ -147,6 +152,64 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	public void visibleView(View v){
 		v.setVisibility(View.VISIBLE);
+	}
+
+	/*
+	 * Determine the enable/disable status of a button base on EditTexts or TextViews
+	 * ONLY enable button when ALL text views already has data.
+	 * @param views: List of EditText or TextView
+	 * usage example: addTextWatcher(mBtnCheckRecruiting, R.drawable.shape_button_enable2, Arrays.asList((View)mTxtStartDt, mEdtQuestion));
+	 */
+	public static void addTextWatcher(final View clickableText, final List<View> views){
+		clickableText.setEnabled(false);
+		TextWatcher tw = new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count){
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s){
+				for(View view : views){
+					if(((TextView)view).getText().toString().equals("")){
+						clickableText.setVisibility(View.INVISIBLE);
+						return;
+					}
+				}
+				clickableText.setVisibility(View.VISIBLE);
+				clickableText.setEnabled(true);
+			}
+		};
+
+		for(View view : views){
+			((TextView)(view)).addTextChangedListener(tw);
+		}
+	}
+
+	public void setFoldAction(final int imgFoldIcon,int contentId) {
+		setFoldAction(getView(), imgFoldIcon, contentId);
+	}
+
+	public void setFoldAction(View parent, final int imgFoldIcon,int contentId) {
+		final View content = getView(parent, contentId);
+		setOnClickFor(parent, imgFoldIcon, new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (View.VISIBLE == content.getVisibility()) {
+					setImageResourceFor(imgFoldIcon, R.drawable.ico_female_16);
+					content.setVisibility(View.GONE);
+				} else {
+					setImageResourceFor(imgFoldIcon, R.drawable.ico_male_16);
+					content.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 	}
 
 	public void showShortToast(String msg){

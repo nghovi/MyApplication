@@ -269,41 +269,9 @@ public class MU{
 	// return cal.getTime();
 	// }
 
-	/*
-	 * Determine the enable/disable status of a button base on EditTexts or TextViews
-	 * ONLY enable button when ALL text views already has data.
-	 * @param views: List of EditText or TextView
-	 * usage example: addTextWatcher(mBtnCheckRecruiting, R.drawable.shape_button_enable2, Arrays.asList((View)mTxtStartDt, mEdtQuestion));
-	 */
-	public static void addTextWatcher(final View clickableText, final List<View> views){
-		clickableText.setEnabled(false);
-		TextWatcher tw = new TextWatcher() {
 
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after){
 
-			}
+	////////////////////////////////////////////////////////////////////VIEW SUPPORT///////////////////////////////////////////////////////////////
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count){
 
-			}
-
-			@Override
-			public void afterTextChanged(Editable s){
-				for(View view : views){
-					if(((TextView)view).getText().toString().equals("")){
-						clickableText.setVisibility(View.INVISIBLE);
-						return;
-					}
-				}
-				clickableText.setVisibility(View.VISIBLE);
-				clickableText.setEnabled(true);
-			}
-		};
-
-		for(View view : views){
-			((TextView)(view)).addTextChangedListener(tw);
-		}
-	}
 }

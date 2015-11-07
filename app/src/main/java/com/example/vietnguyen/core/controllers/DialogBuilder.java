@@ -35,6 +35,29 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		this.context = context;
 	}
 
+	public Dialog buildConfirmDlgTopDown(String cancel, String confirm, View.OnClickListener confirmListener){
+		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
+		dlg.setContentView(R.layout.dialog_2_options);
+
+		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
+		txtOption1.setText(cancel);
+		setListenerFor(txtOption1, new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				dlg.dismiss();
+			}
+		});
+
+		TextView txtOption2 = (TextView)dlg.findViewById(R.id.txt_option2);
+		txtOption2.setText(confirm);
+		setListenerFor(txtOption2, confirmListener);
+
+		dlg.getWindow().getAttributes().gravity = Gravity.TOP | Gravity.LEFT;
+		dlg.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		return dlg;
+	}
+
 	public Dialog build2OptsDlgTopDown(String opt1, String opt2, View.OnClickListener listener1, View.OnClickListener listener2){
 		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
@@ -101,13 +124,10 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClickDone(String input);
 	}
 
-	public Dialog buildDialogWithEdt(Context context, String header, String hint, final OnDialogWithEdtDismiss listener){
+	public Dialog buildDialogWithEdt(Context context, String hint, final OnDialogWithEdtDismiss listener){
 		dlg = new Dialog(this.context);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dlg.setContentView(R.layout.dialog_with_edt);
-
-		TextView txtHeader = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_header);
-		txtHeader.setText(header);
 
 		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_edt);
 		edt.setHint(hint);
@@ -121,6 +141,15 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 			public void onClick(View view){
 				dlg.dismiss();
 				listener.onClickDone(edt.getText().toString());
+			}
+		});
+
+		TextView txtCancel = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_cancel);
+		txtCancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
 			}
 		});
 
