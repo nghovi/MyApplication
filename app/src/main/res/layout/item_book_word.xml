@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_item_book_word_fold"
-            android:src="@drawable/ico_female_16"
+            android:src="@drawable/ico_fold_16"
             android:layout_gravity="center"
             android:visibility="visible" />
 

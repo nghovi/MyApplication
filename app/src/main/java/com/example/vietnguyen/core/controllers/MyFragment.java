@@ -95,7 +95,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		return (ImageView)getView().findViewById(viewId);
 	}
 
-	public void setImageResourceFor(int imgId, int resId) {
+	public void setImageResourceFor(int imgId, int resId){
 		getImageView(imgId).setImageResource(resId);
 	}
 
@@ -146,8 +146,24 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		v.setVisibility(View.GONE);
 	}
 
+	public void goneView(int viewId){
+		goneView(getView(), viewId);
+	}
+
+	public void goneView(View parent, int viewId){
+		getView(parent, viewId).setVisibility(View.GONE);
+	}
+
+	public void invisibleView(int viewId){
+		invisibleView(getView(), viewId);
+	}
+
 	public void invisibleView(View v){
 		v.setVisibility(View.VISIBLE);
+	}
+
+	public void invisibleView(View parent, int viewId){
+		getView(parent, viewId).setVisibility(View.INVISIBLE);
 	}
 
 	public void visibleView(View v){
@@ -192,20 +208,21 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		}
 	}
 
-	public void setFoldAction(final int imgFoldIcon,int contentId) {
+	public void setFoldAction(final int imgFoldIcon, int contentId){
 		setFoldAction(getView(), imgFoldIcon, contentId);
 	}
 
-	public void setFoldAction(View parent, final int imgFoldIcon,int contentId) {
+	public void setFoldAction(View parent, final int imgFoldIcon, int contentId){
 		final View content = getView(parent, contentId);
 		setOnClickFor(parent, imgFoldIcon, new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
-				if (View.VISIBLE == content.getVisibility()) {
-					setImageResourceFor(imgFoldIcon, R.drawable.ico_female_16);
+			public void onClick(View view){
+				if(View.VISIBLE == content.getVisibility()){
+					setImageResourceFor(imgFoldIcon, R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-				} else {
-					setImageResourceFor(imgFoldIcon, R.drawable.ico_male_16);
+				}else{
+					setImageResourceFor(imgFoldIcon, R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
 				}
 			}

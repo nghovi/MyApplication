@@ -4,33 +4,26 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the most simple item"
-        android:id="@+id/txt_ipe_phrase" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_ipe_edit"
-            android:src="@drawable/ico_star_16_on"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            android:layout_marginRight="20dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_ipe_delete"
-            android:src="@drawable/ico_star_16_on"
-            android:layout_gravity="center"
-            android:visibility="visible" />
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ico_delete_16"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is the most simple item"
+            android:id="@+id/txt_ipe_phrase" />
+
     </LinearLayout>
 
 </LinearLayout>

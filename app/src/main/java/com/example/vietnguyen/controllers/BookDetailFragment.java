@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
@@ -48,33 +47,27 @@ public class BookDetailFragment extends MyFragment{
 		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_book_detail_image), activity);
 		setFoldAction(R.id.img_book_detail_fold, R.id.scr_book_detail_content);
 		setLinkFor(R.id.txt_book_link, book.link);
-		setOnClickFor(R.id.img_book_detail_add_vocabulary, new View.OnClickListener() {
+		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				addWord();
-			}
-		});
-		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				gotoBookEditFragment();
 			}
 		});
-		buildVocabulary();
+		buildWords();
 	}
 
-	private void gotoBookEditFragment() {
+	private void gotoBookEditFragment(){
 		BookEditFragment frg = new BookEditFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}
 
-	private void buildVocabulary(){
+	private void buildWords(){
 		LayoutInflater inflater = (LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
 		lnrVocabulary.removeAllViews();
-		for(String word : this.book.getVocabularyList()){
+		for(String word : this.book.getWords()){
 			View itemBookWord = inflater.inflate(R.layout.item_book_word, null);
 			setTextFor(itemBookWord, R.id.txt_item_book_word_edit_word, word);
 			builPhrasesForWord(word, itemBookWord, inflater);
@@ -83,7 +76,7 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
-		List<String> phrases = this.book.getWordUsage(word);
+		List<String> phrases = this.book.getPhrasesOfWord(word);
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_item_book_word_phrases);
 		lnrPhrases.removeAllViews();
 		if(phrases.size() > 0){
@@ -95,36 +88,6 @@ public class BookDetailFragment extends MyFragment{
 			setTextFor(line, R.id.txt_item_word_content, phrase);
 			lnrPhrases.addView(line);
 		}
-	}
-
-	private void addWord(){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new word", new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input){
-				addWordForBook(book, input);
-			}
-		}).show();
-	}
-
-	private void addPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input){
-				addPhraseForWord(book, word, input);
-			}
-		}).show();
-	}
-
-	private void addWordForBook(Book b, String newWord){
-		b.addWordForBook(newWord);
-		saveBookToServer(b);
-	}
-
-	private void addPhraseForWord(Book b, String word, String newPhrase){
-		b.addPhraseForWord(word, newPhrase);
-		saveBookToServer(b);
 	}
 
 	public void saveBookToServer(Book b){

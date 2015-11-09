@@ -202,7 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:id="@+id/textView7"
@@ -219,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/ico_fbe_add_vocabulary"
-                        android:src="@drawable/ico_star_16_on"
+                        android:src="@drawable/ico_add_16"
                         android:layout_gravity="center" />
                 </LinearLayout>
 
