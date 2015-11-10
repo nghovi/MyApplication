@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 import com.facebook.login.widget.LoginButton;
@@ -27,22 +28,6 @@ public class SignUpInFragment extends MyFragment{
 	private boolean		isSigningUp	= false;
 
 	public SignUpInFragment(){
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		switch(url){
-		case "":
-			break;
-		default:
-			MU.log("hehehe url is ....... " + url);
-			break;
-		}
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-
 	}
 
 	@Override
@@ -92,7 +77,18 @@ public class SignUpInFragment extends MyFragment{
 		}
 
 		String url = "http://dev01clnt.shk.x.recruit.co.jp/api/shop/detail/";
-		getApi(url, param);
+		getApi(url, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
 	}
 
 	private void updateLayoutToSignUp(){
@@ -108,12 +104,34 @@ public class SignUpInFragment extends MyFragment{
 
 	private void signIn(){
 		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-		getApi(Const.SIGN_IN, param);
+		getApi(Const.SIGN_IN, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
 	}
 
 	private void signUp(){
 		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-		getApi(Const.SIGN_UP, param);
+		getApi(Const.SIGN_UP, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
 	}
 
 }

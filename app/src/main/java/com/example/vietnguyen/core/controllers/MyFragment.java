@@ -37,7 +37,7 @@ import java.util.Objects;
  * Created by viet on 8/11/2015.
  * http://developer.android.com/guide/components/fragments.html
  */
-public class MyFragment extends Fragment implements Api.OnCallApiListener{
+public class MyFragment extends Fragment{
 
 	/**
 	 * The Activity.
@@ -92,7 +92,11 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	public ImageView getImageView(int viewId){
-		return (ImageView)getView().findViewById(viewId);
+		return getImageView(getView(), viewId);
+	}
+
+	public ImageView getImageView(View parent, int viewId){
+		return (ImageView)parent.findViewById(viewId);
 	}
 
 	public void setImageResourceFor(int imgId, int resId){
@@ -208,22 +212,24 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		}
 	}
 
-	public void setFoldAction(final int imgFoldIcon, int contentId){
-		setFoldAction(getView(), imgFoldIcon, contentId);
-	}
-
-	public void setFoldAction(View parent, final int imgFoldIcon, int contentId){
-		final View content = getView(parent, contentId);
-		setOnClickFor(parent, imgFoldIcon, new View.OnClickListener() {
+	public void setFoldAction(View foldable, final ImageView imgFoldIcon, int contentId, final View otherView){
+		final View content = getView(foldable, contentId);
+		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(View.VISIBLE == content.getVisibility()){
-					setImageResourceFor(imgFoldIcon, R.drawable.ico_unfold_16);
+			public void onClick(View view) {
+				if (View.VISIBLE == content.getVisibility()) {
+					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-				}else{
-					setImageResourceFor(imgFoldIcon, R.drawable.ico_fold_16);
+					if (otherView != null) {
+						otherView.setVisibility(View.GONE);
+					}
+				} else {
+					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
+					if (otherView != null) {
+						otherView.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		});
@@ -238,22 +244,12 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	// ///////////////////////////////// NET WORK ///////////////////////////////////////////
-	public void getApi(String url, JSONObject param){
-		activity.getApi(url, param, this);
+	public void getApi(String url, JSONObject param, Api.OnCallApiListener listener){
+		activity.getApi(url, param, listener);
 	}
 
-	public void postApi(String url, JSONObject param){
-		activity.postApi(url, param, this);
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-
+	public void postApi(String url, JSONObject param, Api.OnCallApiListener listener){
+		activity.postApi(url, param, listener);
 	}
 
 	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
@@ -275,6 +271,13 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 			return (Date)updatedData.get(updatedDataKey);
 		}
 		return defaultDate;
+	}
+
+	public Object getUpdatedData(String updatedDataKey, Object defaultObj){
+		if(updatedData != null && updatedData.containsKey(updatedDataKey)){
+			return updatedData.get(updatedDataKey);
+		}
+		return defaultObj;
 	}
 
 	// ////////////////////////////////////////// BASIC ////////////////////////////////////////

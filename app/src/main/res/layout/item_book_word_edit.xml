@@ -2,7 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:background="@drawable/core_selectable"
+    android:id="@+id/lnr_ibwe"
+    android:paddingTop="6dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -13,9 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_ibwe_fold"
-            android:src="@drawable/ico_fold_16"
+            android:src="@drawable/ico_unfold_16"
             android:layout_gravity="center"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/txt_ibwe_word"
@@ -34,7 +39,7 @@
             android:id="@+id/img_ibwe_delete"
             android:src="@drawable/ico_delete_16"
             android:layout_gravity="center"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lnr_ibwe_foldable"
-        android:background="@color/core_white">
+        android:visibility="gone">
 
         <LinearLayout
             android:orientation="vertical"
@@ -52,7 +57,7 @@
             android:paddingRight="16dp"
             android:paddingTop="6dp"
             android:id="@+id/lnr_ibwe_phrases"
-            android:visibility="gone"></LinearLayout>
+            android:visibility="visible"></LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -80,7 +85,7 @@
 
     </LinearLayout>
 
-    <View style="@style/core_line_divider_with_margin"
+    <View style="@style/core_line_divider"
         android:layout_marginTop="12dp" />
 
 </LinearLayout>

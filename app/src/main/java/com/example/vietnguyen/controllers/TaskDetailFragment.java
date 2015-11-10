@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
@@ -112,13 +113,39 @@ public class TaskDetailFragment extends MyFragment{
 	private void sendUpdateTaskStatus(int status){
 		this.task.setStatus(status);
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.EDIT_TASK, param);
+		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
+				backToTaskList();
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
+				backToTaskList();
+			}
+		});
 	}
 
 	private void sendDeleteTask(){
 		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", task.id));
-		postApi(Const.DELETE_TASK, params);
+		postApi(Const.DELETE_TASK, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
+				backToTaskList();
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
+				backToTaskList();
+			}
+		});
 	}
 
 	private void gotoEdit(){
@@ -129,36 +156,6 @@ public class TaskDetailFragment extends MyFragment{
 
 	private void backToTaskList(){
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, task.date);
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-		switch(url){
-		case Const.DELETE_TASK:
-			Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
-			backToTaskList();
-			break;
-		case Const.EDIT_TASK:
-			Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
-			backToTaskList();
-			break;
-		}
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		switch(url){
-		case Const.EDIT_TASK:
-			Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
-			backToTaskList();
-			break;
-		case Const.DELETE_TASK:
-			Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
-			backToTaskList();
-			break;
-		default:
-			break;
-		}
 	}
 
 	public void setTask(Task task){

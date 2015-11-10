@@ -23,9 +23,9 @@ public class Api{
 
 	public interface OnCallApiListener{
 
-		public void onApiResponse(String url, JSONObject response);
+		public void onApiResponse(JSONObject response);
 
-		public void onApiError(String url, String errorMsg);
+		public void onApiError(String errorMsg);
 	}
 
 	public void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
@@ -38,7 +38,6 @@ public class Api{
 
 	private void makeRequest(int method, Context context, String url, JSONObject param, final OnCallApiListener onCallApiListener){
 		MU.log("<<<< param: " + param.toString());
-		final String originUrl = url;
 		final String finalUrl = Api.getUrl(url, method, param);
 		JsonObjectRequest jsonObjRequest = new BasicJsonRequest(method, url, param, new Response.Listener<JSONObject>() {
 
@@ -46,14 +45,14 @@ public class Api{
 			public void onResponse(JSONObject response){
 				MU.log("Response for " + finalUrl + ": ");
 				MU.log("Response:" + response.toString());
-				onCallApiListener.onApiResponse(originUrl, response);
+				onCallApiListener.onApiResponse(response);
 			}
 		}, new Response.ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError error){
 				MU.log("Error for " + finalUrl + ": ERROR! " + error.toString());
-				onCallApiListener.onApiError(originUrl, error.toString());
+				onCallApiListener.onApiError(error.toString());
 			}
 		});
 

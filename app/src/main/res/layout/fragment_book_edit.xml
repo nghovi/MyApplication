@@ -73,10 +73,39 @@
                         android:id="@+id/img_fbe_image"
                         android:layout_marginRight="10dp" />
 
-                    <EditText
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/edt_fbe_image_url" />
+                        android:padding="16dp"
+                        android:id="@+id/lnr_fbe_icon_url_selectable"
+                        android:background="@drawable/core_selectable" >
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/img_fbe_icon_url_fold_icon"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ico_unfold_16" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cover"
+                                android:id="@+id/textView11" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/edt_fbe_icon_url"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -86,20 +115,36 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:background="@drawable/core_selectable"
+                    android:id="@+id/lnr_fbe_name_selectable">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name"
-                        android:id="@+id/textView10" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_fbe_name_fold_icon"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ico_unfold_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:id="@+id/textView10" />
+                    </LinearLayout>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_fbe_name"
-                        android:hint="Enter book name" />
+                        android:hint="Enter book name"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View style="@style/core_line_divider_with_margin"
@@ -109,19 +154,73 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:id="@+id/lnr_fbe_author_selectable"
+                    android:background="@drawable/core_selectable">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_fbe_author_fold_icon"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ico_unfold_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Author"
+                            android:id="@+id/textView9" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mood"
-                        android:id="@+id/textView12" />
+                        android:id="@+id/edt_fbe_author"
+                        android:hint="Enter author name"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View style="@style/core_line_divider_with_margin"
+                    android:layout_marginTop="6dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:id="@+id/lnr_fbe_mood_selectable"
+                    android:background="@drawable/core_selectable">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_fbe_mood_fold_icon"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ico_unfold_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mood"
+                            android:id="@+id/textView13" />
+                    </LinearLayout>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_fbe_mood"
-                        android:hint="Enter  your mood" />
+                        android:hint="Enter  your mood"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View style="@style/core_line_divider_with_margin"
@@ -131,19 +230,35 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:background="@drawable/core_selectable"
+                    android:id="@+id/lnr_fbe_link_selectable">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Link"
-                        android:id="@+id/textView11" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_fbe_link_fold_icon"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ico_unfold_16" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Link"
+                            android:id="@+id/textView12" />
+                    </LinearLayout>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_fbe_link"
-                        android:hint="Enter book link" />
+                        android:hint="Enter book link"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View style="@style/core_line_divider_with_margin"
@@ -152,8 +267,10 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:id="@+id/lnr_fbe_comment_selectable"
+                    android:background="@drawable/core_selectable">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -165,7 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/img_fbe_fold"
-                            android:src="@drawable/ico_male_16"
+                            android:src="@drawable/ico_unfold_16"
                             android:layout_marginRight="10dp" />
 
                         <TextView
@@ -180,7 +297,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_fbe_comment"
-                        android:hint="Enter comment" />
+                        android:hint="Enter comment"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -192,7 +310,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/fbe_part2"
                 android:padding="16dp">
@@ -225,7 +343,7 @@
 
                 <ScrollView
                     android:id="@+id/scrollView2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout

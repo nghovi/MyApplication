@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_back" />
+            android:src="@drawable/nav_btn_edit" />
 
     </LinearLayout>
 
@@ -105,38 +105,50 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent"
+                android:id="@+id/lnr_fbd_comment">
 
-                <ImageView
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/core_selectable">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_fbd_fold"
+                        android:src="@drawable/ico_unfold_16"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comment"
+                        android:id="@+id/txt_fbd_comment" />
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:id="@+id/scr_fbd_comment_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/img_book_detail_fold"
-                    android:src="@drawable/ico_male_16"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Comment"
-                    android:id="@+id/textView9" />
+                    <com.example.vietnguyen.core.views.widgets.CoreTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="&quot;Ongoing great book&quot;"
+                        android:textStyle="italic"
+                        custom:jsonKey="comment" />
+                </ScrollView>
+
             </LinearLayout>
 
-            <ScrollView
-                android:id="@+id/scr_book_detail_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
-
-                <com.example.vietnguyen.core.views.widgets.CoreTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="&quot;Ongoing great book&quot;"
-                    android:textStyle="italic"
-                    custom:jsonKey="comment" />
-            </ScrollView>
         </LinearLayout>
 
         <View android:layout_width="match_parent"

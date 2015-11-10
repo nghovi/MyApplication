@@ -24,7 +24,7 @@ import java.util.TimerTask;
 /**
  * Created by viet on 10/26/2015.
  */
-public class Background extends AsyncTask<Integer, String, String> implements Api.OnCallApiListener{
+public class Background extends AsyncTask<Integer, String, String>{
 
 	public static Timer			timer;
 	public static Handler		mHandler;
@@ -120,7 +120,18 @@ public class Background extends AsyncTask<Integer, String, String> implements Ap
 
 	private void loadUnFinishedTasksByDate(Date date){
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", date.toString()));
-		activity.getApi(Const.GET_UNFINISHED_TASKS, params, this);
+		activity.getApi(Const.GET_UNFINISHED_TASKS, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				onSuccessLoadTasksFromServer(response);
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
 	}
 
 	private void onSuccessLoadTasksFromServer(JSONObject response){
@@ -134,20 +145,5 @@ public class Background extends AsyncTask<Integer, String, String> implements Ap
 			Task randomTask = tasks.get(randomIdx);
 			dlgBuilder.buildDialogNotice(activity, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD / 2000).show();
 		}
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		switch(url){
-		case Const.GET_UNFINISHED_TASKS:
-			onSuccessLoadTasksFromServer(response);
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-
 	}
 }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
@@ -155,7 +156,20 @@ public class TaskAddFragment extends MyFragment{
 	private void addNewTask(){
 		buildTaskFromLayout();
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.ADD_TASK, param);
+		postApi(Const.ADD_TASK, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				showShortToast("Save new task to server success");
+				backToTaskList();
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				showShortToast("Save new task to server failed");
+				backToTaskList();
+			}
+		});
 	}
 
 	private void buildTaskFromLayout(){
@@ -175,7 +189,20 @@ public class TaskAddFragment extends MyFragment{
 	private void updateTask(){
 		buildTaskFromLayout();
 		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.EDIT_TASK, param);
+		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				showShortToast("Save task to server success");
+				backToTaskList();
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				showShortToast("Save to server failed");
+				backToTaskList();
+			}
+		});
 	}
 
 	private void buildCalendarPicker(){
@@ -198,35 +225,6 @@ public class TaskAddFragment extends MyFragment{
 				datePicker.show(activity.getFragmentManager(), "datePicker");
 			}
 		});
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		super.onApiResponse(url, response);
-		switch(url){
-		case Const.ADD_TASK:
-			showShortToast("Save new task to server success");
-			backToTaskList();
-			break;
-		case Const.EDIT_TASK:
-			showShortToast("Save task to server success");
-			backToTaskList();
-			break;
-		}
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-		switch(url){
-		case Const.ADD_TASK:
-			showShortToast("Save new task to server failed");
-			backToTaskList();
-			break;
-		case Const.EDIT_TASK:
-			showShortToast("Save to server failed");
-			backToTaskList();
-			break;
-		}
 	}
 
 	private void backToTaskList(){

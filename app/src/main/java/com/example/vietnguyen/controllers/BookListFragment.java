@@ -11,6 +11,7 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.Task;
@@ -28,8 +29,8 @@ import java.util.List;
 public class BookListFragment extends MyFragment{
 
 	private List<Book>	books;
-	private BookAdapter		bookAdapter;
-	private ListView		lstBook;
+	private BookAdapter	bookAdapter;
+	private ListView	lstBook;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -68,37 +69,26 @@ public class BookListFragment extends MyFragment{
 
 	private void loadBookFromServer(){
 		JSONObject params = new JSONObject();
-		getApi(Const.GET_BOOKS, params);
-	}
+		getApi(Const.GET_BOOKS, params, new Api.OnCallApiListener() {
 
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		super.onApiResponse(url, response);
-		switch(url){
-		case Const.GET_BOOKS:
-			books = (ArrayList<Book>)MU.convertToModelList(response.optString("data"), Book.class);
-			saveBookToLocal(books);
-			loadBookFromLocal();
-			break;
-		default:
-			break;
-		}
+			@Override
+			public void onApiResponse(JSONObject response){
+				books = (ArrayList<Book>)MU.convertToModelList(response.optString("data"), Book.class);
+				saveBookToLocal(books);
+				loadBookFromLocal();
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				showShortToast("Get books from server failed");
+			}
+		});
 	}
 
 	public void saveBookToLocal(List<Book> bookList){
 		new Delete().from(Book.class).execute();
 		for(Book b : bookList){
 			b.save();
-		}
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-		super.onApiError(url, errorMsg);
-		switch(url){
-		case Const.GET_BOOKS:
-			showShortToast("Get books from server failed");
-			break;
 		}
 	}
 

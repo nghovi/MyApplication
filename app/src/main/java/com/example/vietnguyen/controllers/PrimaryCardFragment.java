@@ -49,30 +49,15 @@ public class PrimaryCardFragment extends MyFragment{
 			imgSex.setImageResource(R.drawable.ico_female_16);
 		}
 
-//		File mainImage = MU.getImageFile(IMAGE_NAME, activity);
-//		if(mainImage.exists()){
-//			MU.loadImage(IMAGE_NAME, imgMain, activity);
-//		}else{
-//			MU.picassaLoadAndSaveImage("https://s-media-cache-ak0.pinimg.com/736x/cd/c6/d3/cdc6d3066ce29d922df73f2549ad72c3.jpg", imgMain, activity, IMAGE_NAME);
-//		}
+		// File mainImage = MU.getImageFile(IMAGE_NAME, activity);
+		// if(mainImage.exists()){
+		// MU.loadImage(IMAGE_NAME, imgMain, activity);
+		// }else{
+		// MU.picassaLoadAndSaveImage("https://s-media-cache-ak0.pinimg.com/736x/cd/c6/d3/cdc6d3066ce29d922df73f2549ad72c3.jpg", imgMain, activity,
+		// IMAGE_NAME);
+		// }
 		LinearLayout lnrCardInfo = (LinearLayout)getView().findViewById(R.id.lnr_primary_card_info);
 		JSONObject jsonObject = MU.buildJsonObj(Arrays.asList("name", "Hoang Viet", "sex", "Male", "age", "25", "motto", "Don't work hard, work intelligent"));
 		MU.interpolate(lnrCardInfo, jsonObject);
-	}
-
-	@Override
-	public void onApiResponse(String url, JSONObject response){
-		switch(url){
-		case Const.GET_PRIMARY_CARD_INFO:
-			break;
-		default:
-			MU.log("hehehe url is ....... " + url);
-			break;
-		}
-	}
-
-	@Override
-	public void onApiError(String url, String errorMsg){
-
 	}
 }

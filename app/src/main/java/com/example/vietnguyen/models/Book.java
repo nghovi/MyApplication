@@ -174,6 +174,23 @@ public class Book extends Model{
 		return vocabulary;
 	}
 
+	public void setVocabulary(String vocabulary){
+		this.vocabulary = vocabulary;
+	}
+
+	public Book clone(){
+		Book b = new Book();
+		b.id = id;
+		b.setVocabulary(vocabulary);
+		b.author = author;
+		b.name = name;
+		b.comment = comment;
+		b.iconUrl = iconUrl;
+		b.link = link;
+		b.mood = mood;
+		return b;
+	}
+
 	@Column(name = "icon_url")
 	@Expose
 	public String	iconUrl;

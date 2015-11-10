@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/core_selectable"
+    android:id="@+id/lnr_ibw"
+    android:paddingTop="6dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -12,10 +15,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/img_item_book_word_fold"
-            android:src="@drawable/ico_fold_16"
+            android:id="@+id/img_ibw_fold"
+            android:src="@drawable/ico_unfold_16"
             android:layout_gravity="center"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/txt_item_book_word_edit_word"
@@ -37,10 +41,11 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="6dp"
-        android:id="@+id/lnr_item_book_word_phrases"
-        android:visibility="gone"></LinearLayout>
+        android:id="@+id/lnr_ibw_phrases"
+        android:visibility="gone"
+        android:background="@drawable/core_selectable"></LinearLayout>
 
-    <View style="@style/core_line_divider_with_margin"
+    <View style="@style/core_line_divider"
         android:layout_marginTop="6dp" />
 
 </LinearLayout>
