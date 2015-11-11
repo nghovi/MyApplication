@@ -14,16 +14,12 @@ import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
-import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookAdapter;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class BookListFragment extends MyFragment{
@@ -40,14 +36,13 @@ public class BookListFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		// ArrayList<Book> books = new ArrayList<Book>();
-		// books.add(new Book(0, "abcd1", "Shacksepear", "Romeo and J1uliet", "The Titan's Curse", Arrays.asList("incre2dible", "what is2 it",
-		// "why23 not me"), "mood", "link"));
-		// books.add(new Book(1, "abcd2", "Shacksepear", "Romeo and Jul2iet", "The Lightning Thief", Arrays.asList("incredi12ble", "what 23is it",
-		// "why 2not me"), "mood2", "link2"));
-		// books.add(new Book(2, "abcd3", "Shacksepear", "Romeo and J3uliet", "The Sea Of Monster", Arrays.asList("incredi2ble", "what is 23it",
-		// "why n7ot me"), "mood3", "link3"));
-		lstBook = getListView(R.id.lst_book);
+		setOnClickFor(R.id.txt_fbl_add, new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				activity.addFragment(new BookAddFragment());
+			}
+		});
+		lstBook = getListView(R.id.lst_fbl_book_list);
 		lstBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override

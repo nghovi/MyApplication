@@ -47,162 +47,184 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/book_detail_content">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3" >
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/book_detail_part1"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="90dp"
-                    android:id="@+id/img_book_detail_image"
-                    android:layout_marginRight="10dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
-
-                    <com.example.vietnguyen.core.views.widgets.CoreTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="The sociaist republic of Viet Nam Independence Freedom "
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        custom:jsonKey="name" />
-
-                    <com.example.vietnguyen.core.views.widgets.CoreTextView
-                        android:id="@+id/txt_book_link"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="New Text"
-                        custom:jsonKey="link"
-                        android:textColor="@color/core_blue"
-                        android:ellipsize="middle"
-                        android:singleLine="true"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingLeft="60dp"
-                        android:paddingRight="60dp" />
-                </LinearLayout>
-            </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/book_detail_content">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/book_detail_part1"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="120dp"
+                        android:id="@+id/img_book_detail_image" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical">
+
+                        <com.example.vietnguyen.core.views.widgets.CoreTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="Percy Jackson: Sea Of Monsters"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            custom:jsonKey="name" />
+
+                        <com.example.vietnguyen.core.views.widgets.CoreTextView
+                            android:id="@+id/txt_book_link"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="New Text"
+                            custom:jsonKey="link"
+                            android:textColor="@color/core_blue"
+                            android:ellipsize="middle"
+                            android:singleLine="true"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:paddingLeft="60dp"
+                            android:paddingRight="60dp" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="By"
+                                android:id="@+id/textView14"
+                                android:layout_marginRight="6dp" />
+
+                            <com.example.vietnguyen.core.views.widgets.CoreTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rich Riordan"
+                                android:id="@+id/txt_fbd_author"
+                                custom:jsonKey="author"
+                                android:textStyle="bold|italic" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/lnr_fbd_comment">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/core_selectable">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/img_fbd_fold"
+                            android:src="@drawable/ico_unfold_16"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comment"
+                            android:id="@+id/txt_fbd_comment" />
+
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:id="@+id/scr_fbd_comment_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:visibility="gone">
+
+                        <com.example.vietnguyen.core.views.widgets.CoreTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="&quot;Ongoing great book&quot;"
+                            android:textStyle="italic"
+                            custom:jsonKey="comment" />
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:paddingBottom="6dp"
+                android:background="@color/core_tan" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lnr_fbd_comment">
+                android:orientation="vertical"
+                android:id="@+id/lnr_book_detail_part2"
+                android:padding="16dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/core_selectable">
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vocabulary:"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/img_fbd_fold"
-                        android:src="@drawable/ico_unfold_16"
-                        android:layout_marginRight="10dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comment"
-                        android:id="@+id/txt_fbd_comment" />
-
+                        android:id="@+id/img_book_detail_add_vocabulary"
+                        android:src="@drawable/ico_star_16_on"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
                 </LinearLayout>
-
-                <ScrollView
-                    android:id="@+id/scr_fbd_comment_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:visibility="gone">
-
-                    <com.example.vietnguyen.core.views.widgets.CoreTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="&quot;Ongoing great book&quot;"
-                        android:textStyle="italic"
-                        custom:jsonKey="comment" />
-                </ScrollView>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:paddingBottom="6dp"
-            android:background="@color/core_tan" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/lnr_book_detail_part2"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vocabulary:"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img_book_detail_add_vocabulary"
-                    android:src="@drawable/ico_star_16_on"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <ScrollView
-                android:id="@+id/scrollView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/lnr_book_detail_vocabulary_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
-            </ScrollView>
 
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

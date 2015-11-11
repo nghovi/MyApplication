@@ -193,6 +193,9 @@ public class MU{
 	}
 
 	public static void picassaLoadImage(final String url, final ImageView imageView, Context context){
+		if(MU.isEmpty(url)){
+			return;
+		}
 		Picasso.with(context).load(url).into(imageView, new Callback.EmptyCallback() {
 
 			@Override
@@ -243,6 +246,12 @@ public class MU{
 		return file.exists();
 	}
 
+	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public static boolean isEmpty(String str){
+		return str == null || "".equals(str);
+	}
+
 	public static boolean isSameDay(Date d1, Date d2){
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(d1);
@@ -269,9 +278,6 @@ public class MU{
 	// return cal.getTime();
 	// }
 
-
-
-	////////////////////////////////////////////////////////////////////VIEW SUPPORT///////////////////////////////////////////////////////////////
-
+	// //////////////////////////////////////////////////////////////////VIEW SUPPORT///////////////////////////////////////////////////////////////
 
 }

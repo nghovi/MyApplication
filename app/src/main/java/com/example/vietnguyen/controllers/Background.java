@@ -32,8 +32,8 @@ public class Background extends AsyncTask<Integer, String, String>{
 	public static TimerTask		timerTaskShowGoodSay;
 	public static TimerTask		timerTaskRemindTask;
 
-	public static final long	SHOW_GOOD_SAY_PERIOD	= 60 * 1000;	// milisec
-	public static final long	REMIND_TASK_PERIOD		= 30 * 1000;	// milisec
+	public static final long	SHOW_GOOD_SAY_PERIOD	= 60 * 1000;
+	public static final long	REMIND_TASK_PERIOD_MS		= 5 * 60 * 1000; // 5 minute
 	public static final int		CMD_SHOW_GOOD_SAY		= 1001;
 	public static final int		CMD_REMIND_TASK			= 1002;
 
@@ -104,7 +104,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 		if(timer == null){
 			timer = new Timer();
 			timer.schedule(timerTaskShowGoodSay, 2000, SHOW_GOOD_SAY_PERIOD);
-			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD);
+			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD_MS);
 		}
 
 	}
@@ -143,7 +143,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 		if(tasks != null && tasks.size() > 0){
 			int randomIdx = (int)(Math.random() * tasks.size());
 			Task randomTask = tasks.get(randomIdx);
-			dlgBuilder.buildDialogNotice(activity, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD / 2000).show();
+			dlgBuilder.buildDialogNotice(activity, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD_MS / 2000).show();
 		}
 	}
 }

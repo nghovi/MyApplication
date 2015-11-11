@@ -77,15 +77,21 @@ public class Book extends Model{
 		buildVocabulary();
 	}
 
+	public boolean hasWord(String word){
+		return this.getVocabs().keySet().contains(word);
+	}
+
 	public List<String> getVocabularyList(){
 		List<String> result = new ArrayList<String>();
-		String[] words = this.vocabulary.split(WORD_DELIMITER);
-		for(String word : words){
-			int startPhrasesIdx = word.indexOf(PHRASE_OPEN_STR);
-			if(startPhrasesIdx > 0){
-				result.add(word.substring(0, startPhrasesIdx));
-			}else{
-				result.add(word);
+		if(!MU.isEmpty(this.vocabulary)){
+			String[] words = this.vocabulary.split(WORD_DELIMITER);
+			for(String word : words){
+				int startPhrasesIdx = word.indexOf(PHRASE_OPEN_STR);
+				if(startPhrasesIdx > 0){
+					result.add(word.substring(0, startPhrasesIdx));
+				}else{
+					result.add(word);
+				}
 			}
 		}
 		return result;
@@ -189,6 +195,22 @@ public class Book extends Model{
 		b.link = link;
 		b.mood = mood;
 		return b;
+	}
+
+	// if all properties except vocabulary, id are set, then it's ready for save
+	public boolean isReadyToSave(){
+		if(MU.isEmpty(name) || MU.isEmpty(author) || MU.isEmpty(iconUrl) || MU.isEmpty(link) || MU.isEmpty(mood) || MU.isEmpty(comment)){
+			return false;
+		}
+		return true;
+	}
+
+	// check if user has already enter some info for new book
+	public boolean hasSomeInfo(){
+		if(MU.isEmpty(name) && MU.isEmpty(author) && MU.isEmpty(mood) && MU.isEmpty(comment) && MU.isEmpty(vocabulary)){
+			return false;
+		}
+		return true;
 	}
 
 	@Column(name = "icon_url")

@@ -1,5 +1,10 @@
 package com.example.vietnguyen.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,49 +22,46 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.List;
-
-public class BookEditFragment extends MyFragment{
+public class BookAddFragment extends MyFragment{
 
 	private Book	book;
 	private String	originBookStr;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.fragment_book_edit, container, false);
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		book = new Book();
+		book.iconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sumerian_MS2272_2400BC.jpg/220px-Sumerian_MS2272_2400BC.jpg";
+		book.link = "https://en.wikipedia.org/wiki/Book";
 	}
 
 	@Override
-	protected void buildLayout(){
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		return inflater.inflate(R.layout.fragment_book_add, container, false);
+	}
+
+	@Override
+	protected void buildLayout() {
 		super.buildLayout();
-		setOnClickFor(R.id.img_back, new View.OnClickListener() {
+		setOnClickFor(R.id.img_fba_back, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onBackBtnClicked();
 			}
 		});
 
-		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
+		setOnClickFor(R.id.txt_fba_done, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				saveBookToServer();
+				addBookToServer();
 			}
 		});
 
-		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
-		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
-		// MU.interpolate(lnrContent, jsonObject);
-		setTextFor(R.id.edt_sbe_name, book.name);
 		setTextFor(R.id.edt_sbe_link, book.link);
-		setTextFor(R.id.edt_sbe_author, book.author);
-		setTextFor(R.id.edt_sbe_comment, book.comment);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-		setTextFor(R.id.edt_sbe_mood, book.mood);
+
 		setFoldAction(getView(R.id.lnr_sbe_icon_url_selectable), getImageView(R.id.img_sbe_icon_url_fold_icon), R.id.edt_sbe_icon_url, null);
 		setFoldAction(getView(R.id.lnr_sbe_comment_selectable), getImageView(R.id.img_sbe_fold), R.id.edt_sbe_comment, null);
 		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
@@ -71,8 +73,6 @@ public class BookEditFragment extends MyFragment{
 		addTextWatcherForBookImage();
 
 		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-		// setFoldAction(R.id.img_sbe_fold, R.id.scr_sbe_content);
-		// setLinkFor(R.id.txt_book_link, book.link);
 		setOnClickFor(R.id.ico_sbe_add_vocabulary, new View.OnClickListener() {
 
 			@Override
@@ -99,7 +99,6 @@ public class BookEditFragment extends MyFragment{
 
 			@Override
 			public void afterTextChanged(Editable editable){
-				String url = editable.toString();
 				MU.picassaLoadImage(editable.toString(), getImageView(R.id.img_sbe_image), activity);
 			}
 		});
@@ -161,21 +160,15 @@ public class BookEditFragment extends MyFragment{
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void onBackBtnClicked(){
-		final Book newBook = buildBookFromLayout();
-		if(this.originBookStr.equals(newBook.toString())){
-			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+		book = buildBookFromLayout();
+		if(!book.hasSomeInfo()){
+			activity.backToFragment(BookDetailFragment.class);
 		}else{
-			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
+			dlgBuilder.buildConfirmDlgTopDown("Continue", "Discard Changes", new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){
 					activity.backOneFragment();
-				}
-			}, new View.OnClickListener() {
-
-				@Override
-				public void onClick(View view){
-					saveBookToServerAndBack(newBook);
 				}
 			}).show();
 		}
@@ -192,10 +185,8 @@ public class BookEditFragment extends MyFragment{
 	}
 
 	private void addWordForBook(String newWord){
-		if(!MU.isEmpty(newWord) && !book.hasWord(newWord)){
-			book.addWordForBook(newWord);
-			saveBookToServer();
-		}
+		book.addWordForBook(newWord);
+		buildVocabulary();
 	}
 
 	private void deleteWord(final String word){
@@ -204,7 +195,7 @@ public class BookEditFragment extends MyFragment{
 			@Override
 			public void onClick(View view){
 				book.deleteWord(word);
-				saveBookToServer();
+				buildVocabulary();
 			}
 		}).show();
 	}
@@ -221,49 +212,35 @@ public class BookEditFragment extends MyFragment{
 
 	private void addPhraseForWord(String word, String phrase){
 		book.addPhraseForWord(word, phrase);
-		saveBookToServer();
+		buildVocabulary();
 	}
 
 	private void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
-		saveBookToServer();
+		buildVocabulary();
 	}
 
-	public void saveBookToServer(){
+	public void addBookToServer(){
 		book = buildBookFromLayout();
-		originBookStr = book.toString();
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
-		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
+		if(book.isReadyToSave()){
+			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
 
-			@Override
-			public void onApiResponse(JSONObject response){
-				buildLayout();
-				showShortToast("Successfully saved changes");
-			}
+				@Override
+				public void onApiResponse(JSONObject response){
+					showShortToast("Successfully saved new book");
+					activity.backOneFragment();
+				}
 
-			@Override
-			public void onApiError(String errorMsg){
+				@Override
+				public void onApiError(String errorMsg){
 
-			}
-		});
-	}
+				}
+			});
+		}else{
+			showLongToast("Please fullfill information");
+		}
 
-	public void saveBookToServerAndBack(final Book newBook){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", newBook.toString()));
-		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				book = newBook;
-				originBookStr = book.toString();
-				activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				int a = 1;
-			}
-		});
 	}
 
 	private Book buildBookFromLayout(){

@@ -12,5 +12,6 @@ shift ctrl alt j
 8. Build must-read notice, show shortcut, vv...
 9. create custom layout for foldable linear layout
 10. Add edit icon at the header of book_detail, remove all add icon at this page, create new edit page, using dialog with edt
-11. fold/unfold word
+-11. fold/unfold word
 12. Add star mark for word, to remember it, using preference, maybe
+13. Fold/unfold header section at book detail fragment, since some book has a great list of words
