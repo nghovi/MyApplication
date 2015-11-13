@@ -14,20 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vietnguyen.core.ImageEntity;
+import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
 /**
  * Created by viet on 8/13/2015.
  */
-public class BookAdapter extends ArrayAdapter<Book>{
+public class BookListAdapter extends ArrayAdapter<Book>{
 
 	private Context					context;
 	private ArrayList<Book>			data;
 	private static LayoutInflater	inflater	= null;
 	private int						resourceId;
 
-	public BookAdapter(Context context, int resourceId, ArrayList<Book> data){
+	public BookListAdapter(Context context, int resourceId, ArrayList<Book> data){
 		super(context, resourceId, data);
 		this.context = context;
 		this.data = data;
@@ -43,6 +44,8 @@ public class BookAdapter extends ArrayAdapter<Book>{
 		txt1.setText(book.name);
 		TextView txt2 = (TextView)convertView.findViewById(R.id.txt2);
         txt2.setText(book.author);
+		ImageView imgBookIcon = (ImageView)convertView.findViewById(R.id.img_icon);
+		MU.picassaLoadImage(book.iconUrl, imgBookIcon, context);
 		return convertView;
 	}
 }

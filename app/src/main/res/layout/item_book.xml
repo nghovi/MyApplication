@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:padding="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:gravity="center_vertical|center_horizontal">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/img_icon"
-        android:src="@drawable/tab_btn_recruit_active"
+        android:src="@drawable/core_footer_item3"
         android:layout_marginRight="10dp"
         android:layout_gravity="center" />
 

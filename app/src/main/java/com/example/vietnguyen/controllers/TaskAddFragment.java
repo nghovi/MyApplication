@@ -86,14 +86,6 @@ public class TaskAddFragment extends MyFragment{
 				}
 			}
 		});
-		ImageView imgBack = getImageView(R.id.img_back);
-		imgBack.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				backToTaskList();
-			}
-		});
 
 		final TextView txtPriority = getTextView(R.id.txt_priority);
 		txtPriority.setText(String.valueOf(task.priority));
@@ -113,7 +105,6 @@ public class TaskAddFragment extends MyFragment{
 			}
 		});
 
-		TextView txtTaskStatus = getTextView(R.id.txt_task_status);
 		setTextStatus(task.status);
 		setOnClickFor(R.id.txt_task_status, new View.OnClickListener() {
 
@@ -122,6 +113,11 @@ public class TaskAddFragment extends MyFragment{
 				showTaskStatusChoosingDialog();
 			}
 		});
+	}
+
+	@Override
+	protected void onClickBackBtn(){
+		backToTaskList();
 	}
 
 	private void showTaskStatusChoosingDialog(){
@@ -145,11 +141,10 @@ public class TaskAddFragment extends MyFragment{
 	}
 
 	private void setTextStatus(int status){
-		TextView txtTaskStatus = getTextView(R.id.txt_task_status);
 		if(status == Task.STATUS_FINISHED){
-			txtTaskStatus.setText("Done");
+			setTextFor(R.id.txt_task_status, "Done");
 		}else{
-			txtTaskStatus.setText("Not Done");
+			setTextFor(R.id.txt_task_status, "Not Done");
 		}
 	}
 

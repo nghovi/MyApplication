@@ -11,7 +11,10 @@ shift ctrl alt j
 -7. delete all Delimiter character for Book
 8. Build must-read notice, show shortcut, vv...
 9. create custom layout for foldable linear layout
-10. Add edit icon at the header of book_detail, remove all add icon at this page, create new edit page, using dialog with edt
+-10. Add edit icon at the header of book_detail, remove all add icon at this page, create new edit page, using dialog with edt
 -11. fold/unfold word
 12. Add star mark for word, to remember it, using preference, maybe
-13. Fold/unfold header section at book detail fragment, since some book has a great list of words
+-13. Fold/unfold header section at book detail fragment, since some book has a great list of words
+14. search in book and task
+15.http://www.tutorialspoint.com/android/android_text_to_speech.htm
+16. Fix bug: request of TakListFragment return result after we switched to book list. So we should cancel all request before entering new fragment, but not background request

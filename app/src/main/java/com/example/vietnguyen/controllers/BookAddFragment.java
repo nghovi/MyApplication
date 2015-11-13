@@ -16,16 +16,12 @@ import android.widget.RelativeLayout;
 
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class BookAddFragment extends MyFragment{
-
-	private Book	book;
-	private String	originBookStr;
+public class BookAddFragment extends BookAbstractFragment{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -41,16 +37,8 @@ public class BookAddFragment extends MyFragment{
 	}
 
 	@Override
-	protected void buildLayout() {
+	protected void buildLayout(){
 		super.buildLayout();
-		setOnClickFor(R.id.img_fba_back, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				onBackBtnClicked();
-			}
-		});
-
 		setOnClickFor(R.id.txt_fba_done, new View.OnClickListener() {
 
 			@Override
@@ -62,24 +50,9 @@ public class BookAddFragment extends MyFragment{
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
 
-		setFoldAction(getView(R.id.lnr_sbe_icon_url_selectable), getImageView(R.id.img_sbe_icon_url_fold_icon), R.id.edt_sbe_icon_url, null);
-		setFoldAction(getView(R.id.lnr_sbe_comment_selectable), getImageView(R.id.img_sbe_fold), R.id.edt_sbe_comment, null);
-		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
-		setFoldAction(getView(R.id.lnr_sbe_author_selectable), getImageView(R.id.img_sbe_author_fold_icon), R.id.edt_sbe_author, null);
-		setFoldAction(getView(R.id.lnr_sbe_mood_selectable), getImageView(R.id.img_sbe_mood_fold_icon), R.id.edt_sbe_mood, null);
-		setFoldAction(getView(R.id.lnr_sbe_link_selectable), getImageView(R.id.img_sbe_link_fold_icon), R.id.edt_sbe_link, null);
-		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
-
 		addTextWatcherForBookImage();
 
 		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-		setOnClickFor(R.id.ico_sbe_add_vocabulary, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				addWord();
-			}
-		});
 
 		buildVocabulary();
 	}
@@ -135,6 +108,10 @@ public class BookAddFragment extends MyFragment{
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
 		List<String> phrases = this.book.getWordUsage(word);
 		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
+		if(word.equals(this.newWord)){
+			getTextView(itemBookWord, R.id.txt_ibwe_word).setTextColor(getResources().getColor(R.color.core_blue));
+			getView(itemBookWord, R.id.lnr_ibwe).performClick();
+		}
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibwe_phrases);
 		lnrPhrases.removeAllViews();
 		for(final String phrase : phrases){
@@ -159,10 +136,11 @@ public class BookAddFragment extends MyFragment{
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private void onBackBtnClicked(){
+	@Override
+	protected void onClickBackBtn(){
 		book = buildBookFromLayout();
 		if(!book.hasSomeInfo()){
-			activity.backToFragment(BookDetailFragment.class);
+			activity.backToFragment(BookListFragment.class);
 		}else{
 			dlgBuilder.buildConfirmDlgTopDown("Continue", "Discard Changes", new View.OnClickListener() {
 
@@ -174,19 +152,16 @@ public class BookAddFragment extends MyFragment{
 		}
 	}
 
-	private void addWord(){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new word", new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input){
-				addWordForBook(input);
+	@Override
+	protected void addWordForBook(String newWord, String newPhrase){
+		if(!MU.isEmpty(newWord) && !book.hasWord(newWord)){
+			this.newWord = newWord;
+			book.addWordForBook(this.newWord);
+			if(!MU.isEmpty(newPhrase)){
+				book.addPhraseForWord(newWord, newPhrase);
 			}
-		}).show();
-	}
-
-	private void addWordForBook(String newWord){
-		book.addWordForBook(newWord);
-		buildVocabulary();
+			buildVocabulary();
+		}
 	}
 
 	private void deleteWord(final String word){
@@ -204,15 +179,17 @@ public class BookAddFragment extends MyFragment{
 		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
-			public void onClickDone(String input){
-				addPhraseForWord(word, input);
+			public void onClickDone(String input1, String input2){
+				addPhraseForWord(word, input1);
 			}
 		}).show();
 	}
 
 	private void addPhraseForWord(String word, String phrase){
-		book.addPhraseForWord(word, phrase);
-		buildVocabulary();
+		if(book.hasWord(word) && !MU.isEmpty(phrase)){
+			book.addPhraseForWord(word, phrase);
+			buildVocabulary();
+		}
 	}
 
 	private void deletePhrase(String word, String phrase){
@@ -241,24 +218,5 @@ public class BookAddFragment extends MyFragment{
 			showLongToast("Please fullfill information");
 		}
 
-	}
-
-	private Book buildBookFromLayout(){
-		Book b = new Book();
-		b.setVocabulary(book.getVocabulary());
-		b.id = book.id;
-
-		b.name = getEditText(R.id.edt_sbe_name).getText().toString();
-		b.comment = getEditText(R.id.edt_sbe_comment).getText().toString();
-		b.author = getEditText(R.id.edt_sbe_author).getText().toString();
-		b.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
-		b.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
-		b.link = getEditText(R.id.edt_sbe_link).getText().toString();
-		return b;
-	}
-
-	public void setBook(Book book){
-		this.book = book;
-		this.originBookStr = this.book.toString();
 	}
 }

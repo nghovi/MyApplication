@@ -128,7 +128,9 @@ public class MyFragment extends Fragment{
 
 	public void setOnClickFor(View parent, int resource, View.OnClickListener listener){
 		View view = getView(parent, resource);
-		view.setOnClickListener(listener);
+		if(view != null){
+			view.setOnClickListener(listener);
+		}
 	}
 
 	public void setTextFor(int resource, String text){
@@ -217,17 +219,17 @@ public class MyFragment extends Fragment{
 		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (View.VISIBLE == content.getVisibility()) {
+			public void onClick(View view){
+				if(View.VISIBLE == content.getVisibility()){
 					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-					if (otherView != null) {
+					if(otherView != null){
 						otherView.setVisibility(View.GONE);
 					}
-				} else {
+				}else{
 					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
-					if (otherView != null) {
+					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);
 					}
 				}
@@ -326,6 +328,21 @@ public class MyFragment extends Fragment{
 	 */
 	protected void buildLayout(){
 		MU.log("Fragment buildLayout: " + this.getClass().toString());
+		setBackBtnOnClick();
+	}
+
+	protected void setBackBtnOnClick(){
+		setOnClickFor(R.id.img_back, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				onClickBackBtn();
+			}
+		});
+	}
+
+	protected void onClickBackBtn(){
+
 	}
 
 	@Override

@@ -1,5 +1,10 @@
 package com.example.vietnguyen.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,14 +14,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
+import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-import java.util.List;
+public class BookAbstractFragment extends MyFragment{
 
-public class BookEditFragment extends BookAbstractFragment{
+	public final static String	KEY_UPDATED_BOOK	= "book_updated";
+	protected Book				book;
+	protected String			originBookStr;
+	protected String			newWord;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -26,30 +37,25 @@ public class BookEditFragment extends BookAbstractFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		builFoldActionAndOnClickEvents();
+	}
 
-		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
+	protected void builFoldActionAndOnClickEvents(){
+		setFoldAction(getView(R.id.lnr_sbe_icon_url_selectable), getImageView(R.id.img_sbe_icon_url_fold_icon), R.id.edt_sbe_icon_url, null);
+		setFoldAction(getView(R.id.lnr_sbe_comment_selectable), getImageView(R.id.img_sbe_fold), R.id.edt_sbe_comment, null);
+		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
+		setFoldAction(getView(R.id.lnr_sbe_author_selectable), getImageView(R.id.img_sbe_author_fold_icon), R.id.edt_sbe_author, null);
+		setFoldAction(getView(R.id.lnr_sbe_mood_selectable), getImageView(R.id.img_sbe_mood_fold_icon), R.id.edt_sbe_mood, null);
+		setFoldAction(getView(R.id.lnr_sbe_link_selectable), getImageView(R.id.img_sbe_link_fold_icon), R.id.edt_sbe_link, null);
+		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
+
+		setOnClickFor(R.id.ico_sbe_add_vocabulary, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				saveBookToServer();
+				addWord();
 			}
 		});
-
-		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
-		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
-		// MU.interpolate(lnrContent, jsonObject);
-		setTextFor(R.id.edt_sbe_name, book.name);
-		setTextFor(R.id.edt_sbe_link, book.link);
-		setTextFor(R.id.edt_sbe_author, book.author);
-		setTextFor(R.id.edt_sbe_comment, book.comment);
-		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-		setTextFor(R.id.edt_sbe_mood, book.mood);
-
-		addTextWatcherForBookImage();
-
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-
-		buildVocabulary();
 	}
 
 	private void addTextWatcherForBookImage(){
@@ -129,8 +135,7 @@ public class BookEditFragment extends BookAbstractFragment{
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Override
-	protected void onClickBackBtn(){
+	private void onBackBtnClicked(){
 		final Book newBook = buildBookFromLayout();
 		if(this.originBookStr.equals(newBook.toString())){
 			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
@@ -148,6 +153,26 @@ public class BookEditFragment extends BookAbstractFragment{
 					saveBookToServerAndBack(newBook);
 				}
 			}).show();
+		}
+	}
+
+	protected void addWord(){
+		dlgBuilder.buildDialogWith2Edt(activity, "Enter new word", "Enter new phrase", new DialogBuilder.OnDialogWithEdtDismiss() {
+
+			@Override
+			public void onClickDone(String input1, String input2){
+				addWordForBook(input1, input2);
+			}
+		}).show();
+	}
+
+	protected void addWordForBook(String newWord, String newPhrase){
+		if(!MU.isEmpty(newWord) && !book.hasWord(newWord)){
+			book.addWordForBook(newWord);
+			if(!MU.isEmpty(newPhrase)){
+				book.addPhraseForWord(newWord, newPhrase);
+			}
+			saveBookToServer();
 		}
 	}
 
@@ -173,12 +198,70 @@ public class BookEditFragment extends BookAbstractFragment{
 	}
 
 	private void addPhraseForWord(String word, String phrase){
-		book.addPhraseForWord(word, phrase);
-		saveBookToServer();
+		if(book.hasWord(word) && !MU.isEmpty(phrase)){
+			book.addPhraseForWord(word, phrase);
+			saveBookToServer();
+		}
 	}
 
 	private void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
 		saveBookToServer();
+	}
+
+	public void saveBookToServer(){
+		book = buildBookFromLayout();
+		originBookStr = book.toString();
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				buildLayout();
+				showShortToast("Successfully saved changes");
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
+	}
+
+	public void saveBookToServerAndBack(final Book newBook){
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", newBook.toString()));
+		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				book = newBook;
+				originBookStr = book.toString();
+				activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				int a = 1;
+			}
+		});
+	}
+
+	protected Book buildBookFromLayout(){
+		Book b = new Book();
+		b.setVocabulary(book.getVocabulary());
+		b.id = book.id;
+
+		b.name = getEditText(R.id.edt_sbe_name).getText().toString();
+		b.comment = getEditText(R.id.edt_sbe_comment).getText().toString();
+		b.author = getEditText(R.id.edt_sbe_author).getText().toString();
+		b.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
+		b.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
+		b.link = getEditText(R.id.edt_sbe_link).getText().toString();
+		return b;
+	}
+
+	public void setBook(Book book){
+		this.book = book;
+		this.originBookStr = this.book.toString();
 	}
 }

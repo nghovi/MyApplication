@@ -43,8 +43,9 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
 		txtOption1.setText(cancel);
 		setListenerFor(txtOption1, new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				dlg.dismiss();
 			}
 		});
@@ -119,9 +120,16 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
+	public Dialog updateDialogNotice(Dialog dlg, String title, String msg, int autoDismissTimeSec){
+		dlg.setTitle(title);
+		((TextView)dlg.findViewById(R.id.dlg_notice_msg)).setText(msg);
+		setAutoDismiss(dlg, autoDismissTimeSec);
+		return dlg;
+	}
+
 	public interface OnDialogWithEdtDismiss{
 
-		public void onClickDone(String input);
+		public void onClickDone(String input1, String input2);
 	}
 
 	public Dialog buildDialogWithEdt(Context context, String hint, final OnDialogWithEdtDismiss listener){
@@ -131,8 +139,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 
 		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_edt);
 		edt.setHint(hint);
-//		edt.setMinLines(1);
-//		edt.setMaxLines(9);
+		// edt.setMinLines(1);
+		// edt.setMaxLines(9);
 
 		TextView txtDone = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_done);
 		txtDone.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +148,44 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 			@Override
 			public void onClick(View view){
 				dlg.dismiss();
-				listener.onClickDone(edt.getText().toString());
+				listener.onClickDone(edt.getText().toString(), null);
 			}
 		});
 
 		TextView txtCancel = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_cancel);
+		txtCancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+			}
+		});
+
+		return dlg;
+	}
+
+	public Dialog buildDialogWith2Edt(Context context, String hint, String hint2, final OnDialogWithEdtDismiss listener){
+		dlg = new Dialog(this.context);
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dlg.setContentView(R.layout.dialog_with_2edt);
+
+		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_2edt_word);
+		edt.setHint(hint);
+
+		final EditText edt2 = (EditText)dlg.findViewById(R.id.edt_dialog_with_2edt_phrase);
+		edt2.setHint(hint2);
+
+		TextView txtDone = (TextView)dlg.findViewById(R.id.txt_dialog_with_2edt_done);
+		txtDone.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+				listener.onClickDone(edt.getText().toString(), edt2.getText().toString());
+			}
+		});
+
+		TextView txtCancel = (TextView)dlg.findViewById(R.id.txt_dialog_with_2edt_cancel);
 		txtCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override

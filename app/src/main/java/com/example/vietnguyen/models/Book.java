@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Created by viet on 9/3/2015.
@@ -44,7 +46,9 @@ public class Book extends Model{
 	}
 
 	public Set<String> getWords(){
-		return getVocabs().keySet();
+		Set<String> words = getVocabs().keySet();
+		SortedSet<String> sortedSet = new TreeSet<String>(words);
+		return sortedSet;
 	}
 
 	public List<String> getPhrasesOfWord(String word){

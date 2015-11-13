@@ -15,7 +15,7 @@ import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
-import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookAdapter;
+import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
 
 import org.json.JSONObject;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class BookListFragment extends MyFragment{
 
 	private List<Book>	books;
-	private BookAdapter	bookAdapter;
+	private BookListAdapter bookListAdapter;
 	private ListView	lstBook;
 
 	@Override
@@ -58,8 +58,8 @@ public class BookListFragment extends MyFragment{
 	private void loadBookFromLocal(){
 		books = new Select().from(Book.class).execute();
 
-		bookAdapter = new BookAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
-		lstBook.setAdapter(bookAdapter);
+		bookListAdapter = new BookListAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
+		lstBook.setAdapter(bookListAdapter);
 	}
 
 	private void loadBookFromServer(){

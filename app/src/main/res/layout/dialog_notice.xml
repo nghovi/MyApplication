@@ -15,7 +15,8 @@
         android:textSize="24sp"
         android:gravity="left"
         android:layout_gravity="left"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:layout_width="match_parent"

@@ -15,23 +15,15 @@
         android:orientation="horizontal"
         android:id="@+id/lnr_fbl_header">
 
-        <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_back" />
-
         <com.example.vietnguyen.core.views.widgets.CoreTextView
             android:id="@+id/txt_mood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:text="Books are teachers"
-            android:textColor="@color/core_white"/>
+            android:textColor="@color/core_white"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +31,18 @@
             android:text="Add"
             android:id="@+id/txt_fbl_add"
             android:textColor="@color/core_white"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal" />
+
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_btn_back"
+            android:visibility="visible" />
 
     </LinearLayout>
 

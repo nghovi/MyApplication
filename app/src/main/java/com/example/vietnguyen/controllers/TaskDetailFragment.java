@@ -42,14 +42,6 @@ public class TaskDetailFragment extends MyFragment{
 				gotoEdit();
 			}
 		});
-		ImageView imgBack = getImageView(R.id.img_back);
-		imgBack.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				backToTaskList();
-			}
-		});
 
 		ImageView iconDelete = getImageView(R.id.img_icon_delete);
 		iconDelete.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +72,11 @@ public class TaskDetailFragment extends MyFragment{
 		txtComment.setText(this.task.comment);
 		final TextView txtPriority = getTextView(R.id.txt_priority);
 		txtPriority.setText(String.valueOf(task.priority));
+	}
+
+	@Override
+	protected void onClickBackBtn(){
+		backToTaskList();
 	}
 
 	private void onDeleteIconClicked(){
