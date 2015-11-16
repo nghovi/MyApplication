@@ -24,6 +24,8 @@ import com.facebook.AccessToken;
 public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener,MyFragment.onFragmentActionListenter{
 
 	protected final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
+	public final String		PREF_SHOW_MOTTOS		= "SHOW_MOTTOS";
+	public final String		PREF_PUSH_NOTIFICATION	= "PUSH_NOTIFICATION";
 	protected Api			api;
 
 	private FragmentManager	mFragmentManager;
@@ -86,6 +88,11 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 			MyFragment currentFragment = (MyFragment)mFragmentManager.findFragmentByTag(fragmentClass.toString());
 			currentFragment.setUpdatedData(updatedKey, updatedValue);
 		}
+	}
+
+	public boolean isCurrentFragment(String fragment){
+		String currentFragmentName = mFragmentManager.getBackStackEntryAt(mFragmentManager.getBackStackEntryCount() - 1).getName();
+		return fragment.equals(currentFragmentName);
 	}
 
 	// //////////////////////////////////Preferences/////////////////////////////////////

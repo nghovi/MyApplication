@@ -143,14 +143,18 @@ public class TaskListFragment extends MyFragment{
 	private void showTasks(){
 		mapTasksToDate();
 		this.showedTasks = map.get(buildKey(targetDate));
-		if(this.showedTasks == null || this.showedTasks.size() == 0){
-			goneView(lstTask);
-			visibleView(getTextView(R.id.task_list_empty_txt));
-		}else{
-			visibleView(lstTask);
-			goneView(getTextView(R.id.task_list_empty_txt));
-			this.taskAdapter = new TaskAdapter(activity, R.layout.item_task, this.showedTasks);
-			lstTask.setAdapter(taskAdapter);
+
+		View txtEmpty = getView().findViewById(R.id.task_list_empty_txt);
+		if(txtEmpty != null){
+			if(this.showedTasks == null || this.showedTasks.size() == 0){
+				goneView(lstTask);
+				visibleView(getTextView(R.id.task_list_empty_txt));
+			}else{
+				visibleView(lstTask);
+				goneView(getTextView(R.id.task_list_empty_txt));
+				this.taskAdapter = new TaskAdapter(activity, R.layout.item_task, this.showedTasks);
+				lstTask.setAdapter(taskAdapter);
+			}
 		}
 	}
 

@@ -28,9 +28,10 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/mock_book_name"
-            android:textColor="@color/core_red"
+            android:textColor="@color/core_black"
             android:layout_marginRight="10dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textStyle="italic" />
 
     </LinearLayout>
 

@@ -1,0 +1,31 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.example.vietnguyen.controllers.QkCheckableSwitchRelativeLayout
+        android:id="@+id/rlt_id_switch"
+        style="@style/cs_common_wrap"
+        android:clickable="true"
+        android:gravity="right">
+
+        <com.example.vietnguyen.core.views.widgets.CheckableImageView
+            android:id="@+id/imv_ic_img1"
+            style="@style/cs_common_wrap"
+            android:layout_centerVertical="true"
+            android:background="@drawable/state_switch"
+            android:clickable="true" />
+
+        <LinearLayout
+            android:id="@+id/lnr_id_switch"
+            style="@style/cs_common_match_wrap"
+            android:layout_alignLeft="@+id/imv_ic_img1"
+            android:layout_alignRight="@+id/imv_ic_img1"
+            android:layout_margin="@dimen/margin_0dp"
+            android:padding="@dimen/margin_0dp">
+
+            <com.example.vietnguyen.core.views.widgets.CheckableImageView
+                android:id="@+id/imv_ic_img2"
+                style="@style/cs_common_wrap"
+                android:background="@drawable/checkable_switch_toggle"
+                android:clickable="true" />
+        </LinearLayout>
+    </com.example.vietnguyen.controllers.QkCheckableSwitchRelativeLayout>
+</merge>

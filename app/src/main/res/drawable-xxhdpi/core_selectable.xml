@@ -4,6 +4,5 @@
     <item android:drawable="@color/core_silver" android:state_pressed="true" />
     <item android:drawable="@color/core_silver" android:state_focused="true" />
     <item android:drawable="@color/core_silver" android:state_selected="true" />
-    <item android:drawable="@color/core_white" />
 
 </selector>

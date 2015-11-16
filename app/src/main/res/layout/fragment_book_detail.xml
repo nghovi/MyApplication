@@ -4,7 +4,6 @@
     android:id="@+id/lnr_book_detail_main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/core_white"
     android:orientation="vertical"
     tools:context="com.example.vietnguyen.controllers.BookListFragment">
 
@@ -49,8 +48,9 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView3" >
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView3"
+        android:background="@drawable/bg_reading">
 
         <LinearLayout
             android:layout_width="match_parent"
