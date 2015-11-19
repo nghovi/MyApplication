@@ -36,13 +36,20 @@ public class BookListFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		setOnClickFor(R.id.txt_fbl_add, new View.OnClickListener() {
+		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				activity.addFragment(new BookAddFragment());
 			}
 		});
-		lstBook = getListView(R.id.lst_fbl_book_list);
+		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onClickSearchIcon();
+			}
+		});
+
+		lstBook = getListView(R.id.lst_fragment_book_search_result_book);
 		lstBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -53,6 +60,10 @@ public class BookListFragment extends MyFragment{
 		});
 		loadBookFromLocal();
 		loadBookFromServer();
+	}
+
+	private void onClickSearchIcon() {
+		activity.addFragment(new BookSearchFragment());
 	}
 
 	private void loadBookFromLocal(){
@@ -67,14 +78,14 @@ public class BookListFragment extends MyFragment{
 		getApi(Const.GET_BOOKS, params, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response){
-				books = (ArrayList<Book>)MU.convertToModelList(response.optString("data"), Book.class);
+			public void onApiResponse(JSONObject response) {
+				books = (ArrayList<Book>) MU.convertToModelList(response.optString("data"), Book.class);
 				saveBookToLocal(books);
 				loadBookFromLocal();
 			}
 
 			@Override
-			public void onApiError(String errorMsg){
+			public void onApiError(String errorMsg) {
 				showShortToast("Get books from server failed");
 			}
 		});

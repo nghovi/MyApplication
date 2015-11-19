@@ -66,7 +66,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	private void gotoPrimaryCardFragment(){
 		footer.show();
-		Fragment primaryCardFragment = new PrimaryCardFragment();
+		PrimaryCardFragment primaryCardFragment = new PrimaryCardFragment();
 		replaceWithFragment(primaryCardFragment);
 	}
 

@@ -16,7 +16,7 @@
         android:id="@+id/lnr_fbl_header">
 
         <com.example.vietnguyen.core.views.widgets.CoreTextView
-            android:id="@+id/txt_mood"
+            android:id="@+id/txt_fragment_book_list_mood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -29,19 +29,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
-            android:id="@+id/txt_fbl_add"
+            android:id="@+id/txt_fragment_book_list_add"
             android:textColor="@color/core_white"
             android:paddingRight="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal" />
 
         <ImageView
-            android:id="@+id/img_search"
+            android:id="@+id/img_fragment_book_list_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_back"
+            android:src="@drawable/ico_search_32_off"
             android:visibility="visible" />
 
     </LinearLayout>
@@ -54,7 +54,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lst_fbl_book_list" />
+            android:id="@+id/lst_fragment_book_search_result_book" />
     </LinearLayout>
 
 </LinearLayout>

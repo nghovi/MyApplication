@@ -34,26 +34,26 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	 * To use this function, make sure that activity's layout file include fragment_container.
 	 * no add to back stack
 	 */
-	public void replaceWithFragment(Fragment fragment, String updatedKey, Object updatedValue){
+	public void replaceWithFragment(MyFragment fragment, String updatedKey, Object updatedValue){
 		mFragmentManager.popBackStack();
 		addFragment(fragment, updatedKey, updatedValue);
 	}
 
-	public void replaceWithFragment(Fragment fragment){
+	public void replaceWithFragment(MyFragment fragment){
 		mFragmentManager.popBackStack();
 		addFragment(fragment, null, null);
 	}
 
 	// add to back stack
-	public void addFragment(Fragment fragment, String updatedKey, Object updatedValue){
-		setUpdatedData(fragment.getClass(), updatedKey, updatedValue);
+	public void addFragment(MyFragment fragment, String updatedKey, Object updatedValue){
+		fragment.setUpdatedData(updatedKey, updatedValue);
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().toString());
 		fragmentTransaction.addToBackStack(fragment.getClass().toString());
 		fragmentTransaction.commit();
 	}
 
-	public void addFragment(Fragment fragment){
+	public void addFragment(MyFragment fragment){
 		addFragment(fragment, null, null);
 	}
 

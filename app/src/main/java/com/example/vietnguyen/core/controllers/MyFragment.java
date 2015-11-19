@@ -172,6 +172,10 @@ public class MyFragment extends Fragment{
 		getView(parent, viewId).setVisibility(View.INVISIBLE);
 	}
 
+	public void visibleView(int viewId){
+		getView(viewId).setVisibility(View.VISIBLE);
+	}
+
 	public void visibleView(View v){
 		v.setVisibility(View.VISIBLE);
 	}
@@ -219,17 +223,17 @@ public class MyFragment extends Fragment{
 		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(View.VISIBLE == content.getVisibility()){
+			public void onClick(View view) {
+				if (View.VISIBLE == content.getVisibility()) {
 					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-					if(otherView != null){
+					if (otherView != null) {
 						otherView.setVisibility(View.GONE);
 					}
-				}else{
+				} else {
 					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
-					if(otherView != null){
+					if (otherView != null) {
 						otherView.setVisibility(View.VISIBLE);
 					}
 				}
@@ -335,14 +339,14 @@ public class MyFragment extends Fragment{
 		setOnClickFor(R.id.img_back, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickBackBtn();
 			}
 		});
 	}
 
 	protected void onClickBackBtn(){
-
+		activity.backOneFragment();
 	}
 
 	@Override
