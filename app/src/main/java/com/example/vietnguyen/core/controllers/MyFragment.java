@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -218,22 +219,24 @@ public class MyFragment extends Fragment{
 		}
 	}
 
-	public void setFoldAction(View foldable, final ImageView imgFoldIcon, int contentId, final View otherView){
+	public void setFoldAction(final View foldable, final ImageView imgFoldIcon, int contentId, final View otherView){
 		final View content = getView(foldable, contentId);
 		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (View.VISIBLE == content.getVisibility()) {
+			public void onClick(View view){
+				if(View.VISIBLE == content.getVisibility()){
+					foldable.setBackgroundColor(0);
 					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-					if (otherView != null) {
+					if(otherView != null){
 						otherView.setVisibility(View.GONE);
 					}
-				} else {
+				}else{
+					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
 					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
-					if (otherView != null) {
+					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);
 					}
 				}
@@ -339,7 +342,7 @@ public class MyFragment extends Fragment{
 		setOnClickFor(R.id.img_back, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickBackBtn();
 			}
 		});

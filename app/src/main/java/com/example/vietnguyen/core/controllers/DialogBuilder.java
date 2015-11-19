@@ -38,7 +38,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 	public Dialog buildConfirmDlgTopDown(String cancel, String confirm, View.OnClickListener confirmListener){
 		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
-		dlg.setContentView(R.layout.dialog_2_options);
+		dlg.setContentView(R.layout.dialog_topdown_2_options);
 
 		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
 		txtOption1.setText(cancel);
@@ -62,7 +62,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 	public Dialog build2OptsDlgTopDown(String opt1, String opt2, View.OnClickListener listener1, View.OnClickListener listener2){
 		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
-		dlg.setContentView(R.layout.dialog_2_options);
+		dlg.setContentView(R.layout.dialog_topdown_2_options);
 
 		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
 		txtOption1.setText(opt1);
@@ -71,6 +71,40 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		TextView txtOption2 = (TextView)dlg.findViewById(R.id.txt_option2);
 		txtOption2.setText(opt2);
 		setListenerFor(txtOption2, listener2);
+
+		dlg.getWindow().getAttributes().gravity = Gravity.TOP | Gravity.LEFT;
+		dlg.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		return dlg;
+	}
+
+	public Dialog build3OptsDlgTopDown(String opt1, String opt2, String opt3, final OnNumberPickerBtnOkClickListener listener){
+		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
+		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
+		dlg.setContentView(R.layout.dialog_topdown_3_options);
+
+		View.OnClickListener myListener = new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				int option = (int)view.getTag();
+				listener.onClick(option, ((TextView)view).getText().toString());
+			}
+		};
+
+		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
+		txtOption1.setText(opt1);
+		txtOption1.setTag(1);
+		setListenerFor(txtOption1, myListener);
+
+		TextView txtOption2 = (TextView)dlg.findViewById(R.id.txt_option2);
+		txtOption2.setText(opt2);
+		txtOption2.setTag(2);
+		setListenerFor(txtOption2, myListener);
+
+		TextView txtOption3 = (TextView)dlg.findViewById(R.id.txt_option3);
+		txtOption3.setText(opt3);
+		txtOption3.setTag(3);
+		setListenerFor(txtOption3, myListener);
 
 		dlg.getWindow().getAttributes().gravity = Gravity.TOP | Gravity.LEFT;
 		dlg.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -124,6 +158,36 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		dlg.setTitle(title);
 		((TextView)dlg.findViewById(R.id.dlg_notice_msg)).setText(msg);
 		setAutoDismiss(dlg, autoDismissTimeSec);
+		return dlg;
+	}
+
+	public Dialog build2OptionsDialog(Context context, String title, String msg, String right, final View.OnClickListener listenerRight){
+		dlg = new Dialog(this.context);
+		// dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dlg.setTitle(title);
+		dlg.setContentView(R.layout.dialog_2options);
+		TextView txtMsg = (TextView)dlg.findViewById(R.id.txt_dialog_2_options_message);
+		txtMsg.setText(msg);
+
+		Button btnOk = (Button)dlg.findViewById(R.id.btn_dialog_2_options_left);
+		btnOk.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+			}
+		});
+
+		Button btnRight = (Button)dlg.findViewById(R.id.btn_dialog_2_options_right);
+		btnRight.setText(right);
+		btnRight.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				dlg.dismiss();
+				listenerRight.onClick(view);
+			}
+		});
 		return dlg;
 	}
 

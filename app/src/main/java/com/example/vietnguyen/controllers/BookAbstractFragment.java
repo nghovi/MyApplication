@@ -167,13 +167,41 @@ public class BookAbstractFragment extends MyFragment{
 	}
 
 	protected void addWordForBook(String newWord, String newPhrase){
-		if(!MU.isEmpty(newWord) && !book.hasWord(newWord)){
-			book.addWordForBook(newWord);
-			if(!MU.isEmpty(newPhrase)){
-				book.addPhraseForWord(newWord, newPhrase);
+		if(!MU.isEmpty(newWord)){
+			if(book.hasWord(newWord)){
+				addPhraseForWord(newWord, newPhrase);
+			}else{
+				List<Book> booksContainWord = BookSearchFragment.searchWord(newWord);
+				if(booksContainWord.size() > 0){
+					addPhraseForExistingWord(booksContainWord, newWord, newPhrase);
+				}else{
+					book.addWordForBook(newWord);
+					saveThisBookToServer();
+					addPhraseForWord(newWord, newPhrase);
+				}
 			}
-			saveBookToServer();
 		}
+	}
+
+	private void addPhraseForExistingWord(List<Book> booksContainWord, String newWord, String newPhrase){
+		Book b = booksContainWord.get(0);
+		if(!MU.isEmpty(newPhrase)){
+			b.addPhraseForWord(newWord, newPhrase);
+			saveBookToServer(b);
+			showExistedWordNotifyDialog("Added new phrase for '" + newWord + "' at '" + b.name + "'", newWord, b);
+		}else{
+			showExistedWordNotifyDialog("Found '" + newWord + "' at '" + b.name + "'", newWord, b);
+		}
+	}
+
+	private void showExistedWordNotifyDialog(String msg, String newWord, final Book foundBook){
+		dlgBuilder.build2OptionsDialog(activity, "Word existed!", msg, "View", new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				activity.addFragment(new BookDetailFragment(), BookAbstractFragment.KEY_UPDATED_BOOK, foundBook);
+			}
+		}).show();
 	}
 
 	private void deleteWord(final String word){
@@ -182,7 +210,7 @@ public class BookAbstractFragment extends MyFragment{
 			@Override
 			public void onClick(View view){
 				book.deleteWord(word);
-				saveBookToServer();
+				saveThisBookToServer();
 			}
 		}).show();
 	}
@@ -200,25 +228,57 @@ public class BookAbstractFragment extends MyFragment{
 	private void addPhraseForWord(String word, String phrase){
 		if(book.hasWord(word) && !MU.isEmpty(phrase)){
 			book.addPhraseForWord(word, phrase);
-			saveBookToServer();
+			saveThisBookToServer();
 		}
 	}
 
 	private void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
-		saveBookToServer();
+		saveThisBookToServer();
 	}
 
-	public void saveBookToServer(){
+	public void saveThisBookToServer(){
 		book = buildBookFromLayout();
 		originBookStr = book.toString();
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+		saveBookToServer(book);
+	}
+
+	public void saveBookToServer(Book b){
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", b.toString()));
 		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
 
 			@Override
 			public void onApiResponse(JSONObject response){
 				buildLayout();
 				showShortToast("Successfully saved changes");
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
+	}
+
+	public void deleteThisBook(){
+		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				deleteThisBookToServer();
+			}
+		}).show();
+	}
+
+	public void deleteThisBookToServer(){
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", book.id));
+		postApi(Const.DELETE_BOOK, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				book.delete();
+				showShortToast("Successfully delete '" + book.name + "'");
+				activity.backToFragment(BookListFragment.class);
 			}
 
 			@Override

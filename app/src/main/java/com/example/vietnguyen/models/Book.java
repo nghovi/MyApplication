@@ -23,7 +23,7 @@ import java.util.TreeSet;
  */
 
 @Table(name = "book", id = "otherId")
-public class Book extends Model{
+public class Book extends MyModel{
 
 	public static final String	WORD_DELIMITER		= "@@@@";
 	public static final String	PHRASE_OPEN_STR		= "^^^^";
@@ -117,18 +117,18 @@ public class Book extends Model{
 		}
 		return result;
 	}
-
-	@Override
-	public String toString(){
-		Gson gson = MU.createNewGson();
-		String str = gson.toJson(this).toString();
-		return str;
-	}
-
-	public Book fromString(String model){
-		Gson gson = new Gson();
-		return gson.fromJson(model, Book.class);
-	}
+//
+//	@Override
+//	public String toString(){
+//		Gson gson = MU.createNewGson();
+//		String str = gson.toJson(this).toString();
+//		return str;
+//	}
+//
+//	public Book fromString(String model){
+//		Gson gson = new Gson();
+//		return gson.fromJson(model, Book.class);
+//	}
 
 	private void buildVocabs(){
 		vocabs = new HashMap<String, List<String>>();

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -258,6 +259,13 @@ public class MU{
 		Calendar c2 = Calendar.getInstance();
 		c2.setTime(d2);
 		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+	}
+
+	public static boolean checkMatch(String parent, String pattern){
+		if(isEmpty(parent) || isEmpty(pattern)){
+			return false;
+		}
+		return Pattern.compile(Pattern.quote(pattern), Pattern.CASE_INSENSITIVE).matcher(parent).find();
 	}
 
 	public static String getDateForDisplaying(Date date){

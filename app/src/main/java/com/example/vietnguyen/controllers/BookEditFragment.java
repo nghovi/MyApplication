@@ -30,8 +30,15 @@ public class BookEditFragment extends BookAbstractFragment{
 		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
 
 			@Override
+			public void onClick(View view) {
+				saveThisBookToServer();
+			}
+		});
+		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
+
+			@Override
 			public void onClick(View view){
-				saveBookToServer();
+				deleteThisBook();
 			}
 		});
 
@@ -157,7 +164,7 @@ public class BookEditFragment extends BookAbstractFragment{
 			@Override
 			public void onClick(View view){
 				book.deleteWord(word);
-				saveBookToServer();
+				saveThisBookToServer();
 			}
 		}).show();
 	}
@@ -174,11 +181,11 @@ public class BookEditFragment extends BookAbstractFragment{
 
 	private void addPhraseForWord(String word, String phrase){
 		book.addPhraseForWord(word, phrase);
-		saveBookToServer();
+		saveThisBookToServer();
 	}
 
 	private void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
-		saveBookToServer();
+		saveThisBookToServer();
 	}
 }

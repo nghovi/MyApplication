@@ -14,7 +14,7 @@ import java.lang.reflect.Modifier;
  * Created by viet on 9/3/2015.
  */
 
-public class MyModel{
+public class MyModel extends Model{
 
 	public MyModel(){
 

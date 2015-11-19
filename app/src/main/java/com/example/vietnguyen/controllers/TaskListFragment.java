@@ -1,6 +1,5 @@
 package com.example.vietnguyen.controllers;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -24,12 +23,14 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
+import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.TaskAdapter;
@@ -73,7 +74,18 @@ public class TaskListFragment extends MyFragment{
 			TextView txtDate = getTextView(R.id.txt_date);
 			txtDate.setText(MU.getDateForDisplaying(targetDate));
 		}
-		loadTasks(this.targetDate);
+		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				activity.addFragment(new TaskSearchFragment());
+			}
+		});
+		loadTasksFromServer(this.targetDate);
+	}
+
+	private void loadTasksFromLocal(){
+		tasks = new Select().from(Task.class).execute();
 	}
 
 	private void buildCalendarPicker(){
@@ -112,7 +124,7 @@ public class TaskListFragment extends MyFragment{
 		});
 	}
 
-	private void loadTasks(Date targetDate){
+	private void loadTasksFromServer(Date targetDate){
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", targetDate.toString()));
 		getApi(Const.GET_TASKS, params, new Api.OnCallApiListener() {
 
@@ -130,7 +142,15 @@ public class TaskListFragment extends MyFragment{
 
 	public void onSuccessLoadTasksFromServer(JSONObject response){
 		tasks = MU.convertToModelList(response.optString("data"), Task.class);
+		saveTaskToLocal(tasks);
 		showTasks();
+	}
+
+	public void saveTaskToLocal(List<Task> taskList){
+		new Delete().from(Task.class).execute();
+		for(Task task : taskList){
+			task.save();
+		}
 	}
 
 	// if error while loading from server, show local tasks only
@@ -141,6 +161,7 @@ public class TaskListFragment extends MyFragment{
 	}
 
 	private void showTasks(){
+		loadTasksFromLocal();
 		mapTasksToDate();
 		this.showedTasks = map.get(buildKey(targetDate));
 

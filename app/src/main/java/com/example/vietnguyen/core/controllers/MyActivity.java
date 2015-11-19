@@ -77,6 +77,10 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		mFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 	}
 
+	protected void emptyFragmentStack(){
+		mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+	}
+
 	public void registerOnClickListener(List<View> views, View.OnClickListener listener){
 		for(View view : views){
 			view.setOnClickListener(listener);

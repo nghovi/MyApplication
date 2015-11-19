@@ -37,34 +37,47 @@ public class BookSearchFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		setOnClickFor(R.id.txt_fragment_book_search_search, new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickSearchText();
 			}
 		});
 
 	}
 
-	private void onClickSearchText() {
+	public static List<Book> searchWord(String word){
+		List<Book> books = new Select().from(Book.class).execute();
+		Iterator<Book> ib = books.iterator();
+		while(ib.hasNext()){
+			Book book = ib.next();
+			if(!MU.isEmpty(word) && !book.hasWord(word)){
+				ib.remove();
+			}
+		}
+		return books;
+	}
+
+	private void onClickSearchText(){
 		String word = getEditText(R.id.edt_fragment_book_search_word).getText().toString();
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
-		String  author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
+		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
 		String comment = getEditText(R.id.edt_fragment_book_search_comment).getText().toString();
 
 		books = new Select().from(Book.class).execute();
 		Iterator<Book> ib = books.iterator();
-		while(ib.hasNext()) {
+		while(ib.hasNext()){
 			Book book = ib.next();
-			if (!MU.isEmpty(word) && !book.hasWord(word)) {
+			if(!MU.isEmpty(word) && !book.hasWord(word)){
 				ib.remove();
 			}
-			if (!MU.isEmpty(name) && Pattern.compile(Pattern.quote(name), Pattern.CASE_INSENSITIVE).matcher(book.name).find()) {
+			if(!MU.isEmpty(name) && !Pattern.compile(Pattern.quote(name), Pattern.CASE_INSENSITIVE).matcher(book.name).find()){
 				ib.remove();
 			}
-			if (!MU.isEmpty(author) && Pattern.compile(Pattern.quote(author), Pattern.CASE_INSENSITIVE).matcher(book.author).find()) {
+			if(!MU.isEmpty(author) && !Pattern.compile(Pattern.quote(author), Pattern.CASE_INSENSITIVE).matcher(book.author).find()){
 				ib.remove();
 			}
-			if (!MU.isEmpty(comment) && Pattern.compile(Pattern.quote(comment), Pattern.CASE_INSENSITIVE).matcher(book.comment).find()) {
+			if(!MU.isEmpty(comment) && !Pattern.compile(Pattern.quote(comment), Pattern.CASE_INSENSITIVE).matcher(book.comment).find()){
 				ib.remove();
 			}
 		}

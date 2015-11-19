@@ -156,24 +156,28 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem1(){
 		MU.log("Footer item 1 onClicked");
+		emptyFragmentStack();
 		PrimaryCardFragment frg = new PrimaryCardFragment();
 		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem2(){
 		MU.log("Footer item 2 onClicked");
+		emptyFragmentStack();
 		SettingFragment frg = new SettingFragment();
 		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
+		emptyFragmentStack();
 		BookListFragment frg = new BookListFragment();
 		replaceWithFragment(frg);
 	}
 
 	public void onClickFooterItem4(){
 		MU.log("Footer item 4 onClicked");
+		emptyFragmentStack();
 		TaskListFragment frg = new TaskListFragment();
 		replaceWithFragment(frg);
 	}
