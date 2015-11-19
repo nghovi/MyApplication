@@ -142,7 +142,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	private void showGoodSay(Message message){
-		if(!dialogNotice.isShowing()){
+		if(!dialogNotice.isShowing() && activity.getIntPreference(activity.PREF_SHOW_MOTTOS, 1) == 1){
 			String motto = chooseRandomGoodSay();
 			if(!MU.isEmpty(motto)){
 				dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying(new Date()), motto, (int)SHOW_GOOD_SAY_PERIOD_MS / 2000).show();

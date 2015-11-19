@@ -162,7 +162,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem2(){
 		MU.log("Footer item 2 onClicked");
-		PhotoFragment frg = new PhotoFragment();
+		SettingFragment frg = new SettingFragment();
 		replaceWithFragment(frg);
 	}
 

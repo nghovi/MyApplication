@@ -37,28 +37,35 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-
-
-
-    </LinearLayout>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lst_task"
-        android:visibility="visible" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="What a shame!\nYou&apos;re free. No task."
-        android:id="@+id/task_list_empty_txt"
-        android:layout_gravity="center"
-        android:gravity="center_vertical|center_horizontal"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:background="@color/bg_reading">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lst_task"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="What a shame!\nYou&apos;re free. No task."
+            android:id="@+id/task_list_empty_txt"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>

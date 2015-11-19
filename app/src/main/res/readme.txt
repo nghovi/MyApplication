@@ -18,3 +18,4 @@ shift ctrl alt j
 14. search in book and task
 15.http://www.tutorialspoint.com/android/android_text_to_speech.htm
 16. Fix bug: request of TakListFragment return result after we switched to book list. So we should cancel all request before entering new fragment, but not background request
+17. Delete all unused resource
