@@ -20,13 +20,24 @@ import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.Book
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class BookSearchFragment extends MyFragment{
 
-	private List<Book>	books;
+	private List<Book>			books;
+
+	public static final String	KEY_BOOK_SEARCH_RESULT		= "book_search_result";
+	public static final String	KEY_BOOK_SEARCH_FLAG		= "book_search_flag";
+	public static final String	KEY_BOOK_SEARCH_LIST		= "book_list";
+	public static final String	KEY_BOOK_SEARCH_WORD		= "book_search_by_word";
+	public static final String	KEY_BOOK_SEARCH_NAME		= "book_search_by_name";
+	public static final String	KEY_BOOK_SEARCH_AUTHOR		= "book_search_by_author";
+	public static final String	KEY_BOOK_SEARCH_COMMENT		= "book_search_by_comment";
+	public static final String	KEY_BOOK_SEARCH_CONDITION	= "book_search_condition";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -36,6 +47,12 @@ public class BookSearchFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		buildPreCondition();
+		buildOnCancelSearch();
+		buildOnClickSearch();
+	}
+
+	private void buildOnClickSearch(){
 		setOnClickFor(R.id.txt_fragment_book_search_search, new View.OnClickListener() {
 
 			@Override
@@ -43,7 +60,36 @@ public class BookSearchFragment extends MyFragment{
 				onClickSearchText();
 			}
 		});
+	}
 
+	private void buildOnCancelSearch(){
+		setOnClickFor(R.id.txt_fragment_book_search_cancel, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				setTextFor(R.id.edt_fragment_book_search_word, "");
+				setTextFor(R.id.edt_fragment_book_search_name, "");
+				setTextFor(R.id.edt_fragment_book_search_author, "");
+				setTextFor(R.id.edt_fragment_book_search_comment, "");
+				onClickSearchText();
+			}
+		});
+	}
+
+	private void buildPreCondition(){
+		Map<String, String> conditions = (Map<String, String>)getUpdatedData(KEY_BOOK_SEARCH_CONDITION, new HashMap<String, String>());
+		if(conditions.containsKey(KEY_BOOK_SEARCH_WORD)){
+			setTextFor(R.id.edt_fragment_book_search_word, conditions.get(KEY_BOOK_SEARCH_WORD));
+		}
+		if(conditions.containsKey(KEY_BOOK_SEARCH_NAME)){
+			setTextFor(R.id.edt_fragment_book_search_name, conditions.get(KEY_BOOK_SEARCH_NAME));
+		}
+		if(conditions.containsKey(KEY_BOOK_SEARCH_AUTHOR)){
+			setTextFor(R.id.edt_fragment_book_search_author, conditions.get(KEY_BOOK_SEARCH_AUTHOR));
+		}
+		if(conditions.containsKey(KEY_BOOK_SEARCH_COMMENT)){
+			setTextFor(R.id.edt_fragment_book_search_comment, conditions.get(KEY_BOOK_SEARCH_COMMENT));
+		}
 	}
 
 	public static List<Book> searchWord(String word){
@@ -70,18 +116,40 @@ public class BookSearchFragment extends MyFragment{
 			Book book = ib.next();
 			if(!MU.isEmpty(word) && !book.hasWord(word)){
 				ib.remove();
+				continue;
 			}
-			if(!MU.isEmpty(name) && !Pattern.compile(Pattern.quote(name), Pattern.CASE_INSENSITIVE).matcher(book.name).find()){
+			if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
 				ib.remove();
+				continue;
 			}
-			if(!MU.isEmpty(author) && !Pattern.compile(Pattern.quote(author), Pattern.CASE_INSENSITIVE).matcher(book.author).find()){
+			if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
 				ib.remove();
+				continue;
 			}
-			if(!MU.isEmpty(comment) && !Pattern.compile(Pattern.quote(comment), Pattern.CASE_INSENSITIVE).matcher(book.comment).find()){
+			if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
 				ib.remove();
+				continue;
 			}
 		}
 
-		activity.addFragment(new BookSearchResultFragment(), BookSearchResultFragment.KEY_BOOK_SEARCH_RESULT, books);
+		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_RESULT, buildSearchResult(word, name, author, comment));
+	}
+
+	private Map<String, Object> buildSearchResult(String word, String name, String author, String comment){
+		boolean hasFiltered = !MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment);
+		Map searchResult = new HashMap<String, Object>();
+		searchResult.put(KEY_BOOK_SEARCH_FLAG, hasFiltered);
+		searchResult.put(KEY_BOOK_SEARCH_LIST, books);
+		searchResult.put(KEY_BOOK_SEARCH_CONDITION, buildSearchConditions(word, name, author, comment));
+		return searchResult;
+	}
+
+	private Map<String, String> buildSearchConditions(String word, String name, String author, String comment){
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put(KEY_BOOK_SEARCH_WORD, word);
+		conditions.put(KEY_BOOK_SEARCH_NAME, name);
+		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);
+		conditions.put(KEY_BOOK_SEARCH_COMMENT, comment);
+		return conditions;
 	}
 }

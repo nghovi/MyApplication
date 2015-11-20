@@ -20,13 +20,16 @@ import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.Book
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BookListFragment extends MyFragment{
 
-	private List<Book>	books;
-	private BookListAdapter bookListAdapter;
-	private ListView	lstBook;
+	private List<Book>			books;
+	private BookListAdapter		bookListAdapter;
+	private ListView			lstBook;
+	private Map<String, String>	searchCondition;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -37,14 +40,16 @@ public class BookListFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				activity.addFragment(new BookAddFragment());
 			}
 		});
 		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickSearchIcon();
 			}
 		});
@@ -58,17 +63,34 @@ public class BookListFragment extends MyFragment{
 				gotoBookDetail(book);
 			}
 		});
-		loadBookFromLocal();
-		loadBookFromServer();
+		Map<String, Object> searchResult = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_RESULT, new HashMap<String, Object>());
+		if(searchResult.containsKey(BookSearchFragment.KEY_BOOK_SEARCH_FLAG) && (boolean)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_FLAG)){
+			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
+			books = (List<Book>)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_LIST);
+			searchCondition = (Map<String, String>)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION);
+			showBooks();
+		}else{
+			searchCondition = null;
+			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
+			loadBookFromLocal();
+			loadBookFromServer();
+		}
 	}
 
-	private void onClickSearchIcon() {
-		activity.addFragment(new BookSearchFragment());
+	private void onClickSearchIcon(){
+		if(searchCondition != null){
+			activity.addFragment(new BookSearchFragment(), BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, searchCondition);
+		}else{
+			activity.addFragment(new BookSearchFragment());
+		}
 	}
 
 	private void loadBookFromLocal(){
 		books = new Select().from(Book.class).execute();
+		showBooks();
+	}
 
+	private void showBooks(){
 		bookListAdapter = new BookListAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
 		lstBook.setAdapter(bookListAdapter);
 	}
@@ -78,14 +100,14 @@ public class BookListFragment extends MyFragment{
 		getApi(Const.GET_BOOKS, params, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response) {
-				books = (ArrayList<Book>) MU.convertToModelList(response.optString("data"), Book.class);
+			public void onApiResponse(JSONObject response){
+				books = (ArrayList<Book>)MU.convertToModelList(response.optString("data"), Book.class);
 				saveBookToLocal(books);
 				loadBookFromLocal();
 			}
 
 			@Override
-			public void onApiError(String errorMsg) {
+			public void onApiError(String errorMsg){
 				showShortToast("Get books from server failed");
 			}
 		});

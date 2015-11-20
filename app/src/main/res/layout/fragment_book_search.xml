@@ -25,12 +25,12 @@
             android:visibility="visible" />
 
         <com.example.vietnguyen.core.views.widgets.CoreTextView
-            android:id="@+id/txt_mood"
+            android:id="@+id/txt_fragment_book_search_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Books are teachers"
+            android:text="Cancel"
             android:textColor="@color/core_white"
             android:layout_marginLeft="10dp"
             android:layout_weight="1" />

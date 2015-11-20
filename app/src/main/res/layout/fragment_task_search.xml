@@ -25,12 +25,12 @@
             android:visibility="visible" />
 
         <com.example.vietnguyen.core.views.widgets.CoreTextView
-            android:id="@+id/txt_mood"
+            android:id="@+id/txt_fragment_task_search_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Priority your tasks"
+            android:text="Cancel"
             android:textColor="@color/core_white"
             android:layout_marginLeft="10dp"
             android:layout_weight="1" />
@@ -120,32 +120,32 @@
         </LinearLayout>
         <View style="@style/core_line_divider"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            android:id="@+id/lnr_fragment_task_search_date">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:padding="16dp"-->
+            <!--android:id="@+id/lnr_fragment_task_search_date">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date: "
-                android:id="@+id/textView6" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Date: "-->
+                <!--android:id="@+id/textView6" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Any"
-                android:id="@+id/txt_fragment_task_search_date"
-                android:textColor="@color/core_blue"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:textIsSelectable="true" />
-        </LinearLayout>
-        <View style="@style/core_line_divider"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Any"-->
+                <!--android:id="@+id/txt_fragment_task_search_date"-->
+                <!--android:textColor="@color/core_blue"-->
+                <!--android:layout_alignParentEnd="false"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textIsSelectable="true" />-->
+        <!--</LinearLayout>-->
+        <!--<View style="@style/core_line_divider"/>-->
     </LinearLayout>
 
 </LinearLayout>

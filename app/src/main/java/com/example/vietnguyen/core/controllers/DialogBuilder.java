@@ -93,17 +93,17 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 
 		TextView txtOption1 = (TextView)dlg.findViewById(R.id.txt_option1);
 		txtOption1.setText(opt1);
-		txtOption1.setTag(1);
+		txtOption1.setTag(0);
 		setListenerFor(txtOption1, myListener);
 
 		TextView txtOption2 = (TextView)dlg.findViewById(R.id.txt_option2);
 		txtOption2.setText(opt2);
-		txtOption2.setTag(2);
+		txtOption2.setTag(1);
 		setListenerFor(txtOption2, myListener);
 
 		TextView txtOption3 = (TextView)dlg.findViewById(R.id.txt_option3);
 		txtOption3.setText(opt3);
-		txtOption3.setTag(3);
+		txtOption3.setTag(2);
 		setListenerFor(txtOption3, myListener);
 
 		dlg.getWindow().getAttributes().gravity = Gravity.TOP | Gravity.LEFT;

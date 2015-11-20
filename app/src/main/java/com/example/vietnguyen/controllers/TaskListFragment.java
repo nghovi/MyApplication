@@ -32,6 +32,7 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.models.Task;
+import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.TaskAdapter;
 
@@ -43,6 +44,7 @@ public class TaskListFragment extends MyFragment{
 	private ArrayList<Task>					showedTasks;
 	private TaskAdapter						taskAdapter;
 	private ListView						lstTask;
+	private Map<String, String>				searchCondition;
 
 	public static final String				KEY_TARGET_DATE	= "targetDate";
 
@@ -71,17 +73,32 @@ public class TaskListFragment extends MyFragment{
 			}
 		});
 		if(!MU.isSameDay(targetDate, new Date())){
-			TextView txtDate = getTextView(R.id.txt_date);
+			TextView txtDate = getTextView(R.id.txt_fragment_task_list_date);
 			txtDate.setText(MU.getDateForDisplaying(targetDate));
 		}
 		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				activity.addFragment(new TaskSearchFragment());
+				if(searchCondition != null){
+					activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchCondition);
+				}else{
+					activity.addFragment(new TaskSearchFragment());
+				}
 			}
 		});
-		loadTasksFromServer(this.targetDate);
+		Map<String, Object> searchResult = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_RESULT, new HashMap<String, Object>());
+		if(searchResult.containsKey(TaskSearchFragment.KEY_TASK_SEARCH_FLAG) && (boolean)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_FLAG)){
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
+			tasks = (List<Task>)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_LIST);
+			searchCondition = (Map<String, String>)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION);
+			invisibleView(R.id.txt_fragment_task_list_date);
+			showTasks(true);
+		}else{
+			searchCondition = null;
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
+			loadTasksFromServer(this.targetDate);
+		}
 	}
 
 	private void loadTasksFromLocal(){
@@ -89,7 +106,7 @@ public class TaskListFragment extends MyFragment{
 	}
 
 	private void buildCalendarPicker(){
-		final TextView txtDate = getTextView(R.id.txt_date);
+		final TextView txtDate = getTextView(R.id.txt_fragment_task_list_date);
 		txtDate.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -103,7 +120,7 @@ public class TaskListFragment extends MyFragment{
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						txtDate.setText(MU.getDateForDisplaying(targetDate));
-						showTasks();
+						showTasks(false);
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");
@@ -143,7 +160,7 @@ public class TaskListFragment extends MyFragment{
 	public void onSuccessLoadTasksFromServer(JSONObject response){
 		tasks = MU.convertToModelList(response.optString("data"), Task.class);
 		saveTaskToLocal(tasks);
-		showTasks();
+		showTasks(false);
 	}
 
 	public void saveTaskToLocal(List<Task> taskList){
@@ -160,10 +177,15 @@ public class TaskListFragment extends MyFragment{
 		visibleView(getTextView(R.id.task_list_empty_txt));
 	}
 
-	private void showTasks(){
-		loadTasksFromLocal();
-		mapTasksToDate();
-		this.showedTasks = map.get(buildKey(targetDate));
+	private void showTasks(boolean isFiltered){
+		if(isFiltered){
+			this.showedTasks = new ArrayList<Task>();
+			this.showedTasks.addAll(tasks);
+		}else{
+			loadTasksFromLocal();
+			mapTasksToDate();
+			this.showedTasks = map.get(buildKey(targetDate));
+		}
 
 		View txtEmpty = getView().findViewById(R.id.task_list_empty_txt);
 		if(txtEmpty != null){
@@ -173,7 +195,7 @@ public class TaskListFragment extends MyFragment{
 			}else{
 				visibleView(lstTask);
 				goneView(getTextView(R.id.task_list_empty_txt));
-				this.taskAdapter = new TaskAdapter(activity, R.layout.item_task, this.showedTasks);
+				this.taskAdapter = new TaskAdapter(activity, R.layout.item_task, this.showedTasks, isFiltered);
 				lstTask.setAdapter(taskAdapter);
 			}
 		}

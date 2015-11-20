@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today"
-            android:id="@+id/txt_date"
+            android:id="@+id/txt_fragment_task_list_date"
             android:textColor="@color/core_white"
             android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"

@@ -74,10 +74,10 @@ public class TaskDetailFragment extends MyFragment{
 		txtPriority.setText(String.valueOf(task.priority));
 	}
 
-	@Override
-	protected void onClickBackBtn(){
-		backToTaskList();
-	}
+	// @Override
+	// protected void onClickBackBtn(){
+	// //backToTaskList();
+	// }
 
 	private void onDeleteIconClicked(){
 
@@ -115,13 +115,15 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onApiResponse(JSONObject response){
 				Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
-				backToTaskList();
+				onClickBackBtn();
+				// backToTaskList();
 			}
 
 			@Override
 			public void onApiError(String errorMsg){
 				Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
-				backToTaskList();
+				onClickBackBtn();
+				// backToTaskList();
 			}
 		});
 	}
@@ -134,13 +136,15 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onApiResponse(JSONObject response){
 				Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
-				backToTaskList();
+				onClickBackBtn();
+				// backToTaskList();
 			}
 
 			@Override
 			public void onApiError(String errorMsg){
 				Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
-				backToTaskList();
+				onClickBackBtn();
+				// backToTaskList();
 			}
 		});
 	}

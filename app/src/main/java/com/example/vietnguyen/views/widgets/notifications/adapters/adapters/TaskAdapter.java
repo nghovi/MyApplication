@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
@@ -22,12 +23,14 @@ public class TaskAdapter extends ArrayAdapter<Task>{
 	private ArrayList<Task>			data;
 	private static LayoutInflater	inflater	= null;
 	private int						resourceId;
+	private boolean					isFiltered	= false;
 
-	public TaskAdapter(Context context, int resourceId, ArrayList<Task> data){
+	public TaskAdapter(Context context, int resourceId, ArrayList<Task> data, boolean isFiltered){
 		super(context, resourceId, data);
 		this.context = context;
 		this.data = data;
 		this.resourceId = resourceId;
+		this.isFiltered = isFiltered;
 	}
 
 	@Override
@@ -35,14 +38,19 @@ public class TaskAdapter extends ArrayAdapter<Task>{
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(resourceId, null);
 		Task task = data.get(position);
-        if (task.status == Task.STATUS_FINISHED) {
-            ImageView imgStatus = (ImageView)convertView.findViewById(R.id.img_icon);
-            imgStatus.setImageResource((R.drawable.ico_checked));
-        }
+		if(task.status == Task.STATUS_FINISHED){
+			ImageView imgStatus = (ImageView)convertView.findViewById(R.id.img_icon);
+			imgStatus.setImageResource((R.drawable.ico_checked));
+		}
 		TextView txt1 = (TextView)convertView.findViewById(R.id.txt1);
 		txt1.setText(task.priority + "." + task.name);
 		TextView txt2 = (TextView)convertView.findViewById(R.id.txt2);
-        txt2.setText(task.description);
+		txt2.setText(task.description);
+		if(isFiltered){
+			TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_task_search_result_date);
+			txtDate.setText(MU.getDateForDisplaying(task.date));
+			txtDate.setVisibility(View.VISIBLE);
+		}
 		return convertView;
 	}
 }
