@@ -73,4 +73,8 @@ public class Task extends MyModel{
 	@Column(name = "status")
 	@Expose
 	public int		status;
+
+	@Column(name = "noticeId")
+	@Expose
+	public String noticeId;
 }

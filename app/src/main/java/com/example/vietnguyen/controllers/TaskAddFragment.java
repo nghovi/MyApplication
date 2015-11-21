@@ -27,11 +27,7 @@ import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
-public class TaskAddFragment extends MyFragment{
-
-	private Date	targetDate;
-	private boolean	isEdit;
-	private Task	task;
+public class TaskAddFragment extends AbstractTaskFragment{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -47,105 +43,27 @@ public class TaskAddFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		buildCalendarPicker();
-		TextView txtCommit = getTextView(R.id.txt_add);
-		String commitText = "Add";
-		LinearLayout lnrTaskStatus = getLinearLayout(R.id.lnr_task_status);
-
-		if(isEdit){
-			commitText = "Done";
-			TextView txtDate = getTextView(R.id.txt_date);
-			targetDate = task.date;
-			txtDate.setText(MU.getDateForDisplaying(targetDate));
-		}else{
-			task = new Task();
-			targetDate = new Date();
-			task.date = targetDate;
-			task.lastupdated = targetDate;
-			task.priority = Integer.parseInt(Task.TASK_PRIORITIES[0]);
-			lnrTaskStatus.setVisibility(View.GONE);
-			txtCommit.setVisibility(View.INVISIBLE);
-		}
-
-		EditText edtName = getEditText(R.id.txt_name);
-		EditText edtDescription = getEditText(R.id.txt_description);
-		EditText edtComment = getEditText(R.id.txt_comment);
-		addTextWatcher(txtCommit, Arrays.asList((View)edtName, edtDescription));
-		edtName.setText(this.task.name);
-		edtDescription.setText(this.task.description);
-		edtComment.setText(this.task.comment);
-		txtCommit.setText(commitText);
-		txtCommit.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				if(isEdit){
-					updateTask();
-				}else{
-					addNewTask();
-				}
-			}
-		});
-
-		final TextView txtPriority = getTextView(R.id.txt_priority);
-		txtPriority.setText(String.valueOf(task.priority));
-		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
-
-			@Override
-			public void onClick(int selectedValue, String displayedValue){
-				task.priority = Integer.valueOf(displayedValue);
-				txtPriority.setText(String.valueOf(displayedValue));
-			}
-		};
-		txtPriority.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
-			}
-		});
-
-		setTextStatus(task.status);
-		setOnClickFor(R.id.txt_task_status, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				showTaskStatusChoosingDialog();
-			}
-		});
+		goneView(R.id.lnr_share_task_edit_status);
 	}
 
 	@Override
-	protected void onClickBackBtn(){
-		backToTaskList();
+	protected void prepareTask() {
+		task = new Task();
+		targetDate = new Date();
+		task.date = targetDate;
+		task.lastupdated = targetDate;
+		task.priority = Integer.parseInt(Task.TASK_PRIORITIES[0]);
 	}
 
-	private void showTaskStatusChoosingDialog(){
-		String option1 = "Mark as unfinished";
-		String option2 = "Mark as finished";
-		dlgBuilder.build2OptsDlgTopDown(option1, option2, new View.OnClickListener() {
-
+	protected void buildHeaderText() {
+		TextView txtCommit = getTextView(R.id.txt_fragment_task_add_add);
+		txtCommit.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view){
-				task.setStatus(Task.STATUS_UNFINISHED);
-				setTextStatus(Task.STATUS_UNFINISHED);
+			public void onClick(View view) {
+				addNewTask();
 			}
-		}, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				task.setStatus(Task.STATUS_FINISHED);
-				setTextStatus(Task.STATUS_FINISHED);
-			}
-		}).show();
-	}
-
-	private void setTextStatus(int status){
-		if(status == Task.STATUS_FINISHED){
-			setTextFor(R.id.txt_task_status, "Done");
-		}else{
-			setTextFor(R.id.txt_task_status, "Not Done");
-		}
+		});
+		addTextWatcher(txtCommit, Arrays.asList((View) getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
 	}
 
 	private void addNewTask(){
@@ -154,80 +72,17 @@ public class TaskAddFragment extends MyFragment{
 		postApi(Const.ADD_TASK, param, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response){
+			public void onApiResponse(JSONObject response) {
 				showShortToast("Save new task to server success");
 				backToTaskList();
 			}
 
 			@Override
-			public void onApiError(String errorMsg){
+			public void onApiError(String errorMsg) {
 				showShortToast("Save new task to server failed");
 				backToTaskList();
 			}
 		});
 	}
 
-	private void buildTaskFromLayout(){
-		EditText edtName = getEditText(R.id.txt_name);
-		EditText edtDescription = getEditText(R.id.txt_description);
-		EditText edtComment = getEditText(R.id.txt_comment);
-		TextView txtPriority = getTextView(R.id.txt_priority);
-
-		task.name = edtName.getText().toString();
-		task.description = edtDescription.getText().toString();
-		task.comment = edtComment.getText().toString();
-		task.priority = Integer.parseInt(txtPriority.getText().toString());
-		task.date = targetDate;
-		task.lastupdated = targetDate;
-	}
-
-	private void updateTask(){
-		buildTaskFromLayout();
-		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				showShortToast("Save task to server success");
-				backToTaskList();
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				showShortToast("Save to server failed");
-				backToTaskList();
-			}
-		});
-	}
-
-	private void buildCalendarPicker(){
-		final TextView txtDate = getTextView(R.id.txt_date);
-		txtDate.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				DatePickerFragment datePicker = new DatePickerFragment();
-				datePicker.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-
-					@Override
-					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
-						Calendar c = Calendar.getInstance();
-						c.set(i, i2, i3);
-						targetDate = c.getTime();
-						txtDate.setText(MU.getDateForDisplaying(targetDate));
-					}
-				});
-				datePicker.show(activity.getFragmentManager(), "datePicker");
-			}
-		});
-	}
-
-	private void backToTaskList(){
-		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
-	}
-
-	public void setEdit(boolean isEdit, Task task){
-		this.isEdit = isEdit;
-		this.task = task;
-	}
 }

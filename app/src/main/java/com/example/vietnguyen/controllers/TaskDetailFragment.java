@@ -150,9 +150,8 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void gotoEdit(){
-		TaskAddFragment fragment = new TaskAddFragment();
-		fragment.setEdit(true, this.task);
-		activity.addFragment(fragment);
+		TaskEditFragment fragment = new TaskEditFragment();
+		activity.addFragment(fragment, BUNDLE_KEY_TASK, task);
 	}
 
 	private void backToTaskList(){

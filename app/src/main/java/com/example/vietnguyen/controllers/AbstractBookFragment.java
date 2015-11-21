@@ -22,17 +22,12 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class BookAbstractFragment extends MyFragment{
+public class AbstractBookFragment extends MyFragment{
 
 	public final static String	KEY_UPDATED_BOOK	= "book_updated";
 	protected Book				book;
 	protected String			originBookStr;
 	protected String			newWord;
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.fragment_book_edit, container, false);
-	}
 
 	@Override
 	protected void buildLayout(){
@@ -138,7 +133,7 @@ public class BookAbstractFragment extends MyFragment{
 	private void onBackBtnClicked(){
 		final Book newBook = buildBookFromLayout();
 		if(this.originBookStr.equals(newBook.toString())){
-			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+			activity.backToFragment(DetailBookFragment.class, DetailBookFragment.KEY_UPDATED_BOOK, book);
 		}else{
 			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
 
@@ -199,7 +194,7 @@ public class BookAbstractFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view){
-				activity.addFragment(new BookDetailFragment(), BookAbstractFragment.KEY_UPDATED_BOOK, foundBook);
+				activity.addFragment(new DetailBookFragment(), AbstractBookFragment.KEY_UPDATED_BOOK, foundBook);
 			}
 		}).show();
 	}
@@ -296,7 +291,7 @@ public class BookAbstractFragment extends MyFragment{
 			public void onApiResponse(JSONObject response){
 				book = newBook;
 				originBookStr = book.toString();
-				activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+				activity.backToFragment(DetailBookFragment.class, DetailBookFragment.KEY_UPDATED_BOOK, book);
 			}
 
 			@Override

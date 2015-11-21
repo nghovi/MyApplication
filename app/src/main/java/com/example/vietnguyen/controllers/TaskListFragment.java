@@ -57,32 +57,41 @@ public class TaskListFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		buildCalendarPicker();
+		buildTargetDate();
 		buildAddBtn();
-
-		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
+		buildSearchFunction();
+		buildListTask();
 		tasks = new ArrayList<Task>();
+	}
 
+	private void buildListTask() {
 		lstTask = (ListView)getView(R.id.lst_task);
 		lstTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-				Task Task = (Task)adapterView.getItemAtPosition(i);
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				Task Task = (Task) adapterView.getItemAtPosition(i);
 				gotoTaskDetail(Task);
 			}
 		});
-		if(!MU.isSameDay(targetDate, new Date())){
-			TextView txtDate = getTextView(R.id.txt_fragment_task_list_date);
-			txtDate.setText(MU.getDateForDisplaying(targetDate));
+	}
+
+	private void buildTargetDate() {
+		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
+		if(!MU.isSameDay(targetDate, new Date())) {
+			setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
 		}
+		buildCalendarPicker();
+	}
+
+	private void buildSearchFunction() {
 		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(searchCondition != null){
+			public void onClick(View view) {
+				if (searchCondition != null) {
 					activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchCondition);
-				}else{
+				} else {
 					activity.addFragment(new TaskSearchFragment());
 				}
 			}
@@ -100,6 +109,8 @@ public class TaskListFragment extends MyFragment{
 			loadTasksFromServer(this.targetDate);
 		}
 	}
+
+
 
 	private void loadTasksFromLocal(){
 		tasks = new Select().from(Task.class).execute();
@@ -135,7 +146,6 @@ public class TaskListFragment extends MyFragment{
 			@Override
 			public void onClick(View view){
 				TaskAddFragment frg = new TaskAddFragment();
-				frg.setEdit(false, null);
 				activity.addFragment(frg);
 			}
 		});

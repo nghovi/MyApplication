@@ -137,7 +137,7 @@ public class PhotoFragment extends MyFragment{
 	}
 
 	private void gotoBookDetail(Book book){
-		BookDetailFragment frg = new BookDetailFragment();
+		DetailBookFragment frg = new DetailBookFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}

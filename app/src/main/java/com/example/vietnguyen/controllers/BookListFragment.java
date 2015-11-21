@@ -39,28 +39,39 @@ public class BookListFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		buildAddBookFunction();
+		buildSearchFunction();
+		buildListBook();
+	}
+
+	private void buildListBook() {
+		lstBook = getListView(R.id.lst_fragment_book_search_result_book);
+		lstBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				Book book = (Book) adapterView.getItemAtPosition(i);
+				gotoBookDetail(book);
+			}
+		});
+	}
+
+	private void buildAddBookFunction() {
 		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				activity.addFragment(new BookAddFragment());
+				activity.addFragment(new AddBookFragment());
 			}
 		});
+	}
+
+	private void buildSearchFunction() {
 		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
 				onClickSearchIcon();
-			}
-		});
-
-		lstBook = getListView(R.id.lst_fragment_book_search_result_book);
-		lstBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-				Book book = (Book)adapterView.getItemAtPosition(i);
-				gotoBookDetail(book);
 			}
 		});
 		Map<String, Object> searchResult = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_RESULT, new HashMap<String, Object>());
@@ -91,8 +102,14 @@ public class BookListFragment extends MyFragment{
 	}
 
 	private void showBooks(){
-		bookListAdapter = new BookListAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
-		lstBook.setAdapter(bookListAdapter);
+		ArrayList bookArrays = new ArrayList<Book>(books);
+		if (bookArrays.size() > 0) {
+			bookListAdapter = new BookListAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
+			lstBook.setAdapter(bookListAdapter);
+		} else {
+			//todo
+			MU.log("You should be a reader");
+		}
 	}
 
 	private void loadBookFromServer(){
@@ -121,7 +138,7 @@ public class BookListFragment extends MyFragment{
 	}
 
 	public void gotoBookDetail(Book book){
-		BookDetailFragment frg = new BookDetailFragment();
+		DetailBookFragment frg = new DetailBookFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}

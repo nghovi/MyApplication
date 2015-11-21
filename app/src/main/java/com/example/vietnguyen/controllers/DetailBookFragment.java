@@ -1,6 +1,5 @@
 package com.example.vietnguyen.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -9,18 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.vietnguyen.core.Const;
-import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class BookDetailFragment extends BookAbstractFragment{
+public class DetailBookFragment extends AbstractBookFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -56,7 +50,7 @@ public class BookDetailFragment extends BookAbstractFragment{
 	}
 
 	private void gotoBookEditFragment(){
-		BookEditFragment frg = new BookEditFragment();
+		EditBookFragment frg = new EditBookFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}

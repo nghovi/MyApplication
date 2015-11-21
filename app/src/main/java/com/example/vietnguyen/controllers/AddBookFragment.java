@@ -1,5 +1,10 @@
 package com.example.vietnguyen.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,48 +14,41 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-import java.util.List;
+public class AddBookFragment extends AbstractBookFragment {
 
-public class BookEditFragment extends BookAbstractFragment{
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		book = new Book();
+		book.iconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sumerian_MS2272_2400BC.jpg/220px-Sumerian_MS2272_2400BC.jpg";
+		book.link = "https://en.wikipedia.org/wiki/Book";
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.fragment_book_edit, container, false);
+		return inflater.inflate(R.layout.fragment_book_add, container, false);
 	}
 
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-
-		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				saveThisBookToServer();
-			}
-		});
-		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
+		setOnClickFor(R.id.txt_fba_done, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				deleteThisBook();
+				addBookToServer();
 			}
 		});
 
-		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
-		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
-		// MU.interpolate(lnrContent, jsonObject);
-		setTextFor(R.id.edt_sbe_name, book.name);
 		setTextFor(R.id.edt_sbe_link, book.link);
-		setTextFor(R.id.edt_sbe_author, book.author);
-		setTextFor(R.id.edt_sbe_comment, book.comment);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-		setTextFor(R.id.edt_sbe_mood, book.mood);
 
 		addTextWatcherForBookImage();
 
@@ -74,7 +72,6 @@ public class BookEditFragment extends BookAbstractFragment{
 
 			@Override
 			public void afterTextChanged(Editable editable){
-				String url = editable.toString();
 				MU.picassaLoadImage(editable.toString(), getImageView(R.id.img_sbe_image), activity);
 			}
 		});
@@ -111,7 +108,10 @@ public class BookEditFragment extends BookAbstractFragment{
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
 		List<String> phrases = this.book.getWordUsage(word);
 		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
-		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
+		if(word.equals(this.newWord)){
+			getTextView(itemBookWord, R.id.txt_ibwe_word).setTextColor(getResources().getColor(R.color.core_blue));
+			getView(itemBookWord, R.id.lnr_ibwe).performClick();
+		}
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibwe_phrases);
 		lnrPhrases.removeAllViews();
 		for(final String phrase : phrases){
@@ -138,23 +138,29 @@ public class BookEditFragment extends BookAbstractFragment{
 
 	@Override
 	protected void onClickBackBtn(){
-		final Book newBook = buildBookFromLayout();
-		if(this.originBookStr.equals(newBook.toString())){
-			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+		book = buildBookFromLayout();
+		if(!book.hasSomeInfo()){
+			activity.backToFragment(BookListFragment.class);
 		}else{
-			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
+			dlgBuilder.buildConfirmDlgTopDown("Continue", "Discard Changes", new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){
 					activity.backOneFragment();
 				}
-			}, new View.OnClickListener() {
-
-				@Override
-				public void onClick(View view){
-					saveBookToServerAndBack(newBook);
-				}
 			}).show();
+		}
+	}
+
+	@Override
+	protected void addWordForBook(String newWord, String newPhrase){
+		if(!MU.isEmpty(newWord) && !book.hasWord(newWord)){
+			this.newWord = newWord;
+			book.addWordForBook(this.newWord);
+			if(!MU.isEmpty(newPhrase)){
+				book.addPhraseForWord(newWord, newPhrase);
+			}
+			buildVocabulary();
 		}
 	}
 
@@ -164,7 +170,7 @@ public class BookEditFragment extends BookAbstractFragment{
 			@Override
 			public void onClick(View view){
 				book.deleteWord(word);
-				saveThisBookToServer();
+				buildVocabulary();
 			}
 		}).show();
 	}
@@ -180,12 +186,37 @@ public class BookEditFragment extends BookAbstractFragment{
 	}
 
 	private void addPhraseForWord(String word, String phrase){
-		book.addPhraseForWord(word, phrase);
-		saveThisBookToServer();
+		if(book.hasWord(word) && !MU.isEmpty(phrase)){
+			book.addPhraseForWord(word, phrase);
+			buildVocabulary();
+		}
 	}
 
 	private void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
-		saveThisBookToServer();
+		buildVocabulary();
+	}
+
+	public void addBookToServer(){
+		book = buildBookFromLayout();
+		if(book.isReadyToSave()){
+			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
+
+				@Override
+				public void onApiResponse(JSONObject response){
+					showShortToast("Successfully saved new book");
+					activity.backOneFragment();
+				}
+
+				@Override
+				public void onApiError(String errorMsg){
+
+				}
+			});
+		}else{
+			showLongToast("Please fullfill information");
+		}
+
 	}
 }
