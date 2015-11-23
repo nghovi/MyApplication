@@ -40,8 +40,8 @@ public class BookListFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		buildAddBookFunction();
-		buildSearchFunction();
 		buildListBook();
+		buildSearchFunction();
 	}
 
 	private void buildListBook() {
@@ -70,7 +70,7 @@ public class BookListFragment extends MyFragment{
 		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickSearchIcon();
 			}
 		});

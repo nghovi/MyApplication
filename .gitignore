@@ -1,4 +1,6 @@
 .gradle
+.class
+facebook/
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries

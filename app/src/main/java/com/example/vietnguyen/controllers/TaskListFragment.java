@@ -57,10 +57,10 @@ public class TaskListFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		buildListTask();
 		buildTargetDate();
 		buildAddBtn();
 		buildSearchFunction();
-		buildListTask();
 		tasks = new ArrayList<Task>();
 	}
 

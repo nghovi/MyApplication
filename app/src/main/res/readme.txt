@@ -28,3 +28,4 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
 -19. Put edit cursor when tap on unfold button
 -20. Fix search with author name
 21. test case: network error, first time user, search function
+22. if there isn't table task yet, then load and save all tasks, books
