@@ -115,6 +115,8 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onApiResponse(JSONObject response){
 				Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
+				task.isRemoteSaved=true;
+				task.save();
 				onClickBackBtn();
 				// backToTaskList();
 			}
@@ -122,6 +124,8 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onApiError(String errorMsg){
 				Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
+				task.isRemoteSaved = false;
+				task.save();
 				onClickBackBtn();
 				// backToTaskList();
 			}
@@ -129,24 +133,28 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void sendDeleteTask(){
-		Toast.makeText(activity, "Delete task from local", Toast.LENGTH_SHORT).show();
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("id", task.id));
 		postApi(Const.DELETE_TASK, params, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response){
+			public void onApiResponse(JSONObject response) {
 				Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
+				task.delete();
 				onClickBackBtn();
 				// backToTaskList();
 			}
 
 			@Override
-			public void onApiError(String errorMsg){
+			public void onApiError(String errorMsg) {
 				Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
+				task.isDeleted = true;
+				task.isRemoteSaved = false;
+				task.save();
 				onClickBackBtn();
 				// backToTaskList();
 			}
 		});
+		Toast.makeText(activity, "Deleted task from local", Toast.LENGTH_SHORT).show();
 	}
 
 	private void gotoEdit(){

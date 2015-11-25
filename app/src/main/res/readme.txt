@@ -29,3 +29,5 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
 -20. Fix search with author name
 21. test case: network error, first time user, search function
 22. if there isn't table task yet, then load and save all tasks, books
+23. test case: update search result after edit task from search result then back
+24. Book search function, let's do as task

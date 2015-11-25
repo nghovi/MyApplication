@@ -44,7 +44,7 @@ public class TaskListFragment extends MyFragment{
 	private ArrayList<Task>					showedTasks;
 	private TaskAdapter						taskAdapter;
 	private ListView						lstTask;
-	private Map<String, String>				searchCondition;
+	private Map<String, Object>				searchCondition;
 
 	public static final String				KEY_TARGET_DATE	= "targetDate";
 
@@ -64,34 +64,34 @@ public class TaskListFragment extends MyFragment{
 		tasks = new ArrayList<Task>();
 	}
 
-	private void buildListTask() {
+	private void buildListTask(){
 		lstTask = (ListView)getView(R.id.lst_task);
 		lstTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				Task Task = (Task) adapterView.getItemAtPosition(i);
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+				Task Task = (Task)adapterView.getItemAtPosition(i);
 				gotoTaskDetail(Task);
 			}
 		});
 	}
 
-	private void buildTargetDate() {
+	private void buildTargetDate(){
 		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
-		if(!MU.isSameDay(targetDate, new Date())) {
+		if(!MU.isSameDay(targetDate, new Date())){
 			setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
 		}
 		buildCalendarPicker();
 	}
 
-	private void buildSearchFunction() {
+	private void buildSearchFunction(){
 		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (searchCondition != null) {
+			public void onClick(View view){
+				if(searchCondition != null){
 					activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchCondition);
-				} else {
+				}else{
 					activity.addFragment(new TaskSearchFragment());
 				}
 			}
@@ -99,21 +99,23 @@ public class TaskListFragment extends MyFragment{
 		Map<String, Object> searchResult = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_RESULT, new HashMap<String, Object>());
 		if(searchResult.containsKey(TaskSearchFragment.KEY_TASK_SEARCH_FLAG) && (boolean)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_FLAG)){
 			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
-			tasks = (List<Task>)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_LIST);
-			searchCondition = (Map<String, String>)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION);
+			searchCondition = (Map<String, Object>)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION);
 			invisibleView(R.id.txt_fragment_task_list_date);
-			showTasks(true);
-		}else{
+		}else if(searchResult.containsKey(TaskSearchFragment.KEY_TASK_SEARCH_FLAG) && !(boolean)searchResult.get(TaskSearchFragment.KEY_TASK_SEARCH_FLAG)){
 			searchCondition = null;
 			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
+		}
+		if(searchCondition != null){
+			tasks = AbstractTaskFragment.searchWithConditions(searchCondition);
+			showTasks(true);
+		}else{
+			showTasks(false);
 			loadTasksFromServer(this.targetDate);
 		}
 	}
 
-
-
 	private void loadTasksFromLocal(){
-		tasks = new Select().from(Task.class).execute();
+		tasks = Task.getAllUndeleted(Task.class);
 	}
 
 	private void buildCalendarPicker(){
@@ -152,8 +154,8 @@ public class TaskListFragment extends MyFragment{
 	}
 
 	private void loadTasksFromServer(Date targetDate){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", targetDate.toString()));
-		getApi(Const.GET_TASKS, params, new Api.OnCallApiListener() {
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
+		postApi(Const.GET_TASKS_BY_DATE, params, new Api.OnCallApiListener() {
 
 			@Override
 			public void onApiResponse(JSONObject response){
@@ -167,24 +169,27 @@ public class TaskListFragment extends MyFragment{
 		});
 	}
 
-	public void onSuccessLoadTasksFromServer(JSONObject response){
-		tasks = MU.convertToModelList(response.optString("data"), Task.class);
-		saveTaskToLocal(tasks);
-		showTasks(false);
-	}
-
-	public void saveTaskToLocal(List<Task> taskList){
-		new Delete().from(Task.class).execute();
-		for(Task task : taskList){
-			task.save();
-		}
-	}
-
 	// if error while loading from server, show local tasks only
 	public void onFailureLoadTasksFromServer(){
-		goneView(lstTask);
-		setTextFor(R.id.task_list_empty_txt, "Check your network");
-		visibleView(getTextView(R.id.task_list_empty_txt));
+		// goneView(lstTask);
+		// setTextFor(R.id.task_list_empty_txt, "Check your network");
+		// visibleView(getTextView(R.id.task_list_empty_txt));
+		MU.log("Failed to sync task from server");
+	}
+
+	public void onSuccessLoadTasksFromServer(JSONObject response){
+		List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
+		Boolean needRefresh = false;
+		for(Task t : tasksFromServer){
+			Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
+			if(local == null){
+				t.save();
+				needRefresh = true;
+			}
+		}
+		if(needRefresh){
+			showTasks(false);
+		}
 	}
 
 	private void showTasks(boolean isFiltered){

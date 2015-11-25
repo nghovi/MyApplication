@@ -31,7 +31,7 @@ public class TaskSearchFragment extends MyFragment{
 
 	public static final String	KEY_TASK_SEARCH_RESULT		= "task_search_result";
 	public static final String	KEY_TASK_SEARCH_FLAG		= "task_search_flag";
-	public static final String	KEY_TASK_SEARCH_LIST		= "task_list";
+//	public static final String	KEY_TASK_SEARCH_LIST		= "task_list";
 	public static final String	KEY_TASK_SEARCH_TEXT		= "task_search_by_text";
 	public static final String	KEY_TASK_SEARCH_PRIORITY	= "task_search_by_priority";
 	public static final String	KEY_TASK_SEARCH_STATUS		= "task_search_by_status";
@@ -135,8 +135,7 @@ public class TaskSearchFragment extends MyFragment{
 
 	private void onClickSearchText(){
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
-
-		tasks = new Select().from(Task.class).execute();
+		tasks = Task.getAllUndeleted(Task.class);
 		Iterator<Task> ib = tasks.iterator();
 		while(ib.hasNext()){
 			Task task = ib.next();
@@ -164,7 +163,7 @@ public class TaskSearchFragment extends MyFragment{
 		boolean hasFiltered = !MU.isEmpty(text) || priority != Task.TASK_PRIORITIES_WITH_ANY[0] || taskStatus != Task.STATUS_ANY;
 		Map searchResult = new HashMap<String, Object>();
 		searchResult.put(KEY_TASK_SEARCH_FLAG, hasFiltered);
-		searchResult.put(KEY_TASK_SEARCH_LIST, tasks);
+//		searchResult.put(KEY_TASK_SEARCH_LIST, tasks);
 		searchResult.put(KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
 		return searchResult;
 	}

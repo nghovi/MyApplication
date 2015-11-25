@@ -2,6 +2,7 @@ package com.example.vietnguyen.models;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.utils.MU;
 import com.google.gson.annotations.Expose;
 
@@ -24,6 +25,9 @@ import java.util.TreeSet;
 @Table(name = "notice", id = "otherId")
 public class Notice extends MyModel{
 
+	public static final String NOTICE_TYPE_TASK = "0";
+	public static final String NOTICE_TYPE_MOTTO= "1";
+
 
 	public Notice(){
 
@@ -31,6 +35,12 @@ public class Notice extends MyModel{
 
 	public Notice(String type, String title, String message, String value, Date noticeDate) {
 
+	}
+
+	public static void deleteNotices(List<String> noticeIds) {
+		for (String noticeId : noticeIds) {
+//			Notice = new Select().from(Notice.class).where("id")
+		}
 	}
 
 	@Column(name = "title")

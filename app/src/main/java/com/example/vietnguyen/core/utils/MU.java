@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -272,6 +273,14 @@ public class MU{
 		// http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
 		SimpleDateFormat ex = new SimpleDateFormat("EEEE, MMM d, yyyy");
 		return ex.format(date);
+	}
+
+	public static String joinString(Iterable<? extends CharSequence> s, String delimiter) {
+		Iterator<? extends CharSequence> iter = s.iterator();
+		if (!iter.hasNext()) return "";
+		StringBuilder buffer = new StringBuilder(iter.next());
+		while (iter.hasNext()) buffer.append(delimiter).append(iter.next());
+		return buffer.toString();
 	}
 
 	// Not working, don't know why

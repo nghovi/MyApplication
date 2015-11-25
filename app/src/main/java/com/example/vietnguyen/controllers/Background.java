@@ -66,10 +66,99 @@ public class Background extends AsyncTask<Integer, String, String>{
 
 	public void doBackground(){
 		loadMottoFromServer();
+		saveUnsavedTaskToServer();
+		saveUnsavedTaskToLocal();// for new Device
+		deleteTaskToLocal();// for another Device
 		createHandler();
 		createShowGoodSayTask();
 		createRemindTask();
 		createTimer();
+	}
+
+	private void loadMottoFromServer(){
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", new Date().toString()));
+		activity.getApi(Const.GET_MOTTOS, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				onSuccessLoadMottos(response);
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+
+			}
+		});
+	}
+
+	private void saveUnsavedTaskToServer(){
+		List<Task> unsavedToRemoteTasks = Task.getUnSavedToRemote(Task.class);
+		for(final Task task : unsavedToRemoteTasks){
+			JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+			activity.postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+
+				@Override
+				public void onApiResponse(JSONObject response){
+					task.isRemoteSaved = true;
+					task.id = response.optString("data");
+					task.save();
+					MU.log("Background sync task, saved task successfully for" + task.getId());
+				}
+
+				@Override
+				public void onApiError(String errorMsg){
+					MU.log("Background sync task, saved task FAILED for" + task.getId());
+				}
+			});
+		}
+	}
+
+	private void saveUnsavedTaskToLocal(){
+		JSONObject params = new JSONObject();
+		activity.getApi(Const.GET_TASKS, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
+				for(Task t : tasksFromServer){
+					Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
+					if(local == null){
+						t.isRemoteSaved = true;
+						t.save();
+						MU.log("Save task " + t.id + " into local database");
+					}
+				}
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				MU.log("saveUnsavedTaskToLocal Failed");
+			}
+		});
+	}
+
+	// For new device but same account + save memory
+	private void deleteTaskToLocal(){
+		JSONObject params = new JSONObject();
+		activity.getApi(Const.GET_DELETED_TASKS, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
+				for(Task t : tasksFromServer){
+					Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
+					if(local != null){
+						MU.log("Delete task at Local " + local.id);
+						local.delete();
+					}
+				}
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				MU.log("deleteTaskToLocal Failed");
+			}
+		});
 	}
 
 	private void createHandler(){
@@ -148,22 +237,6 @@ public class Background extends AsyncTask<Integer, String, String>{
 				dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying(new Date()), motto, (int)SHOW_GOOD_SAY_PERIOD_MS / 2000).show();
 			}
 		}
-	}
-
-	private void loadMottoFromServer(){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", new Date().toString()));
-		activity.getApi(Const.GET_MOTTOS, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				onSuccessLoadMottos(response);
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-
-			}
-		});
 	}
 
 	private void onSuccessLoadMottos(JSONObject response){

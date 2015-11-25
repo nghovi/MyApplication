@@ -3,12 +3,14 @@ package com.example.vietnguyen.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.utils.MU;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 /**
  * Created by viet on 9/3/2015.
@@ -31,5 +33,27 @@ public class MyModel extends Model{
 		Gson gson = new Gson();
 		return gson.fromJson(model, this.getClass());
 	}
+
+	public static <T>List<T>  getDeleted( Class model){
+		return (List<T>)new Select().from(model).where("isDeleted = ?", true).execute();
+	}
+
+	public static <T>List<T>  getAllUndeleted( Class model){
+		return (List<T>)new Select().from(model).where("isDeleted = ?", false).execute();
+	}
+
+	public static <T>List<T>  getUnSavedToRemote( Class model){
+		return (List<T>)new Select().from(model).where("isRemoteSaved = ?", false).execute();
+	}
+
+
+	//Never physical delete
+	@Column(name = "isDeleted")
+	@Expose
+	public boolean	isDeleted;
+
+	@Column(name = "isRemoteSaved")
+	@Expose
+	public boolean	isRemoteSaved;
 
 }

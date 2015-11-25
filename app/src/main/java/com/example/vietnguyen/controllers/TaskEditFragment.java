@@ -16,11 +16,13 @@ import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
+import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,12 +79,18 @@ public class TaskEditFragment extends AbstractTaskFragment{
 			@Override
 			public void onApiResponse(JSONObject response) {
 				showShortToast("Save task to server success");
+				task.isRemoteSaved = true;
+				task.save();
+				savedNotices = new ArrayList<Notice>();
 				backToTaskList();
 			}
 
 			@Override
 			public void onApiError(String errorMsg) {
 				showShortToast("Save to server failed");
+				task.isRemoteSaved = false;
+				task.save();
+				deleteUnUsedNotices();
 				backToTaskList();
 			}
 		});
