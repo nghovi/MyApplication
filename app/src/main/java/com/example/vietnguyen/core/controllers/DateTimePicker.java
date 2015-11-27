@@ -14,11 +14,11 @@ import com.example.vietnguyen.myapplication.R;
 
 /**
  */
-public class DateTimePicker {
+public class DateTimePicker{
 
 	private final String	COMMON_DATE_TIME_FORMAT_24H	= "yyyy/MM/dd HH:mm";
 
-	protected Dialog alertDialog;
+	protected Dialog		alertDialog;
 
 	protected Calendar		dateTime;
 
@@ -28,14 +28,6 @@ public class DateTimePicker {
 	public DateTimePicker(Context context){
 		alertDialog = new Dialog(context);
 		alertDialog.setContentView(R.layout.core_date_time_picker);
-
-		alertDialog.findViewById(R.id.txt_id_set).setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				setCommonDateTime();
-			}
-		});
 
 		alertDialog.findViewById(R.id.txt_id_cancel).setOnClickListener(new View.OnClickListener() {
 
@@ -56,7 +48,8 @@ public class DateTimePicker {
 		timePicker.setIs24HourView(true);
 	}
 
-	public void show(){
+	public void show(String msg){
+		alertDialog.setTitle(msg);
 		alertDialog.show();
 		Calendar calendar = Calendar.getInstance();
 		if(dateTime != null){
@@ -90,8 +83,17 @@ public class DateTimePicker {
 		alertDialog.dismiss();
 	}
 
-	public void setDateTimeListener(View.OnClickListener listener){
-		alertDialog.findViewById(R.id.txt_id_set).setOnClickListener(listener);
+	public void setDateTimeListener(final View.OnClickListener listener){
+
+		alertDialog.findViewById(R.id.txt_id_set).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				setCommonDateTime();
+				alertDialog.dismiss();
+				listener.onClick(view);
+			}
+		});
 	}
 
 	public void setMaxDate(long maxDate){

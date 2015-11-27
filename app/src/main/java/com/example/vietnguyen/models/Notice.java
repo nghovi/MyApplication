@@ -22,26 +22,33 @@ import java.util.TreeSet;
  * This model is used for saving future notification for task, motto, etc...
  */
 
-@Table(name = "notice", id = "otherId")
+@Table(name = "notice")
 public class Notice extends MyModel{
 
-	public static final String NOTICE_TYPE_TASK = "0";
-	public static final String NOTICE_TYPE_MOTTO= "1";
-
+	public static final String	NOTICE_TYPE_TASK	= "0";
+	public static final String	NOTICE_TYPE_MOTTO	= "1";
 
 	public Notice(){
 
 	}
 
-	public Notice(String type, String title, String message, String value, Date noticeDate) {
-
+	public Notice(String type, String title, String message, String value, Date noticeDate){
+		this.type = type;
+		this.title = title;
+		this.message = message;
+		this.value = value;
+		this.noticeDate = noticeDate;
 	}
 
-	public static void deleteNotices(List<String> noticeIds) {
-		for (String noticeId : noticeIds) {
-//			Notice = new Select().from(Notice.class).where("id")
+	public static void deleteNotices(List<String> noticeIds){
+		for(String noticeId : noticeIds){
+			// Notice = new Select().from(Notice.class).where("id")
 		}
 	}
+
+	@Column(name = "type")
+	@Expose
+	public String	type;
 
 	@Column(name = "title")
 	@Expose
@@ -53,7 +60,7 @@ public class Notice extends MyModel{
 
 	@Column(name = "noticeDate")
 	@Expose
-	private Date	noticeDate;
+	public Date	noticeDate;
 
 	@Column(name = "message")
 	@Expose
@@ -61,10 +68,5 @@ public class Notice extends MyModel{
 
 	@Column(name = "noticeType")
 	@Expose
-	public String noticeType;
-
-	@Column(name = "id")
-	@Expose
-	public String	id;
-
+	public String	noticeType;
 }

@@ -13,8 +13,11 @@ import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyActivity;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.Motto;
+import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
+import com.example.vietnguyen.utils.GcmUtil;
 
 import org.json.JSONObject;
 
@@ -34,12 +37,12 @@ public class Background extends AsyncTask<Integer, String, String>{
 	public static Handler		mHandler;
 	public MyActivity			activity;
 	public static TimerTask		timerTaskShowGoodSay;
-	public static TimerTask		timerTaskRemindTask;
+//	public static TimerTask		timerTaskRemindTask;
 
 	public static final long	SHOW_GOOD_SAY_PERIOD_MS	= 1 * 60 * 1000;	// 1 minute
 	public static final long	REMIND_TASK_PERIOD_MS	= 5 * 60 * 1000;	// 5 minute
 	public static final int		CMD_SHOW_GOOD_SAY		= 1001;
-	public static final int		CMD_REMIND_TASK			= 1002;
+//	public static final int		CMD_REMIND_TASK			= 1002;
 
 	private DialogBuilder		dlgBuilder;
 	private Dialog				dialogNotice;
@@ -65,14 +68,28 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	public void doBackground(){
+		doOneTime();
+		createHandler();
+		createShowGoodSayTask();
+//		createRemindTask();
+		createTimer();
+	}
+
+	public void doOneTime() {
 		loadMottoFromServer();
 		saveUnsavedTaskToServer();
 		saveUnsavedTaskToLocal();// for new Device
 		deleteTaskToLocal();// for another Device
-		createHandler();
-		createShowGoodSayTask();
-		createRemindTask();
-		createTimer();
+		saveUnsavedBookToServer();
+		saveUnsavedBookToLocal();// for new Device
+		setupAlarm();
+	}
+
+	private void setupAlarm() {
+		List<Notice> notices = new Select().from(Notice.class).where("noticeDate >= ?", new Date()).execute();
+		for (Notice notice : notices) {
+			GcmUtil.makeLocalAlarm(activity, notice);
+		}
 	}
 
 	private void loadMottoFromServer(){
@@ -161,6 +178,52 @@ public class Background extends AsyncTask<Integer, String, String>{
 		});
 	}
 
+	private void saveUnsavedBookToServer(){
+		List<Book> unsavedToRemoteBooks = Task.getUnSavedToRemote(Book.class);
+		for(final Book book : unsavedToRemoteBooks){
+			JSONObject param = MU.buildJsonObj(Arrays.asList("book", book.toString()));
+			activity.postApi(Const.EDIT_BOOK, param, new Api.OnCallApiListener() {
+
+				@Override
+				public void onApiResponse(JSONObject response){
+					book.isRemoteSaved = true;
+					book.id = response.optString("data");
+					book.save();
+					MU.log("Background sync book, saved book successfully for" + book.getId());
+				}
+
+				@Override
+				public void onApiError(String errorMsg){
+					MU.log("Background sync book, saved book FAILED for" + book.getId());
+				}
+			});
+		}
+	}
+
+	private void saveUnsavedBookToLocal(){
+		JSONObject params = new JSONObject();
+		activity.getApi(Const.GET_BOOKS, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response){
+				List<Book> booksFromServer = MU.convertToModelList(response.optString("data"), Book.class);
+				for(Book t : booksFromServer){
+					Book local = new Select().from(Book.class).where("id = ?", t.id).executeSingle();
+					if(local == null){
+						t.isRemoteSaved = true;
+						t.save();
+						MU.log("Save Book " + t.id + " into local database");
+					}
+				}
+			}
+
+			@Override
+			public void onApiError(String errorMsg){
+				MU.log("saveUnsavedBookToLocal Failed");
+			}
+		});
+	}
+
 	private void createHandler(){
 		if(mHandler == null){
 			mHandler = new Handler(Looper.getMainLooper()) {
@@ -171,9 +234,9 @@ public class Background extends AsyncTask<Integer, String, String>{
 					case CMD_SHOW_GOOD_SAY:
 						showGoodSay(message);
 						break;
-					case CMD_REMIND_TASK:
-						showRemindTask(message);
-						break;
+//					case CMD_REMIND_TASK:
+//						showRemindTask(message);
+//						break;
 					default:
 						break;
 					}
@@ -198,24 +261,24 @@ public class Background extends AsyncTask<Integer, String, String>{
 		}
 	}
 
-	private void createRemindTask(){
-		if(timerTaskRemindTask == null){
-			timerTaskRemindTask = new TimerTask() {
-
-				@Override
-				public void run(){
-					Message message = mHandler.obtainMessage(CMD_REMIND_TASK, "Do your task");
-					message.sendToTarget();
-				}
-			};
-		}
-	}
+//	private void createRemindTask(){
+//		if(timerTaskRemindTask == null){
+//			timerTaskRemindTask = new TimerTask() {
+//
+//				@Override
+//				public void run(){
+//					Message message = mHandler.obtainMessage(CMD_REMIND_TASK, "Do your task");
+//					message.sendToTarget();
+//				}
+//			};
+//		}
+//	}
 
 	private void createTimer(){
 		if(timer == null){
 			timer = new Timer();
 			timer.schedule(timerTaskShowGoodSay, 2000, SHOW_GOOD_SAY_PERIOD_MS);
-			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD_MS);
+//			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD_MS);
 		}
 	}
 
@@ -225,6 +288,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 		mottos = new Select().from(Motto.class).execute();
 		if(mottos.size() > 0){
 			int randomIdx = (int)(Math.random() * mottos.size());
+			MU.log("*******Show random motto " + randomIdx + " of total " + mottos.size());
 			return mottos.get(randomIdx).message;
 		}
 		return "";

@@ -1,4 +1,4 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Book;
 
 import java.util.List;
 
@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.vietnguyen.controllers.Book.AbstractBookFragment;
+import com.example.vietnguyen.controllers.Book.BookEditFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class DetailBookFragment extends AbstractBookFragment {
+public class BookDetailFragment extends AbstractBookFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -50,7 +52,7 @@ public class DetailBookFragment extends AbstractBookFragment {
 	}
 
 	private void gotoBookEditFragment(){
-		EditBookFragment frg = new EditBookFragment();
+		BookEditFragment frg = new BookEditFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}

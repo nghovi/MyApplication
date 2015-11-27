@@ -1,4 +1,4 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Book;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class AddBookFragment extends AbstractBookFragment {
+public class BookAddFragment extends AbstractBookFragment{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -138,7 +138,7 @@ public class AddBookFragment extends AbstractBookFragment {
 
 	@Override
 	protected void onClickBackBtn(){
-		book = buildBookFromLayout();
+		buildBookFromLayout();
 		if(!book.hasSomeInfo()){
 			activity.backToFragment(BookListFragment.class);
 		}else{
@@ -164,41 +164,8 @@ public class AddBookFragment extends AbstractBookFragment {
 		}
 	}
 
-	private void deleteWord(final String word){
-		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				book.deleteWord(word);
-				buildVocabulary();
-			}
-		}).show();
-	}
-
-	private void addPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input1, String input2){
-				addPhraseForWord(word, input1);
-			}
-		}).show();
-	}
-
-	private void addPhraseForWord(String word, String phrase){
-		if(book.hasWord(word) && !MU.isEmpty(phrase)){
-			book.addPhraseForWord(word, phrase);
-			buildVocabulary();
-		}
-	}
-
-	private void deletePhrase(String word, String phrase){
-		book.deletePhraseForWord(word, phrase);
-		buildVocabulary();
-	}
-
 	public void addBookToServer(){
-		book = buildBookFromLayout();
+		buildBookFromLayout();
 		if(book.isReadyToSave()){
 			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
 			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
@@ -206,12 +173,15 @@ public class AddBookFragment extends AbstractBookFragment {
 				@Override
 				public void onApiResponse(JSONObject response){
 					showShortToast("Successfully saved new book");
+					book.id = response.optString("data");
+					book.isRemoteSaved = true;
+					book.save();
 					activity.backOneFragment();
 				}
 
 				@Override
 				public void onApiError(String errorMsg){
-
+					book.save();
 				}
 			});
 		}else{

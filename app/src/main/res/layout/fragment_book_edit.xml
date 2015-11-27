@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/core_white"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.BookListFragment">
+    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -31,3 +31,11 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
 22. if there isn't table task yet, then load and save all tasks, books
 23. test case: update search result after edit task from search result then back
 24. Book search function, let's do as task
+25. Case: book list -> book detail -> book edit
+    change language, back
+    -> book edit on DestroyView -> book list on Create -> book detail on create -> book edit on Create ->
+    book edit -> on create View (WHY ?) -> book edit on Destroy View for -> book list on create view.
+    So weird. Order will be last to top, but wich each onFunctions, not
+ 26. http://stackoverflow.com/questions/18634207/difference-between-add-replace-and-addtobackstack
+ 27. Stop show mottos if MainActivity onPause( tap home button)
+ 27. Stop, cancel alarm after delete Notice

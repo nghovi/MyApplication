@@ -178,12 +178,6 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="qk_custom_checkbox" parent="android:Widget.CompoundButton.CheckBox">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:button">@drawable/selector_list_item_checkbox</item>
-    </style>
-
     <style name="qk_single_line_bold">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -296,11 +290,6 @@
         <item name="android:background">@drawable/state_common_row</item>
     </style>
 
-    <style name="qk_cs_checkbox" parent="android:Widget.CompoundButton.CheckBox">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:button">@drawable/selector_list_item_checkbox</item>
-    </style>
 
     <style name="qk_common_font_f1">
         <item name="android:layout_width">match_parent</item>

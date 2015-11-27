@@ -8,7 +8,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/txt_item_remind_time_date"
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/mock_book_name"
+            android:text="Thursday, Nov 6th, 2015"
             android:layout_weight="1" />
 
         <ImageView
@@ -26,5 +27,6 @@
             android:src="@drawable/ico_delete_16" />
     </LinearLayout>
 
-    <View style="@style/core_line_divider_with_margin" />
+    <View style="@style/core_line_divider_with_margin"
+        android:visibility="gone" />
 </LinearLayout>

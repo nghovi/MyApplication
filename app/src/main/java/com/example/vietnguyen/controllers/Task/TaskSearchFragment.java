@@ -1,29 +1,19 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Task;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
 
-import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
-import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
@@ -31,7 +21,7 @@ public class TaskSearchFragment extends MyFragment{
 
 	public static final String	KEY_TASK_SEARCH_RESULT		= "task_search_result";
 	public static final String	KEY_TASK_SEARCH_FLAG		= "task_search_flag";
-//	public static final String	KEY_TASK_SEARCH_LIST		= "task_list";
+	// public static final String KEY_TASK_SEARCH_LIST = "task_list";
 	public static final String	KEY_TASK_SEARCH_TEXT		= "task_search_by_text";
 	public static final String	KEY_TASK_SEARCH_PRIORITY	= "task_search_by_priority";
 	public static final String	KEY_TASK_SEARCH_STATUS		= "task_search_by_status";
@@ -135,36 +125,16 @@ public class TaskSearchFragment extends MyFragment{
 
 	private void onClickSearchText(){
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
-		tasks = Task.getAllUndeleted(Task.class);
-		Iterator<Task> ib = tasks.iterator();
-		while(ib.hasNext()){
-			Task task = ib.next();
-			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
-				ib.remove();
-				continue;
-			}
-
-			// taskStatus = 1 mean user selected "Any" at 3 options dialog
-			if(taskStatus != Task.STATUS_ANY && taskStatus != task.status){
-				ib.remove();
-				continue;
-			}
-
-			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(String.valueOf(task.priority))){
-				ib.remove();
-				continue;
-			}
-		}
-
-		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_RESULT, buildSearchResult());
+		Map<String, Object> conditions = buildSearchConditions();
+		tasks = AbstractTaskFragment.searchWithConditions(conditions);
+		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_RESULT, buildSearchResult(conditions));
 	}
 
-	private Map<String, Object> buildSearchResult(){
+	private Map<String, Object> buildSearchResult(Map<String, Object> conditions){
 		boolean hasFiltered = !MU.isEmpty(text) || priority != Task.TASK_PRIORITIES_WITH_ANY[0] || taskStatus != Task.STATUS_ANY;
 		Map searchResult = new HashMap<String, Object>();
 		searchResult.put(KEY_TASK_SEARCH_FLAG, hasFiltered);
-//		searchResult.put(KEY_TASK_SEARCH_LIST, tasks);
-		searchResult.put(KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
+		searchResult.put(KEY_TASK_SEARCH_CONDITION, conditions);
 		return searchResult;
 	}
 

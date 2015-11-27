@@ -1,30 +1,23 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Book;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.controllers.Book.BookListFragment;
+import com.example.vietnguyen.controllers.Task.AbstractTaskFragment;
+import com.example.vietnguyen.controllers.Task.TaskListFragment;
 import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
-import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class BookSearchFragment extends MyFragment{
 
@@ -109,43 +102,22 @@ public class BookSearchFragment extends MyFragment{
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
 		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
 		String comment = getEditText(R.id.edt_fragment_book_search_comment).getText().toString();
-
-		books = new Select().from(Book.class).execute();
-		Iterator<Book> ib = books.iterator();
-		while(ib.hasNext()){
-			Book book = ib.next();
-			if(!MU.isEmpty(word) && !book.hasWord(word)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
-				ib.remove();
-				continue;
-			}
-		}
-
-		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_RESULT, buildSearchResult(word, name, author, comment));
+		boolean hasFiltered = !MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment);
+		Map<String, Object> conditions = buildSearchConditions(word, name, author, comment);
+		books = AbstractBookFragment.searchWithConditions(conditions);
+		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_RESULT, buildSearchResult(hasFiltered, conditions));
 	}
 
-	private Map<String, Object> buildSearchResult(String word, String name, String author, String comment){
-		boolean hasFiltered = !MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment);
+	private Map<String, Object> buildSearchResult(boolean hasFiltered, Map<String, Object> conditions){
 		Map searchResult = new HashMap<String, Object>();
 		searchResult.put(KEY_BOOK_SEARCH_FLAG, hasFiltered);
 		searchResult.put(KEY_BOOK_SEARCH_LIST, books);
-		searchResult.put(KEY_BOOK_SEARCH_CONDITION, buildSearchConditions(word, name, author, comment));
+		searchResult.put(KEY_BOOK_SEARCH_CONDITION, conditions);
 		return searchResult;
 	}
 
-	private Map<String, String> buildSearchConditions(String word, String name, String author, String comment){
-		Map<String, String> conditions = new HashMap<String, String>();
+	private Map<String, Object> buildSearchConditions(String word, String name, String author, String comment){
+		Map<String, Object> conditions = new HashMap<String, Object>();
 		conditions.put(KEY_BOOK_SEARCH_WORD, word);
 		conditions.put(KEY_BOOK_SEARCH_NAME, name);
 		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);

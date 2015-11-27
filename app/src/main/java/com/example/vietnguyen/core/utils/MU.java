@@ -275,6 +275,12 @@ public class MU{
 		return ex.format(date);
 	}
 
+	public static String getDateTimeForDisplaying(Date date){
+		// http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+		SimpleDateFormat ex = new SimpleDateFormat("HH:mm EEEE, MMM d, yyyy");
+		return ex.format(date);
+	}
+
 	public static String joinString(Iterable<? extends CharSequence> s, String delimiter) {
 		Iterator<? extends CharSequence> iter = s.iterator();
 		if (!iter.hasNext()) return "";

@@ -20,7 +20,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 public class LocalBroadcastReceiver extends WakefulBroadcastReceiver {
 
 	public static final String	ALARM_PACKAGE		= "com.example.vietnguyen.utils.LocalBroadcastReceiver";
-	public static final String	ALARM_KEY	= "some_key";
+	public static final String	ALARM_KEY_NOTICE	= "ALARM_KEY_NOTICE";
 
 	@Override
 	public void onReceive(Context context, Intent intent){

@@ -1,4 +1,4 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Task;
 
 import org.json.JSONObject;
 
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vietnguyen.core.Const;
-import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
@@ -19,7 +18,6 @@ import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.Arrays;
-import java.util.Date;
 
 public class TaskDetailFragment extends MyFragment{
 

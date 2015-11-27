@@ -1,4 +1,4 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,15 +23,12 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
-import com.example.vietnguyen.models.Task;
-import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.TaskAdapter;
@@ -110,7 +107,6 @@ public class TaskListFragment extends MyFragment{
 			showTasks(true);
 		}else{
 			showTasks(false);
-			loadTasksFromServer(this.targetDate);
 		}
 	}
 
@@ -151,45 +147,6 @@ public class TaskListFragment extends MyFragment{
 				activity.addFragment(frg);
 			}
 		});
-	}
-
-	private void loadTasksFromServer(Date targetDate){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("date", targetDate.toString()));
-		postApi(Const.GET_TASKS_BY_DATE, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				onSuccessLoadTasksFromServer(response);
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				onFailureLoadTasksFromServer();
-			}
-		});
-	}
-
-	// if error while loading from server, show local tasks only
-	public void onFailureLoadTasksFromServer(){
-		// goneView(lstTask);
-		// setTextFor(R.id.task_list_empty_txt, "Check your network");
-		// visibleView(getTextView(R.id.task_list_empty_txt));
-		MU.log("Failed to sync task from server");
-	}
-
-	public void onSuccessLoadTasksFromServer(JSONObject response){
-		List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
-		Boolean needRefresh = false;
-		for(Task t : tasksFromServer){
-			Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
-			if(local == null){
-				t.save();
-				needRefresh = true;
-			}
-		}
-		if(needRefresh){
-			showTasks(false);
-		}
 	}
 
 	private void showTasks(boolean isFiltered){

@@ -46,6 +46,8 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
+        <meta-data android:name="AA_SERIALIZERS"
+            android:value="com.example.vietnguyen.models.UtilDateSerializer" />
 
         <activity
             android:name="com.example.vietnguyen.controllers.SplashActivity"

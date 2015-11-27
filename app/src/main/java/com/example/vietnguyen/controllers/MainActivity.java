@@ -1,11 +1,12 @@
 package com.example.vietnguyen.controllers;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.vietnguyen.controllers.Book.BookListFragment;
+import com.example.vietnguyen.controllers.Task.TaskListFragment;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.Footer;
 import com.example.vietnguyen.core.controllers.MyActivity;
@@ -22,8 +23,6 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
-import java.util.Arrays;
 
 public class MainActivity extends MyActivity implements View.OnClickListener{
 

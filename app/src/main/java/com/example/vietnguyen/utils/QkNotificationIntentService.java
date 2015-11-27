@@ -25,10 +25,9 @@ public class QkNotificationIntentService extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent){
 		Bundle bundle = intent.getExtras();
-		String response = bundle.getString(LocalBroadcastReceiver.ALARM_KEY);
-//		NotificationModel model = CCJsonUtil.convertToModel(response, NotificationModel.class);
+		String response = bundle.getString(LocalBroadcastReceiver.ALARM_KEY_NOTICE);
 		mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
-		Notification notification = GcmUtil.makeNotification(this);
+		Notification notification = GcmUtil.makeNotification(this, response);
 		mNotificationManager.notify(NOTIFICATION_ID, notification);
 	}
 }

@@ -1,11 +1,12 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Book;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ public class AbstractBookFragment extends MyFragment{
 		setOnClickFor(R.id.ico_sbe_add_vocabulary, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				addWord();
 			}
 		});
@@ -93,7 +94,7 @@ public class AbstractBookFragment extends MyFragment{
 			setOnClickFor(itemBookWordEdit, R.id.img_ibwe_delete, new View.OnClickListener() {
 
 				@Override
-				public void onClick(View view){
+				public void onClick(View view) {
 					deleteWord(word);
 				}
 			});
@@ -130,27 +131,6 @@ public class AbstractBookFragment extends MyFragment{
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private void onBackBtnClicked(){
-		final Book newBook = buildBookFromLayout();
-		if(this.originBookStr.equals(newBook.toString())){
-			activity.backToFragment(DetailBookFragment.class, DetailBookFragment.KEY_UPDATED_BOOK, book);
-		}else{
-			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
-
-				@Override
-				public void onClick(View view){
-					activity.backOneFragment();
-				}
-			}, new View.OnClickListener() {
-
-				@Override
-				public void onClick(View view){
-					saveBookToServerAndBack(newBook);
-				}
-			}).show();
-		}
-	}
-
 	protected void addWord(){
 		dlgBuilder.buildDialogWith2Edt(activity, "Enter new word", "Enter new phrase", new DialogBuilder.OnDialogWithEdtDismiss() {
 
@@ -171,7 +151,7 @@ public class AbstractBookFragment extends MyFragment{
 					addPhraseForExistingWord(booksContainWord, newWord, newPhrase);
 				}else{
 					book.addWordForBook(newWord);
-					saveThisBookToServer();
+					saveThisBookToServerAndStay();
 					addPhraseForWord(newWord, newPhrase);
 				}
 			}
@@ -182,7 +162,7 @@ public class AbstractBookFragment extends MyFragment{
 		Book b = booksContainWord.get(0);
 		if(!MU.isEmpty(newPhrase)){
 			b.addPhraseForWord(newWord, newPhrase);
-			saveBookToServer(b);
+			saveBookToServer(b, false);
 			showExistedWordNotifyDialog("Added new phrase for '" + newWord + "' at '" + b.name + "'", newWord, b);
 		}else{
 			showExistedWordNotifyDialog("Found '" + newWord + "' at '" + b.name + "'", newWord, b);
@@ -194,23 +174,23 @@ public class AbstractBookFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view){
-				activity.addFragment(new DetailBookFragment(), AbstractBookFragment.KEY_UPDATED_BOOK, foundBook);
+				activity.addFragment(new BookDetailFragment(), AbstractBookFragment.KEY_UPDATED_BOOK, foundBook);
 			}
 		}).show();
 	}
 
-	private void deleteWord(final String word){
+	protected void deleteWord(final String word){
 		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
 				book.deleteWord(word);
-				saveThisBookToServer();
+				saveThisBookToServerAndStay();
 			}
 		}).show();
 	}
 
-	private void addPhrase(final String word){
+	protected void addPhrase(final String word){
 		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
@@ -220,39 +200,59 @@ public class AbstractBookFragment extends MyFragment{
 		}).show();
 	}
 
-	private void addPhraseForWord(String word, String phrase){
+	protected void addPhraseForWord(String word, String phrase){
 		if(book.hasWord(word) && !MU.isEmpty(phrase)){
 			book.addPhraseForWord(word, phrase);
-			saveThisBookToServer();
+			saveThisBookToServerAndStay();
 		}
 	}
 
-	private void deletePhrase(String word, String phrase){
+	protected void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
-		saveThisBookToServer();
+		saveThisBookToServerAndStay();
 	}
 
-	public void saveThisBookToServer(){
-		book = buildBookFromLayout();
+	public void saveThisBookToServerAndStay(){
+		saveThisBookToServer(false);
+	}
+
+	public void saveThisBookToServerAndBack(){
+		saveThisBookToServer(true);
+	}
+
+	public void saveThisBookToServer(boolean willBack){
+		buildBookFromLayout();
 		originBookStr = book.toString();
-		saveBookToServer(book);
+		saveBookToServer(book, willBack);
 	}
 
-	public void saveBookToServer(Book b){
+	public void saveBookToServer(final Book b, final boolean willBack){
 		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", b.toString()));
 		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
 
 			@Override
 			public void onApiResponse(JSONObject response){
-				buildLayout();
+				b.isRemoteSaved = true;
+				b.save();
 				showShortToast("Successfully saved changes");
+				rebuildLayoutOrBack(willBack);
 			}
 
 			@Override
 			public void onApiError(String errorMsg){
-
+				b.isRemoteSaved = false;
+				b.save();
+				rebuildLayoutOrBack(willBack);
 			}
 		});
+	}
+
+	private void rebuildLayoutOrBack(boolean willBack){
+		if(willBack){
+			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+		}else{
+			buildLayout();
+		}
 	}
 
 	public void deleteThisBook(){
@@ -283,40 +283,47 @@ public class AbstractBookFragment extends MyFragment{
 		});
 	}
 
-	public void saveBookToServerAndBack(final Book newBook){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", newBook.toString()));
-		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				book = newBook;
-				originBookStr = book.toString();
-				activity.backToFragment(DetailBookFragment.class, DetailBookFragment.KEY_UPDATED_BOOK, book);
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				int a = 1;
-			}
-		});
-	}
-
-	protected Book buildBookFromLayout(){
-		Book b = new Book();
-		b.setVocabulary(book.getVocabulary());
-		b.id = book.id;
-
-		b.name = getEditText(R.id.edt_sbe_name).getText().toString();
-		b.comment = getEditText(R.id.edt_sbe_comment).getText().toString();
-		b.author = getEditText(R.id.edt_sbe_author).getText().toString();
-		b.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
-		b.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
-		b.link = getEditText(R.id.edt_sbe_link).getText().toString();
-		return b;
+	protected void buildBookFromLayout(){
+		book.name = getEditText(R.id.edt_sbe_name).getText().toString();
+		book.comment = getEditText(R.id.edt_sbe_comment).getText().toString();
+		book.author = getEditText(R.id.edt_sbe_author).getText().toString();
+		book.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
+		book.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
+		book.link = getEditText(R.id.edt_sbe_link).getText().toString();
 	}
 
 	public void setBook(Book book){
 		this.book = book;
 		this.originBookStr = this.book.toString();
+	}
+
+	public static List<Book> searchWithConditions(Map<String, Object> conditions){
+		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
+		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
+		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
+		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
+
+		List<Book> books = Book.getAllUndeleted(Book.class);
+		Iterator<Book> ib = books.iterator();
+		while(ib.hasNext()){
+			Book book = ib.next();
+			if(!MU.isEmpty(word) && !book.hasWord(word)){
+				ib.remove();
+				continue;
+			}
+			if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
+				ib.remove();
+				continue;
+			}
+			if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
+				ib.remove();
+				continue;
+			}
+			if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
+				ib.remove();
+				continue;
+			}
+		}
+		return books;
 	}
 }

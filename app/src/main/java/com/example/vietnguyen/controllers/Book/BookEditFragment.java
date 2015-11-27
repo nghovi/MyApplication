@@ -1,4 +1,4 @@
-package com.example.vietnguyen.controllers;
+package com.example.vietnguyen.controllers.Book;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +16,7 @@ import com.example.vietnguyen.myapplication.R;
 
 import java.util.List;
 
-public class EditBookFragment extends AbstractBookFragment {
+public class BookEditFragment extends AbstractBookFragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -30,8 +30,8 @@ public class EditBookFragment extends AbstractBookFragment {
 		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				saveThisBookToServer();
+			public void onClick(View view){
+				saveThisBookToServerAndStay();
 			}
 		});
 		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
@@ -45,18 +45,18 @@ public class EditBookFragment extends AbstractBookFragment {
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
 		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		// MU.interpolate(lnrContent, jsonObject);
-		setTextFor(R.id.edt_sbe_name, book.name);
-		setTextFor(R.id.edt_sbe_link, book.link);
-		setTextFor(R.id.edt_sbe_author, book.author);
-		setTextFor(R.id.edt_sbe_comment, book.comment);
-		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-		setTextFor(R.id.edt_sbe_mood, book.mood);
-
-		addTextWatcherForBookImage();
-
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-
-		buildVocabulary();
+//		setTextFor(R.id.edt_sbe_name, book.name);
+//		setTextFor(R.id.edt_sbe_link, book.link);
+//		setTextFor(R.id.edt_sbe_author, book.author);
+//		setTextFor(R.id.edt_sbe_comment, book.comment);
+//		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
+//		setTextFor(R.id.edt_sbe_mood, book.mood);
+//
+//		addTextWatcherForBookImage();
+//
+//		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
+//
+//		buildVocabulary();
 	}
 
 	private void addTextWatcherForBookImage(){
@@ -138,9 +138,9 @@ public class EditBookFragment extends AbstractBookFragment {
 
 	@Override
 	protected void onClickBackBtn(){
-		final Book newBook = buildBookFromLayout();
-		if(this.originBookStr.equals(newBook.toString())){
-			activity.backToFragment(DetailBookFragment.class, DetailBookFragment.KEY_UPDATED_BOOK, book);
+		buildBookFromLayout();
+		if(this.originBookStr.equals(book.toString())){
+			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
 		}else{
 			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
 
@@ -152,40 +152,9 @@ public class EditBookFragment extends AbstractBookFragment {
 
 				@Override
 				public void onClick(View view){
-					saveBookToServerAndBack(newBook);
+					saveThisBookToServerAndBack();
 				}
 			}).show();
 		}
-	}
-
-	private void deleteWord(final String word){
-		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				book.deleteWord(word);
-				saveThisBookToServer();
-			}
-		}).show();
-	}
-
-	private void addPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input1, String input2){
-				addPhraseForWord(word, input1);
-			}
-		}).show();
-	}
-
-	private void addPhraseForWord(String word, String phrase){
-		book.addPhraseForWord(word, phrase);
-		saveThisBookToServer();
-	}
-
-	private void deletePhrase(String word, String phrase){
-		book.deletePhraseForWord(word, phrase);
-		saveThisBookToServer();
 	}
 }

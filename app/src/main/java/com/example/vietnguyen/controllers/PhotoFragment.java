@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.andtinder.model.CardModel;
 import com.andtinder.view.CardContainer;
+import com.example.vietnguyen.controllers.Book.BookDetailFragment;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
@@ -137,7 +138,7 @@ public class PhotoFragment extends MyFragment{
 	}
 
 	private void gotoBookDetail(Book book){
-		DetailBookFragment frg = new DetailBookFragment();
+		BookDetailFragment frg = new BookDetailFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
 	}
