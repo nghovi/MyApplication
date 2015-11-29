@@ -39,3 +39,14 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
  26. http://stackoverflow.com/questions/18634207/difference-between-add-replace-and-addtobackstack
  27. Stop show mottos if MainActivity onPause( tap home button)
  27. Stop, cancel alarm after delete Notice
+ 28. Instead of changing language, try something like: receive a phone call, turn off device screen, start another activity
+
+ BookList -> BookAdd, then back
+ bookadd onPause, onStop, onDestroyView -> bookList onCreateView, onActivityCreated, onStart, onResume -> now bookAdd onDestroy, onDetach.
+
+ so, transition.replace will remove ALL fragment attached to same containerID (= remove, then add) but not call onDestroy, onDetach, just called onDestroyView
+ but, when back button, will call onPause,onStop,onDestroy,then new Fragament onCreateView->onResume, then old fragment will onDestroy, onDetach.
+
+ when popBackStackInclusive, only top fragment call onPause, onStop, onDestroyView, other will call onDestroy, onDetach right away.
+
+when tap home button, fragment on top will call onPause even before activity onPause, then onStop before activity onStop

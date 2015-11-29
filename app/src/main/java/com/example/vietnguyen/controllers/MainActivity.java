@@ -60,7 +60,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			gotoPrimaryCardFragment();
 		}
 		bg = new Background(this);
-		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
 	private void gotoPrimaryCardFragment(){
@@ -187,6 +186,8 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// facebook
 		// Logs 'install' and 'app activate' App Events.
 		AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		bg.startScheduledTasks();
+
 	}
 
 	@Override
@@ -194,5 +195,11 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		super.onPause();
 		// Logs 'app deactivate' App Event.
 		AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		bg.stopScheduledTasks();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
 	}
 }

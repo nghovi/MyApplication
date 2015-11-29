@@ -38,7 +38,7 @@ import java.util.Objects;
  * Created by viet on 8/11/2015.
  * http://developer.android.com/guide/components/fragments.html
  */
-public class MyFragment extends Fragment{
+public class MyFragment extends Fragment {
 
 	/**
 	 * The Activity.
@@ -224,19 +224,19 @@ public class MyFragment extends Fragment{
 		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(View.VISIBLE == content.getVisibility()){
+			public void onClick(View view) {
+				if (View.VISIBLE == content.getVisibility()) {
 					foldable.setBackgroundColor(0);
 					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-					if(otherView != null){
+					if (otherView != null) {
 						otherView.setVisibility(View.GONE);
 					}
-				}else{
+				} else {
 					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
 					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
-					if(otherView != null){
+					if (otherView != null) {
 						otherView.setVisibility(View.VISIBLE);
 					}
 				}
@@ -259,12 +259,6 @@ public class MyFragment extends Fragment{
 
 	public void postApi(String url, JSONObject param, Api.OnCallApiListener listener){
 		activity.postApi(url, param, listener);
-	}
-
-	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
-	public static interface onFragmentActionListenter{
-
-		public void onFragmentAction(Bundle args);
 	}
 
 	// /////////////////////////// UTIL ///////////////////////////////////////
@@ -290,9 +284,35 @@ public class MyFragment extends Fragment{
 	}
 
 	// ////////////////////////////////////////// BASIC ////////////////////////////////////////
+
+
+	/*
+	 * After load xml, build layout with your data
+	 */
+	protected void buildLayout(){
+		MU.log("Fragment buildLayout: " + this.getClass().toString());
+		setBackBtnOnClick();
+	}
+
+	protected void setBackBtnOnClick(){
+		setOnClickFor(R.id.img_back, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				onClickBackBtn();
+			}
+		});
+	}
+
+	protected void onClickBackBtn(){
+		activity.backOneFragment();
+	}
+
+
+	///////////////////////////////// onFunctions   /////////////////////////////////////
 	@Override
 	public void onAttach(Activity activity){
-		// MU.log("Fragment onAttach: " + this.getClass().toString());
+		MU.log("Fragment onAttach: " + this.getClass().toString());
 		super.onAttach(activity);
 		try{
 			this.activity = (MyActivity)activity;
@@ -312,10 +332,12 @@ public class MyFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		// Inflate the layout for this fragment
-		// MU.log("Fragment onCreateView: " + this.getClass().toString());
+		//can return null if this fragment doesn't return
+		MU.log("Fragment onCreateView: " + this.getClass().toString());
 		return inflater.inflate(R.layout.core_fragment_my, container, false);
 
 	}
+
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
@@ -325,72 +347,50 @@ public class MyFragment extends Fragment{
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
-		// MU.log("Fragment onActivityCreated: " + this.getClass().toString());
+		MU.log("Fragment onActivityCreated: " + this.getClass().toString());
 		super.onActivityCreated(savedInstanceState);
 		buildLayout();
 	}
 
-	/*
-	 * After load xml, build layout with your data
-	 */
-	protected void buildLayout(){
-		MU.log("Fragment buildLayout: " + this.getClass().toString());
-		setBackBtnOnClick();
-	}
-
-	protected void setBackBtnOnClick(){
-		setOnClickFor(R.id.img_back, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				onClickBackBtn();
-			}
-		});
-	}
-
-	protected void onClickBackBtn(){
-		activity.backOneFragment();
-	}
-
 	@Override
-	public void onStart(){
-		// MU.log("Fragment onStart: " + this.getClass().toString());
+	public void onStart() {
+		MU.log("Fragment onStart: " + this.getClass().toString());
 		super.onStart();
 	}
 
 	@Override
 	public void onResume(){
-		// MU.log("Fragment onResume: " + this.getClass().toString());
+		 MU.log("Fragment onResume: " + this.getClass().toString());
 		super.onResume();
 	}
 
 	@Override
 	public void onPause(){
-		// MU.log("Fragment onPause: " + this.getClass().toString());
+		 MU.log("Fragment onPause: " + this.getClass().toString());
 		super.onPause();
 	}
 
 	@Override
 	public void onStop(){
-		// MU.log("Fragment onStop: " + this.getClass().toString());
+		 MU.log("Fragment onStop: " + this.getClass().toString());
 		super.onStop();
 	}
 
 	@Override
 	public void onDestroyView(){
-		// MU.log("Fragment onDestroyView: " + this.getClass().toString());
+		 MU.log("Fragment onDestroyView: " + this.getClass().toString());
 		super.onDestroyView();
 	}
 
 	@Override
 	public void onDestroy(){
-		// MU.log("Fragment onDestroy: " + this.getClass().toString());
+		 MU.log("Fragment onDestroy: " + this.getClass().toString());
 		super.onDestroy();
 	}
 
 	@Override
 	public void onDetach(){
-		// MU.log("Fragment onDetach: " + this.getClass().toString());
+		 MU.log("Fragment onDetach: " + this.getClass().toString());
 		super.onDetach();
 	}
 }

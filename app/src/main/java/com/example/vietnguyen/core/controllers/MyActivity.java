@@ -5,7 +5,6 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
@@ -21,7 +20,7 @@ import com.facebook.AccessToken;
 /**
  * Created by viet on 8/7/2015.
  */
-public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener,MyFragment.onFragmentActionListenter{
+public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener {
 
 	protected final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
 	public final String		PREF_SHOW_MOTTOS		= "SHOW_MOTTOS";
@@ -31,6 +30,12 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	private FragmentManager	mFragmentManager;
 	private AccessToken		accessToken;
 	public Background		bg;
+
+	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
+	public static interface onActivityActionListenter {
+
+		public void onActivityAction(Bundle args);
+	}
 
 	/*
 	 * To use this function, make sure that activity's layout file include fragment_container.
@@ -50,6 +55,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public void addFragment(MyFragment fragment, String updatedKey, Object updatedValue){
 		fragment.setUpdatedData(updatedKey, updatedValue);
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//todo
 		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().toString());
 		fragmentTransaction.addToBackStack(fragment.getClass().toString());
 		fragmentTransaction.commit();
@@ -132,6 +138,11 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		api.post(this, url, param, onCallApiListener);
 	}
 
+
+
+
+	/////////////////////////////// onFunctions ///////////////////////////////
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		MU.log("onCreate " + this.getLocalClassName());
@@ -140,6 +151,12 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		mFragmentManager.addOnBackStackChangedListener(this);
 		api = new Api();
 		// setContentView(R.layout.activity_my);
+	}
+
+	@Override
+	protected void onStart() {
+		MU.log("onStart " + this.getLocalClassName());
+		super.onStart();
 	}
 
 	@Override
@@ -155,6 +172,12 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	}
 
 	@Override
+	protected void onStop() {
+		MU.log("onStop " + this.getLocalClassName());
+		super.onStop();
+	}
+
+	@Override
 	protected void onDestroy(){
 		MU.log("onDestroy " + this.getLocalClassName());
 		super.onDestroy();
@@ -167,17 +190,6 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 			String fragmentName = mFragmentManager.getBackStackEntryAt(i).getName();
 			MU.log(fragmentName);
 		}
-	}
-
-	/*
-	 * usage from fragment:
-	 * Bundle args = new Bundle()
-	 * args.putString("cmd", "exit");
-	 * activity.onFragmentAction(args);
-	 */
-	@Override
-	public void onFragmentAction(Bundle args){
-		MU.log("onFragmentAction " + this.getLocalClassName() + " with" + args.toString());
 	}
 
 	public void setAccessToken(AccessToken accessToken){

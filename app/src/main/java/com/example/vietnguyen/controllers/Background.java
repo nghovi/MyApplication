@@ -56,7 +56,8 @@ public class Background extends AsyncTask<Integer, String, String>{
 
 	@Override
 	protected String doInBackground(Integer...integers){
-		doBackground();
+		doOneTimeTasks();
+		startScheduledTasks();
 		return null;
 	}
 
@@ -67,22 +68,32 @@ public class Background extends AsyncTask<Integer, String, String>{
 		// return;
 	}
 
-	public void doBackground(){
-		doOneTime();
-		createHandler();
-		createShowGoodSayTask();
-//		createRemindTask();
-		createTimer();
+	public void doOneTimeTasks() {
+			loadMottoFromServer();
+			saveUnsavedTaskToServer();
+			saveUnsavedTaskToLocal();// for new Device
+			deleteTaskToLocal();// for another Device
+			saveUnsavedBookToServer();
+			saveUnsavedBookToLocal();// for new Device
+			setupAlarm();
 	}
 
-	public void doOneTime() {
-		loadMottoFromServer();
-		saveUnsavedTaskToServer();
-		saveUnsavedTaskToLocal();// for new Device
-		deleteTaskToLocal();// for another Device
-		saveUnsavedBookToServer();
-		saveUnsavedBookToLocal();// for new Device
-		setupAlarm();
+
+	public void startScheduledTasks(){
+		if(timer == null){
+			timer = new Timer();
+			createHandler();
+			createTaskShowGoodSayTask();
+			timer.schedule(timerTaskShowGoodSay, 2000, SHOW_GOOD_SAY_PERIOD_MS);
+//			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD_MS);
+		}
+	}
+
+	public void stopScheduledTasks(){
+		timerTaskShowGoodSay.cancel();
+		timerTaskShowGoodSay = null;
+		timer.cancel();
+		timer = null;
 	}
 
 	private void setupAlarm() {
@@ -247,13 +258,14 @@ public class Background extends AsyncTask<Integer, String, String>{
 		}
 	}
 
-	private void createShowGoodSayTask(){
+	private void createTaskShowGoodSayTask(){
 		if(timerTaskShowGoodSay == null){
 			timerTaskShowGoodSay = new TimerTask() {
 
 				@Override
 				public void run(){
 					// And this is how you call it from the worker thread:
+//					MU.log("create showGoodSay, hahah");
 					Message message = mHandler.obtainMessage(CMD_SHOW_GOOD_SAY, "Be Yourself*");
 					message.sendToTarget();
 				}
@@ -274,13 +286,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 //		}
 //	}
 
-	private void createTimer(){
-		if(timer == null){
-			timer = new Timer();
-			timer.schedule(timerTaskShowGoodSay, 2000, SHOW_GOOD_SAY_PERIOD_MS);
-//			timer.schedule(timerTaskRemindTask, 1000, REMIND_TASK_PERIOD_MS);
-		}
-	}
+
 
 	// //////////////////////////////////////////////////// GOOOD SAY //////////////////////////////////////////////////
 
@@ -316,38 +322,40 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	// ////////////////////////////////////////////////// Task //////////////////////////////////////////////////
-	private void showRemindTask(Message message){
-		loadUnFinishedTasksByDate(new Date());
-	}
+//	private void showRemindTask(Message message){
+//		loadUnFinishedTasksByDate(new Date());
+//	}
 
-	private void loadUnFinishedTasksByDate(Date date){
-		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", date.toString()));
-		activity.getApi(Const.GET_UNFINISHED_TASKS, params, new Api.OnCallApiListener() {
+//	private void loadUnFinishedTasksByDate(Date date){
+//		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", date.toString()));
+//		activity.getApi(Const.GET_UNFINISHED_TASKS, params, new Api.OnCallApiListener() {
+//
+//			@Override
+//			public void onApiResponse(JSONObject response){
+//				onSuccessLoadTasksFromServer(response);
+//			}
+//
+//			@Override
+//			public void onApiError(String errorMsg){
+//
+//			}
+//		});
+//	}
 
-			@Override
-			public void onApiResponse(JSONObject response){
-				onSuccessLoadTasksFromServer(response);
-			}
+//	private void onSuccessLoadTasksFromServer(JSONObject response){
+//		List<Task> tasks = MU.convertToModelList(response.optString("data"), Task.class);
+//		showRandomUnfinishedTask(tasks);
+//	}
 
-			@Override
-			public void onApiError(String errorMsg){
+//	private void showRandomUnfinishedTask(List<Task> tasks){
+//		if(tasks != null && tasks.size() > 0){
+//			int randomIdx = (int)(Math.random() * tasks.size());
+//			Task randomTask = tasks.get(randomIdx);
+//			if(!dialogNotice.isShowing()){
+//				dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD_MS / 2000);
+//			}
+//		}
+//	}
 
-			}
-		});
-	}
 
-	private void onSuccessLoadTasksFromServer(JSONObject response){
-		List<Task> tasks = MU.convertToModelList(response.optString("data"), Task.class);
-		showRandomUnfinishedTask(tasks);
-	}
-
-	private void showRandomUnfinishedTask(List<Task> tasks){
-		if(tasks != null && tasks.size() > 0){
-			int randomIdx = (int)(Math.random() * tasks.size());
-			Task randomTask = tasks.get(randomIdx);
-			if(!dialogNotice.isShowing()){
-				dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD_MS / 2000);
-			}
-		}
-	}
 }
