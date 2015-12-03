@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.activeandroid.query.Select;
 import com.example.vietnguyen.controllers.MainActivity;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
@@ -25,76 +26,41 @@ import com.google.gson.Gson;
  */
 public class GcmUtil{
 
-	private static final int	PLAY_SERVICES_RESOLUTION_REQUEST	= 9000;
-
-	public static String		PROPERTY_REG_ID						= "registration_id";
-
-	/**
-	 * Check the device to make sure it has the Google Play Services APK. If
-	 * it doesn't, display a dialog that allows users to download the APK from
-	 * the Google Play Store or enable it in the device's system settings.
-	 */
-	// public static boolean checkPlayServices(Activity activity){
-	// int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
-	// if(resultCode != ConnectionResult.SUCCESS){
-	// if(GooglePlayServicesUtil.isUserRecoverableError(resultCode)){
-	// GooglePlayServicesUtil.getErrorDialog(resultCode, activity, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-	// }else{
-	// // Log.i(QWConst.TAG, "This device is not supported.");
-	// activity.finish();
-	// }
-	// // activeButton.setFocusable(false);
-	// // activeButton.setChecked(true);
-	// return false;
-	// }
-	// return true;
-	// }
-
-	// public static void storeRegistrationId(Context context, String regId){
-	// QkPreference preferences = new QkPreference(context);
-	// preferences.set(PROPERTY_REG_ID, regId);
-	// }
-
-	/**
-	 * @return Application's {@code SharedPreferences}.
-	 */
-	// public static SharedPreferences getGcmPreferences(Context context){
-	// // This sample app persists the registration ID in shared preferences, but
-	// // how you store the regID in your app is up to you.
-	// return context.getSharedPreferences(NotificationSettingFragment.class.getSimpleName(), Context.MODE_PRIVATE);
-	// }
-
-	/**
-	 * Gets the current registration ID for application on GCM service, if there is one.
-	 * <p>
-	 * If result is empty, the app needs to register.
-	 */
-	// public static String getRegistrationId(Context context){
-	// QkPreference preferences = new QkPreference(context);
-	// String registrationId = preferences.get(PROPERTY_REG_ID);
-	// return registrationId;
-	// }
+	public final static String	BUNDLE_KEY_NOTICE		= "NOTICE_STRING";
+	public final static String	BUNDLE_KEY_NOTICE_ID	= "NOTICE_ID";
 
 	/**
 	 * make notification, this function will be used for both local (with AlarmManager) and remote (with Gcm)
+	 * for Service
 	 */
-	public static Notification makeNotification(Context context, String noticeString){
+	public static Notification makeNotification(Context context, Bundle bundle){
+		String noticeId = "";
+		if(bundle != null){
+			noticeId = bundle.getString(BUNDLE_KEY_NOTICE_ID);
+		}
 
-		Notice notice = MU.convertToModel(noticeString, Notice.class);
-		Intent intent = new Intent(context, MainActivity.class);
-		intent.putExtra("noticeString", noticeString);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText("Here is Title")).setContentText("Here is content");
-		mBuilder.setAutoCancel(true);
-		mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+		if(MU.isEmpty(noticeId)){
+			return null;
+		}
 
-		mBuilder.setTicker(notice.title);
-		mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+		Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
+		if(notice != null && notice.isDeleted == false){
+			Intent intent = new Intent(context, MainActivity.class);
+			intent.putExtra(BUNDLE_KEY_NOTICE, notice.toString());
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notice.title)).setContentText(notice.message);
+			mBuilder.setAutoCancel(true);
+			mBuilder.setSmallIcon(R.mipmap.ic_launcher);
 
-		int requestID = (int)System.currentTimeMillis();
-		PendingIntent contentIntent = PendingIntent.getActivity(context, requestID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+			mBuilder.setTicker(notice.title);
+			mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
 
-		mBuilder.setContentIntent(contentIntent);
-		return mBuilder.build();
+			int requestID = (int)System.currentTimeMillis();
+			PendingIntent contentIntent = PendingIntent.getActivity(context, requestID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+			mBuilder.setContentIntent(contentIntent);
+			return mBuilder.build();
+		}
+		return null;
 	}
 
 	/**
@@ -102,17 +68,19 @@ public class GcmUtil{
 	 */
 	public static void makeLocalAlarm(Context context, Notice notice){
 
-		ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+		if(notice != null && notice.isDeleted == false && !MU.isInThePast(notice.noticeDate)){
 
-		Intent intent = new Intent(LocalBroadcastReceiver.ALARM_PACKAGE);
-		// set data for intent
-		Bundle bundle = new Bundle();
-		bundle.putString(LocalBroadcastReceiver.ALARM_KEY_NOTICE, notice.toString());
-		intent.putExtras(bundle);
-		PendingIntent pi = PendingIntent.getBroadcast(context, 1234, intent, 0);
-		AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-		long timeNow = Calendar.getInstance().getTimeInMillis();
-		alarmManager.set(AlarmManager.RTC_WAKEUP, timeNow + 10 * 1000, pi);
-		intentArray.add(pi);
+			ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+
+			Intent intent = new Intent(LocalBroadcastReceiver.ALARM_PACKAGE);
+			// set data for intent
+			Bundle bundle = new Bundle(); // will be past to Service -> call gcm util make Notification...
+			bundle.putString(BUNDLE_KEY_NOTICE_ID, notice.getId().toString());
+			intent.putExtras(bundle);
+			PendingIntent pi = PendingIntent.getBroadcast(context, 1234, intent, 0);
+			AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+			alarmManager.set(AlarmManager.RTC_WAKEUP, notice.noticeDate.getTime(), pi);
+			intentArray.add(pi);
+		}
 	}
 }

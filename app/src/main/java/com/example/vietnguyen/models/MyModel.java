@@ -16,6 +16,7 @@ import java.util.List;
  * Created by viet on 9/3/2015.
  */
 
+@Table(name = "my_model", id = "otherId")
 public class MyModel extends Model{
 
 	public MyModel(){
@@ -55,5 +56,10 @@ public class MyModel extends Model{
 	@Column(name = "isRemoteSaved")
 	@Expose
 	public boolean	isRemoteSaved;
+
+
+	@Column(name = "id")
+	@Expose
+	public String	id;
 
 }

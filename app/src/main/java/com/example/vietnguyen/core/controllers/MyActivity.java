@@ -27,7 +27,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public final String		PREF_PUSH_NOTIFICATION	= "PUSH_NOTIFICATION";
 	protected Api			api;
 
-	private FragmentManager	mFragmentManager;
+	protected FragmentManager	mFragmentManager;
 	private AccessToken		accessToken;
 	public Background		bg;
 
@@ -157,6 +157,12 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	protected void onStart() {
 		MU.log("onStart " + this.getLocalClassName());
 		super.onStart();
+	}
+
+	@Override
+	protected void onRestart() {
+		MU.log("onRestart " + this.getLocalClassName());
+		super.onRestart();
 	}
 
 	@Override

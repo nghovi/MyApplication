@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +18,12 @@ import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
+import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoticeAdapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TaskDetailFragment extends MyFragment{
@@ -70,6 +77,14 @@ public class TaskDetailFragment extends MyFragment{
 		txtComment.setText(this.task.comment);
 		final TextView txtPriority = getTextView(R.id.txt_priority);
 		txtPriority.setText(String.valueOf(task.priority));
+		buildNotices();
+	}
+
+	private void buildNotices(){
+		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
+		ListView lstNotice = getListView(R.id.lst_fragment_task_detail_remind);
+		NoticeAdapter adapter = new NoticeAdapter(activity, notices, false, null);
+		lstNotice.setAdapter(adapter);
 	}
 
 	// @Override
@@ -113,7 +128,7 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onApiResponse(JSONObject response){
 				Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
-				task.isRemoteSaved=true;
+				task.isRemoteSaved = true;
 				task.save();
 				onClickBackBtn();
 				// backToTaskList();
@@ -135,7 +150,7 @@ public class TaskDetailFragment extends MyFragment{
 		postApi(Const.DELETE_TASK, params, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response) {
+			public void onApiResponse(JSONObject response){
 				Toast.makeText(activity, "Suscess to delete task to server", Toast.LENGTH_SHORT).show();
 				task.delete();
 				onClickBackBtn();
@@ -143,7 +158,7 @@ public class TaskDetailFragment extends MyFragment{
 			}
 
 			@Override
-			public void onApiError(String errorMsg) {
+			public void onApiError(String errorMsg){
 				Toast.makeText(activity, "Failed to delete task to server", Toast.LENGTH_SHORT).show();
 				task.isDeleted = true;
 				task.isRemoteSaved = false;

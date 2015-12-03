@@ -22,11 +22,20 @@ public class NoticeAdapter extends ArrayAdapter<Notice>{
 	private Context					context;
 	public ArrayList<Notice>		data;
 	private static LayoutInflater	inflater	= null;
+	private boolean					isEditable	= false;
+	private OnNoticeDelete onDeleteListener;
 
-	public NoticeAdapter(Context context, ArrayList<Notice> data){
+	public NoticeAdapter(Context context, ArrayList<Notice> data, boolean isEditable, OnNoticeDelete listener){
 		super(context, R.layout.item_notice, data);
 		this.context = context;
 		this.data = data;
+		this.isEditable = isEditable;
+		this.onDeleteListener = listener;
+	}
+
+	public interface OnNoticeDelete {
+
+		public void onDelete(Notice notice);
 	}
 
 	@Override
@@ -37,17 +46,19 @@ public class NoticeAdapter extends ArrayAdapter<Notice>{
 		TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_remind_time_date);
 		txtDate.setText(MU.getDateTimeForDisplaying(notice.noticeDate));
 		ImageView imgDeleteIcon = (ImageView)convertView.findViewById(R.id.img_item_remind_time_delete);
-		imgDeleteIcon.setOnClickListener(new View.OnClickListener() {
+		if(isEditable){
+			imgDeleteIcon.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View view){
-				deleteNotice(notice);
-			}
-		});
+				@Override
+				public void onClick(View view){
+					if(onDeleteListener != null){
+						onDeleteListener.onDelete(notice);
+					}
+				}
+			});
+		}else{
+			imgDeleteIcon.setVisibility(View.GONE);
+		}
 		return convertView;
-	}
-
-	public void deleteNotice(Notice notice){
-		notice.delete();
 	}
 }

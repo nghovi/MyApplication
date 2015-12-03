@@ -244,9 +244,4 @@ public class Book extends MyModel{
 	@Column(name = "mood")
 	@Expose
 	public String	mood;
-
-	@Column(name = "id")
-	@Expose
-	public String	id;
-
 }

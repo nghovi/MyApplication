@@ -1,5 +1,6 @@
 package com.example.vietnguyen.core.controllers;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,7 +24,7 @@ import java.util.TimerTask;
 
 public class DialogBuilder implements DialogInterface.OnDismissListener{
 
-	private Context	context;
+	private Activity activity;
 	private Dialog	dlg;
 
 	public interface OnNumberPickerBtnOkClickListener{
@@ -31,12 +32,12 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClick(int selectedValue, String displayedValue);
 	}
 
-	public DialogBuilder(Context context){
-		this.context = context;
+	public DialogBuilder(Activity activity){
+		this.activity = activity;
 	}
 
 	public Dialog buildConfirmDlgTopDown(String cancel, String confirm, View.OnClickListener confirmListener){
-		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
+		dlg = new Dialog(this.activity, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
 		dlg.setContentView(R.layout.dialog_topdown_2_options);
 
@@ -60,7 +61,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 	}
 
 	public Dialog build2OptsDlgTopDown(String opt1, String opt2, View.OnClickListener listener1, View.OnClickListener listener2){
-		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
+		dlg = new Dialog(this.activity, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
 		dlg.setContentView(R.layout.dialog_topdown_2_options);
 
@@ -78,7 +79,7 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 	}
 
 	public Dialog build3OptsDlgTopDown(String opt1, String opt2, String opt3, final OnNumberPickerBtnOkClickListener listener){
-		dlg = new Dialog(this.context, R.style.dialog_slide_anim_top_down);
+		dlg = new Dialog(this.activity, R.style.dialog_slide_anim_top_down);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);// hidden the space grabbed by title
 		dlg.setContentView(R.layout.dialog_topdown_3_options);
 
@@ -111,8 +112,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
-	public Dialog buildDialogNumberPicker(Context context, String title, final String[] displayedValue, final OnNumberPickerBtnOkClickListener listener, int defaultValue){
-		dlg = new Dialog(this.context);
+	public Dialog buildDialogNumberPicker(Context activity, String title, final String[] displayedValue, final OnNumberPickerBtnOkClickListener listener, int defaultValue){
+		dlg = new Dialog(this.activity);
 		dlg.setContentView(R.layout.dialog_number_picker);
 		dlg.setTitle(title);
 		final NumberPicker numberPicker = (NumberPicker)dlg.findViewById(R.id.dlg_number_picker);
@@ -134,8 +135,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
-	public Dialog buildDialogNotice(Context context, String title, String msg, int autoDissmissTime){
-		dlg = new Dialog(this.context);
+	public Dialog buildDialogNotice(Context activity, String title, String msg, int autoDissmissTime){
+		dlg = new Dialog(activity);
 		dlg.setContentView(R.layout.dialog_notice);
 		dlg.setTitle(title);
 		TextView txtMsg = (TextView)dlg.findViewById(R.id.dlg_notice_msg);
@@ -161,8 +162,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
-	public Dialog build2OptionsDialog(Context context, String title, String msg, String right, final View.OnClickListener listenerRight){
-		dlg = new Dialog(this.context);
+	public Dialog build2OptionsDialog(Context activity, String title, String msg, String right, final View.OnClickListener listenerRight){
+		dlg = new Dialog(this.activity);
 		// dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dlg.setTitle(title);
 		dlg.setContentView(R.layout.dialog_2options);
@@ -196,8 +197,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClickDone(String input1, String input2);
 	}
 
-	public Dialog buildDialogWithEdt(Context context, String hint, final OnDialogWithEdtDismiss listener){
-		dlg = new Dialog(this.context);
+	public Dialog buildDialogWithEdt(Context activity, String hint, final OnDialogWithEdtDismiss listener){
+		dlg = new Dialog(this.activity);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dlg.setContentView(R.layout.dialog_with_edt);
 
@@ -228,8 +229,8 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		return dlg;
 	}
 
-	public Dialog buildDialogWith2Edt(Context context, String hint, String hint2, final OnDialogWithEdtDismiss listener){
-		dlg = new Dialog(this.context);
+	public Dialog buildDialogWith2Edt(Context activity, String hint, String hint2, final OnDialogWithEdtDismiss listener){
+		dlg = new Dialog(this.activity);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dlg.setContentView(R.layout.dialog_with_2edt);
 

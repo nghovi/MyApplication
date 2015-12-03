@@ -9,17 +9,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.activeandroid.query.Select;
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DateTimePicker;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
+import com.example.vietnguyen.models.TaskNotice;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.utils.GcmUtil;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoticeAdapter;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,6 +153,8 @@ public class AbstractTaskFragment extends MyFragment{
 
 	protected void buildCalendarPicker(){
 		final TextView txtDate = getTextView(R.id.txt_share_task_edit_date);
+		targetDate = task.date;
+		txtDate.setText(MU.getDateForDisplaying(targetDate));
 		txtDate.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -177,7 +183,7 @@ public class AbstractTaskFragment extends MyFragment{
 				onClickAddRemind();
 			}
 		});
-		ArrayList<Notice> notices = getNotices();
+		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
 		ListView lstNotice = getListView(R.id.lst_share_task_edit_remind);
 		lstNotice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -187,20 +193,20 @@ public class AbstractTaskFragment extends MyFragment{
 				onClickUpdateNotice(selectedNotice);
 			}
 		});
-		adapter = new NoticeAdapter(activity, notices);
-		lstNotice.setAdapter(adapter);
-	}
+		adapter = new NoticeAdapter(activity, notices, true, new NoticeAdapter.OnNoticeDelete() {
 
-	private ArrayList<Notice> getNotices(){
-		ArrayList<Notice> notices = new ArrayList<Notice>();
-		List<String> noticeIds = task.getNoticeIdList();
-		for(String noticeId : noticeIds){
-			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
-			if(notice != null){
-				notices.add(notice);
+			@Override
+			public void onDelete(Notice notice){
+				if(savedNotices.contains(notice)){
+					savedNotices.remove(notice);
+				}
+				notice.isDeleted = true;
+				notice.save();
+				adapter.data.remove(notice);
+				adapter.notifyDataSetChanged();
 			}
-		}
-		return notices;
+		});
+		lstNotice.setAdapter(adapter);
 	}
 
 	private void onClickAddRemind(){
@@ -228,26 +234,57 @@ public class AbstractTaskFragment extends MyFragment{
 	}
 
 	private void addNotice(Calendar c){
-		Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, "Task reminder", task.name, task.id, c.getTime());
+		Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, task.name, task.description, task.id, c.getTime());
 		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
 		savedNotices.add(newNotice);
-		task.addNoticeIdWithoutSave(String.valueOf(newNotice.getId()));
+		task.addNoticeIdWithoutSave(newNotice.getId().toString());
 		adapter.data.add(newNotice);
 		adapter.notifyDataSetChanged();
 	}
 
 	private void updateNotice(Calendar c, Notice notice){
 		notice.noticeDate = c.getTime();
+		notice.isRemoteSaved = false;
 		notice.save();
 		adapter.notifyDataSetChanged();
 	}
 
 	protected void deleteUnUsedNotices(){
-		for(Notice notice : savedNotices){
-			notice.delete();
-		}
+//		for(Notice notice : savedNotices){
+//			notice.delete();
+//		}
 		savedNotices = new ArrayList<Notice>();
 	}
+
+	// protected void saveTaskNotices() {
+	// for(Notice notice : savedNotices){
+	// saveTaskNotice(task.id, notice.id);
+	// }
+	// savedNotices = new ArrayList<Notice>();
+	// }
+
+	// protected void saveTaskNotice(String taskId, String noticeId) {
+	// final TaskNotice taskNotice = new TaskNotice(taskId, noticeId);
+	// JSONObject param = MU.buildJsonObj(Arrays.asList("taskNotice", taskNotice.toString()));
+	// postApi(Const.ADD_TASK_NOTICE, param, new Api.OnCallApiListener() {
+	//
+	// @Override
+	// public void onApiResponse(JSONObject response) {
+	// showShortToast("Save new task Notice to server success");
+	// taskNotice.id = response.optString("data");
+	// taskNotice.isRemoteSaved = true;
+	// taskNotice.save();
+	// backToTaskList();
+	// }
+	//
+	// @Override
+	// public void onApiError(String errorMsg) {
+	// showShortToast("Save new task to server failed");
+	// taskNotice.save();
+	// backToTaskList();
+	// }
+	// });
+	// }
 
 	protected void makeAlarmForNotice(){
 		for(Notice notice : savedNotices){

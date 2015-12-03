@@ -73,10 +73,6 @@ public class Task extends MyModel {
         }
     }
 
-    @Column(name = "id")
-    @Expose
-    public String id;
-
     @Column(name = "description")
     @Expose
     public String description;

@@ -167,23 +167,26 @@ public class BookAddFragment extends AbstractBookFragment{
 	public void addBookToServer(){
 		buildBookFromLayout();
 		if(book.isReadyToSave()){
-			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
-			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
-
-				@Override
-				public void onApiResponse(JSONObject response){
-					showShortToast("Successfully saved new book");
-					book.id = response.optString("data");
-					book.isRemoteSaved = true;
-					book.save();
-					activity.backOneFragment();
-				}
-
-				@Override
-				public void onApiError(String errorMsg){
-					book.save();
-				}
-			});
+			book.save();
+			showShortToast("Successfully saved new book");
+			activity.backOneFragment();
+			// JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+			// postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
+			//
+			// @Override
+			// public void onApiResponse(JSONObject response){
+			// showShortToast("Successfully saved new book");
+			// book.id = response.optString("data");
+			// book.isRemoteSaved = true;
+			// book.save();
+			// activity.backOneFragment();
+			// }
+			//
+			// @Override
+			// public void onApiError(String errorMsg){
+			// book.save();
+			// }
+			// });
 		}else{
 			showLongToast("Please fullfill information");
 		}

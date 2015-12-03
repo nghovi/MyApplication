@@ -22,7 +22,7 @@ import java.util.TreeSet;
  * This model is used for saving future notification for task, motto, etc...
  */
 
-@Table(name = "notice")
+@Table(name = "notice", id = "otherId")
 public class Notice extends MyModel{
 
 	public static final String	NOTICE_TYPE_TASK	= "0";
@@ -46,6 +46,62 @@ public class Notice extends MyModel{
 		}
 	}
 
+	public static void deleteOverdueNotices(){
+		List<Notice> notices = new Select().from(Notice.class).where("isDeleted = ?", false).execute();
+		for(Notice notice : notices){
+			if(MU.isInThePast(notice.noticeDate)){
+				notice.isDeleted = true;
+				notice.save();
+			}
+		}
+	}
+
+	public static ArrayList<Notice> getNoticesForTask(Task task){
+		ArrayList<Notice> notices = new ArrayList<Notice>();
+		List<String> noticeIds = task.getNoticeIdList();
+		for(String noticeId : noticeIds){
+			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
+			if(notice != null){
+				notices.add(notice);
+			}
+		}
+		return notices;
+	}
+
+	public static ArrayList<Notice> getOnGoingNoticesForTask(Task task){
+		ArrayList<Notice> notices = new ArrayList<Notice>();
+		List<String> noticeIds = task.getNoticeIdList();
+		for(String noticeId : noticeIds){
+			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).where("isDeleted = ?", false).executeSingle();
+			if(notice != null && !MU.isInThePast(notice.noticeDate)){
+				notices.add(notice);
+			}
+		}
+		return notices;
+	}
+
+	public static ArrayList<Notice> getOnGoingNotices(){
+		ArrayList<Notice> notices = new ArrayList<Notice>();
+		List<Notice> allNotices = new Select().from(Notice.class).where("isDeleted = ?", false).execute();
+		for(Notice notice : allNotices){
+			if(!MU.isInThePast(notice.noticeDate)){
+				notices.add(notice);
+			}
+		}
+		return notices;
+	}
+
+	public static List<Notice> getUnSavedToRemote(){
+		List<Notice> result = new ArrayList<Notice>();
+		ArrayList<Notice> notices = getOnGoingNotices();
+		for(Notice notice : notices){
+			if(notice.isRemoteSaved == false){
+				result.add(notice);
+			}
+		}
+		return result;
+	}
+
 	@Column(name = "type")
 	@Expose
 	public String	type;
@@ -60,7 +116,7 @@ public class Notice extends MyModel{
 
 	@Column(name = "noticeDate")
 	@Expose
-	public Date	noticeDate;
+	public Date		noticeDate;
 
 	@Column(name = "message")
 	@Expose

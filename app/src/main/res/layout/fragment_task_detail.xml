@@ -51,8 +51,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="@color/bg_reading">
 
@@ -134,6 +134,41 @@
             android:id="@+id/txt_comment"
             android:layout_marginBottom="@dimen/margin_10dp" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lnr_share_task_edit_remind"
+        android:background="@color/bg_reading"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remind at:"
+                android:id="@+id/textView16"
+                android:layout_marginRight="20dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_add_24"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lst_fragment_task_detail_remind" />
 
     </LinearLayout>
 

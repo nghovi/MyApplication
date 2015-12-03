@@ -281,6 +281,10 @@ public class MU{
 		return ex.format(date);
 	}
 
+	public static boolean isInThePast(Date date) {
+		return date.getTime() < Calendar.getInstance().getTime().getTime();
+	}
+
 	public static String joinString(Iterable<? extends CharSequence> s, String delimiter) {
 		Iterator<? extends CharSequence> iter = s.iterator();
 		if (!iter.hasNext()) return "";

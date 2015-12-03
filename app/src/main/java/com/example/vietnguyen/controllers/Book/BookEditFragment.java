@@ -31,32 +31,33 @@ public class BookEditFragment extends AbstractBookFragment{
 
 			@Override
 			public void onClick(View view){
-				saveThisBookToServerAndStay();
+				book.save();
+//				saveThisBookAndStay();
 			}
 		});
 		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				deleteThisBook();
+//				deleteThisBook();
 			}
 		});
 
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
 		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		// MU.interpolate(lnrContent, jsonObject);
-//		setTextFor(R.id.edt_sbe_name, book.name);
-//		setTextFor(R.id.edt_sbe_link, book.link);
-//		setTextFor(R.id.edt_sbe_author, book.author);
-//		setTextFor(R.id.edt_sbe_comment, book.comment);
-//		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-//		setTextFor(R.id.edt_sbe_mood, book.mood);
-//
-//		addTextWatcherForBookImage();
-//
-//		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-//
-//		buildVocabulary();
+		setTextFor(R.id.edt_sbe_name, book.name);
+		setTextFor(R.id.edt_sbe_link, book.link);
+		setTextFor(R.id.edt_sbe_author, book.author);
+		setTextFor(R.id.edt_sbe_comment, book.comment);
+		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
+		setTextFor(R.id.edt_sbe_mood, book.mood);
+
+		addTextWatcherForBookImage();
+
+		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
+
+		buildVocabulary();
 	}
 
 	private void addTextWatcherForBookImage(){
@@ -152,6 +153,7 @@ public class BookEditFragment extends AbstractBookFragment{
 
 				@Override
 				public void onClick(View view){
+					activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
 					saveThisBookToServerAndBack();
 				}
 			}).show();

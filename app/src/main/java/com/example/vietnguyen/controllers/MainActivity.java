@@ -1,5 +1,6 @@
 package com.example.vietnguyen.controllers;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +12,10 @@ import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.Footer;
 import com.example.vietnguyen.core.controllers.MyActivity;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.myapplication.R;
+import com.example.vietnguyen.utils.GcmUtil;
+import com.example.vietnguyen.utils.LocalBroadcastReceiver;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -23,6 +27,8 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+
+import lombok.core.Main;
 
 public class MainActivity extends MyActivity implements View.OnClickListener{
 
@@ -44,6 +50,10 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 		setUpFacebookCallbacks();
 
+		if(mFragmentManager.getBackStackEntryCount() >= 1){ // change language case
+			mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		}
+
 		// Ensure that our profile is up to date
 		Profile.fetchProfileForCurrentAccessToken();
 		setProfile(Profile.getCurrentProfile());
@@ -52,14 +62,29 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// MU.log("lsfslfasfsf ++++++++++ " + p);
 		// }
 		if(accessToken == null || accessToken.isExpired()){
-//			gotoSignUpInFragment(); //todo
+			// gotoSignUpInFragment(); //todo
 			setAccessToken(accessToken);
+
 			gotoPrimaryCardFragment();
 		}else if(!accessToken.isExpired()){
 			setAccessToken(accessToken);
 			gotoPrimaryCardFragment();
 		}
 		bg = new Background(this);
+		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+		checkNotice();
+	}
+
+	private void checkNotice(){
+		Bundle extra = getIntent().getExtras();
+		if(extra != null){
+			String noticeString = extra.getString(GcmUtil.BUNDLE_KEY_NOTICE);
+			if(!MU.isEmpty(noticeString)){
+				Notice notice = MU.convertToModel(noticeString, Notice.class);
+				onClickFooterItem4();
+			}
+		}
 	}
 
 	private void gotoPrimaryCardFragment(){
@@ -199,7 +224,21 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	}
 
 	@Override
-	protected void onStop() {
+	protected void onStop(){
+		// emptyFragmentStack();
 		super.onStop();
+	}
+
+	// @Override
+	// protected void onSaveInstanceState(Bundle outState) {
+	// //No call for super(). Bug on API Level > 11.
+	// }
+
+	@Override
+	protected void onDestroy(){
+		// int a = mFragmentManager.getBackStackEntryCount();
+		// int x = a;
+		// emptyFragmentStack();
+		super.onDestroy();
 	}
 }

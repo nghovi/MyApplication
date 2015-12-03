@@ -34,6 +34,16 @@ public class Const{
 	public static final String	EDIT_TASK				= SERVER_URL + "edit_task/";
 	public static final String	DELETE_TASK				= SERVER_URL + "delete_task/";
 
+	public static final String	GET_NOTICES				= SERVER_URL + "get_notices/";
+	public static final String	ADD_NOTICE				= SERVER_URL + "add_notice/";
+	public static final String	EDIT_NOTICE				= SERVER_URL + "edit_notice/";
+	public static final String	DELETE_NOTICE			= SERVER_URL + "delete_notice/";
+
+	public static final String	GET_TASK_NOTICES				= SERVER_URL + "get_notices/";
+	public static final String	ADD_TASK_NOTICE				= SERVER_URL + "add_notice/";
+	public static final String	EDIT_TASK_NOTICE				= SERVER_URL + "edit_notice/";
+	public static final String	DELETE_TASK_NOTICE			= SERVER_URL + "delete_notice/";
+
 	public static final String	GET_MOTTOS				= SERVER_URL + "get_mottos/";
 
 }
