@@ -70,12 +70,12 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	public void doOneTimeTasks(){
-//		loadMottoFromServer();
-//		saveUnsavedTaskToServer();
-//		saveUnsavedTaskToLocal();// for new Device
-//		deleteTaskToLocal();// for another Device
-//		saveUnsavedBookToServer();
-//		saveUnsavedBookToLocal();// for new Device
+		loadMottoFromServer();
+		saveUnsavedTaskToServer();
+		saveUnsavedTaskToLocal();// for new Device
+		deleteTaskToLocal();// for another Device
+		saveUnsavedBookToServer();
+		saveUnsavedBookToLocal();// for new Device
 		deleteOverdueNotices();
 //		saveUnsavedNoticeToServer();
 //		saveUnsavedNoticeToLocal();

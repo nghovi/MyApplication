@@ -1,5 +1,6 @@
 package com.example.vietnguyen.controllers.Book;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
+
+import org.json.JSONObject;
 
 public class AbstractBookFragment extends MyFragment{
 
@@ -158,7 +163,7 @@ public class AbstractBookFragment extends MyFragment{
 		if(!MU.isEmpty(newPhrase)){
 			b.addPhraseForWord(newWord, newPhrase);
 			book.save();
-//			saveBookToServer(b, false);
+			saveBookToServer(b, false);
 			showExistedWordNotifyDialog("Added new phrase for '" + newWord + "' at '" + b.name + "'", newWord, b);
 		}else{
 			showExistedWordNotifyDialog("Found '" + newWord + "' at '" + b.name + "'", newWord, b);
@@ -179,7 +184,7 @@ public class AbstractBookFragment extends MyFragment{
 		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				book.deleteWord(word);
 				saveThisBookAndStay();
 			}
@@ -187,10 +192,10 @@ public class AbstractBookFragment extends MyFragment{
 	}
 
 	protected void addPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, new DialogBuilder.OnDialogWithEdtDismiss() {
+		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
-			public void onClickDone(String input1, String input2){
+			public void onClickDone(String input1, String input2) {
 				addPhraseForWord(word, input1);
 			}
 		}).show();
@@ -224,27 +229,27 @@ public class AbstractBookFragment extends MyFragment{
 //		saveBookToServer(book, willBack);
 	}
 
-//	public void saveBookToServer(final Book b, final boolean willBack){
-//		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", b.toString()));
-//		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
-//
-//			@Override
-//			public void onApiResponse(JSONObject response){
-//				b.isRemoteSaved = true;
-//				b.save();
-//				showShortToast("Successfully saved changes");
+	public void saveBookToServer(final Book b, final boolean willBack){
+		JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", b.toString()));
+		postApi(Const.EDIT_BOOK, params, new Api.OnCallApiListener() {
+
+			@Override
+			public void onApiResponse(JSONObject response) {
+				b.isRemoteSaved = true;
+				b.save();
+				showShortToast("Successfully saved changes");
 //				rebuildLayoutOrBack(willBack);
-//			}
-//
-//			@Override
-//			public void onApiError(String errorMsg){
-//				b.isRemoteSaved = false;
-//				b.save();
+			}
+
+			@Override
+			public void onApiError(String errorMsg) {
+				b.isRemoteSaved = false;
+				b.save();
 //				rebuildLayoutOrBack(willBack);
-//			}
-//		});
-//	}
-//
+			}
+		});
+	}
+
 	private void rebuildLayoutOrBack(boolean willBack){
 		if(willBack){
 			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);

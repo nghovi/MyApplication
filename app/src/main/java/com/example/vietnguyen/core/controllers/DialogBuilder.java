@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.Timer;
@@ -24,8 +25,8 @@ import java.util.TimerTask;
 
 public class DialogBuilder implements DialogInterface.OnDismissListener{
 
-	private Activity activity;
-	private Dialog	dlg;
+	private Activity	activity;
+	private Dialog		dlg;
 
 	public interface OnNumberPickerBtnOkClickListener{
 
@@ -197,13 +198,16 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClickDone(String input1, String input2);
 	}
 
-	public Dialog buildDialogWithEdt(Context activity, String hint, final OnDialogWithEdtDismiss listener){
+	public Dialog buildDialogWithEdt(Context activity, String hint, String message, final OnDialogWithEdtDismiss listener){
 		dlg = new Dialog(this.activity);
 		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dlg.setContentView(R.layout.dialog_with_edt);
 
 		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_edt);
 		edt.setHint(hint);
+		if(!MU.isEmpty(message)){
+			edt.setText(message);
+		}
 		// edt.setMinLines(1);
 		// edt.setMaxLines(9);
 

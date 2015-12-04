@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.vietnguyen.controllers.Book.BookListFragment;
+import com.example.vietnguyen.controllers.Note.NoteListFragment;
 import com.example.vietnguyen.controllers.Task.TaskListFragment;
 import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.Footer;
@@ -64,11 +65,10 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		if(accessToken == null || accessToken.isExpired()){
 			// gotoSignUpInFragment(); //todo
 			setAccessToken(accessToken);
-
-			gotoPrimaryCardFragment();
+			gotoTaskListFragment();
 		}else if(!accessToken.isExpired()){
 			setAccessToken(accessToken);
-			gotoPrimaryCardFragment();
+			gotoTaskListFragment();
 		}
 		bg = new Background(this);
 		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -87,10 +87,10 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		}
 	}
 
-	private void gotoPrimaryCardFragment(){
+	private void gotoNoteListdFragment(){
 		footer.show();
-		PrimaryCardFragment primaryCardFragment = new PrimaryCardFragment();
-		replaceWithFragment(primaryCardFragment);
+		NoteListFragment noteListFragment = new NoteListFragment();
+		replaceWithFragment(noteListFragment);
 	}
 
 	private void gotoSignUpInFragment(){
@@ -141,7 +141,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
 				Profile.fetchProfileForCurrentAccessToken();
 				setAccessToken(currentAccessToken);
-				gotoPrimaryCardFragment();
+				gotoTaskListFragment();
 			}
 		};
 	}
@@ -179,20 +179,32 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem1(){
 		MU.log("Footer item 1 onClicked");
-		emptyFragmentStack();
-		PrimaryCardFragment frg = new PrimaryCardFragment();
-		replaceWithFragment(frg);
+		gotoSettingFragment();
 	}
 
-	public void onClickFooterItem2(){
-		MU.log("Footer item 2 onClicked");
+	public void gotoSettingFragment(){
 		emptyFragmentStack();
 		SettingFragment frg = new SettingFragment();
 		replaceWithFragment(frg);
 	}
 
+	public void onClickFooterItem2(){
+		MU.log("Footer item 2 onClicked");
+		gotoNoteListdFragment();
+	}
+
+	private void gotoPrimaryCardFragment(){
+		footer.show();
+		PrimaryCardFragment primaryCardFragment = new PrimaryCardFragment();
+		replaceWithFragment(primaryCardFragment);
+	}
+
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
+		gotoBookListFragment();
+	}
+
+	public void gotoBookListFragment(){
 		emptyFragmentStack();
 		BookListFragment frg = new BookListFragment();
 		replaceWithFragment(frg);
@@ -200,6 +212,10 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem4(){
 		MU.log("Footer item 4 onClicked");
+		gotoTaskListFragment();
+	}
+
+	public void gotoTaskListFragment(){
 		emptyFragmentStack();
 		TaskListFragment frg = new TaskListFragment();
 		replaceWithFragment(frg);

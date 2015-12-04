@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment"
+    android:background="@color/core_white">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/chiase_gray"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:id="@+id/lnr_fbl_header">
+
+        <com.example.vietnguyen.core.views.widgets.CoreTextView
+            android:id="@+id/txt_fragment_note_list_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Edit"
+            android:textColor="@color/core_white"
+            android:layout_marginLeft="10dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/txt_fragment_note_list_add"
+            android:textColor="@color/core_white"
+            android:paddingRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:visibility="visible" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_fragment_note_list_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:layout_weight="1"
+            android:textColor="@color/core_white"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_fragment_note_list_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_btn_search_inactive"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_reading">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lst_fragment_note_search_result_note" />
+    </LinearLayout>
+
+</LinearLayout>
