@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,28 +17,20 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.provider.CalendarContract;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.vietnguyen.core.Const;
-import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.views.widgets.CoreTextView;
+import com.example.vietnguyen.Const;
+import com.example.vietnguyen.core.views.widgets.MyTextView;
 import com.example.vietnguyen.models.GsonModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -85,9 +75,9 @@ public class MU{
 			for(int i = 0; i < layout.getChildCount(); i++){
 				String jsonKey = "";
 				View view = layout.getChildAt(i);
-				if(view instanceof CoreTextView){
-					jsonKey = ((CoreTextView)view).getjsonKey();
-					jsonObject.put(jsonKey, ((CoreTextView)view).getText().toString());
+				if(view instanceof MyTextView){
+					jsonKey = ((MyTextView)view).getjsonKey();
+					jsonObject.put(jsonKey, ((MyTextView)view).getText().toString());
 				}
 			}
 		}catch(JSONException e){
@@ -105,9 +95,9 @@ public class MU{
 		for(int i = 0; i < layout.getChildCount(); i++){
 			String jsonKey = "";
 			View view = layout.getChildAt(i);
-			if(view instanceof CoreTextView){
-				jsonKey = ((CoreTextView)view).getjsonKey();
-				((CoreTextView)view).setText(jsonObject.optString(jsonKey));
+			if(view instanceof MyTextView){
+				jsonKey = ((MyTextView)view).getjsonKey();
+				((MyTextView)view).setText(jsonObject.optString(jsonKey));
 			}else if(view instanceof ViewGroup){
 				interpolate((ViewGroup)view, jsonObject);
 			}

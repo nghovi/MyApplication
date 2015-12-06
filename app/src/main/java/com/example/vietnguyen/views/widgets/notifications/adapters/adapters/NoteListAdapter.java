@@ -13,19 +13,15 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.views.MyArrayAdapter;
 import com.example.vietnguyen.models.Note;
 import com.example.vietnguyen.myapplication.R;
 
 /**
  * Created by viet on 8/13/2015.
  */
-public class NoteListAdapter extends ArrayAdapter<Note>{
+public class NoteListAdapter extends MyArrayAdapter<Note> {
 
-	private Context					context;
-	public List<Note> data;
-	private static LayoutInflater	inflater		= null;
-	private int						resourceId;
-	public boolean					isEditing		= false;
 	private int						numItemChecked	= 0;
 	private OnCheckItemListener		listener;
 
@@ -34,19 +30,13 @@ public class NoteListAdapter extends ArrayAdapter<Note>{
 		public void onChecked(Note checkedNote, int numItemChecked);
 	}
 
-	public NoteListAdapter(Context context, int resourceId, List<Note> data, OnCheckItemListener listener){
-		super(context, resourceId, data);
-		this.context = context;
-		this.data = data;
-		this.resourceId = resourceId;
+	public NoteListAdapter(Context context, int resourceId, OnCheckItemListener listener){
+		super(context, resourceId, new ArrayList<Note>());
 		this.listener = listener;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent){
-		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(resourceId, null);
-		final Note note = data.get(position);
+	protected void buildItemLayout(View convertView, final Note note) {
 		TextView txtMessage = (TextView)convertView.findViewById(R.id.item_note_message);
 		txtMessage.setText(note.message);
 		TextView txtDate = (TextView)convertView.findViewById(R.id.item_note_date);
@@ -62,11 +52,10 @@ public class NoteListAdapter extends ArrayAdapter<Note>{
 				}
 			}
 		});
-		if(isEditing){
+		if(mode == MyArrayAdapter.MODE_EDITING){
 			checkBox.setVisibility(View.VISIBLE);
 		}else{
 			checkBox.setVisibility(View.GONE);
 		}
-		return convertView;
 	}
 }

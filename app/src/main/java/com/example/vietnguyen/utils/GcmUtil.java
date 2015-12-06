@@ -1,9 +1,7 @@
 package com.example.vietnguyen.utils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -13,13 +11,11 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.activeandroid.query.Select;
+import com.example.vietnguyen.controllers.LocalBroadcastReceiver;
 import com.example.vietnguyen.controllers.MainActivity;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.myapplication.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.gson.Gson;
 
 /**
  * GcmUtil

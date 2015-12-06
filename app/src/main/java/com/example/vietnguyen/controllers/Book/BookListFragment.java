@@ -7,9 +7,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.activeandroid.query.Select;
+import com.example.vietnguyen.controllers.Book.AbstractBookFragment;
+import com.example.vietnguyen.controllers.Book.BookSearchFragment;
 import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controllers.MyFragmentWithList;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
+import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
 
@@ -18,11 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BookListFragment extends MyFragment{
+public class BookListFragment extends MyFragmentWithList{
 
 	private List<Book>			books;
-	private BookListAdapter		bookListAdapter;
-	private ListView			lstBook;
 	private Map<String, Object>	searchCondition;
 
 	@Override
@@ -34,27 +37,20 @@ public class BookListFragment extends MyFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		buildAddBookFunction();
-		buildListBook();
 		buildSearchFunction();
+		reloadBook();
 	}
 
-	private void buildListBook(){
-		lstBook = getListView(R.id.lst_fragment_book_search_result_book);
-		lstBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-				Book book = (Book)adapterView.getItemAtPosition(i);
-				gotoBookDetail(book);
-			}
-		});
+	@Override
+	protected void onClickItem(MyModel model) {
+		gotoBookDetail((Book) model);
 	}
 
 	private void buildAddBookFunction(){
 		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				activity.addFragment(new BookAddFragment());
 			}
 		});
@@ -64,25 +60,20 @@ public class BookListFragment extends MyFragment{
 		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickSearchIcon();
 			}
 		});
-		Map<String, Object> searchResult = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_RESULT, new HashMap<String, Object>());
-		if(searchResult.containsKey(BookSearchFragment.KEY_BOOK_SEARCH_FLAG) && (boolean)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_FLAG)){
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
-			searchCondition = (Map<String, Object>)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION);
-		}else if(searchResult.containsKey(BookSearchFragment.KEY_BOOK_SEARCH_FLAG) && !(boolean)searchResult.get(BookSearchFragment.KEY_BOOK_SEARCH_FLAG)){
-			searchCondition = null;
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
-		}
 
+		Map<String, Object> searchCondition = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
 		if(searchCondition != null){
-			books = AbstractBookFragment.searchWithConditions(searchCondition);
-		}else{
-			books = Book.getAllUndeleted(Book.class);
+			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
+			models = AbstractBookFragment.searchWithConditions(searchCondition);
+			showBooks();
+		}else {
+			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
+			reloadBook();
 		}
-		showBooks();
 	}
 
 	private void onClickSearchIcon(){
@@ -93,20 +84,28 @@ public class BookListFragment extends MyFragment{
 		}
 	}
 
-	private void showBooks(){
-		ArrayList bookArrays = new ArrayList<Book>(books);
-		if(bookArrays.size() > 0){
-			bookListAdapter = new BookListAdapter(activity, R.layout.item_book, new ArrayList<Book>(books));
-			lstBook.setAdapter(bookListAdapter);
-		}else{
-			// todo
-			MU.log("You should be a reader");
-		}
+	private void showBooks() {
+		adapter.updateDataWith(books);
+	}
+
+	private void reloadBook() {
+		books = new Select().from(Book.class).execute();
+		adapter.updateDataWith(books);
 	}
 
 	public void gotoBookDetail(Book book){
 		BookDetailFragment frg = new BookDetailFragment();
 		frg.setBook(book);
 		activity.addFragment(frg);
+	}
+
+	@Override
+	public int getListViewId() {
+		return R.id.lst_fragment_book_search_result_book;
+	}
+
+	@Override
+	public void initAdapter() {
+		adapter = new BookListAdapter(activity, R.layout.item_book);
 	}
 }

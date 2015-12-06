@@ -1,40 +1,31 @@
 package com.example.vietnguyen.controllers.Note;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controllers.MyFragmentWithList;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.views.MyArrayAdapter;
+import com.example.vietnguyen.core.views.widgets.MyTextView;
+import com.example.vietnguyen.models.Book;
+import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.models.Note;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoteListAdapter;
 
-public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCheckItemListener{
+public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
-	private List<Note>			notes;
-	private NoteListAdapter		noteListAdapter;
-	private ListView			lstNote;
-	private Map<String, Object>	searchCondition;
 	private boolean				isSearching	= false;
 
 	@Override
@@ -47,18 +38,29 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 		super.buildLayout();
 		buildEditNoteFunction();
 		buildAddNoteFunction();
-		buildListNote();
 		buildSearchFunction();
+		reloadNotes();
+	}
+
+	@Override
+	protected void onClickItem(final MyModel model) {
+		dlgBuilder.buildDialogWithEdt(activity, "Enter message", ((Note)model).message, new DialogBuilder.OnDialogWithEdtDismiss() {
+
+			@Override
+			public void onClickDone(String input1, String input2){
+				saveOldNote((Note)model, input1);
+			}
+		}).show();
 	}
 
 	private void buildEditNoteFunction(){
 		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals("Edit")){
+			public void onClick(View view) {
+				if (((TextView) view).getText().toString().equals("Edit")) {
 					onClickTextEdit();
-				}else if(((TextView)view).getText().toString().equals("Done")){
+				} else if (((TextView) view).getText().toString().equals("Done")) {
 					onClickTextDone();
 				}
 			}
@@ -66,8 +68,8 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 	}
 
 	private void onClickTextEdit(){
-		noteListAdapter.isEditing = true;
-		noteListAdapter.notifyDataSetChanged();
+		adapter.setMode(MyArrayAdapter.MODE_EDITING);
+		adapter.notifyDataSetChanged();
 		setTextFor(R.id.txt_fragment_note_list_edit, "Done");
 		setTextFor(R.id.txt_fragment_note_list_add, "Delete All");
 		goneView(R.id.img_fragment_note_list_search);
@@ -75,30 +77,11 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 
 	// Don't edit anymore
 	private void onClickTextDone(){
-		noteListAdapter.isEditing = false;
-		noteListAdapter.notifyDataSetChanged();
+		adapter.setMode(MyArrayAdapter.MODE_NORMAL);
+		adapter.notifyDataSetChanged();
 		setTextFor(R.id.txt_fragment_note_list_edit, "Edit");
 		setTextFor(R.id.txt_fragment_note_list_add, "Add");
 		visibleView(R.id.img_fragment_note_list_search);
-		reloadNotes();
-	}
-
-	private void buildListNote(){
-		lstNote = getListView(R.id.lst_fragment_note_search_result_note);
-		lstNote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-				final Note note = (Note)adapterView.getItemAtPosition(i);
-				dlgBuilder.buildDialogWithEdt(activity, "Enter message", note.message, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-					@Override
-					public void onClickDone(String input1, String input2){
-						saveOldNotice(note, input1);
-					}
-				}).show();
-			}
-		});
 		reloadNotes();
 	}
 
@@ -106,10 +89,10 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 		setOnClickFor(R.id.txt_fragment_note_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals("Add")){
+			public void onClick(View view) {
+				if (((TextView) view).getText().toString().equals("Add")) {
 					onClickTextAdd();
-				}else if(((TextView)view).getText().toString().contains("Delete")){
+				} else if (((TextView) view).getText().toString().contains("Delete")) {
 					onClickTextDelete();
 				}
 			}
@@ -120,7 +103,7 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 		dlgBuilder.buildDialogWithEdt(activity, "Enter message", null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
-			public void onClickDone(String input1, String input2){
+			public void onClickDone(String input1, String input2) {
 				saveNewNotice(input1);
 			}
 		}).show();
@@ -138,18 +121,17 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 
 	private void confirmDeleteNotes(){
 		boolean isDeleteAll = getTextView(R.id.txt_fragment_note_list_add).getText().toString().equals("Delete All");
-		for(int i = 0; i < notes.size(); i++){
-			View viewNote = lstNote.getChildAt(i);
+		for(int i = 0; i < models.size(); i++){
+			View viewNote = listView.getChildAt(i);
 			if(viewNote != null){
 				CheckBox checkBox = (CheckBox)viewNote.findViewById(R.id.item_note_checkbox);
 				if(checkBox.isChecked() || isDeleteAll){
-					Note note = notes.get(i);
+					Note note = (Note) models.get(i);
 					note.delete();
-					noteListAdapter.data.remove(note);
 				}
 			}
 		}
-		noteListAdapter.notifyDataSetChanged();
+		reloadNotes();
 		onClickTextDone();
 	}
 
@@ -162,46 +144,27 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 		}
 	}
 
-	public void saveOldNotice(Note note, String message){
-		note.message = message;
-		note.save();
-		reloadNotes();
+	public void saveOldNote(Note note, String message){
+		if (!note.message.equals(message)) {
+			note.message = message;
+			note.save();
+			reloadNotes();
+		}
 	}
 
 	private void buildSearchFunction(){
 		setOnClickFor(R.id.img_fragment_note_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickSearchIcon();
 			}
 		});
 
-		getEditText(R.id.edt_fragment_note_list_search).setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
+		setAfterTextChangedListenerFor(R.id.edt_fragment_note_list_search, new MyTextView.OnAfterTextChangedListener() {
 			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
-				if(actionId == EditorInfo.IME_ACTION_SEARCH){
-					return true;
-				}
-				return false;
-			}
-		});
-		getEditText(R.id.edt_fragment_note_list_search).addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable editable){
-				performSearch(editable.toString());
+			public void afterTextChanged(String before, String after) {
+				performSearch(after);
 			}
 		});
 	}
@@ -214,6 +177,7 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 			goneView(R.id.txt_fragment_note_list_edit);
 			goneView(R.id.txt_fragment_note_list_add);
 			visibleView(R.id.edt_fragment_note_list_search);
+			getEditText(R.id.edt_fragment_note_list_search).requestFocus();
 			setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_active);
 		}
 	}
@@ -237,37 +201,20 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 	}
 
 	private void performSearch(String keyword){
-		for(Note note : notes){
-			if(!note.message.contains(keyword)){
-				noteListAdapter.data.remove(note);
-			} else if (!noteListAdapter.data.contains(note)){
-				noteListAdapter.data.add(note);
+		for(MyModel note : models){
+			if(!((Note)note).message.contains(keyword)){
+				adapter.removeDataItem(note);
+			} else {
+				adapter.checkToAddDataItem(note);
 			}
 		}
-		noteListAdapter.notifyDataSetChanged();
+		adapter.notifyDataSetChanged();
 	}
 
 	private void reloadNotes(){
-		notes = new Select().from(Note.class).execute();
-		showNotes(notes);
-	}
-
-	private void showNotes(List<Note> showedNotes){
-		if(showedNotes.size() > 0){
-			lstNote.setVisibility(View.VISIBLE);
-			if(noteListAdapter != null){
-				noteListAdapter.data = showedNotes;
-				noteListAdapter.notifyDataSetChanged();
-			}else{
-				List<Note> showedNotes //
-				noteListAdapter = new NoteListAdapter(activity, R.layout.item_note, new List<Note>(showedNotes), this);
-				lstNote.setAdapter(noteListAdapter);
-			}
-		}else{
-			lstNote.setVisibility(View.GONE);
-			// todo
-			MU.log("You should be a reader");
-		}
+		models = new Select().from(Note.class).execute();
+		adapter.updateDataWith(models);
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -279,9 +226,13 @@ public class NoteListFragment extends MyFragment implements NoteListAdapter.OnCh
 		}
 	}
 
-	// public void gotoNoteDetail(Note note){
-	// NoteDetailFragment frg = new NoteDetailFragment();
-	// frg.setNote(note);
-	// activity.addFragment(frg);
-	// }
+	@Override
+	public int getListViewId() {
+		return R.id.lst_fragment_note_search_result_note;
+	}
+
+	@Override
+	public void initAdapter() {
+		adapter = new NoteListAdapter(activity, R.layout.item_note, this);
+	}
 }

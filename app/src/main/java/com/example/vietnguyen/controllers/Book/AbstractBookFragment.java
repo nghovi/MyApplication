@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
+import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.myapplication.R;
 
 import org.json.JSONObject;
@@ -49,7 +50,7 @@ public class AbstractBookFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view) {
-				addWord();
+				showDialogForAddingWord();
 			}
 		});
 	}
@@ -88,14 +89,14 @@ public class AbstractBookFragment extends MyFragment{
 
 				@Override
 				public void onClick(View view){
-					addPhrase(word);
+					showDialogForAddingPhrase(word);
 				}
 			});
 			setOnClickFor(itemBookWordEdit, R.id.img_ibwe_delete, new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view) {
-					deleteWord(word);
+					showDialogConfirmDeleteWord(word);
 				}
 			});
 			builPhrasesForWord(word, itemBookWordEdit, inflater);
@@ -131,7 +132,7 @@ public class AbstractBookFragment extends MyFragment{
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
-	protected void addWord(){
+	protected void showDialogForAddingWord(){
 		dlgBuilder.buildDialogWith2Edt(activity, "Enter new word", "Enter new phrase", new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
@@ -180,7 +181,7 @@ public class AbstractBookFragment extends MyFragment{
 		}).show();
 	}
 
-	protected void deleteWord(final String word){
+	protected void showDialogConfirmDeleteWord(final String word){
 		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
 
 			@Override
@@ -191,7 +192,7 @@ public class AbstractBookFragment extends MyFragment{
 		}).show();
 	}
 
-	protected void addPhrase(final String word){
+	protected void showDialogForAddingPhrase(final String word){
 		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
@@ -300,16 +301,16 @@ public class AbstractBookFragment extends MyFragment{
 		this.originBookStr = this.book.toString();
 	}
 
-	public static List<Book> searchWithConditions(Map<String, Object> conditions){
+	public static List<MyModel> searchWithConditions(Map<String, Object> conditions){
 		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
 		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
 		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
 		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
 
-		List<Book> books = Book.getAllUndeleted(Book.class);
-		Iterator<Book> ib = books.iterator();
+		List<MyModel> books = Book.getAllUndeleted(Book.class);
+		Iterator<MyModel> ib = books.iterator();
 		while(ib.hasNext()){
-			Book book = ib.next();
+			Book book = (Book) ib.next();
 			if(!MU.isEmpty(word) && !book.hasWord(word)){
 				ib.remove();
 				continue;

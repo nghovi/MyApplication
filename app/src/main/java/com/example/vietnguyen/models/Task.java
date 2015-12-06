@@ -25,8 +25,8 @@ public class Task extends MyModel {
     public static final int STATUS_ANY = 2;
     public static final String[] STATUS = new String[]{"Unfinished", "Finished", "Any"};
 
-    public static final String[] TASK_PRIORITIES = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    public static final String[] TASK_PRIORITIES_WITH_ANY = new String[]{"Any", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    public static final String[] TASK_PRIORITIES = new String[]{"1", "2", "3", "4", "5"};
+    public static final String[] TASK_PRIORITIES_WITH_ANY = new String[]{"Any", "1", "2", "3", "4", "5"};
 
     public Task() {
 
@@ -37,7 +37,7 @@ public class Task extends MyModel {
         this.name = name;
         this.description = description;
         this.comment = comment;
-        this.priority = priority; // 1->10
+        this.priority = priority; // 1->5
         this.date = date;
         this.status = status;
         this.lastupdated = lastupdated;

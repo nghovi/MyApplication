@@ -1,6 +1,5 @@
 package com.example.vietnguyen.controllers;
 
-import java.io.File;
 import java.util.Arrays;
 
 import org.json.JSONObject;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.utils.MU;

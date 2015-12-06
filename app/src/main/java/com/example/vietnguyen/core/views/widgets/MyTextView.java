@@ -10,7 +10,7 @@ import com.example.vietnguyen.myapplication.R;
 /**
  * Created by viet on 8/24/2015.
  */
-public class CoreTextView extends TextView{
+public class MyTextView extends TextView{
 
 	// public String value;
 
@@ -18,11 +18,11 @@ public class CoreTextView extends TextView{
 
 	public String	jsonKey;
 
-	public CoreTextView(Context context){
+	public MyTextView(Context context){
 		super(context);
 	}
 
-	public CoreTextView(Context context, AttributeSet attributeSet){
+	public MyTextView(Context context, AttributeSet attributeSet){
 		super(context, attributeSet);
 
 		// get view control value
@@ -31,7 +31,7 @@ public class CoreTextView extends TextView{
 		jsonKey = t.getString(0);
 	}
 
-	public CoreTextView(Context context, AttributeSet attributeSet, int defStyle){
+	public MyTextView(Context context, AttributeSet attributeSet, int defStyle){
 		super(context, attributeSet, defStyle);
 	}
 
@@ -41,5 +41,13 @@ public class CoreTextView extends TextView{
 
 	public void setjsonKey(String jsonKey){
 		this.jsonKey = jsonKey;
+	}
+
+	public interface  OnAfterTextChangedListener {
+		public void afterTextChanged(String before, String after);
+	}
+
+	public interface OnKeyboardBtnPressed {
+		public void onPress(String text);
 	}
 }

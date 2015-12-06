@@ -1,4 +1,4 @@
-package com.example.vietnguyen.core;
+package com.example.vietnguyen;
 
 /**
  * Created by viet on 8/13/2015.

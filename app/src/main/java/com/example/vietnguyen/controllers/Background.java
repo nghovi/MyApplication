@@ -8,7 +8,7 @@ import android.os.Message;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.Const;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyActivity;
 import com.example.vietnguyen.core.network.Api;

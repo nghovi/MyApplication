@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.utils.MU;
-import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.List;
@@ -94,14 +92,14 @@ public class BookEditFragment extends AbstractBookFragment{
 
 				@Override
 				public void onClick(View view){
-					addPhrase(word);
+					showDialogForAddingPhrase(word);
 				}
 			});
 			setOnClickFor(itemBookWordEdit, R.id.img_ibwe_delete, new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){
-					deleteWord(word);
+					showDialogConfirmDeleteWord(word);
 				}
 			});
 			builPhrasesForWord(word, itemBookWordEdit, inflater);

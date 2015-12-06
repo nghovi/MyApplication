@@ -20,19 +20,19 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
 -11. fold/unfold word
 12. Add star mark for word, to remember it, using preference, maybe
 -13. Fold/unfold header section at book detail fragment, since some book has a great list of words
-14. search in book and task
+-14. search in book and task
 15.http://www.tutorialspoint.com/android/android_text_to_speech.htm
 16. Fix bug: request of TakListFragment return result after we switched to book list. So we should cancel all request before entering new fragment, but not background request
 17. Delete all unused resource
-18. Using gcm http://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
+-18. Using gcm http://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
 -19. Put edit cursor when tap on unfold button
 -20. Fix search with author name
-21. test case: network error, first time user, search function
+-21. test case: network error, first time user, search function
 22. if there isn't table task yet, then load and save all tasks, books
 23. test case: update search result after edit task from search result then back
 24. Book search function, let's do as task
  26. http://stackoverflow.com/questions/18634207/difference-between-add-replace-and-addtobackstack
- 27. Stop show mottos if MainActivity onPause( tap home button)
+ -27. Stop show mottos if MainActivity onPause( tap home button)
  27. Stop, cancel alarm after delete Notice
  28. Instead of changing language, try something like: receive a phone call, turn off device screen, start another activity
 

@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:id="@+id/lnr_fbl_header">
 
-        <com.example.vietnguyen.core.views.widgets.CoreTextView
+        <com.example.vietnguyen.core.views.widgets.MyTextView
             android:id="@+id/txt_fragment_book_list_mood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

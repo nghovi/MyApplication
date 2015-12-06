@@ -19,15 +19,11 @@ import com.example.vietnguyen.myapplication.R;
 
 public class TaskSearchFragment extends MyFragment{
 
-	public static final String	KEY_TASK_SEARCH_RESULT		= "task_search_result";
-	public static final String	KEY_TASK_SEARCH_FLAG		= "task_search_flag";
-	// public static final String KEY_TASK_SEARCH_LIST = "task_list";
 	public static final String	KEY_TASK_SEARCH_TEXT		= "task_search_by_text";
 	public static final String	KEY_TASK_SEARCH_PRIORITY	= "task_search_by_priority";
 	public static final String	KEY_TASK_SEARCH_STATUS		= "task_search_by_status";
 	public static final String	KEY_TASK_SEARCH_CONDITION	= "task_search_condition";
 
-	private List<Task>			tasks;
 	private String				priority					= Task.TASK_PRIORITIES_WITH_ANY[0];
 	private int					taskStatus					= Task.STATUS_ANY;
 	private String				text;															// search key word
@@ -49,7 +45,6 @@ public class TaskSearchFragment extends MyFragment{
 
 	private void buildPreCondition(){
 		Map<String, Object> conditions = (Map<String, Object>)getUpdatedData(KEY_TASK_SEARCH_CONDITION, new HashMap<String, String>());
-
 		if(conditions.containsKey(KEY_TASK_SEARCH_TEXT)){
 			text = (String)conditions.get(KEY_TASK_SEARCH_TEXT);
 			setTextFor(R.id.edt_fragment_task_search_text, text);
@@ -126,16 +121,7 @@ public class TaskSearchFragment extends MyFragment{
 	private void onClickSearchText(){
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
 		Map<String, Object> conditions = buildSearchConditions();
-		tasks = AbstractTaskFragment.searchWithConditions(conditions);
-		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_RESULT, buildSearchResult(conditions));
-	}
-
-	private Map<String, Object> buildSearchResult(Map<String, Object> conditions){
-		boolean hasFiltered = !MU.isEmpty(text) || priority != Task.TASK_PRIORITIES_WITH_ANY[0] || taskStatus != Task.STATUS_ANY;
-		Map searchResult = new HashMap<String, Object>();
-		searchResult.put(KEY_TASK_SEARCH_FLAG, hasFiltered);
-		searchResult.put(KEY_TASK_SEARCH_CONDITION, conditions);
-		return searchResult;
+		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
 	}
 
 	private Map<String, Object> buildSearchConditions(){
@@ -143,7 +129,10 @@ public class TaskSearchFragment extends MyFragment{
 		conditions.put(KEY_TASK_SEARCH_TEXT, text);
 		conditions.put(KEY_TASK_SEARCH_PRIORITY, priority);
 		conditions.put(KEY_TASK_SEARCH_STATUS, taskStatus);
-		return conditions;
+		if (!MU.isEmpty(text) || priority != Task.TASK_PRIORITIES_WITH_ANY[0] || taskStatus != Task.STATUS_ANY) {
+			return conditions;
+		}
+		return null;
 	}
 
 }

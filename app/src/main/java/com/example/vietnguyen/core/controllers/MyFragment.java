@@ -5,11 +5,11 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,14 +25,13 @@ import android.widget.Toast;
 
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.views.widgets.MyTextView;
 import com.example.vietnguyen.myapplication.R;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by viet on 8/11/2015.
@@ -147,6 +146,42 @@ public class MyFragment extends Fragment {
 		TextView tv = new TextView(activity);
 		tv.setText(str);
 		return tv;
+	}
+
+	public void setAfterTextChangedListenerFor(int resourceId, final MyTextView.OnAfterTextChangedListener listener) {
+		final String textBefore = getTextView(resourceId).getText().toString();
+		getEditText(resourceId).addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+				listener.afterTextChanged(textBefore, editable.toString());
+			}
+		});
+	}
+
+
+	//Eg EditorInfo.IME_ACTION_SEARCH
+	public void setOnEditorActionFor(int resource, final int actionCode, final MyTextView.OnKeyboardBtnPressed listener) {
+		getEditText(resource).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == actionCode) {
+					listener.onPress(v.getText().toString());
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	public void goneView(View v){

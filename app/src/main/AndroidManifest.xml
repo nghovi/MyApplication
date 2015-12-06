@@ -78,7 +78,7 @@
 
 
         <receiver
-            android:name="com.example.vietnguyen.utils.LocalBroadcastReceiver"
+            android:name="com.example.vietnguyen.controllers.LocalBroadcastReceiver"
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.example.vietnguyen.utils.LocalBroadcastReceiver" />
@@ -99,7 +99,7 @@
             <!--</intent-filter>-->
         <!--</receiver>-->
         <service
-            android:name="com.example.vietnguyen.utils.QkNotificationIntentService"
+            android:name="com.example.vietnguyen.controllers.NotificationService"
             android:enabled="true" />
     </application>
 

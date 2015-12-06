@@ -110,7 +110,7 @@
 
         </LinearLayout>
 
-        <com.example.vietnguyen.core.views.widgets.CoreTextView
+        <com.example.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -118,7 +118,7 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/txt_name" />
 
-        <com.example.vietnguyen.core.views.widgets.CoreTextView
+        <com.example.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
@@ -126,7 +126,7 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/txt_description" />
 
-        <com.example.vietnguyen.core.views.widgets.CoreTextView
+        <com.example.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Comment"

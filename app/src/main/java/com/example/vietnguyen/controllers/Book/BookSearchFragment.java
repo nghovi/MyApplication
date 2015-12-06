@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 
 import com.activeandroid.query.Select;
-import com.example.vietnguyen.controllers.Book.BookListFragment;
-import com.example.vietnguyen.controllers.Task.AbstractTaskFragment;
-import com.example.vietnguyen.controllers.Task.TaskListFragment;
 import com.example.vietnguyen.core.controllers.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.views.widgets.MyTextView;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
@@ -21,11 +20,6 @@ import java.util.Map;
 
 public class BookSearchFragment extends MyFragment{
 
-	private List<Book>			books;
-
-	public static final String	KEY_BOOK_SEARCH_RESULT		= "book_search_result";
-	public static final String	KEY_BOOK_SEARCH_FLAG		= "book_search_flag";
-	public static final String	KEY_BOOK_SEARCH_LIST		= "book_list";
 	public static final String	KEY_BOOK_SEARCH_WORD		= "book_search_by_word";
 	public static final String	KEY_BOOK_SEARCH_NAME		= "book_search_by_name";
 	public static final String	KEY_BOOK_SEARCH_AUTHOR		= "book_search_by_author";
@@ -49,10 +43,20 @@ public class BookSearchFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_book_search_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickSearchText();
 			}
 		});
+		MyTextView.OnKeyboardBtnPressed listener = new MyTextView.OnKeyboardBtnPressed() {
+			@Override
+			public void onPress(String text) {
+				onClickSearchText();
+			}
+		};
+		setOnEditorActionFor(R.id.edt_fragment_book_search_word, EditorInfo.IME_ACTION_SEARCH, listener);
+		setOnEditorActionFor(R.id.edt_fragment_book_search_author, EditorInfo.IME_ACTION_SEARCH, listener);
+		setOnEditorActionFor(R.id.edt_fragment_book_search_name, EditorInfo.IME_ACTION_SEARCH, listener);
+		setOnEditorActionFor(R.id.edt_fragment_book_search_comment, EditorInfo.IME_ACTION_SEARCH, listener);
 	}
 
 	private void buildOnCancelSearch(){
@@ -102,18 +106,7 @@ public class BookSearchFragment extends MyFragment{
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
 		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
 		String comment = getEditText(R.id.edt_fragment_book_search_comment).getText().toString();
-		boolean hasFiltered = !MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment);
-		Map<String, Object> conditions = buildSearchConditions(word, name, author, comment);
-		books = AbstractBookFragment.searchWithConditions(conditions);
-		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_RESULT, buildSearchResult(hasFiltered, conditions));
-	}
-
-	private Map<String, Object> buildSearchResult(boolean hasFiltered, Map<String, Object> conditions){
-		Map searchResult = new HashMap<String, Object>();
-		searchResult.put(KEY_BOOK_SEARCH_FLAG, hasFiltered);
-		searchResult.put(KEY_BOOK_SEARCH_LIST, books);
-		searchResult.put(KEY_BOOK_SEARCH_CONDITION, conditions);
-		return searchResult;
+		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_CONDITION, buildSearchConditions(word, name, author, comment));
 	}
 
 	private Map<String, Object> buildSearchConditions(String word, String name, String author, String comment){
@@ -122,6 +115,9 @@ public class BookSearchFragment extends MyFragment{
 		conditions.put(KEY_BOOK_SEARCH_NAME, name);
 		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);
 		conditions.put(KEY_BOOK_SEARCH_COMMENT, comment);
-		return conditions;
+		if (!MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment)) {
+			return conditions;
+		}
+		return null;
 	}
 }

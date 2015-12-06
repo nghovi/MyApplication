@@ -9,14 +9,13 @@ import android.view.View;
 import com.example.vietnguyen.controllers.Book.BookListFragment;
 import com.example.vietnguyen.controllers.Note.NoteListFragment;
 import com.example.vietnguyen.controllers.Task.TaskListFragment;
-import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.Const;
 import com.example.vietnguyen.core.controllers.Footer;
 import com.example.vietnguyen.core.controllers.MyActivity;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.utils.GcmUtil;
-import com.example.vietnguyen.utils.LocalBroadcastReceiver;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -28,8 +27,6 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
-import lombok.core.Main;
 
 public class MainActivity extends MyActivity implements View.OnClickListener{
 

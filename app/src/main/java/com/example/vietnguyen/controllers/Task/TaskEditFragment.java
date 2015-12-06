@@ -6,16 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.vietnguyen.core.Const;
+import com.example.vietnguyen.Const;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
-import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 

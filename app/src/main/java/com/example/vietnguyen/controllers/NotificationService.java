@@ -1,4 +1,4 @@
-package com.example.vietnguyen.utils;
+package com.example.vietnguyen.controllers;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -7,16 +7,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.vietnguyen.utils.GcmUtil;
+
 /**
- * QkNotificationIntentService
+ * NotificationService
  */
-public class QkNotificationIntentService extends IntentService{
+public class NotificationService extends IntentService{
 
 	public final static int		NOTIFICATION_ID	= 1;
 
 	private NotificationManager	mNotificationManager;
 
-	public QkNotificationIntentService(){
+	public NotificationService(){
 		super("QkLocalIntentService");
 	}
 

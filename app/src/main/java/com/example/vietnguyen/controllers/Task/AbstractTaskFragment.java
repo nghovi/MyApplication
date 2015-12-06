@@ -9,21 +9,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.vietnguyen.core.Const;
 import com.example.vietnguyen.core.controllers.DateTimePicker;
 import com.example.vietnguyen.core.controllers.DialogBuilder;
 import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
+import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.models.Task;
-import com.example.vietnguyen.models.TaskNotice;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.utils.GcmUtil;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoticeAdapter;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -293,15 +289,15 @@ public class AbstractTaskFragment extends MyFragment{
 		savedNotices = new ArrayList<Notice>();
 	}
 
-	protected static List<Task> searchWithConditions(Map<String, Object> conditions){
+	protected static List<MyModel> searchWithConditions(Map<String, Object> conditions){
 		String text = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT);
 		String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
 		int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
 
-		List<Task> tasks = Task.getAllUndeleted(Task.class);
-		Iterator<Task> ib = tasks.iterator();
+		List<MyModel> tasks = Task.getAllUndeleted(Task.class);
+		Iterator<MyModel> ib = tasks.iterator();
 		while(ib.hasNext()){
-			Task task = ib.next();
+			Task task = (Task) ib.next();
 			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
 				ib.remove();
 				continue;
