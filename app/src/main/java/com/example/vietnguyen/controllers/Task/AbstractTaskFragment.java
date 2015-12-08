@@ -65,10 +65,10 @@ public class AbstractTaskFragment extends MyFragment{
 				txtPriority.setText(String.valueOf(displayedValue));
 			}
 		};
-		txtPriority.setOnClickListener(new View.OnClickListener() {
+		setOnClickFor(R.id.lnr_share_task_edit_priority, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick (View view){
 				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
 			}
 		});
@@ -76,7 +76,7 @@ public class AbstractTaskFragment extends MyFragment{
 
 	protected void buildStatus(){
 		setTextStatus(task.status);
-		setOnClickFor(R.id.txt_share_task_edit_status, new View.OnClickListener() {
+		setOnClickFor(R.id.lnr_share_task_edit_status, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -151,15 +151,15 @@ public class AbstractTaskFragment extends MyFragment{
 		final TextView txtDate = getTextView(R.id.txt_share_task_edit_date);
 		targetDate = task.date;
 		txtDate.setText(MU.getDateForDisplaying(targetDate));
-		txtDate.setOnClickListener(new View.OnClickListener() {
+		View.OnClickListener listener = new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick (View view){
 				DatePickerFragment datePicker = new DatePickerFragment();
 				datePicker.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
 
 					@Override
-					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
+					public void onDateSet(DatePicker datePicker, int i, int i2, int i3) {
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
@@ -168,7 +168,9 @@ public class AbstractTaskFragment extends MyFragment{
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");
 			}
-		});
+		};
+		setOnClickFor(R.id.lnr_share_task_edit_date,listener);
+		setOnClickFor(R.id.txt_share_task_edit_date, listener);//todo minor why cannot trigger
 	}
 
 	protected void buildNotices(){
@@ -318,7 +320,8 @@ public class AbstractTaskFragment extends MyFragment{
 		return tasks;
 	}
 
-	protected void backToTaskList(){
+	protected void backToTaskList() {
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
+//		activity.backOneFragment();
 	}
 }

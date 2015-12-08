@@ -50,6 +50,7 @@
             android:value="com.example.vietnguyen.models.UtilDateSerializer" />
 
         <activity
+
             android:name="com.example.vietnguyen.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen">
             <intent-filter>
@@ -58,6 +59,7 @@
             </intent-filter>
         </activity>
         <activity
+
             android:name="com.example.vietnguyen.controllers.MainActivity"
             android:label="@string/title_activity_main"></activity>
         <activity

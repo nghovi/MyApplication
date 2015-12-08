@@ -26,13 +26,19 @@
         android:id="@+id/edt_dialog_with_2edt_word"
         android:minLines="2"
         android:hint="Enter new word"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        style="@style/core_edit_text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
         android:id="@+id/edt_dialog_with_2edt_phrase"
-        android:hint="Enter new phrase" />
+        android:hint="Enter new phrase"
+        android:layout_marginBottom="10dp"
+        style="@style/core_edit_text"
+        android:minLines="2"
+        android:gravity="left|top" />
 
     <TextView
         android:layout_width="wrap_content"

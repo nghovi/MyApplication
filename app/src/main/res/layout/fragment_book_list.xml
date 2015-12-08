@@ -49,13 +49,22 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/bg_reading">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lst_fragment_book_search_result_book" />
+            android:id="@+id/lst_fragment_book_search_result_book"
+            android:visibility="visible" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Reading is good for you"
+            android:id="@+id/txt_fragment_book_list_empty"
+            android:gravity="center_vertical|center_horizontal"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

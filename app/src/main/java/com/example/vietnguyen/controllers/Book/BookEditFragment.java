@@ -30,14 +30,14 @@ public class BookEditFragment extends AbstractBookFragment{
 			@Override
 			public void onClick(View view){
 				book.save();
-//				saveThisBookAndStay();
+				// saveThisBookAndStay();
 			}
 		});
 		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-//				deleteThisBook();
+				// deleteThisBook();
 			}
 		});
 

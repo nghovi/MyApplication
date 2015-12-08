@@ -1,5 +1,6 @@
 package com.example.vietnguyen.core.controllers;
 
+import android.database.DataSetObservable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,9 +29,14 @@ public abstract class MyFragmentWithList extends MyFragment implements  MyFragme
 		listView = getListView(getListViewId());
 		listView.setOnItemClickListener(this);
 		if (adapter == null) {
-			initAdapter();
+			setUpAdapter();
 		}
 		listView.setAdapter(adapter);
+	}
+
+	protected void setUpAdapter() {
+		initAdapter();
+		adapter.setMyFragmentWithListInterface(this);
 	}
 
 	@Override
@@ -42,6 +48,15 @@ public abstract class MyFragmentWithList extends MyFragment implements  MyFragme
 	//Do not confuse with onItemClick of android
 	protected abstract void onClickItem(MyModel model);
 
+	@Override
+	public void onEmptyData() {
+		listView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onNotEmptyData() {
+		listView.setVisibility(View.VISIBLE);
+	}
 
 	@Override
 	public void onDestroy() {

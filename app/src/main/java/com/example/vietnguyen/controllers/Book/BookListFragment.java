@@ -17,6 +17,7 @@ import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
+import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoteListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +26,7 @@ import java.util.Map;
 
 public class BookListFragment extends MyFragmentWithList{
 
-	private List<Book>			books;
-	private Map<String, Object>	searchCondition;
+	private Map<String, Object>	searchConditions;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -38,45 +38,44 @@ public class BookListFragment extends MyFragmentWithList{
 		super.buildLayout();
 		buildAddBookFunction();
 		buildSearchFunction();
-		reloadBook();
 	}
 
 	@Override
-	protected void onClickItem(MyModel model) {
-		gotoBookDetail((Book) model);
+	protected void onClickItem(MyModel model){
+		gotoBookDetail((Book)model);
 	}
 
 	private void buildAddBookFunction(){
 		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				activity.addFragment(new BookAddFragment());
 			}
 		});
 	}
 
 	private void buildSearchFunction(){
-		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				onClickSearchIcon();
-			}
-		});
-
-		Map<String, Object> searchCondition = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
-		if(searchCondition != null){
+		searchConditions = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
+		if(searchConditions.size() > 0){
 			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
-			models = AbstractBookFragment.searchWithConditions(searchCondition);
+			models = AbstractBookFragment.searchWithConditions(searchConditions);
 			showBooks();
-		}else {
+		}else{
 			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
 			reloadBook();
 		}
+		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				onClickSearchIcon(searchConditions);
+			}
+		});
+
 	}
 
-	private void onClickSearchIcon(){
+	private void onClickSearchIcon(Map<String, Object> searchCondition){
 		if(searchCondition != null){
 			activity.addFragment(new BookSearchFragment(), BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, searchCondition);
 		}else{
@@ -84,13 +83,13 @@ public class BookListFragment extends MyFragmentWithList{
 		}
 	}
 
-	private void showBooks() {
-		adapter.updateDataWith(books);
+	private void showBooks(){
+		adapter.updateDataWith(models);
 	}
 
-	private void reloadBook() {
-		books = new Select().from(Book.class).execute();
-		adapter.updateDataWith(books);
+	private void reloadBook(){
+		models = new Select().from(Book.class).execute();
+		adapter.updateDataWith(models);
 	}
 
 	public void gotoBookDetail(Book book){
@@ -100,12 +99,24 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	@Override
-	public int getListViewId() {
+	public int getListViewId(){
 		return R.id.lst_fragment_book_search_result_book;
 	}
 
 	@Override
-	public void initAdapter() {
+	public void initAdapter(){
 		adapter = new BookListAdapter(activity, R.layout.item_book);
+	}
+
+	@Override
+	public void onEmptyData(){
+		 super.onEmptyData();
+		 visibleView(R.id.txt_fragment_book_list_empty);
+	}
+
+	@Override
+	public void onNotEmptyData(){
+		super.onNotEmptyData();
+		goneView(R.id.txt_fragment_book_list_empty);
 	}
 }

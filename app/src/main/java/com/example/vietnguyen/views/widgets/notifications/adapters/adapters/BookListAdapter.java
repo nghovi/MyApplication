@@ -27,7 +27,7 @@ public class BookListAdapter extends MyArrayAdapter<Book> {
 
 
 	public BookListAdapter(Context context, int resourceId){
-		super(context, resourceId);
+		super(context, resourceId, new ArrayList<Book>());
 	}
 
 	@Override

@@ -43,15 +43,19 @@ public class TaskEditFragment extends AbstractTaskFragment{
 	}
 
 	protected void buildHeaderText(){
-		TextView txtCommit = getTextView(R.id.txt_fragment_task_edit_done);
-		txtCommit.setOnClickListener(new View.OnClickListener() {
+		setOnClickFor(R.id.txt_fragment_task_edit_done, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				updateTask();
+			public void onClick(View view) {
+//				updateTask();
+				MU.hideSofeKeyboard(activity);
+				buildTaskFromLayout();
+				task.save();
+				makeAlarmForNotice();
+				backToTaskList();
 			}
 		});
-		addTextWatcher(txtCommit, Arrays.asList((View)getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
+		addTextWatcher(getTextView(R.id.txt_fragment_task_edit_done), Arrays.asList((View)getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
 	}
 
 	@Override
@@ -59,37 +63,37 @@ public class TaskEditFragment extends AbstractTaskFragment{
 		activity.backOneFragment();
 	}
 
-	private void updateTask(){
-		buildTaskFromLayout();
-		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				onUpdateTaskSuccess();
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				onUpdateTaskError();
-			}
-		});
-	}
-
-	private void onUpdateTaskSuccess(){
-		showShortToast("Save task to server success");
-		task.isRemoteSaved = true;
-		task.save();
-		makeAlarmForNotice();
-		backToTaskList();
-	}
-
-	private void onUpdateTaskError(){
-		showShortToast("Save to server failed");
-		task.isRemoteSaved = false;
-		task.save();
-		makeAlarmForNotice();
-		backToTaskList();
-	}
+//	private void updateTask(){
+//		buildTaskFromLayout();
+//		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+//		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+//
+//			@Override
+//			public void onApiResponse(JSONObject response){
+//				onUpdateTaskSuccess();
+//			}
+//
+//			@Override
+//			public void onApiError(String errorMsg){
+//				onUpdateTaskError();
+//			}
+//		});
+//	}
+//
+//	private void onUpdateTaskSuccess(){
+//		showShortToast("Save task to server success");
+//		task.isRemoteSaved = true;
+//		task.save();
+//		makeAlarmForNotice();
+//		backToTaskList();
+//	}
+//
+//	private void onUpdateTaskError(){
+//		showShortToast("Save to server failed");
+//		task.isRemoteSaved = false;
+//		task.save();
+//		makeAlarmForNotice();
+//		backToTaskList();
+//	}
 
 }

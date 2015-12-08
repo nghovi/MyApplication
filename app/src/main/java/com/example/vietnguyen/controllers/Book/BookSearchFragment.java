@@ -43,13 +43,14 @@ public class BookSearchFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_book_search_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickSearchText();
 			}
 		});
 		MyTextView.OnKeyboardBtnPressed listener = new MyTextView.OnKeyboardBtnPressed() {
+
 			@Override
-			public void onPress(String text) {
+			public void onPress(String text){
 				onClickSearchText();
 			}
 		};
@@ -102,6 +103,7 @@ public class BookSearchFragment extends MyFragment{
 	}
 
 	private void onClickSearchText(){
+		MU.hideSofeKeyboard(activity);
 		String word = getEditText(R.id.edt_fragment_book_search_word).getText().toString();
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
 		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
@@ -111,13 +113,14 @@ public class BookSearchFragment extends MyFragment{
 
 	private Map<String, Object> buildSearchConditions(String word, String name, String author, String comment){
 		Map<String, Object> conditions = new HashMap<String, Object>();
+		if(MU.isEmpty(word) && MU.isEmpty(name) && MU.isEmpty(author) && MU.isEmpty(comment)){
+			return conditions;
+		}
 		conditions.put(KEY_BOOK_SEARCH_WORD, word);
 		conditions.put(KEY_BOOK_SEARCH_NAME, name);
 		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);
 		conditions.put(KEY_BOOK_SEARCH_COMMENT, comment);
-		if (!MU.isEmpty(word) || !MU.isEmpty(name) || !MU.isEmpty(author) || !MU.isEmpty(comment)) {
-			return conditions;
-		}
-		return null;
+
+		return conditions;
 	}
 }

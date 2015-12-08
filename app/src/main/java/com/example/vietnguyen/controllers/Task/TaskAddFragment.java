@@ -39,7 +39,7 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	}
 
 	@Override
-	protected void prepareTask() {
+	protected void prepareTask(){
 		task = new Task();
 		targetDate = new Date();
 		task.date = targetDate;
@@ -47,42 +47,45 @@ public class TaskAddFragment extends AbstractTaskFragment{
 		task.priority = Integer.parseInt(Task.TASK_PRIORITIES[0]);
 	}
 
-	protected void buildHeaderText() {
+	protected void buildHeaderText(){
 		TextView txtCommit = getTextView(R.id.txt_fragment_task_add_add);
 		txtCommit.setOnClickListener(new View.OnClickListener() {
+
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				addNewTask();
 			}
 		});
-		addTextWatcher(txtCommit, Arrays.asList((View) getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
+		addTextWatcher(txtCommit, Arrays.asList((View)getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
 	}
 
 	private void addNewTask(){
+		MU.hideSofeKeyboard(activity);
 		buildTaskFromLayout();
-
-		//Try to save to server
-		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.ADD_TASK, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response) {
-				showShortToast("Save new task to server success");
-				task.id = response.optString("data");
-				task.isRemoteSaved = true;
-				task.save();
-				savedNotices = new ArrayList<Notice>();
-				backToTaskList();
-			}
-
-			@Override
-			public void onApiError(String errorMsg) {
-				showShortToast("Save new task to server failed");
-				deleteUnUsedNotices();
-				task.save();
-				backToTaskList();
-			}
-		});
+		task.save();
+		backToTaskList();
+		// Try to save to server
+		// JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+		// postApi(Const.ADD_TASK, param, new Api.OnCallApiListener() {
+		//
+		// @Override
+		// public void onApiResponse(JSONObject response) {
+		// showShortToast("Save new task to server success");
+		// task.id = response.optString("data");
+		// task.isRemoteSaved = true;
+		// task.save();
+		// savedNotices = new ArrayList<Notice>();
+		// backToTaskList();
+		// }
+		//
+		// @Override
+		// public void onApiError(String errorMsg) {
+		// showShortToast("Save new task to server failed");
+		// deleteUnUsedNotices();
+		// task.save();
+		// backToTaskList();
+		// }
+		// });
 	}
 
 }

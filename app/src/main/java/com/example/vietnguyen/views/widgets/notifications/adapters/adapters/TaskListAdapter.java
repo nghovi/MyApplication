@@ -21,7 +21,7 @@ import com.example.vietnguyen.myapplication.R;
 public class TaskListAdapter extends MyArrayAdapter<Task> {
 
 	public TaskListAdapter(Context context, int resourceId){
-		super(context, resourceId);
+		super(context, resourceId, new ArrayList<Task>());
 	}
 
 	@Override

@@ -23,7 +23,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="Task adding..."
+            android:id="@+id/textView17"
+            android:textColor="@color/core_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
             android:id="@+id/txt_fragment_task_add_add"
             android:textColor="@color/core_white"
             android:layout_marginRight="10dp"

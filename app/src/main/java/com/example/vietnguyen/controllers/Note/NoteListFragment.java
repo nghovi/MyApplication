@@ -26,7 +26,7 @@ import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.Note
 
 public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
-	private boolean				isSearching	= false;
+	private boolean	isSearching	= false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -43,24 +43,18 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	@Override
-	protected void onClickItem(final MyModel model) {
-		dlgBuilder.buildDialogWithEdt(activity, "Enter message", ((Note)model).message, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input1, String input2){
-				saveOldNote((Note)model, input1);
-			}
-		}).show();
+	protected void onClickItem(final MyModel model){
+		activity.addFragment(new NoteDetailFragment(), NoteDetailFragment.BUNDLE_KEY_NOTE, (Note)model);
 	}
 
 	private void buildEditNoteFunction(){
 		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (((TextView) view).getText().toString().equals("Edit")) {
+			public void onClick(View view){
+				if(((TextView)view).getText().toString().equals("Edit")){
 					onClickTextEdit();
-				} else if (((TextView) view).getText().toString().equals("Done")) {
+				}else if(((TextView)view).getText().toString().equals("Done")){
 					onClickTextDone();
 				}
 			}
@@ -89,10 +83,10 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.txt_fragment_note_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (((TextView) view).getText().toString().equals("Add")) {
+			public void onClick(View view){
+				if(((TextView)view).getText().toString().equals("Add")){
 					onClickTextAdd();
-				} else if (((TextView) view).getText().toString().contains("Delete")) {
+				}else if(((TextView)view).getText().toString().contains("Delete")){
 					onClickTextDelete();
 				}
 			}
@@ -100,13 +94,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void onClickTextAdd(){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter message", null, new DialogBuilder.OnDialogWithEdtDismiss() {
-
-			@Override
-			public void onClickDone(String input1, String input2) {
-				saveNewNotice(input1);
-			}
-		}).show();
+		activity.addFragment(new NoteDetailFragment());
 	}
 
 	private void onClickTextDelete(){
@@ -126,7 +114,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 			if(viewNote != null){
 				CheckBox checkBox = (CheckBox)viewNote.findViewById(R.id.item_note_checkbox);
 				if(checkBox.isChecked() || isDeleteAll){
-					Note note = (Note) models.get(i);
+					Note note = (Note)models.get(i);
 					note.delete();
 				}
 			}
@@ -145,7 +133,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	public void saveOldNote(Note note, String message){
-		if (!note.message.equals(message)) {
+		if(!note.message.equals(message)){
 			note.message = message;
 			note.save();
 			reloadNotes();
@@ -156,14 +144,15 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.img_fragment_note_list_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickSearchIcon();
 			}
 		});
 
 		setAfterTextChangedListenerFor(R.id.edt_fragment_note_list_search, new MyTextView.OnAfterTextChangedListener() {
+
 			@Override
-			public void afterTextChanged(String before, String after) {
+			public void afterTextChanged(String before, String after){
 				performSearch(after);
 			}
 		});
@@ -188,23 +177,19 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		visibleView(R.id.txt_fragment_note_list_add);
 		goneView(R.id.edt_fragment_note_list_search);
 		setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_inactive);
-		hideSofeKeyboard();
+		MU.hideSofeKeyboard(activity);
 		reloadNotes();
 	}
 
-	private void hideSofeKeyboard(){
-		View view = activity.getCurrentFocus();
-		if(view != null){
-			InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-		}
-	}
-
 	private void performSearch(String keyword){
+		// todo why after back from note detail of search, still call perform Search ?
+		if(getEditText(R.id.edt_fragment_note_list_search).getVisibility() != View.VISIBLE){
+			return;
+		}
 		for(MyModel note : models){
 			if(!((Note)note).message.contains(keyword)){
 				adapter.removeDataItem(note);
-			} else {
+			}else{
 				adapter.checkToAddDataItem(note);
 			}
 		}
@@ -214,7 +199,6 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void reloadNotes(){
 		models = new Select().from(Note.class).execute();
 		adapter.updateDataWith(models);
-		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -227,12 +211,18 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	@Override
-	public int getListViewId() {
+	public int getListViewId(){
 		return R.id.lst_fragment_note_search_result_note;
 	}
 
 	@Override
-	public void initAdapter() {
+	public void initAdapter(){
 		adapter = new NoteListAdapter(activity, R.layout.item_note, this);
 	}
+
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+	}
+
 }

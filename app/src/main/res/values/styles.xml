@@ -19,6 +19,16 @@
         <item name="android:background">@android:color/darker_gray</item>
     </style>
 
+    <style name="core_edit_text" >
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/core_gray</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/edit_text_border</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 
     <!-- TopDown Dialog -->
     <style name="dialog_animation_top_down">

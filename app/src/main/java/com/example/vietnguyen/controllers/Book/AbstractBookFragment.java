@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,6 +194,7 @@ public class AbstractBookFragment extends MyFragment{
 	}
 
 	protected void showDialogForAddingPhrase(final String word){
+		Log.e("lllllll", "wow");
 		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
@@ -226,6 +228,7 @@ public class AbstractBookFragment extends MyFragment{
 		buildBookFromLayout();
 		originBookStr = book.toString();
 		book.save();
+
 		rebuildLayoutOrBack(willBack);
 //		saveBookToServer(book, willBack);
 	}
@@ -255,6 +258,7 @@ public class AbstractBookFragment extends MyFragment{
 		if(willBack){
 			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
 		}else{
+			Log.e("888888", "so still book = " + book.toString());
 			buildLayout();
 		}
 	}

@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
@@ -24,6 +25,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.example.vietnguyen.Const;
@@ -182,6 +184,14 @@ public class MU{
 				log("picassaLoadAndSaveImage failed for url " + url);
 			}
 		});
+	}
+
+	public static void hideSofeKeyboard(Activity activity){
+		View view = activity.getCurrentFocus();
+		if(view != null){
+			InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 
 	public static void picassaLoadImage(final String url, final ImageView imageView, Context context){

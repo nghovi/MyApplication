@@ -30,7 +30,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	private Date							targetDate;
 	private Map<String, ArrayList<Task>>	map;
 	private ArrayList<Task>					showedTasks;
-	private Map<String, Object>				searchCondition;
+	private Map<String, Object>				searchConditions;
 
 	public static final String				KEY_TARGET_DATE	= "targetDate";
 
@@ -49,10 +49,9 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	@Override
-	protected void onClickItem(MyModel model) {
+	protected void onClickItem(MyModel model){
 		gotoTaskDetail((Task)model);
 	}
-
 
 	private void buildTargetDate(){
 		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
@@ -63,23 +62,23 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void buildSearchFunction(){
+		searchConditions = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
+		if(searchConditions.size() > 0){
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
+			invisibleView(R.id.txt_fragment_task_list_date);
+			models = AbstractTaskFragment.searchWithConditions(searchConditions);
+			showTasks();
+		}else{
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
+			reloadDailyTasks();
+		}
 		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchCondition);
+				activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchConditions);
 			}
 		});
-		Map<String, Object> searchCondition = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
-		if(searchCondition != null){
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
-			invisibleView(R.id.txt_fragment_task_list_date);
-			models = AbstractTaskFragment.searchWithConditions(searchCondition);
-			showTasks();
-		}else {
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
-			reloadDailyTasks();
-		}
 	}
 
 	private void loadTasksFromLocal(){
@@ -87,8 +86,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void buildCalendarPicker(){
-		final TextView txtDate = getTextView(R.id.txt_fragment_task_list_date);
-		txtDate.setOnClickListener(new View.OnClickListener() {
+		setOnClickFor(R.id.txt_fragment_task_list_date, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -100,8 +98,8 @@ public class TaskListFragment extends MyFragmentWithList{
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
-						txtDate.setText(MU.getDateForDisplaying(targetDate));
-						reloadDailyTasks();
+						setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
+						// reloadDailyTasks();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");
@@ -110,7 +108,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void buildAddBtn(){
-		TextView txtAdd = getTextView(R.id.txt_add);
+		TextView txtAdd = getTextView(R.id.txt_fragment_task_list_add);
 		txtAdd.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -122,10 +120,10 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void showTasks(){
-		adapter.updateDataWith(this.showedTasks);
+		adapter.updateDataWith(models);
 	}
 
-	public void reloadDailyTasks() {
+	public void reloadDailyTasks(){
 		loadTasksFromLocal();
 		mapTasksToDate();
 		this.showedTasks = map.get(buildKey(targetDate));
@@ -165,8 +163,7 @@ public class TaskListFragment extends MyFragmentWithList{
 
 	public void gotoTaskDetail(Task task){
 		TaskDetailFragment frg = new TaskDetailFragment();
-		frg.setTask(task);
-		activity.addFragment(frg);
+		activity.addFragment(frg, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}
 
 	private String buildKey(Date d){
@@ -176,12 +173,24 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	@Override
-	public int getListViewId() {
+	public int getListViewId(){
 		return R.id.lst_fragment_task_list_task;
 	}
 
 	@Override
-	public void initAdapter() {
+	public void initAdapter(){
 		adapter = new TaskListAdapter(activity, R.layout.item_task);
+	}
+
+	@Override
+	public void onEmptyData(){
+		super.onEmptyData();
+		visibleView(R.id.txt_fragment_task_list_empty);
+	}
+
+	@Override
+	public void onNotEmptyData(){
+		super.onNotEmptyData();
+		goneView(R.id.txt_fragment_task_list_empty);
 	}
 }

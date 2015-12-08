@@ -119,6 +119,7 @@ public class TaskSearchFragment extends MyFragment{
 	}
 
 	private void onClickSearchText(){
+		MU.hideSofeKeyboard(activity);
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
 		Map<String, Object> conditions = buildSearchConditions();
 		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
@@ -126,13 +127,13 @@ public class TaskSearchFragment extends MyFragment{
 
 	private Map<String, Object> buildSearchConditions(){
 		Map<String, Object> conditions = new HashMap<String, Object>();
+		if (MU.isEmpty(text) && priority == Task.TASK_PRIORITIES_WITH_ANY[0] && taskStatus == Task.STATUS_ANY) {
+			return conditions;
+		}
 		conditions.put(KEY_TASK_SEARCH_TEXT, text);
 		conditions.put(KEY_TASK_SEARCH_PRIORITY, priority);
 		conditions.put(KEY_TASK_SEARCH_STATUS, taskStatus);
-		if (!MU.isEmpty(text) || priority != Task.TASK_PRIORITIES_WITH_ANY[0] || taskStatus != Task.STATUS_ANY) {
-			return conditions;
-		}
-		return null;
+		return conditions;
 	}
 
 }
