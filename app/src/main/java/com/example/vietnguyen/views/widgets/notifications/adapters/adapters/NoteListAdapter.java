@@ -1,19 +1,15 @@
 package com.example.vietnguyen.views.widgets.notifications.adapters.adapters;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.vietnguyen.core.utils.MU;
-import com.example.vietnguyen.core.views.MyArrayAdapter;
+import com.example.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.example.vietnguyen.models.Note;
 import com.example.vietnguyen.myapplication.R;
 

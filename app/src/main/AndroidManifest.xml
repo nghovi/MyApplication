@@ -75,7 +75,7 @@
             android:value="@string/app_name" />
 
         <activity
-            android:name="com.example.vietnguyen.core.controllers.MyActivity"
+            android:name="com.example.vietnguyen.core.controller.MyActivity"
             android:label="@string/title_activity_my"></activity>
 
 

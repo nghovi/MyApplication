@@ -202,20 +202,12 @@ public class Book extends MyModel{
 	}
 
 	// if all properties except vocabulary, id are set, then it's ready for save
-	public boolean isReadyToSave(){
-		if(MU.isEmpty(name) || MU.isEmpty(author) || MU.isEmpty(iconUrl) || MU.isEmpty(link) || MU.isEmpty(mood) || MU.isEmpty(comment)){
-			return false;
-		}
-		return true;
-	}
-
-	// check if user has already enter some info for new book
-	public boolean hasSomeInfo(){
-		if(MU.isEmpty(name) && MU.isEmpty(author) && MU.isEmpty(mood) && MU.isEmpty(comment) && MU.isEmpty(vocabulary)){
-			return false;
-		}
-		return true;
-	}
+	// public boolean isReadyToSave(){
+	// if(MU.isEmpty(name) || MU.isEmpty(author) || MU.isEmpty(iconUrl) || MU.isEmpty(link) || MU.isEmpty(mood) || MU.isEmpty(comment)){
+	// return false;
+	// }
+	// return true;
+	// }
 
 	@Column(name = "icon_url")
 	@Expose

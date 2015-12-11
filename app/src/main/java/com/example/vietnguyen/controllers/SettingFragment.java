@@ -1,24 +1,15 @@
 package com.example.vietnguyen.controllers;
 
-import java.util.Arrays;
-
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Checkable;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.database.DBHelper;
-import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
 
 public class SettingFragment extends MyFragment{

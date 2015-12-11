@@ -1,24 +1,19 @@
 package com.example.vietnguyen.controllers.Note;
 
 import java.util.Date;
-import java.util.List;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
-import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragmentWithList;
+import com.example.vietnguyen.core.controller.MyFragmentWithList;
 import com.example.vietnguyen.core.utils.MU;
-import com.example.vietnguyen.core.views.MyArrayAdapter;
+import com.example.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.example.vietnguyen.core.views.widgets.MyTextView;
-import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.models.Note;
 import com.example.vietnguyen.myapplication.R;

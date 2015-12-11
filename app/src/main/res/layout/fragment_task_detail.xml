@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/img_icon_delete"
+            android:id="@+id/img_fragment_task_detail_delete"
             android:layout_gravity="center"
             android:src="@drawable/nav_btn_delete"
             android:layout_weight="1" />
@@ -35,7 +35,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/img_icon_done"
+            android:id="@+id/img_fragment_task_detail_done"
             android:src="@drawable/nav_btn_check"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"
-            android:id="@+id/txt_edit"
+            android:id="@+id/txt_fragment_task_detail_edit"
             android:textColor="@color/core_white"
             android:layout_marginRight="10dp"
             android:paddingLeft="40dp"
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today"
-            android:id="@+id/txt_date"
+            android:id="@+id/txt_fragment_task_detail_date"
             android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
@@ -86,9 +86,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
-                android:id="@+id/txt_priority"
-                android:textIsSelectable="true"
+                android:text="5"
+                android:id="@+id/txt_fragment_task_detail_priority"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -107,8 +106,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not Done"
-                    android:id="@+id/txt_task_status"
+                    android:text=""
+                    android:id="@+id/txt_fragment_task_detail_status"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -120,7 +119,7 @@
             android:text="Name"
             custom:jsonKey="name"
             android:layout_marginBottom="10dp"
-            android:id="@+id/txt_name" />
+            android:id="@+id/txt_fragment_task_detail_name" />
 
         <com.example.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
@@ -128,14 +127,14 @@
             android:text="Description"
             custom:jsonKey="description"
             android:layout_marginBottom="10dp"
-            android:id="@+id/txt_description" />
+            android:id="@+id/txt_fragment_task_detail_description" />
 
         <com.example.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Comment"
             custom:jsonKey="comment"
-            android:id="@+id/txt_comment"
+            android:id="@+id/txt_fragment_task_detail_comment"
             android:layout_marginBottom="@dimen/margin_10dp" />
 
 

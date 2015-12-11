@@ -1,15 +1,12 @@
-package com.example.vietnguyen.core.controllers;
+package com.example.vietnguyen.core.controller;
 
-import android.database.DataSetObservable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.vietnguyen.core.views.MyArrayAdapter;
+import com.example.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.example.vietnguyen.models.MyModel;
-import com.example.vietnguyen.myapplication.R;
 
-import java.util.ArrayList;
 import java.util.List;
 //abstract classes aren't enforced to implement methods on interface, great
 public abstract class MyFragmentWithList extends MyFragment implements  MyFragmentWithListInterface{

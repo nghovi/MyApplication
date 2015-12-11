@@ -72,6 +72,11 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/core_edit_text"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:hint="Eg: avalanche"
+                    android:gravity="left|top"
                     android:id="@+id/edt_fragment_book_search_word" />
             </LinearLayout>
             <View style="@style/core_line_divider"/>
@@ -90,6 +95,11 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/core_edit_text"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:hint="Eg: Percy Jackson"
+                    android:gravity="left|top"
                     android:id="@+id/edt_fragment_book_search_name" />
             </LinearLayout>
             <View style="@style/core_line_divider"/>
@@ -108,6 +118,11 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/core_edit_text"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:gravity="left|top"
+                    android:hint="Eg: Rich Riordan"
                     android:id="@+id/edt_fragment_book_search_author" />
             </LinearLayout>
             <View style="@style/core_line_divider"/>
@@ -126,11 +141,14 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/core_edit_text"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:hint="Eg: love"
+                    android:gravity="left|top"
                     android:id="@+id/edt_fragment_book_search_comment" />
             </LinearLayout>
             <View style="@style/core_line_divider"/>
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

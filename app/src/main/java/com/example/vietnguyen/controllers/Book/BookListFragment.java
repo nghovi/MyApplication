@@ -4,24 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.activeandroid.query.Select;
-import com.example.vietnguyen.controllers.Book.AbstractBookFragment;
-import com.example.vietnguyen.controllers.Book.BookSearchFragment;
-import com.example.vietnguyen.core.controllers.MyFragment;
-import com.example.vietnguyen.core.controllers.MyFragmentWithList;
-import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.controller.MyFragmentWithList;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.MyModel;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
-import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.NoteListAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BookListFragment extends MyFragmentWithList{
@@ -94,8 +85,7 @@ public class BookListFragment extends MyFragmentWithList{
 
 	public void gotoBookDetail(Book book){
 		BookDetailFragment frg = new BookDetailFragment();
-		frg.setBook(book);
-		activity.addFragment(frg);
+		activity.addFragment(frg, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 	}
 
 	@Override

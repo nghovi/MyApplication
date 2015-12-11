@@ -12,11 +12,14 @@ import android.widget.LinearLayout;
 
 import com.example.vietnguyen.controllers.Book.AbstractBookFragment;
 import com.example.vietnguyen.controllers.Book.BookEditFragment;
+import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
-public class BookDetailFragment extends AbstractBookFragment {
+public class BookDetailFragment extends MyFragment{
+
+	private Book	book;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -25,8 +28,7 @@ public class BookDetailFragment extends AbstractBookFragment {
 
 	@Override
 	protected void buildLayout(){
-		book = (Book)getUpdatedData(KEY_UPDATED_BOOK, book);
-
+		book = (Book)getUpdatedData(AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		setOnClickFor(R.id.img_back, new View.OnClickListener() {
 
 			@Override
@@ -34,7 +36,6 @@ public class BookDetailFragment extends AbstractBookFragment {
 				activity.backOneFragment();
 			}
 		});
-
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);

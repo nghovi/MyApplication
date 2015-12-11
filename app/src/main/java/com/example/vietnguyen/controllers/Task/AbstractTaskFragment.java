@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.vietnguyen.core.controllers.DateTimePicker;
-import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controller.DateTimePicker;
+import com.example.vietnguyen.core.controller.DialogBuilder;
+import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.MyModel;
@@ -34,6 +34,8 @@ public class AbstractTaskFragment extends MyFragment{
 	protected Date			targetDate;
 	protected Task			task;
 	protected List<Notice>	savedNotices	= new ArrayList<Notice>();
+	protected int			priority		= 1;
+	protected int			status			= 0;
 	private NoticeAdapter	adapter;
 
 	@Override
@@ -55,27 +57,28 @@ public class AbstractTaskFragment extends MyFragment{
 	}
 
 	protected void builPriority(){
-		final TextView txtPriority = getTextView(R.id.txt_share_task_edit_priority);
-		txtPriority.setText(String.valueOf(task.priority));
+		priority = task.priority;
+		setTextFor(R.id.txt_share_task_edit_priority, String.valueOf(priority));
 		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
 
 			@Override
 			public void onClick(int selectedValue, String displayedValue){
-				task.priority = Integer.valueOf(displayedValue);
-				txtPriority.setText(String.valueOf(displayedValue));
+				priority = Integer.valueOf(displayedValue);
+				setTextFor(R.id.txt_share_task_edit_priority, displayedValue);
 			}
 		};
 		setOnClickFor(R.id.lnr_share_task_edit_priority, new View.OnClickListener() {
 
 			@Override
-			public void onClick (View view){
+			public void onClick(View view){
 				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
 			}
 		});
 	}
 
 	protected void buildStatus(){
-		setTextStatus(task.status);
+		status = task.status;
+		setTextFor(R.id.txt_share_task_edit_status, Task.STATUS[status]);
 		setOnClickFor(R.id.lnr_share_task_edit_status, new View.OnClickListener() {
 
 			@Override
@@ -113,38 +116,29 @@ public class AbstractTaskFragment extends MyFragment{
 			@Override
 			public void onClick(View view){
 				task.setStatus(Task.STATUS_UNFINISHED);
-				setTextStatus(Task.STATUS_UNFINISHED);
+				setTextFor(R.id.txt_share_task_edit_status, Task.STATUS[Task.STATUS_UNFINISHED]);
+				task.save();
 			}
 		}, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
 				task.setStatus(Task.STATUS_FINISHED);
-				setTextStatus(Task.STATUS_FINISHED);
+				setTextFor(R.id.txt_share_task_edit_status, Task.STATUS[Task.STATUS_FINISHED]);
+				task.save();
 			}
 		}).show();
 	}
 
-	private void setTextStatus(int status){
-		if(status == Task.STATUS_FINISHED){
-			setTextFor(R.id.txt_share_task_edit_status, "Done");
-		}else{
-			setTextFor(R.id.txt_share_task_edit_status, "Not Done");
-		}
-	}
-
 	protected void buildTaskFromLayout(){
-		EditText edtName = getEditText(R.id.edt_share_task_edit_name);
-		EditText edtDescription = getEditText(R.id.edt_share_task_edit_description);
-		EditText edtComment = getEditText(R.id.edt_share_task_edit_comment);
-		TextView txtPriority = getTextView(R.id.txt_share_task_edit_priority);
-
-		task.name = edtName.getText().toString();
-		task.description = edtDescription.getText().toString();
-		task.comment = edtComment.getText().toString();
-		task.priority = Integer.parseInt(txtPriority.getText().toString());
+		task.name = getEditText(R.id.edt_share_task_edit_name).getText().toString();
+		task.description = getEditText(R.id.edt_share_task_edit_description).getText().toString();
+		task.comment = getEditText(R.id.edt_share_task_edit_comment).getText().toString();
+		task.priority = priority;
+		task.status = status;
 		task.date = targetDate;
 		task.lastupdated = targetDate;
+		task.save();
 	}
 
 	protected void buildCalendarPicker(){
@@ -154,23 +148,24 @@ public class AbstractTaskFragment extends MyFragment{
 		View.OnClickListener listener = new View.OnClickListener() {
 
 			@Override
-			public void onClick (View view){
+			public void onClick(View view){
 				DatePickerFragment datePicker = new DatePickerFragment();
 				datePicker.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
 
 					@Override
-					public void onDateSet(DatePicker datePicker, int i, int i2, int i3) {
+					public void onDateSet(DatePicker datePicker, int i, int i2, int i3){
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						txtDate.setText(MU.getDateForDisplaying(targetDate));
+						task.save();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "datePicker");
 			}
 		};
-		setOnClickFor(R.id.lnr_share_task_edit_date,listener);
-		setOnClickFor(R.id.txt_share_task_edit_date, listener);//todo minor why cannot trigger
+		setOnClickFor(R.id.lnr_share_task_edit_date, listener);
+		setOnClickFor(R.id.txt_share_task_edit_date, listener);// todo minor why cannot trigger
 	}
 
 	protected void buildNotices(){
@@ -248,9 +243,9 @@ public class AbstractTaskFragment extends MyFragment{
 	}
 
 	protected void deleteUnUsedNotices(){
-//		for(Notice notice : savedNotices){
-//			notice.delete();
-//		}
+		// for(Notice notice : savedNotices){
+		// notice.delete();
+		// }
 		savedNotices = new ArrayList<Notice>();
 	}
 
@@ -299,7 +294,7 @@ public class AbstractTaskFragment extends MyFragment{
 		List<MyModel> tasks = Task.getAllUndeleted(Task.class);
 		Iterator<MyModel> ib = tasks.iterator();
 		while(ib.hasNext()){
-			Task task = (Task) ib.next();
+			Task task = (Task)ib.next();
 			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
 				ib.remove();
 				continue;
@@ -320,8 +315,8 @@ public class AbstractTaskFragment extends MyFragment{
 		return tasks;
 	}
 
-	protected void backToTaskList() {
+	protected void backToTaskList(){
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
-//		activity.backOneFragment();
+		// activity.backOneFragment();
 	}
 }

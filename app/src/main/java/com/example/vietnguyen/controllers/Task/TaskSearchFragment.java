@@ -1,7 +1,8 @@
 package com.example.vietnguyen.controllers.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.vietnguyen.core.controllers.DialogBuilder;
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controller.DialogBuilder;
+import com.example.vietnguyen.core.controller.MyFragment;
+import com.example.vietnguyen.core.model.SpinnerItemModel;
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.core.views.widgets.CoreSpinner;
 import com.example.vietnguyen.models.Task;
 import com.example.vietnguyen.myapplication.R;
 
@@ -43,27 +46,12 @@ public class TaskSearchFragment extends MyFragment{
 		buildPreCondition();
 	}
 
-	private void buildPreCondition(){
-		Map<String, Object> conditions = (Map<String, Object>)getUpdatedData(KEY_TASK_SEARCH_CONDITION, new HashMap<String, String>());
-		if(conditions.containsKey(KEY_TASK_SEARCH_TEXT)){
-			text = (String)conditions.get(KEY_TASK_SEARCH_TEXT);
-			setTextFor(R.id.edt_fragment_task_search_text, text);
-		}
-		if(conditions.containsKey(KEY_TASK_SEARCH_PRIORITY)){
-			priority = (String)conditions.get(KEY_TASK_SEARCH_PRIORITY);
-			setTextFor(R.id.txt_fragment_task_search_priority, priority);
-		}
-		if(conditions.containsKey(KEY_TASK_SEARCH_STATUS)){
-			taskStatus = (int)conditions.get(KEY_TASK_SEARCH_STATUS);
-			setTextFor(R.id.txt_fragment_task_search_status, Task.STATUS[taskStatus]);
-		}
-	}
-
 	private void buildSearchOnClick(){
+		getEditText(R.id.edt_fragment_task_search_text).requestFocus();
 		setOnClickFor(R.id.txt_fragment_task_search_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				onClickSearchText();
 			}
 		});
@@ -73,7 +61,7 @@ public class TaskSearchFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_task_search_cancel, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
+			public void onClick(View view) {
 				setTextFor(R.id.edt_fragment_task_search_text, "");
 				priority = Task.TASK_PRIORITIES_WITH_ANY[0];
 				taskStatus = Task.STATUS_ANY;
@@ -84,36 +72,42 @@ public class TaskSearchFragment extends MyFragment{
 
 	private void buildPriority(){
 		final LinearLayout lnrPriority = getLinearLayout(R.id.lnr_fragment_task_search_priority);
-		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
+
+		CoreSpinner coreSpinnerPriority = (CoreSpinner)getView(R.id.spn_fragment_task_search_priority);
+		coreSpinnerPriority.initSpinner(activity, getSpinnerItemModelsForPriority(), new CoreSpinner.OnSpinnerItemSelected() {
 
 			@Override
-			public void onClick(int selectedValue, String displayedValue){
-				priority = displayedValue;
-				setTextFor(R.id.txt_fragment_task_search_priority, String.valueOf(displayedValue));
-			}
-		};
-		lnrPriority.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES_WITH_ANY, listener, 0).show();
+			public void onSpinnerItemSelected(SpinnerItemModel spinnerItemModel) {
+				priority = spinnerItemModel.getName();
 			}
 		});
 	}
 
+	private List<SpinnerItemModel> getSpinnerItemModelsForPriority(){
+		List<SpinnerItemModel> spinnerItemModelList = new ArrayList<SpinnerItemModel>();
+		for(String priority : Task.TASK_PRIORITIES_WITH_ANY){
+			SpinnerItemModel spinnerItemModel = new SpinnerItemModel(priority, priority);
+			spinnerItemModelList.add(spinnerItemModel);
+		}
+		return spinnerItemModelList;
+	}
+
+	private List<SpinnerItemModel> getSpinnerItemModelsForStatus(){
+		List<SpinnerItemModel> spinnerItemModelList = new ArrayList<SpinnerItemModel>();
+		for(int i = 0; i < Task.STATUS.length; i++){
+			SpinnerItemModel spinnerItemModel = new SpinnerItemModel(Task.STATUS[i], i);
+			spinnerItemModelList.add(spinnerItemModel);
+		}
+		return spinnerItemModelList;
+	}
+
 	private void buildStatus(){
-		setOnClickFor(R.id.lnr_fragment_task_search_status, new View.OnClickListener() {
+		CoreSpinner coreSpinnerStatus = (CoreSpinner)getView(R.id.spn_fragment_task_search_status);
+		coreSpinnerStatus.initSpinner(activity, getSpinnerItemModelsForStatus(), new CoreSpinner.OnSpinnerItemSelected() {
 
 			@Override
-			public void onClick(View view){
-				dlgBuilder.build3OptsDlgTopDown("Unfinished", "Finished", "Any", new DialogBuilder.OnNumberPickerBtnOkClickListener() {
-
-					@Override
-					public void onClick(int selectedValue, String displayedValue){
-						setTextFor(R.id.txt_fragment_task_search_status, displayedValue);
-						taskStatus = selectedValue;
-					}
-				}).show();
+			public void onSpinnerItemSelected(SpinnerItemModel spinnerItemModel){
+				taskStatus = (int)spinnerItemModel.originModel;
 			}
 		});
 	}
@@ -125,9 +119,26 @@ public class TaskSearchFragment extends MyFragment{
 		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
 	}
 
+	private void buildPreCondition(){
+		Map<String, Object> conditions = (Map<String, Object>)getUpdatedData(KEY_TASK_SEARCH_CONDITION, new HashMap<String, String>());
+		if(conditions.containsKey(KEY_TASK_SEARCH_TEXT)){
+			text = (String)conditions.get(KEY_TASK_SEARCH_TEXT);
+			setTextFor(R.id.edt_fragment_task_search_text, text);
+		}
+		if(conditions.containsKey(KEY_TASK_SEARCH_PRIORITY)){
+			priority = (String)conditions.get(KEY_TASK_SEARCH_PRIORITY);
+			int position = Arrays.asList(Task.TASK_PRIORITIES_WITH_ANY).indexOf(priority);
+			((CoreSpinner)getView(R.id.spn_fragment_task_search_priority)).setSelection(position);
+		}
+		if(conditions.containsKey(KEY_TASK_SEARCH_STATUS)){
+			taskStatus = (int)conditions.get(KEY_TASK_SEARCH_STATUS);
+			((CoreSpinner)getView(R.id.spn_fragment_task_search_status)).setSelection(taskStatus);
+		}
+	}
+
 	private Map<String, Object> buildSearchConditions(){
 		Map<String, Object> conditions = new HashMap<String, Object>();
-		if (MU.isEmpty(text) && priority == Task.TASK_PRIORITIES_WITH_ANY[0] && taskStatus == Task.STATUS_ANY) {
+		if(MU.isEmpty(text) && priority == Task.TASK_PRIORITIES_WITH_ANY[0] && taskStatus == Task.STATUS_ANY){
 			return conditions;
 		}
 		conditions.put(KEY_TASK_SEARCH_TEXT, text);
@@ -135,5 +146,4 @@ public class TaskSearchFragment extends MyFragment{
 		conditions.put(KEY_TASK_SEARCH_STATUS, taskStatus);
 		return conditions;
 	}
-
 }

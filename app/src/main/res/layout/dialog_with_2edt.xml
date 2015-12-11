@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:id="@+id/txt_dialog_with_2edt_done"
+            android:id="@+id/txt_dialog_with_2edt_cancel"
             android:textColor="@color/core_blue" />
 
     </LinearLayout>
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:id="@+id/txt_dialog_with_2edt_cancel"
+        android:id="@+id/txt_dialog_with_2edt_done"
         android:textColor="@color/core_blue"
         android:layout_gravity="right" />
 

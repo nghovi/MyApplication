@@ -62,7 +62,6 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	private void addNewTask(){
 		MU.hideSofeKeyboard(activity);
 		buildTaskFromLayout();
-		task.save();
 		backToTaskList();
 		// Try to save to server
 		// JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));

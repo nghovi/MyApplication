@@ -1,4 +1,4 @@
-package com.example.vietnguyen.core.controllers;
+package com.example.vietnguyen.core.controller;
 
 import android.app.Activity;
 import android.app.Dialog;

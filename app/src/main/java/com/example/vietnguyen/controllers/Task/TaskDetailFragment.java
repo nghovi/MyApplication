@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vietnguyen.Const;
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
@@ -36,9 +36,14 @@ public class TaskDetailFragment extends MyFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		this.task = (Task)getUpdatedData(BUNDLE_KEY_TASK, new Task());
-		TextView txtDone = getTextView(R.id.txt_edit);
-		txtDone.setOnClickListener(new View.OnClickListener() {
+		task = (Task)getUpdatedData(BUNDLE_KEY_TASK, new Task());
+		builHeaderFunctions();
+		buildTaskDetail();
+		buildNotices();
+	}
+
+	private void builHeaderFunctions(){
+		setOnClickFor(R.id.txt_fragment_task_detail_edit, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -46,8 +51,7 @@ public class TaskDetailFragment extends MyFragment{
 			}
 		});
 
-		ImageView iconDelete = getImageView(R.id.img_icon_delete);
-		iconDelete.setOnClickListener(new View.OnClickListener() {
+		setOnClickFor(R.id.img_fragment_task_detail_delete, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -55,27 +59,22 @@ public class TaskDetailFragment extends MyFragment{
 			}
 		});
 
-		ImageView iconDone = getImageView(R.id.img_icon_done);
-		iconDone.setOnClickListener(new View.OnClickListener() {
+		setOnClickFor(R.id.img_fragment_task_detail_done, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
 				onCheckIconClicked();
 			}
 		});
+	}
 
-		TextView txtDate = getTextView(R.id.txt_date);
-		txtDate.setText(MU.getDateForDisplaying(task.date));
-
-		TextView txtName = getTextView(R.id.txt_name);
-		txtName.setText(this.task.name);
-		TextView txtDescription = getTextView(R.id.txt_description);
-		txtDescription.setText(this.task.description);
-		TextView txtComment = getTextView(R.id.txt_comment);
-		txtComment.setText(this.task.comment);
-		final TextView txtPriority = getTextView(R.id.txt_priority);
-		txtPriority.setText(String.valueOf(task.priority));
-		buildNotices();
+	private void buildTaskDetail(){
+		setTextFor(R.id.txt_fragment_task_detail_date, MU.getDateForDisplaying(task.date));
+		setTextFor(R.id.txt_fragment_task_detail_name, task.name);
+		setTextFor(R.id.txt_fragment_task_detail_description, task.description);
+		setTextFor(R.id.txt_fragment_task_detail_comment, task.comment);
+		setTextFor(R.id.txt_fragment_task_detail_priority, String.valueOf(task.priority));
+		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
 	}
 
 	private void buildNotices(){

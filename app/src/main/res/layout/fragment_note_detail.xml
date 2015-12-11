@@ -61,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:text="Today"
                 android:id="@+id/txt_fragment_note_detail_date"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp" />
 
             <EditText
                 android:layout_width="match_parent"

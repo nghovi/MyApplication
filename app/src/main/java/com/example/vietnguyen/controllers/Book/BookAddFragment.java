@@ -38,45 +38,17 @@ public class BookAddFragment extends AbstractBookFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		setOnClickFor(R.id.txt_fba_done, new View.OnClickListener() {
+	}
 
-			@Override
-			public void onClick(View view){
-				addBookToServer();
-			}
-		});
-
+	@Override
+	protected void buildBookInfo() {
+		setOnClickFor(R.id.txt_fba_done, this);
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-
-		addTextWatcherForBookImage();
-
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-
-		buildVocabulary();
 	}
 
-	private void addTextWatcherForBookImage(){
-		getEditText(R.id.edt_sbe_icon_url).addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable editable){
-				MU.picassaLoadImage(editable.toString(), getImageView(R.id.img_sbe_image), activity);
-			}
-		});
-	}
-
-	private void buildVocabulary(){
+	@Override
+	protected void buildVocabulary(){
 		LayoutInflater inflater = (LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_sbe_vocabulary_list);
 		lnrVocabulary.removeAllViews();
@@ -137,8 +109,7 @@ public class BookAddFragment extends AbstractBookFragment{
 
 	@Override
 	protected void onClickBackBtn(){
-		buildBookFromLayout();
-		if(!book.hasSomeInfo()){
+		if(!hasChangeData()){
 			activity.backToFragment(BookListFragment.class);
 		}else{
 			dlgBuilder.buildConfirmDlgTopDown("Continue", "Discard Changes", new View.OnClickListener() {
@@ -163,32 +134,31 @@ public class BookAddFragment extends AbstractBookFragment{
 		}
 	}
 
-	public void addBookToServer(){
-		buildBookFromLayout();
-		if(book.isReadyToSave()){
-			book.save();
-			showShortToast("Successfully saved new book");
-			activity.backOneFragment();
-			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
-			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
-
-				@Override
-				public void onApiResponse(JSONObject response){
-					showShortToast("Successfully saved new book");
-					book.id = response.optString("data");
-					book.isRemoteSaved = true;
-					book.save();
-					activity.backOneFragment();
-				}
-
-				@Override
-				public void onApiError(String errorMsg){
-					book.save();
-				}
-			});
-		}else{
-			showLongToast("Please fullfill information");
-		}
-
-	}
+//	public void addBookToServer(){
+//		if(book.isReadyToSave()){
+//			book.save();
+//			showShortToast("Successfully saved new book");
+//			activity.backOneFragment();
+//			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+//			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
+//
+//				@Override
+//				public void onApiResponse(JSONObject response){
+//					showShortToast("Successfully saved new book");
+//					book.id = response.optString("data");
+//					book.isRemoteSaved = true;
+//					book.save();
+//					activity.backOneFragment();
+//				}
+//
+//				@Override
+//				public void onApiError(String errorMsg){
+//					book.save();
+//				}
+//			});
+//		}else{
+//			showLongToast("Please fullfill information");
+//		}
+//
+//	}
 }

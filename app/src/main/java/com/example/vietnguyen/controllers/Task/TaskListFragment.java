@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.example.vietnguyen.core.controllers.MyFragmentWithList;
+import com.example.vietnguyen.core.controller.MyFragmentWithList;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.example.vietnguyen.models.MyModel;

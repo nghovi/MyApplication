@@ -6,15 +6,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.vietnguyen.core.utils.MU;
+import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.myapplication.R;
 
 import java.util.List;
 
-public class BookEditFragment extends AbstractBookFragment{
+public class BookEditFragment extends AbstractBookFragment implements View.OnClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -24,62 +27,24 @@ public class BookEditFragment extends AbstractBookFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+	}
 
-		setOnClickFor(R.id.img_icon_done, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				book.save();
-				// saveThisBookAndStay();
-			}
-		});
-		setOnClickFor(R.id.img_icon_delete, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				// deleteThisBook();
-			}
-		});
-
-		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
+	@Override
+	protected void buildBookInfo(){
+		// LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
 		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		// MU.interpolate(lnrContent, jsonObject);
+		setOnClickFor(R.id.img_icon_done, this);
 		setTextFor(R.id.edt_sbe_name, book.name);
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_author, book.author);
 		setTextFor(R.id.edt_sbe_comment, book.comment);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
 		setTextFor(R.id.edt_sbe_mood, book.mood);
-
-		addTextWatcherForBookImage();
-
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
-
-		buildVocabulary();
 	}
 
-	private void addTextWatcherForBookImage(){
-		getEditText(R.id.edt_sbe_icon_url).addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable editable){
-				String url = editable.toString();
-				MU.picassaLoadImage(editable.toString(), getImageView(R.id.img_sbe_image), activity);
-			}
-		});
-	}
-
-	private void buildVocabulary(){
+	@Override
+	protected void buildVocabulary(){
 		LayoutInflater inflater = (LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_sbe_vocabulary_list);
 		lnrVocabulary.removeAllViews();
@@ -104,6 +69,25 @@ public class BookEditFragment extends AbstractBookFragment{
 			});
 			builPhrasesForWord(word, itemBookWordEdit, inflater);
 			lnrVocabulary.addView(itemBookWordEdit);
+		}
+	}
+
+	@Override
+	protected void addWordForBook(String newWord, String newPhrase){
+		if(!MU.isEmpty(newWord)){
+			if(book.hasWord(newWord)){
+				addPhraseForWord(newWord, newPhrase);
+			}else{
+				List<Book> booksContainWord = BookSearchFragment.searchWord(newWord);
+				if(booksContainWord.size() > 0){
+					addPhraseForExistingWord(booksContainWord, newWord, newPhrase);
+				}else{
+					book.addWordForBook(newWord);
+					savedBookFromLayout();
+					addPhraseForWord(newWord, newPhrase);
+				}
+			}
+			buildVocabulary();
 		}
 	}
 
@@ -137,9 +121,8 @@ public class BookEditFragment extends AbstractBookFragment{
 
 	@Override
 	protected void onClickBackBtn(){
-		buildBookFromLayout();
-		if(this.originBookStr.equals(book.toString())){
-			activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
+		if(!hasChangeData()){
+			activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		}else{
 			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
 
@@ -151,10 +134,11 @@ public class BookEditFragment extends AbstractBookFragment{
 
 				@Override
 				public void onClick(View view){
-					activity.backToFragment(BookDetailFragment.class, BookDetailFragment.KEY_UPDATED_BOOK, book);
-					saveThisBookToServerAndBack();
+					savedBookFromLayout();
+					activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 				}
 			}).show();
 		}
 	}
+
 }

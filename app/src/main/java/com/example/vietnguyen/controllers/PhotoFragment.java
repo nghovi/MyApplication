@@ -25,7 +25,7 @@ import com.andtinder.model.CardModel;
 import com.andtinder.view.CardContainer;
 import com.example.vietnguyen.controllers.Book.BookDetailFragment;
 import com.example.vietnguyen.core.database.DBHelper;
-import com.example.vietnguyen.core.controllers.MyFragment;
+import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.FacebookPhoto;
@@ -137,11 +137,11 @@ public class PhotoFragment extends MyFragment{
 
 	}
 
-	private void gotoBookDetail(Book book){
-		BookDetailFragment frg = new BookDetailFragment();
-		frg.setBook(book);
-		activity.addFragment(frg);
-	}
+//	private void gotoBookDetail(Book book){
+//		BookDetailFragment frg = new BookDetailFragment();
+//		frg.setBook(book);
+//		activity.addFragment(frg);
+//	}
 
 	private void setOnClickPreview(View preview){
 		preview.setOnClickListener(new View.OnClickListener() {

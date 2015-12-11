@@ -1,4 +1,4 @@
-package com.example.vietnguyen.core.views;
+package com.example.vietnguyen.core.views.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.example.vietnguyen.core.controllers.MyFragmentWithListInterface;
-import com.example.vietnguyen.models.MyModel;
+import com.example.vietnguyen.core.controller.MyFragmentWithListInterface;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 

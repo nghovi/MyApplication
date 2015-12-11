@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.vietnguyen.core.controllers.MyActivity;
+import com.example.vietnguyen.core.controller.MyActivity;
 import com.example.vietnguyen.myapplication.R;
 
 public class SplashActivity extends MyActivity{
