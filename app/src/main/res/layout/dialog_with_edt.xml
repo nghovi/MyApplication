@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edt_dialog_with_edt"
+        android:inputType="textMultiLine"
+        android:gravity="left|top"
         android:minLines="2"
         style="@style/core_edit_text" />
 

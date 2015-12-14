@@ -34,7 +34,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		// LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
 		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		// MU.interpolate(lnrContent, jsonObject);
-		setOnClickFor(R.id.img_icon_done, this);
+		setOnClickFor(R.id.txt_fragment_book_edit_done, this);
 		setTextFor(R.id.edt_sbe_name, book.name);
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_author, book.author);

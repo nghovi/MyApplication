@@ -14,8 +14,8 @@
 
 
     <!-- footer -->
-    <string name="footer_item1">Primary</string>
-    <string name="footer_item2">Photo</string>
+    <string name="footer_item1">Setting</string>
+    <string name="footer_item2">Note</string>
     <string name="footer_item3">Book</string>
     <string name="footer_item4">Todo</string>
 

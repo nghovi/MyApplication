@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.vietnguyen.controllers.Book.AbstractBookFragment;
-import com.example.vietnguyen.controllers.Book.BookEditFragment;
 import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
@@ -40,7 +38,7 @@ public class BookDetailFragment extends MyFragment{
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
 		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_book_detail_image), activity);
-		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.scr_fbd_comment_content, null);
+		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null);
 		setLinkFor(R.id.txt_book_link, book.link);
 		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
 

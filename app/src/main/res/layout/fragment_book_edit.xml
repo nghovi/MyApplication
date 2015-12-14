@@ -32,14 +32,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/nav_btn_check" />
+            android:src="@drawable/nav_btn_check"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:id="@+id/txt_fragment_book_edit_done"
+            android:textColor="@color/core_white"
+            android:paddingLeft="40dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right" />
 
         <ImageView
             android:id="@+id/img_icon_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/nav_btn_delete" />
+            android:src="@drawable/nav_btn_delete"
+            android:visibility="gone" />
 
     </LinearLayout>
 
