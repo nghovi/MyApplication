@@ -30,12 +30,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mock_book_author"
             android:id="@+id/item_note_date"
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_gravity="right"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <ImageView

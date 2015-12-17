@@ -99,7 +99,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	private void onCreateFooter(){
 		this.footer = new Footer(this);
 		footer.setOnItemsClickListener(this);
-		footer.checkFooterItem(0);
+		footer.checkFooterItem(3);
 	}
 
 	private void setUpFacebookCallbacks(){

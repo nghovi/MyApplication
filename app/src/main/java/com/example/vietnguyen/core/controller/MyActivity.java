@@ -20,19 +20,19 @@ import com.facebook.AccessToken;
 /**
  * Created by viet on 8/7/2015.
  */
-public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener {
+public class MyActivity extends Activity implements FragmentManager.OnBackStackChangedListener{
 
-	protected final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
-	public final String		PREF_SHOW_MOTTOS		= "SHOW_MOTTOS";
-	public final String		PREF_PUSH_NOTIFICATION	= "PUSH_NOTIFICATION";
-	protected Api			api;
+	public static final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
+	public static final String	PREF_SHOW_MOTTOS		= "SHOW_MOTTOS";
+	public static final String	PREF_PUSH_NOTIFICATION	= "PUSH_NOTIFICATION";
+	protected Api				api;
 
 	protected FragmentManager	mFragmentManager;
-	private AccessToken		accessToken;
-	public Background		bg;
+	private AccessToken			accessToken;
+	public Background			bg;
 
 	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
-	public static interface onActivityActionListenter {
+	public static interface onActivityActionListenter{
 
 		public void onActivityAction(Bundle args);
 	}
@@ -55,7 +55,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public void addFragment(MyFragment fragment, String updatedKey, Object updatedValue){
 		fragment.setUpdatedData(updatedKey, updatedValue);
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//todo
+		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);// todo
 		fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().toString());
 		fragmentTransaction.addToBackStack(fragment.getClass().toString());
 		fragmentTransaction.commit();
@@ -138,10 +138,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		api.post(this, url, param, onCallApiListener);
 	}
 
-
-
-
-	/////////////////////////////// onFunctions ///////////////////////////////
+	// ///////////////////////////// onFunctions ///////////////////////////////
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -154,13 +151,13 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	}
 
 	@Override
-	protected void onStart() {
+	protected void onStart(){
 		MU.log("onStart " + this.getLocalClassName());
 		super.onStart();
 	}
 
 	@Override
-	protected void onRestart() {
+	protected void onRestart(){
 		MU.log("onRestart " + this.getLocalClassName());
 		super.onRestart();
 	}
@@ -178,7 +175,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	}
 
 	@Override
-	protected void onStop() {
+	protected void onStop(){
 		MU.log("onStop " + this.getLocalClassName());
 		super.onStop();
 	}

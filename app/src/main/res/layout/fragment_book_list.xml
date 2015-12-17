@@ -21,14 +21,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Books are teachers"
+            android:text="@string/fragment_book_list_title"
             android:textColor="@color/core_white"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/fragment_book_list_add"
             android:id="@+id/txt_fragment_book_list_add"
             android:textColor="@color/core_white"
             android:paddingRight="10dp"
@@ -60,7 +61,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Reading is good for you"
+            android:text="@string/fragment_book_list_empty"
             android:id="@+id/txt_fragment_book_list_empty"
             android:gravity="center_vertical|center_horizontal"
             android:textStyle="bold"

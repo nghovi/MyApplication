@@ -44,6 +44,9 @@ public class SettingFragment extends MyFragment{
 				activity.saveIntPreference(activity.PREF_PUSH_NOTIFICATION, showNotificationFlag);
 			}
 		});
+	}
+
+	public void builMottos(){
 		Switch swtShowMottos = (Switch)getView(R.id.switch_fragment_setting_push_notification);
 		int showMottosFlag = activity.getIntPreference(activity.PREF_SHOW_MOTTOS, 1);
 		swtShowMottos.setChecked(showMottosFlag == 1 ? true : false);

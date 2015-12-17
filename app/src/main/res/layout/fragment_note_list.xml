@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Edit"
+            android:text="@string/fragment_note_list_edit"
             android:textColor="@color/core_white"
             android:layout_marginLeft="10dp"
             android:visibility="visible" />
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/fragment_note_list_add"
             android:id="@+id/txt_fragment_note_list_add"
             android:textColor="@color/core_white"
             android:paddingRight="10dp"

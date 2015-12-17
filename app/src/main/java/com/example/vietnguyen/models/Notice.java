@@ -38,6 +38,7 @@ public class Notice extends MyModel{
 		this.message = message;
 		this.value = value;
 		this.noticeDate = noticeDate;
+		this.isDeleted = false;
 	}
 
 	public static void deleteNotices(List<String> noticeIds){
@@ -72,7 +73,7 @@ public class Notice extends MyModel{
 		ArrayList<Notice> notices = new ArrayList<Notice>();
 		List<String> noticeIds = task.getNoticeIdList();
 		for(String noticeId : noticeIds){
-			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).where("isDeleted = ?", false).executeSingle();
+			Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).where("isDeleted = ?", false).executeSingle();
 			if(notice != null && !MU.isInThePast(notice.noticeDate)){
 				notices.add(notice);
 			}

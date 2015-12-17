@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setting"
+            android:text="@string/fragment_setting_title"
             android:id="@+id/txt_edit"
             android:textColor="@color/core_white"
             android:layout_marginRight="10dp" />
@@ -40,14 +40,14 @@
             <TextView
                 android:layout_marginRight="@dimen/margin_12dp"
                 android:layout_weight="1"
-                android:text="Push Notification"
+                android:text="@string/fragment_setting_push"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_fragment_setting_motto" />
+                android:id="@+id/switch_fragment_setting_push_notification" />
 
         </LinearLayout>
 
@@ -57,19 +57,20 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_marginRight="@dimen/margin_12dp"
                 android:layout_weight="1"
-                android:text="Show mottos"
+                android:text="@string/fragment_setting_show_mottos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_fragment_setting_push_notification" />
+                android:id="@+id/switch_fragment_setting_motto" />
 
         </LinearLayout>
 

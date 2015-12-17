@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import com.activeandroid.query.Select;
 import com.example.vietnguyen.controllers.LocalBroadcastReceiver;
 import com.example.vietnguyen.controllers.MainActivity;
+import com.example.vietnguyen.core.controller.MyActivity;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.myapplication.R;
@@ -35,11 +36,12 @@ public class GcmUtil{
 			noticeId = bundle.getString(BUNDLE_KEY_NOTICE_ID);
 		}
 
-		if(MU.isEmpty(noticeId)){
+		int pushNotificationFlag = context.getSharedPreferences(MyActivity.SHARED_PREFERENCES_NAME, context.MODE_PRIVATE).getInt(MyActivity.PREF_PUSH_NOTIFICATION, 1);
+		if(MU.isEmpty(noticeId) || pushNotificationFlag == 0){
 			return null;
 		}
 
-		Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
+		Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).executeSingle();
 		if(notice != null && notice.isDeleted == false){
 			Intent intent = new Intent(context, MainActivity.class);
 			intent.putExtra(BUNDLE_KEY_NOTICE, notice.toString());

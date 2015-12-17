@@ -63,6 +63,79 @@
     <string name="title_activity_my">MyActivity</string>
     <string name="title_activity_sign_up_in">SignUpInActivity</string>
 
+    <string name="fragment_book_list_title">Books</string>
+    <string name="fragment_book_list_add">Add</string>
+    <string name="fragment_book_list_empty">Enjoy Reading</string>
+
+    <string name="fragment_note_list_edit">Edit</string>
+    <string name="fragment_note_list_add">Add</string>
+
+    <string name="fragment_note_detail_done">Done</string>
+    <string name="fragment_note_detail_today">Today</string>
+    <string name="fragment_note_detail_hint">Your text here</string>
+
+
+
+    <string name="fragment_setting_title">Setting</string>
+    <string name="fragment_setting_push">Push Notification</string>
+    <string name="fragment_setting_show_mottos">Show mottos</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <string name="title_quicker_project">Quicker</string>
 
