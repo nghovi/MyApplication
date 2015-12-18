@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@color/chiase_gray">
+        android:background="@color/core_gray">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
             android:text="Comment"
             custom:jsonKey="comment"
             android:id="@+id/txt_fragment_task_detail_comment"
-            android:layout_marginBottom="@dimen/margin_10dp" />
+            android:layout_marginBottom="10dp" />
 
 
     </LinearLayout>

@@ -14,7 +14,7 @@ import com.example.vietnguyen.core.controller.MyFragment;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
-import com.facebook.login.widget.LoginButton;
+//import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 public class SignUpInFragment extends MyFragment{
 
-	private LoginButton	btnFacebookLogin;
+//	private LoginButton	btnFacebookLogin;
 	private boolean		isSigningUp	= false;
 
 	public SignUpInFragment(){
@@ -45,8 +45,8 @@ public class SignUpInFragment extends MyFragment{
 	public void buildLayout(){
 		super.buildLayout();
 
-		btnFacebookLogin = (LoginButton)getView().findViewById(R.id.btn_facebook_login);
-		btnFacebookLogin.setReadPermissions(Arrays.asList("user_status", "user_photos"));
+		// btnFacebookLogin = (LoginButton)getView().findViewById(R.id.btn_facebook_login);
+		// btnFacebookLogin.setReadPermissions(Arrays.asList("user_status", "user_photos"));
 
 		Button btnSignIn = getButton(R.id.btn_sign_up_in);
 		btnSignIn.setOnClickListener(new View.OnClickListener() {

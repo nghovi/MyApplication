@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment">
+    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment"
+    android:background="@color/core_white">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/chiase_gray"
+        android:background="@color/core_gray"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
@@ -27,12 +28,13 @@
             android:id="@+id/txt_fragment_note_detail_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="120dp"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/fragment_note_detail_done"
             android:textColor="@color/core_white"
-            custom:jsonKey="mood" />
+            custom:jsonKey="mood"
+            android:layout_marginLeft="120dp" />
 
         <ImageView
             android:id="@+id/img_book_detail_edit"
@@ -45,37 +47,37 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView3"
+        android:layout_height="wrap_content"
         android:background="@color/bg_reading">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_note_detail_today"
                 android:id="@+id/txt_fragment_note_detail_date"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dp" />
+                android:layout_marginTop="6dp"
+                android:gravity="center_horizontal" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/edt_fragment_note_detail"
                 android:inputType="textMultiLine"
                 style="@style/core_edit_text"
-                android:minLines="30"
+                android:minLines="40"
                 android:background="@color/bg_reading"
                 android:gravity="left|top"
                 android:hint="@string/fragment_note_detail_hint" />
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

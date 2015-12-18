@@ -15,7 +15,7 @@ import com.example.vietnguyen.controllers.Background;
 import com.example.vietnguyen.core.network.Api;
 import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.myapplication.R;
-import com.facebook.AccessToken;
+//import com.facebook.AccessToken;
 
 /**
  * Created by viet on 8/7/2015.
@@ -28,7 +28,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	protected Api				api;
 
 	protected FragmentManager	mFragmentManager;
-	private AccessToken			accessToken;
+//	private AccessToken			accessToken;
 	public Background			bg;
 
 	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
@@ -195,11 +195,11 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		}
 	}
 
-	public void setAccessToken(AccessToken accessToken){
-		this.accessToken = accessToken;
-	}
-
-	public AccessToken getAccessToken(){
-		return this.accessToken;
-	}
+	// public void setAccessToken(AccessToken accessToken){
+	// this.accessToken = accessToken;
+	// }
+	//
+	// public AccessToken getAccessToken(){
+	// return this.accessToken;
+	// }
 }

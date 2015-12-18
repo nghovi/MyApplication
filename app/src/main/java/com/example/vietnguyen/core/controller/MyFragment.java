@@ -377,7 +377,7 @@ public class MyFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.core_options_myfragment, menu);
+//		inflater.inflate(R.menu.core_options_myfragment, menu);
 	}
 
 	@Override

@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:background="@color/chiase_gray"
-        android:paddingLeft="16dp"
+        android:background="@color/core_gray"
         android:paddingRight="16dp">
 
         <TextView
@@ -24,23 +23,30 @@
             android:textColor="@color/core_white"
             android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_weight="1" />
+            android:paddingLeft="20dp" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:id="@+id/txt_fragment_task_list_add"
-            android:textColor="@color/core_white"
-            android:gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:id="@+id/txt_fragment_task_list_add"
+                android:textColor="@color/core_white"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/img_fragment_task_list_search"
@@ -77,7 +83,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="What a shame!\nYou&apos;re free. No task."
+            android:text="@string/fragment_task_list_empty"
             android:id="@+id/txt_fragment_task_list_empty"
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"

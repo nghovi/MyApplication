@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_checked="true">
-        <bitmap android:src="@drawable/common_switch_toggle_active" android:layout_gravity="right" />
-    </item>
-    <item android:drawable="@drawable/common_switch_toggle_inactive" android:state_checked="false" />
-
-</selector>

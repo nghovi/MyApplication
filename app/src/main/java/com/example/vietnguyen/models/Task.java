@@ -4,7 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.example.vietnguyen.core.utils.MU;
-import com.facebook.share.widget.ShareDialog;
+//import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 

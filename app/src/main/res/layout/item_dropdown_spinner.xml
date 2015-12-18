@@ -16,7 +16,7 @@
         android:paddingRight="16dp"/>
 
     <View
-        style="@style/cs_common_divider"
+        style="@style/core_line_divider"
         android:visibility="visible"/>
 
 </LinearLayout>

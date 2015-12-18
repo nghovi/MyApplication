@@ -16,57 +16,59 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Notice;
 import com.example.vietnguyen.myapplication.R;
 import com.example.vietnguyen.utils.GcmUtil;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
+//import com.facebook.AccessToken;
+//import com.facebook.AccessTokenTracker;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.FacebookSdk;
+//import com.facebook.Profile;
+//import com.facebook.ProfileTracker;
+//import com.facebook.appevents.AppEventsLogger;
+//import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginResult;
 
 public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public Footer				footer;
 	private SignUpInFragment	signUpInFragment;
-	private CallbackManager		fbCallbackManager;
-	private ProfileTracker		fbProfileTracker;
-	private Profile				fbProfile;
-	private AccessTokenTracker	fbAccessTokenTracker;
-	public LoginManager			fbLoginManager;
+
+	// private CallbackManager fbCallbackManager;
+	// private ProfileTracker fbProfileTracker;
+	// private Profile fbProfile;
+	// private AccessTokenTracker fbAccessTokenTracker;
+	// public LoginManager fbLoginManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		FacebookSdk.sdkInitialize(getApplicationContext());
+		// FacebookSdk.sdkInitialize(getApplicationContext());
 
 		setContentView(R.layout.activity_main);
 		onCreateFooter();
 
-		setUpFacebookCallbacks();
+		// setUpFacebookCallbacks();
 
 		if(mFragmentManager.getBackStackEntryCount() >= 1){ // change language case
 			mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		}
 
 		// Ensure that our profile is up to date
-		Profile.fetchProfileForCurrentAccessToken();
-		setProfile(Profile.getCurrentProfile());
-		AccessToken accessToken = AccessToken.getCurrentAccessToken();
+		// Profile.fetchProfileForCurrentAccessToken();
+		// setProfile(Profile.getCurrentProfile());
+		// AccessToken accessToken = AccessToken.getCurrentAccessToken();
 		// for(String p : accessToken.getPermissions()){
 		// MU.log("lsfslfasfsf ++++++++++ " + p);
 		// }
-		if(accessToken == null || accessToken.isExpired()){
-			// gotoSignUpInFragment(); //todo
-			setAccessToken(accessToken);
-			gotoTaskListFragment();
-		}else if(!accessToken.isExpired()){
-			setAccessToken(accessToken);
-			gotoTaskListFragment();
-		}
+		// if(accessToken == null || accessToken.isExpired()){
+		// // gotoSignUpInFragment(); //todo
+		// setAccessToken(accessToken);
+		// gotoTaskListFragment();
+		// }else if(!accessToken.isExpired()){
+		// setAccessToken(accessToken);
+		// gotoTaskListFragment();
+		// }
+		gotoTaskListFragment();
 		bg = new Background(this);
 		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -102,57 +104,57 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		footer.checkFooterItem(3);
 	}
 
-	private void setUpFacebookCallbacks(){
-		fbCallbackManager = CallbackManager.Factory.create();
-		fbLoginManager = LoginManager.getInstance();
-		// fbLoginManager.logInWithReadPermissions(this, Arrays.asList("user_photos"));
-		fbLoginManager.registerCallback(fbCallbackManager, new FacebookCallback<LoginResult>() {
-
-			@Override
-			public void onSuccess(LoginResult loginResult){
-				Profile.fetchProfileForCurrentAccessToken();
-			}
-
-			@Override
-			public void onError(FacebookException exception){
-				AccessToken.setCurrentAccessToken(null);
-			}
-
-			@Override
-			public void onCancel(){
-				AccessToken.setCurrentAccessToken(null);
-			}
-		});
-
-		fbProfileTracker = new ProfileTracker() {
-
-			@Override
-			protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile){
-				AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
-			}
-		};
-
-		fbAccessTokenTracker = new AccessTokenTracker() {
-
-			@Override
-			protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
-				Profile.fetchProfileForCurrentAccessToken();
-				setAccessToken(currentAccessToken);
-				gotoTaskListFragment();
-			}
-		};
-	}
-
-	private void setProfile(Profile profile){
-		fbProfile = profile;
-		// fbProfile.
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data){
-		super.onActivityResult(requestCode, resultCode, data);
-		fbCallbackManager.onActivityResult(requestCode, resultCode, data);
-	}
+	// private void setUpFacebookCallbacks(){
+	// fbCallbackManager = CallbackManager.Factory.create();
+	// fbLoginManager = LoginManager.getInstance();
+	// // fbLoginManager.logInWithReadPermissions(this, Arrays.asList("user_photos"));
+	// fbLoginManager.registerCallback(fbCallbackManager, new FacebookCallback<LoginResult>() {
+	//
+	// @Override
+	// public void onSuccess(LoginResult loginResult){
+	// Profile.fetchProfileForCurrentAccessToken();
+	// }
+	//
+	// @Override
+	// public void onError(FacebookException exception){
+	// AccessToken.setCurrentAccessToken(null);
+	// }
+	//
+	// @Override
+	// public void onCancel(){
+	// AccessToken.setCurrentAccessToken(null);
+	// }
+	// });
+	//
+	// fbProfileTracker = new ProfileTracker() {
+	//
+	// @Override
+	// protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile){
+	// AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
+	// }
+	// };
+	//
+	// fbAccessTokenTracker = new AccessTokenTracker() {
+	//
+	// @Override
+	// protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken){
+	// Profile.fetchProfileForCurrentAccessToken();
+	// setAccessToken(currentAccessToken);
+	// gotoTaskListFragment();
+	// }
+	// };
+	// }
+	//
+	// private void setProfile(Profile profile){
+	// fbProfile = profile;
+	// // fbProfile.
+	// }
+	//
+	// @Override
+	// public void onActivityResult(int requestCode, int resultCode, Intent data){
+	// super.onActivityResult(requestCode, resultCode, data);
+	// fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+	// }
 
 	@Override
 	public void onClick(View view){
@@ -223,7 +225,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		super.onResume();
 		// facebook
 		// Logs 'install' and 'app activate' App Events.
-		AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		// AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
 		bg.startScheduledTasks();
 
 	}
@@ -232,7 +234,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	protected void onPause(){
 		super.onPause();
 		// Logs 'app deactivate' App Event.
-		AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
+		// AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
 		bg.stopScheduledTasks();
 	}
 

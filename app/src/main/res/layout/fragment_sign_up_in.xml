@@ -43,7 +43,7 @@
         android:gravity="center"
         android:text="@string/sign_in"
         android:layout_gravity="center_horizontal"
-        android:background="@color/core_btn2"
+        android:background="@color/core_blue"
         android:layout_marginTop="200dp" />
 
     <com.facebook.login.widget.LoginButton

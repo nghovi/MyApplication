@@ -21,8 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.andtinder.model.CardModel;
-import com.andtinder.view.CardContainer;
+//import com.andtinder.model.CardModel;
+//import com.andtinder.view.CardContainer;
 import com.example.vietnguyen.controllers.Book.BookDetailFragment;
 import com.example.vietnguyen.core.database.DBHelper;
 import com.example.vietnguyen.core.controller.MyFragment;
@@ -30,9 +30,9 @@ import com.example.vietnguyen.core.utils.MU;
 import com.example.vietnguyen.models.Book;
 import com.example.vietnguyen.models.FacebookPhoto;
 import com.example.vietnguyen.myapplication.R;
-import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.MyCardStackAdapter;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
+//import com.example.vietnguyen.views.widgets.notifications.adapters.adapters.MyCardStackAdapter;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
 
 import org.json.JSONObject;
 
@@ -44,21 +44,22 @@ import java.util.List;
 
 public class PhotoFragment extends MyFragment{
 
-	public static final int		MEDIA_TYPE_IMAGE					= 1;
-	public static final int		MEDIA_TYPE_VIDEO					= 2;
-	public static final int		CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE	= 1888;
-	private ImageView			preview;
-	private EditText			title;
-	private EditText			description;
-	private TextView			previewText;
-	private Bitmap				photo;
-	private DBHelper			dbHelper;
-	private MyCardStackAdapter	adapter;
+	public static final int	MEDIA_TYPE_IMAGE					= 1;
+	public static final int	MEDIA_TYPE_VIDEO					= 2;
+	public static final int	CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE	= 1888;
+	private ImageView		preview;
+	private EditText		title;
+	private EditText		description;
+	private TextView		previewText;
+	private Bitmap			photo;
+	private DBHelper		dbHelper;
+
+	// private MyCardStackAdapter adapter;
 
 	/**
 	 * This variable is the container that will host our cards
 	 */
-	private CardContainer		mCardContainer;
+	// private CardContainer mCardContainer;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -71,42 +72,42 @@ public class PhotoFragment extends MyFragment{
 		return inflater.inflate(R.layout.fragment_photo, container, false);
 	}
 
-	private void loadFacebookPhotos(){
-		GraphRequest request = GraphRequest.newGraphPathRequest(activity.getAccessToken(), "/me/photos", new GraphRequest.Callback() {
-
-			@Override
-			public void onCompleted(GraphResponse response){
-				onLoadFacebookPhotos(response);
-			}
-		});
-
-		Bundle parameters = new Bundle();
-		parameters.putString("fields", "source,name,created_time");
-		request.setParameters(parameters);
-		request.executeAsync();
-	}
-
-	private void onLoadFacebookPhotos(GraphResponse response){
-		JSONObject rp = response.getJSONObject();
-		List<FacebookPhoto> albums = MU.convertToModelList(rp.optString("data"), FacebookPhoto.class);
-		for(FacebookPhoto album : albums){
-			adapter.add(new CardModel("Title5", "Description goes here", album.source));
-		}
-		// only setAdapter when it contains enough data.
-		mCardContainer.setAdapter(adapter);
-	}
+	// private void loadFacebookPhotos(){
+	// GraphRequest request = GraphRequest.newGraphPathRequest(activity.getAccessToken(), "/me/photos", new GraphRequest.Callback() {
+	//
+	// @Override
+	// public void onCompleted(GraphResponse response){
+	// onLoadFacebookPhotos(response);
+	// }
+	// });
+	//
+	// Bundle parameters = new Bundle();
+	// parameters.putString("fields", "source,name,created_time");
+	// request.setParameters(parameters);
+	// request.executeAsync();
+	// }
+	//
+	// private void onLoadFacebookPhotos(GraphResponse response){
+	// JSONObject rp = response.getJSONObject();
+	// List<FacebookPhoto> albums = MU.convertToModelList(rp.optString("data"), FacebookPhoto.class);
+	// for(FacebookPhoto album : albums){
+	// adapter.add(new CardModel("Title5", "Description goes here", album.source));
+	// }
+	// // only setAdapter when it contains enough data.
+	// mCardContainer.setAdapter(adapter);
+	// }
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		mCardContainer = (CardContainer)getView().findViewById(R.id.layoutview);
+		// mCardContainer = (CardContainer)getView().findViewById(R.id.layoutview);
 
 		Resources r = getResources();
 
-		adapter = new MyCardStackAdapter(activity);
+		// adapter = new MyCardStackAdapter(activity);
 
-		loadFacebookPhotos();
+		// loadFacebookPhotos();
 
 		// getApi(Const.FACEBOOK_GET_ALBUMS, MU.buildJsonObj(Arrays.asList("access_token", activity.getAccessToken())));
 
@@ -137,11 +138,11 @@ public class PhotoFragment extends MyFragment{
 
 	}
 
-//	private void gotoBookDetail(Book book){
-//		BookDetailFragment frg = new BookDetailFragment();
-//		frg.setBook(book);
-//		activity.addFragment(frg);
-//	}
+	// private void gotoBookDetail(Book book){
+	// BookDetailFragment frg = new BookDetailFragment();
+	// frg.setBook(book);
+	// activity.addFragment(frg);
+	// }
 
 	private void setOnClickPreview(View preview){
 		preview.setOnClickListener(new View.OnClickListener() {

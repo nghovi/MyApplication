@@ -182,7 +182,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 	}
 
 	protected boolean hasChangeData(){
-		return !book.author.equals(getEditText(R.id.edt_sbe_author).getText().toString()) || !book.name.equals(getEditText(R.id.edt_sbe_name).getText().toString()) || !book.link.equals(getEditText(R.id.edt_sbe_link).getText().toString()) || !book.comment.equals(getEditText(R.id.edt_sbe_comment).getText().toString()) || !book.iconUrl.equals(getEditText(R.id.edt_sbe_icon_url).getText().toString()) || !book.mood.equals(getEditText(R.id.edt_sbe_mood).getText().toString());
+		return (book.author != null && !getEditText(R.id.edt_sbe_author).getText().toString().equals(book.author)) || (book.name != null && !getEditText(R.id.edt_sbe_name).getText().toString().equals(book.name)) || !getEditText(R.id.edt_sbe_link).getText().toString().equals(book.link) || (book.comment != null && !getEditText(R.id.edt_sbe_comment).getText().toString().equals(book.comment)) || !getEditText(R.id.edt_sbe_icon_url).getText().toString().equals(book.iconUrl) || (book.mood != null && !getEditText(R.id.edt_sbe_mood).getText().toString().equals(book.mood));
 	}
 
 	public void setBook(Book book){

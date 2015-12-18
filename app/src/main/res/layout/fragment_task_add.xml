@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@color/chiase_gray">
+        android:background="@color/core_gray">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text="Task adding..."
             android:id="@+id/textView17"
-            android:textColor="@color/core_white" />
+            android:textColor="@color/core_white"
+            android:visibility="invisible" />
 
         <TextView
             android:layout_width="wrap_content"

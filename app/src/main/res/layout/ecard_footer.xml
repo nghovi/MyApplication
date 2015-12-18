@@ -2,7 +2,8 @@
 
     <View
         android:id="@+id/view_footer_divider"
-        style="@style/core_line_divider" />
+        style="@style/core_line_divider"
+        android:layout_height="1dp" />
 
     <LinearLayout
         android:id="@+id/lnr_footer"

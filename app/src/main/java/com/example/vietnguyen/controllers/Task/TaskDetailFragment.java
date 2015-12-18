@@ -121,27 +121,32 @@ public class TaskDetailFragment extends MyFragment{
 
 	private void sendUpdateTaskStatus(int status){
 		this.task.setStatus(status);
-		JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-		postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
+		task.isRemoteSaved = false;
+		task.save();
+		// onClickBackBtn();
 
-			@Override
-			public void onApiResponse(JSONObject response){
-				Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
-				task.isRemoteSaved = true;
-				task.save();
-				onClickBackBtn();
-				// backToTaskList();
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
-				task.isRemoteSaved = false;
-				task.save();
-				onClickBackBtn();
-				// backToTaskList();
-			}
-		});
+		// JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
+		// postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
+		//
+		// @Override
+		// public void onApiResponse(JSONObject response){
+		// Toast.makeText(activity, "Success to update task status to server", Toast.LENGTH_SHORT).show();
+		// task.isRemoteSaved = true;
+		// task.save();
+		// onClickBackBtn();
+		// // backToTaskList();
+		// }
+		//
+		// @Override
+		// public void onApiError(String errorMsg){
+		// Toast.makeText(activity, "Failed to update task status to server", Toast.LENGTH_SHORT).show();
+		// task.isRemoteSaved = false;
+		// task.save();
+		// onClickBackBtn();
+		// // backToTaskList();
+		// }
+		// });
 	}
 
 	// private void sendDeleteTask(){

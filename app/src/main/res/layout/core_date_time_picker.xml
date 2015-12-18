@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/txt_id_cancel"
             style="@style/cs_common_wrap"
-            android:textColor="@color/chiase_green2"
+            android:textColor="@color/core_green"
             android:text="Cancel"
             android:layout_marginRight="20dp"
             android:textSize="15dp" />
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/txt_id_set"
             style="@style/cs_common_wrap"
-            android:textColor="@color/chiase_green2"
+            android:textColor="@color/core_green"
             android:text="Set"
             android:textSize="15dp" />
 
