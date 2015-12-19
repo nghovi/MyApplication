@@ -66,8 +66,12 @@ public class NoteDetailFragment extends MyFragment{
 	private void saveAndBack(){
 		MU.hideSofeKeyboard(activity);
 		note.message = getEditText(R.id.edt_fragment_note_detail).getText().toString();
-		note.date = new Date();
-		note.save();
+		if (MU.isEmpty(note.message)) {
+			note.delete();
+		} else {
+			note.date = new Date();
+			note.save();
+		}
 		activity.backOneFragment();
 	}
 

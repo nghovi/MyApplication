@@ -25,16 +25,29 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/nav_btn_back" />
 
-        <com.example.vietnguyen.core.views.widgets.MyTextView
-            android:id="@+id/txt_mood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="I&apos;m Percy"
-            android:textColor="@color/core_white"
-            custom:jsonKey="mood" />
+            android:gravity="center_vertical|center_horizontal">
+
+            <com.example.vietnguyen.core.views.widgets.MyTextView
+                android:id="@+id/txt_mood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="I&apos;m Percy"
+                android:textColor="@color/core_white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                custom:jsonKey="mood"
+                android:ellipsize="end"
+                android:singleLine="true" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/img_book_detail_edit"
@@ -42,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_edit" />
+            android:src="@drawable/nav_btn_edit"
+            android:paddingLeft="10dp" />
 
     </LinearLayout>
 

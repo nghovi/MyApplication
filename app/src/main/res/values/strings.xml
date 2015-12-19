@@ -69,7 +69,7 @@
 
     <string name="fragment_note_list_edit">Edit</string>
     <string name="fragment_note_list_add">Add</string>
-
+    <string name="fragment_note_list_empty">Write down your stunning idea here</string>
     <string name="fragment_note_detail_done">Done</string>
     <string name="fragment_note_detail_today">Today</string>
     <string name="fragment_note_detail_hint">Your text here</string>
@@ -80,6 +80,11 @@
     <string name="fragment_setting_show_mottos">Show mottos</string>
 
     <string name="fragment_task_list_empty">Today you are free. Just relax</string>
+    <string name="fragment_task_list_dlg_choose_priority_title">Set task priority</string>
+    <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished</string>
+    <string name="fragment_task_mark_tas_status_finished">Mark as finished</string>
+    <string name="fragment_task_update_notice_time">Update remind time</string>
+
 
 
 </resources>

@@ -71,7 +71,7 @@ public class AbstractTaskFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view){
-				dlgBuilder.buildDialogNumberPicker(activity, "Please choose priority", Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
+				dlgBuilder.buildDialogNumberPicker(activity, getString(R.string.fragment_task_list_dlg_choose_priority_title), Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
 			}
 		});
 	}
@@ -109,23 +109,19 @@ public class AbstractTaskFragment extends MyFragment{
 	}
 
 	protected void showTaskStatusChoosingDialog(){
-		String option1 = "Mark as unfinished";
-		String option2 = "Mark as finished";
-		dlgBuilder.build2OptsDlgTopDown(option1, option2, new View.OnClickListener() {
+		dlgBuilder.build2OptsDlgTopDown(getString(R.string.fragment_task_mark_tas_status_unfinished), getString(R.string.fragment_task_mark_tas_status_finished), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				task.setStatus(Task.STATUS_UNFINISHED);
+				status = Task.STATUS_UNFINISHED;
 				setTextFor(R.id.txt_share_task_edit_status, Task.STATUS[Task.STATUS_UNFINISHED]);
-				task.save();
 			}
 		}, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				task.setStatus(Task.STATUS_FINISHED);
+				status = Task.STATUS_FINISHED;
 				setTextFor(R.id.txt_share_task_edit_status, Task.STATUS[Task.STATUS_FINISHED]);
-				task.save();
 			}
 		}).show();
 	}
@@ -223,7 +219,7 @@ public class AbstractTaskFragment extends MyFragment{
 				updateNotice(dateTimePicker.getDateTime(), notice);
 			}
 		});
-		dateTimePicker.show("Update remind time");
+		dateTimePicker.show(getString(R.string.fragment_task_update_notice_time));
 	}
 
 	private void addNotice(Calendar c){

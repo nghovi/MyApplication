@@ -7,6 +7,59 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/core_gray"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:id="@+id/lnr_fbl_header">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/nav_btn_back"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal">
+
+            <com.example.vietnguyen.core.views.widgets.MyTextView
+                android:id="@+id/txt_fragment_task_search_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Cancel"
+                android:textColor="@color/core_white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/txt_fragment_task_search_search"
+            android:textColor="@color/core_white"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,46 +69,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/core_gray"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="horizontal"
-                android:id="@+id/lnr_fbl_header">
-
-                <ImageView
-                    android:id="@+id/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/nav_btn_back"
-                    android:visibility="visible" />
-
-                <com.example.vietnguyen.core.views.widgets.MyTextView
-                    android:id="@+id/txt_fragment_task_search_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Cancel"
-                    android:textColor="@color/core_white"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Search"
-                    android:id="@+id/txt_fragment_task_search_search"
-                    android:textColor="@color/core_white"
-                    android:paddingRight="10dp"
-                    android:gravity="center_horizontal" />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"

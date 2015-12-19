@@ -46,10 +46,10 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals("Edit")){
+			public void onClick(View view) {
+				if (((TextView) view).getText().toString().equals("Edit")) {
 					onClickTextEdit();
-				}else if(((TextView)view).getText().toString().equals("Done")){
+				} else if (((TextView) view).getText().toString().equals("Done")) {
 					onClickTextDone();
 				}
 			}
@@ -78,10 +78,10 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.txt_fragment_note_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals("Add")){
+			public void onClick(View view) {
+				if (((TextView) view).getText().toString().equals("Add")) {
 					onClickTextAdd();
-				}else if(((TextView)view).getText().toString().contains("Delete")){
+				} else if (((TextView) view).getText().toString().contains("Delete")) {
 					onClickTextDelete();
 				}
 			}
@@ -159,7 +159,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		}else{
 			isSearching = true;
 			goneView(R.id.txt_fragment_note_list_edit);
-			goneView(R.id.txt_fragment_note_list_add);
+			goneView(R.id.lnr_fragment_note_list_add);
 			visibleView(R.id.edt_fragment_note_list_search);
 			getEditText(R.id.edt_fragment_note_list_search).requestFocus();
 			setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_active);
@@ -169,7 +169,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void cancelSearching(){
 		isSearching = false;
 		visibleView(R.id.txt_fragment_note_list_edit);
-		visibleView(R.id.txt_fragment_note_list_add);
+		visibleView(R.id.lnr_fragment_note_list_add);
 		goneView(R.id.edt_fragment_note_list_search);
 		setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_inactive);
 		MU.hideSofeKeyboard(activity);
@@ -195,6 +195,19 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		models = new Select().from(Note.class).execute();
 		adapter.updateDataWith(models);
 	}
+
+	@Override
+	public void onEmptyData(){
+		super.onEmptyData();
+		visibleView(R.id.txt_fragment_note_list_empty);
+	}
+
+	@Override
+	public void onNotEmptyData(){
+		super.onNotEmptyData();
+		goneView(R.id.txt_fragment_note_list_empty);
+	}
+
 
 	@Override
 	public void onChecked(Note checkedNote, int numItemChecked){

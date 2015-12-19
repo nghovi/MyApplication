@@ -19,23 +19,38 @@
             android:id="@+id/txt_fragment_note_list_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/fragment_note_list_edit"
             android:textColor="@color/core_white"
-            android:layout_marginLeft="20dp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_note_list_add"
-            android:id="@+id/txt_fragment_note_list_add"
-            android:textColor="@color/core_white"
-            android:paddingRight="10dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:visibility="visible" />
+            android:gravity="center_vertical|center_horizontal"
+            android:visibility="visible"
+            android:id="@+id/lnr_fragment_note_list_add">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_note_list_add"
+                android:id="@+id/txt_fragment_note_list_add"
+                android:textColor="@color/core_white"
+                android:paddingRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:visibility="visible"
+                android:paddingLeft="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp" />
+        </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
@@ -52,7 +67,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginRight="10dp"
             android:src="@drawable/nav_btn_search_inactive"
             android:visibility="visible" />
 
@@ -61,13 +75,23 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_reading">
+        android:layout_height="match_parent">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lst_fragment_note_search_result_note" />
+            android:id="@+id/lst_fragment_note_search_result_note"
+            android:background="@color/bg_reading" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fragment_note_list_empty"
+            android:id="@+id/txt_fragment_note_list_empty"
+            android:textStyle="bold"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@color/bg_reading" />
+
     </LinearLayout>
 
 </LinearLayout>
