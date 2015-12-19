@@ -1,5 +1,9 @@
 .gradle
 .class
+/facebook/*
+/facebook/build
+/facebook/
+/facebook
 facebook/
 /local.properties
 /.idea/workspace.xml
