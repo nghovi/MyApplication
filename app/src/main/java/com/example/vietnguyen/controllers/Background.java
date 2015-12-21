@@ -193,7 +193,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	private void saveUnsavedBookToServer(){
-		List<Book> unsavedToRemoteBooks = Book.getUnSavedToRemote(Book.class);
+		List<Book> unsavedToRemoteBooks = Book.getAllUndeleted(Book.class);
 		for(final Book book : unsavedToRemoteBooks){
 			JSONObject param = MU.buildJsonObj(Arrays.asList("book", book.toString()));
 			activity.postApi(Const.EDIT_BOOK, param, new Api.OnCallApiListener() {

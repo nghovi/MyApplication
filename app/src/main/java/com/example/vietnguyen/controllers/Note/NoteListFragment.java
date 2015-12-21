@@ -46,10 +46,10 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (((TextView) view).getText().toString().equals("Edit")) {
+			public void onClick(View view){
+				if(((TextView)view).getText().toString().equals(getString(R.string.edit))){
 					onClickTextEdit();
-				} else if (((TextView) view).getText().toString().equals("Done")) {
+				}else if(((TextView)view).getText().toString().equals(getString(R.string.done))){
 					onClickTextDone();
 				}
 			}
@@ -59,8 +59,8 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void onClickTextEdit(){
 		adapter.setMode(MyArrayAdapter.MODE_EDITING);
 		adapter.notifyDataSetChanged();
-		setTextFor(R.id.txt_fragment_note_list_edit, "Done");
-		setTextFor(R.id.txt_fragment_note_list_add, "Delete All");
+		setTextFor(R.id.txt_fragment_note_list_edit, getString(R.string.done));
+		setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete_all));
 		goneView(R.id.img_fragment_note_list_search);
 	}
 
@@ -78,10 +78,10 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setOnClickFor(R.id.txt_fragment_note_list_add, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (((TextView) view).getText().toString().equals("Add")) {
+			public void onClick(View view){
+				if(((TextView)view).getText().toString().equals(getString(R.string.add))){
 					onClickTextAdd();
-				} else if (((TextView) view).getText().toString().contains("Delete")) {
+				}else if(((TextView)view).getText().toString().contains(getString(R.string.delete))){
 					onClickTextDelete();
 				}
 			}
@@ -93,7 +93,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void onClickTextDelete(){
-		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
+		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -103,7 +103,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void confirmDeleteNotes(){
-		boolean isDeleteAll = getTextView(R.id.txt_fragment_note_list_add).getText().toString().equals("Delete All");
+		boolean isDeleteAll = getTextView(R.id.txt_fragment_note_list_add).getText().toString().equals(getString(R.string.delete_all));
 		for(int i = 0; i < models.size(); i++){
 			View viewNote = listView.getChildAt(i);
 			if(viewNote != null){
@@ -208,13 +208,12 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		goneView(R.id.txt_fragment_note_list_empty);
 	}
 
-
 	@Override
 	public void onChecked(Note checkedNote, int numItemChecked){
 		if(numItemChecked > 0){
-			setTextFor(R.id.txt_fragment_note_list_add, "Delete");
+			setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete));
 		}else{
-			setTextFor(R.id.txt_fragment_note_list_add, "Delete All");
+			setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete_all));
 		}
 	}
 

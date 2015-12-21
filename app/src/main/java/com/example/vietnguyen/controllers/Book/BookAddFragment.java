@@ -26,8 +26,8 @@ public class BookAddFragment extends AbstractBookFragment{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		book = new Book();
-		book.iconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sumerian_MS2272_2400BC.jpg/220px-Sumerian_MS2272_2400BC.jpg";
-		book.link = "https://en.wikipedia.org/wiki/Book";
+		book.iconUrl = getString(R.string.fragment_abstract_book_default_link);
+		book.link = getString(R.string.fragment_abstract_book_default_icon_url);
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class BookAddFragment extends AbstractBookFragment{
 
 				@Override
 				public void onClick(View view){
-					dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
+					dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 						@Override
 						public void onClick(View view){
@@ -112,7 +112,7 @@ public class BookAddFragment extends AbstractBookFragment{
 		if(!hasChangeData()){
 			activity.backToFragment(BookListFragment.class);
 		}else{
-			dlgBuilder.buildConfirmDlgTopDown("Continue", "Discard Changes", new View.OnClickListener() {
+			dlgBuilder.buildConfirmDlgTopDown(getString(R.string.continue_str), getString(R.string.discard), new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/fragment_note_list_edit"
+            android:text="@string/edit"
             android:textColor="@color/core_white"
             android:visibility="visible"
             android:paddingLeft="20dp"
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_note_list_add"
+                android:text="@string/add"
                 android:id="@+id/txt_fragment_note_list_add"
                 android:textColor="@color/core_white"
                 android:paddingRight="20dp"

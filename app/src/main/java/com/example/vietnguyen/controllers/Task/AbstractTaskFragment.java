@@ -157,7 +157,7 @@ public class AbstractTaskFragment extends MyFragment{
 						task.save();
 					}
 				});
-				datePicker.show(activity.getFragmentManager(), "datePicker");
+				datePicker.show(activity.getFragmentManager(), "");
 			}
 		};
 		setOnClickFor(R.id.lnr_share_task_edit_date, listener);
@@ -207,7 +207,7 @@ public class AbstractTaskFragment extends MyFragment{
 				addNotice(dateTimePicker.getDateTime());
 			}
 		});
-		dateTimePicker.show("Select remind time");
+		dateTimePicker.show(getString(R.string.fragment_abstract_task_remind_time_select));
 	}
 
 	private void onClickUpdateNotice(final Notice notice){

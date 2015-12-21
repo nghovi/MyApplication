@@ -104,7 +104,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 				@Override
 				public void onClick(View view){
-					dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
+					dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 						@Override
 						public void onClick(View view){
@@ -124,7 +124,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		if(!hasChangeData()){
 			activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		}else{
-			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
+			dlgBuilder.build2OptsDlgTopDown(getString(R.string.discard), getString(R.string.save), new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){

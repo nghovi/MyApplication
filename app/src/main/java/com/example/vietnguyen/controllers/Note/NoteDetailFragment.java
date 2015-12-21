@@ -43,7 +43,7 @@ public class NoteDetailFragment extends MyFragment{
 	@Override
 	protected void onClickBackBtn(){
 		if(!note.message.equals(getEditText(R.id.edt_fragment_note_detail).getText().toString())){
-			dlgBuilder.build2OptsDlgTopDown("Save", "Cancel", new View.OnClickListener() {
+			dlgBuilder.build2OptsDlgTopDown(getString(R.string.save), getString(R.string.cancel), new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){

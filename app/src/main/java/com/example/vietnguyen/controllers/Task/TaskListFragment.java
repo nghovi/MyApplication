@@ -102,7 +102,7 @@ public class TaskListFragment extends MyFragmentWithList{
 						// reloadDailyTasks();
 					}
 				});
-				datePicker.show(activity.getFragmentManager(), "datePicker");
+				datePicker.show(activity.getFragmentManager(), "");
 			}
 		});
 	}

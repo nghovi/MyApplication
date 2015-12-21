@@ -103,7 +103,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
 	protected void showDialogForAddingWord(){
-		dlgBuilder.buildDialogWith2Edt(activity, "Enter new word", "Enter new phrase", new DialogBuilder.OnDialogWithEdtDismiss() {
+		dlgBuilder.buildDialogWith2Edt(activity, getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg1), getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg2), new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
 			public void onClickDone(String input1, String input2){
@@ -119,14 +119,14 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 		if(!MU.isEmpty(newPhrase)){
 			b.addPhraseForWord(newWord, newPhrase);
 			savedBookFromLayout();
-			showExistedWordNotifyDialog("Added new phrase for '" + newWord + "' at '" + b.name + "'", newWord, b);
+			showExistedWordNotifyDialog(getString(R.string.fragment_abstract_book_add_new_phrase, newWord, b.name), newWord, b);
 		}else{
-			showExistedWordNotifyDialog("Found '" + newWord + "' at '" + b.name + "'", newWord, b);
+			showExistedWordNotifyDialog(getString(R.string.fragment_abstract_book_existing_word, newWord, b.name), newWord, b);
 		}
 	}
 
 	private void showExistedWordNotifyDialog(String msg, String newWord, final Book foundBook){
-		dlgBuilder.build2OptionsDialog(activity, "Word existed!", msg, "View", new View.OnClickListener() {
+		dlgBuilder.build2OptionsDialog(activity, getString(R.string.fragment_abstract_book_dlg_existing_word_msg), msg, getString(R.string.fragment_abstract_book_dlg_existing_word_btn1), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -136,7 +136,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 	}
 
 	protected void showDialogConfirmDeleteWord(final String word){
-		dlgBuilder.buildConfirmDlgTopDown("Cancel", "Delete", new View.OnClickListener() {
+		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -148,7 +148,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 	}
 
 	protected void showDialogForAddingPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, "Enter new phrase for " + word, null, new DialogBuilder.OnDialogWithEdtDismiss() {
+		dlgBuilder.buildDialogWithEdt(activity, getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
 			public void onClickDone(String input1, String input2){

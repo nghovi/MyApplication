@@ -11,6 +11,16 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="ok">Ok</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="continue_str">Continue</string>
+    <string name="discard">Discard</string>
+    <string name="save">Save</string>
+    <string name="go">Go</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="delete_all">Delete All</string>
+    <string name="done">Done</string>
 
 
     <!-- footer -->
@@ -46,7 +56,6 @@
     <string name="setting">Setting</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="add">Add</string>
     <string name="camera">Camera</string>
     <string name="take_photo">Take Photo</string>
     <string name="take_video">Take Video</string>
@@ -67,10 +76,18 @@
     <string name="fragment_book_list_add">Add</string>
     <string name="fragment_book_list_empty">Enjoy Reading</string>
 
-    <string name="fragment_note_list_edit">Edit</string>
-    <string name="fragment_note_list_add">Add</string>
+    <string name="fragment_abstract_book_add_new_phrase">Added new phrase for \"%1$s\" at \"%2$s\"</string>
+    <string name="fragment_abstract_book_existing_word">Found word "%1$s" at \"%2$s\"</string>
+    <string name="fragment_abstract_book_dlg_existing_word_msg">Word Existed!</string>
+    <string name="fragment_abstract_book_dlg_existing_word_btn1">View</string>
+    <string name="fragment_abstract_book_dlg_enter_new_phrase_msg">Enter new phrase for \"%1$s\"</string>
+    <string name="fragment_abstract_book_dlg_enter_new_word_msg1">Enter new word</string>
+    <string name="fragment_abstract_book_dlg_enter_new_word_msg2">Enter new phrase</string>
+    <string name="fragment_abstract_book_default_link">https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sumerian_MS2272_2400BC.jpg/220px-Sumerian_MS2272_2400BC.jpg</string>
+    <string name="fragment_abstract_book_default_icon_url">https://en.wikipedia.org/wiki/Book</string>
+
+
     <string name="fragment_note_list_empty">Write down your stunning idea here</string>
-    <string name="fragment_note_detail_done">Done</string>
     <string name="fragment_note_detail_today">Today</string>
     <string name="fragment_note_detail_hint">Your text here</string>
 
@@ -79,12 +96,12 @@
     <string name="fragment_setting_push">Push Notification</string>
     <string name="fragment_setting_show_mottos">Show mottos</string>
 
+    <string name="fragment_abstract_task_remind_time_select">Select remind time</string>
     <string name="fragment_task_list_empty">Today you are free. Just relax</string>
     <string name="fragment_task_list_dlg_choose_priority_title">Set task priority</string>
     <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished</string>
     <string name="fragment_task_mark_tas_status_finished">Mark as finished</string>
     <string name="fragment_task_update_notice_time">Update remind time</string>
-
 
 
 </resources>

@@ -67,7 +67,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 		if(!this.hasChangeData()){
 			activity.backToFragment(TaskDetailFragment.class, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 		}else{
-			dlgBuilder.build2OptsDlgTopDown("Discard", "Save changes", new View.OnClickListener() {
+			dlgBuilder.build2OptsDlgTopDown(getString(R.string.discard), getString(R.string.save), new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){
