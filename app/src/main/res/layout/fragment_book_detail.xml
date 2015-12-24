@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment">
+    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal">
 
-            <com.example.vietnguyen.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                 android:id="@+id/txt_mood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
-                        <com.example.vietnguyen.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -109,7 +109,7 @@
                             android:textStyle="bold"
                             custom:jsonKey="name" />
 
-                        <com.example.vietnguyen.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                             android:id="@+id/txt_book_link"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                                 android:id="@+id/textView14"
                                 android:layout_marginRight="6dp" />
 
-                            <com.example.vietnguyen.core.views.widgets.MyTextView
+                            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rich Riordan"
@@ -187,7 +187,7 @@
                         android:visibility="gone"
                         android:orientation="vertical">
 
-                        <com.example.vietnguyen.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="&quot;Ongoing great book&quot;"

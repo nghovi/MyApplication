@@ -61,7 +61,7 @@
     <string name="take_video">Take Video</string>
     <string name="preview">Preview</string>
     <string name="remind">You must take a photo, then enter the Title and the Description</string>
-    <string name="title_activity_splash_screen">Ecard</string>
+    <string name="title_activity_splash_screen">Note</string>
     <string name="title_activity_main">Main</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -93,7 +93,8 @@
 
 
     <string name="fragment_setting_title">Setting</string>
-    <string name="fragment_setting_push">Push Notification</string>
+    <string name="fragment_setting_push">Task Remider</string>
+    <string name="fragment_setting_task_reminder_explain">Turn on/off task reminder</string>
     <string name="fragment_setting_show_mottos">Show mottos</string>
 
     <string name="fragment_abstract_task_remind_time_select">Select remind time</string>

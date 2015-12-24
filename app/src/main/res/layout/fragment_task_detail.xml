@@ -3,7 +3,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment"
+    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment"
     android:background="@color/core_white">
 
     <!-- TODO: Update blank fragment layout -->
@@ -125,7 +125,7 @@
 
         </LinearLayout>
 
-        <com.example.vietnguyen.core.views.widgets.MyTextView
+        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -133,7 +133,7 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/txt_fragment_task_detail_name" />
 
-        <com.example.vietnguyen.core.views.widgets.MyTextView
+        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
@@ -141,7 +141,7 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/txt_fragment_task_detail_description" />
 
-        <com.example.vietnguyen.core.views.widgets.MyTextView
+        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Comment"

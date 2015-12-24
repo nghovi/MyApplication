@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vietnguyen.myapplication">
+    package="com.nguyenhoangviet.vietnguyen.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -20,10 +20,10 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.example.vietnguyen.myapplication.permission.C2D_MESSAGE"
+        android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.vietnguyen.myapplication.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -36,6 +36,7 @@
 
 
     <application
+        android:icon="@drawable/ico_note_32_on"
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -47,11 +48,11 @@
             android:name="AA_DB_VERSION"
             android:value="1" />
         <meta-data android:name="AA_SERIALIZERS"
-            android:value="com.example.vietnguyen.models.UtilDateSerializer" />
+            android:value="com.nguyenhoangviet.vietnguyen.models.UtilDateSerializer" />
 
         <activity
 
-            android:name="com.example.vietnguyen.controllers.SplashActivity"
+            android:name="com.nguyenhoangviet.vietnguyen.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,30 +62,30 @@
         <activity
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
-            android:name="com.example.vietnguyen.controllers.MainActivity"
+            android:name="com.nguyenhoangviet.vietnguyen.controllers.MainActivity"
             android:label="@string/title_activity_main"></activity>
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationName"
-            android:value="@string/app_name" />
+        <!--<activity-->
+            <!--android:name="com.facebook.FacebookActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--<meta-data-->
+            <!--android:name="com.facebook.sdk.ApplicationId"-->
+            <!--android:value="@string/facebook_app_id" />-->
+        <!--<meta-data-->
+            <!--android:name="com.facebook.sdk.ApplicationName"-->
+            <!--android:value="@string/app_name" />-->
 
         <activity
-            android:name="com.example.vietnguyen.core.controller.MyActivity"
+            android:name="com.nguyenhoangviet.vietnguyen.core.controller.MyActivity"
             android:label="@string/title_activity_my"></activity>
 
 
         <receiver
-            android:name="com.example.vietnguyen.controllers.LocalBroadcastReceiver"
+            android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.example.vietnguyen.controllers.LocalBroadcastReceiver" />
+                <action android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
@@ -102,7 +103,7 @@
             <!--</intent-filter>-->
         <!--</receiver>-->
         <service
-            android:name="com.example.vietnguyen.controllers.NotificationService"
+            android:name="com.nguyenhoangviet.vietnguyen.controllers.NotificationService"
             android:enabled="true" />
     </application>
 

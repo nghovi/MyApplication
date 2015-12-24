@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.vietnguyen.controllers.Book.BookListFragment"
+    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment"
     android:background="@color/core_white">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:id="@+id/lnr_fbl_header">
 
-        <com.example.vietnguyen.core.views.widgets.MyTextView
+        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
             android:id="@+id/txt_fragment_note_list_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

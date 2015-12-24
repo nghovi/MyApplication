@@ -1,4 +1,5 @@
 api key: AIzaSyCwisjqRpjJaqQeDKMrRoW91g4ub593QWQ
+alias is selfnote, password is y...
 
 
 
@@ -28,17 +29,41 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
 -19. Put edit cursor when tap on unfold button
 -20. Fix search with author name
 -21. test case: network error, first time user, search function
-22. if there isn't table task yet, then load and save all tasks, books
-23. test case: update search result after edit task from search result then back
-24. Book search function, let's do as task
- 26. http://stackoverflow.com/questions/18634207/difference-between-add-replace-and-addtobackstack
- -27. Stop show mottos if MainActivity onPause( tap home button)
- 27. Stop, cancel alarm after delete Notice
+-22. if there isn't table task yet, then load and save all tasks, books
+-23. test case: update search result after edit task from search result then back
+-24. Book search function, let's do as task
+-26. http://stackoverflow.com/questions/18634207/difference-between-add-replace-and-addtobackstack
+-27. Stop show mottos if MainActivity onPause( tap home button)
+-27. Stop, cancel alarm after delete Notice
  28. Instead of changing language, try something like: receive a phone call, turn off device screen, start another activity
+ 29. Add book name for phrases
+ 30. Mark system for words that hard to remember
+ 31. bug: when editting book, note,... tap other icon footer.
 
 
 
 
+
+
+An app for noting, tasking, and learning second language.
+
+
+We usually struggle to choose among tons of reach-features, note-like app.
+But I doubt that you ever tried all features of those.
+So you may need the really simple, easy-to-use but fast and convenience app.
+And here my app comes.
+Basically, we used this app to:
+- Write down our brilliant idea
+- Manage our daily task effectively so we can be more productive
+- Build our own vocabulary so we learn second language faster
+
+Right now, you don't need to have a network connection to use this app.
+Your data will not be saved to remote server. This secure your important data.
+
+Future, I will focus on improving above features, making them more useful, smart
+New features may come but only if it follows:
+- our rule: simple but powerful
+- our goal: be productive and happy
 
 
 
