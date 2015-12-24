@@ -106,7 +106,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		}
 	}
 
-	private void showConfirmdDlgDeletePhrase(final String word, final String phrase) {
+	private void showConfirmdDlgDeletePhrase(final String word, final String phrase){
 		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 			@Override
@@ -120,6 +120,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 	@Override
 	protected void onClickBackBtn(){
+		MU.hideSofeKeyboard(activity);
 		if(!hasChangeData()){
 			activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		}else{

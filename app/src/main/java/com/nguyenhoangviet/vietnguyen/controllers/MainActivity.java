@@ -156,6 +156,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	@Override
 	public void onClick(View view){
+		MU.hideSofeKeyboard(this);
 		switch(view.getId()){
 		case R.id.lnr_footer_item1:
 			onClickFooterItem1();

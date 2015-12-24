@@ -42,8 +42,13 @@
     </LinearLayout>
 
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView7" >
 
-    <include layout="@layout/share_task_edit"/>
+        <include layout="@layout/share_task_edit"/>
+    </ScrollView>
 
 
 </LinearLayout>
