@@ -44,6 +44,13 @@ public class BookDetailFragment extends MyFragment{
 		}
 		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null);
 		setLinkFor(R.id.txt_book_link, book.link);
+		setOnClickFor(R.id.img_fragment_book_detail_delete, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				onDeleteIconClicked();
+			}
+		});
 		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
 
 			@Override
@@ -52,6 +59,19 @@ public class BookDetailFragment extends MyFragment{
 			}
 		});
 		buildWords();
+	}
+
+	private void onDeleteIconClicked(){
+
+		dlgBuilder.build2OptsDlgTopDown(getString(R.string.cancel), getString(R.string.delete), null, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				// sendDeleteTask();
+				book.delete();
+				onClickBackBtn();
+			}
+		}).show();
 	}
 
 	private void gotoBookEditFragment(){
