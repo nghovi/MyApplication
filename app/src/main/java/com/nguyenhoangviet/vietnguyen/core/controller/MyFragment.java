@@ -37,7 +37,7 @@ import java.util.Map;
  * Created by viet on 8/11/2015.
  * http://developer.android.com/guide/components/fragments.html
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends Fragment{
 
 	/**
 	 * The Activity.
@@ -148,34 +148,34 @@ public class MyFragment extends Fragment {
 		return tv;
 	}
 
-	public void setAfterTextChangedListenerFor(int resourceId, final MyTextView.OnAfterTextChangedListener listener) {
+	public void setAfterTextChangedListenerFor(int resourceId, final MyTextView.OnAfterTextChangedListener listener){
 		final String textBefore = getTextView(resourceId).getText().toString();
 		getEditText(resourceId).addTextChangedListener(new TextWatcher() {
+
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
 
 			}
 
 			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
 
 			}
 
 			@Override
-			public void afterTextChanged(Editable editable) {
+			public void afterTextChanged(Editable editable){
 				listener.afterTextChanged(textBefore, editable.toString());
 			}
 		});
 	}
 
-
-	//Eg EditorInfo.IME_ACTION_SEARCH
-	public void setOnEditorActionFor(int resource, final int actionCode, final MyTextView.OnKeyboardBtnPressed listener) {
+	// Eg EditorInfo.IME_ACTION_SEARCH
+	public void setOnEditorActionFor(int resource, final int actionCode, final MyTextView.OnKeyboardBtnPressed listener){
 		getEditText(resource).setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
 			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == actionCode) {
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+				if(actionId == actionCode){
 					listener.onPress(v.getText().toString());
 					return true;
 				}
@@ -259,19 +259,45 @@ public class MyFragment extends Fragment {
 		foldable.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				if (View.VISIBLE == content.getVisibility()) {
+			public void onClick(View view){
+				if(View.VISIBLE == content.getVisibility()){
 					foldable.setBackgroundColor(0);
 					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
 					content.setVisibility(View.GONE);
-					if (otherView != null) {
+					if(otherView != null){
 						otherView.setVisibility(View.GONE);
 					}
-				} else {
+				}else{
 					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
 					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
 					content.setVisibility(View.VISIBLE);
-					if (otherView != null) {
+					if(otherView != null){
+						otherView.setVisibility(View.VISIBLE);
+					}
+				}
+			}
+		});
+	}
+
+	// for not overlap onclick function
+	public void setFoldAction2(final View foldable, int clickToFold, final ImageView imgFoldIcon, int contentId, final View otherView){
+		final View content = getView(foldable, contentId);
+		getView(foldable, clickToFold).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				if(View.VISIBLE == content.getVisibility()){
+					foldable.setBackgroundColor(0);
+					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
+					content.setVisibility(View.GONE);
+					if(otherView != null){
+						otherView.setVisibility(View.GONE);
+					}
+				}else{
+					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
+					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
+					content.setVisibility(View.VISIBLE);
+					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);
 					}
 				}
@@ -320,7 +346,6 @@ public class MyFragment extends Fragment {
 
 	// ////////////////////////////////////////// BASIC ////////////////////////////////////////
 
-
 	/*
 	 * After load xml, build layout with your data
 	 */
@@ -333,7 +358,7 @@ public class MyFragment extends Fragment {
 		setOnClickFor(R.id.img_back, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickBackBtn();
 			}
 		});
@@ -343,8 +368,7 @@ public class MyFragment extends Fragment {
 		activity.backOneFragment();
 	}
 
-
-	///////////////////////////////// onFunctions   /////////////////////////////////////
+	// /////////////////////////////// onFunctions /////////////////////////////////////
 	@Override
 	public void onAttach(Activity activity){
 		MU.log("Fragment onAttach: " + this.getClass().toString());
@@ -367,17 +391,16 @@ public class MyFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		// Inflate the layout for this fragment
-		//can return null if this fragment doesn't return
+		// can return null if this fragment doesn't return
 		MU.log("Fragment onCreateView: " + this.getClass().toString());
 		return inflater.inflate(R.layout.core_fragment_my, container, false);
 
 	}
 
-
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
 		super.onCreateOptionsMenu(menu, inflater);
-//		inflater.inflate(R.menu.core_options_myfragment, menu);
+		// inflater.inflate(R.menu.core_options_myfragment, menu);
 	}
 
 	@Override
@@ -388,44 +411,44 @@ public class MyFragment extends Fragment {
 	}
 
 	@Override
-	public void onStart() {
+	public void onStart(){
 		MU.log("Fragment onStart: " + this.getClass().toString());
 		super.onStart();
 	}
 
 	@Override
 	public void onResume(){
-		 MU.log("Fragment onResume: " + this.getClass().toString());
+		MU.log("Fragment onResume: " + this.getClass().toString());
 		super.onResume();
 	}
 
 	@Override
 	public void onPause(){
-		 MU.log("Fragment onPause: " + this.getClass().toString());
+		MU.log("Fragment onPause: " + this.getClass().toString());
 		super.onPause();
 	}
 
 	@Override
 	public void onStop(){
-		 MU.log("Fragment onStop: " + this.getClass().toString());
+		MU.log("Fragment onStop: " + this.getClass().toString());
 		super.onStop();
 	}
 
 	@Override
 	public void onDestroyView(){
-		 MU.log("Fragment onDestroyView: " + this.getClass().toString());
+		MU.log("Fragment onDestroyView: " + this.getClass().toString());
 		super.onDestroyView();
 	}
 
 	@Override
 	public void onDestroy(){
-		 MU.log("Fragment onDestroy: " + this.getClass().toString());
+		MU.log("Fragment onDestroy: " + this.getClass().toString());
 		super.onDestroy();
 	}
 
 	@Override
 	public void onDetach(){
-		 MU.log("Fragment onDetach: " + this.getClass().toString());
+		MU.log("Fragment onDetach: " + this.getClass().toString());
 		super.onDetach();
 	}
 }

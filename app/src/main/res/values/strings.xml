@@ -83,8 +83,10 @@
     <string name="fragment_abstract_book_dlg_enter_new_phrase_msg">Enter new phrase for \"%1$s\"</string>
     <string name="fragment_abstract_book_dlg_enter_new_word_msg1">Enter new word</string>
     <string name="fragment_abstract_book_dlg_enter_new_word_msg2">Enter new phrase</string>
-    <string name="fragment_abstract_book_default_link">https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Sumerian_MS2272_2400BC.jpg/220px-Sumerian_MS2272_2400BC.jpg</string>
+    <string name="fragment_abstract_book_default_link"></string>
     <string name="fragment_abstract_book_default_icon_url">https://en.wikipedia.org/wiki/Book</string>
+    <string name="share_book_edit_motto_hint">Eg: Be yourself!</string>
+    <string name="share_book_edit_cover_image">Cover Image</string>
 
 
     <string name="fragment_note_list_empty">Write down your stunning idea here</string>
@@ -93,10 +95,11 @@
 
 
     <string name="fragment_setting_title">Setting</string>
-    <string name="fragment_setting_push">Task Remider</string>
+    <string name="fragment_setting_push">Task Reminder</string>
     <string name="fragment_setting_task_reminder_explain">Turn on/off task reminder</string>
     <string name="fragment_setting_show_mottos">Show mottos</string>
-
+    <string name="share_book_edit_book_msg">The message</string>
+    <string name="share_book_edit_cover_link">Eg: https://book_site/book_cover.jpg</string>
     <string name="fragment_abstract_task_remind_time_select">Select remind time</string>
     <string name="fragment_task_list_empty">Today you are free. Just relax</string>
     <string name="fragment_task_list_dlg_choose_priority_title">Set task priority</string>

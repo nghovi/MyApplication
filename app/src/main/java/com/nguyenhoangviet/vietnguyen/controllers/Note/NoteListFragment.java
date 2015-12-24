@@ -2,10 +2,12 @@ package com.nguyenhoangviet.vietnguyen.controllers.Note;
 
 import java.util.Date;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -156,12 +158,14 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void onClickSearchIcon(){
 		if(isSearching){
 			cancelSearching();
+			MU.hideSofeKeyboard(activity);
 		}else{
 			isSearching = true;
 			goneView(R.id.txt_fragment_note_list_edit);
 			goneView(R.id.lnr_fragment_note_list_add);
 			visibleView(R.id.edt_fragment_note_list_search);
 			getEditText(R.id.edt_fragment_note_list_search).requestFocus();
+			MU.showSofeKeyboard(activity);
 			setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_active);
 		}
 	}

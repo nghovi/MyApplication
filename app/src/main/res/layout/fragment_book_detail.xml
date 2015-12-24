@@ -121,7 +121,9 @@
                             android:singleLine="true"
                             android:gravity="center_vertical|center_horizontal"
                             android:paddingLeft="60dp"
-                            android:paddingRight="60dp" />
+                            android:paddingRight="60dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
 
                         <LinearLayout
                             android:orientation="horizontal"

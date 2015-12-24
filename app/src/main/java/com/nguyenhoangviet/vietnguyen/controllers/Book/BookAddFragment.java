@@ -81,7 +81,7 @@ public class BookAddFragment extends AbstractBookFragment{
 		for(final String phrase : phrases){
 			View line = inflater.inflate(R.layout.item_phrase_edit, null);
 			setTextFor(line, R.id.txt_ipe_phrase, phrase);
-			setOnClickFor(line, R.id.img_ipe_delete, new View.OnClickListener() {
+			setOnClickFor(line, R.id.lnr_item_phrase_edit, new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){

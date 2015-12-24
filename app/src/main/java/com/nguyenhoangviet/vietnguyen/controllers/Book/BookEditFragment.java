@@ -89,28 +89,31 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
 		List<String> phrases = this.book.getWordUsage(word);
-		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
-		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
+		setFoldAction2(getView(itemBookWord, R.id.lnr_ibwe), R.id.lnr_item_book_word_word, getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibwe_phrases);
 		lnrPhrases.removeAllViews();
 		for(final String phrase : phrases){
 			View line = inflater.inflate(R.layout.item_phrase_edit, null);
 			setTextFor(line, R.id.txt_ipe_phrase, phrase);
-			setOnClickFor(line, R.id.img_ipe_delete, new View.OnClickListener() {
+			setOnClickFor(line, R.id.lnr_item_phrase_edit, new View.OnClickListener() {
 
 				@Override
 				public void onClick(View view){
-					dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
-
-						@Override
-						public void onClick(View view){
-							deletePhrase(word, phrase);
-						}
-					}).show();
+					showConfirmdDlgDeletePhrase(word, phrase);
 				}
 			});
 			lnrPhrases.addView(line);
 		}
+	}
+
+	private void showConfirmdDlgDeletePhrase(final String word, final String phrase) {
+		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				deletePhrase(word, phrase);
+			}
+		}).show();
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////

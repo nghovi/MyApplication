@@ -33,6 +33,7 @@ import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vietnguyen.models.GsonModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -194,6 +195,14 @@ public class MU{
 		}
 	}
 
+	public static void showSofeKeyboard(Activity activity){
+		View view = activity.getCurrentFocus();
+		if(view != null){
+			InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+		}
+	}
+
 	public static void picassaLoadImage(final String url, final ImageView imageView, Context context){
 		if(MU.isEmpty(url)){
 			return;
@@ -281,15 +290,16 @@ public class MU{
 		return ex.format(date);
 	}
 
-	public static boolean isInThePast(Date date) {
+	public static boolean isInThePast(Date date){
 		return date.getTime() < Calendar.getInstance().getTime().getTime();
 	}
 
-	public static String joinString(Iterable<? extends CharSequence> s, String delimiter) {
+	public static String joinString(Iterable<? extends CharSequence> s, String delimiter){
 		Iterator<? extends CharSequence> iter = s.iterator();
-		if (!iter.hasNext()) return "";
+		if(!iter.hasNext()) return "";
 		StringBuilder buffer = new StringBuilder(iter.next());
-		while (iter.hasNext()) buffer.append(delimiter).append(iter.next());
+		while(iter.hasNext())
+			buffer.append(delimiter).append(iter.next());
 		return buffer.toString();
 	}
 

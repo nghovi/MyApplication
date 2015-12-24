@@ -47,7 +47,9 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 
 	protected void buildCoverImage(){
 		addTextWatcherForBookImage();
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
+		if(!MU.isEmpty(book.iconUrl)){
+			MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
+		}
 	}
 
 	@Override
@@ -85,7 +87,11 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 			@Override
 			public void afterTextChanged(Editable editable){
 				String url = editable.toString();
-				MU.picassaLoadImage(url, getImageView(R.id.img_sbe_image), activity);
+				if(!MU.isEmpty(url)){
+					MU.picassaLoadImage(url, getImageView(R.id.img_sbe_image), activity);
+				}else{
+					getImageView(R.id.img_sbe_image).setImageResource(R.drawable.book_cover);
+				}
 			}
 		});
 	}
@@ -158,6 +164,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 	protected void deletePhrase(String word, String phrase){
 		book.deletePhraseForWord(word, phrase);
 		savedBookFromLayout();
+		buildVocabulary();
 	}
 
 	protected void savedBookFromLayout(){

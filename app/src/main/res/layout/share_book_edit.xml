@@ -36,7 +36,8 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="120dp"
-                        android:id="@+id/img_sbe_image" />
+                        android:id="@+id/img_sbe_image"
+                        android:src="@drawable/book_cover" />
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -144,7 +145,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cover"
+                            android:text="@string/share_book_edit_cover_image"
                             android:id="@+id/textView11" />
                     </LinearLayout>
 
@@ -153,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_sbe_icon_url"
                         android:visibility="gone"
-                        android:hint="Enter book image link" />
+                        android:hint="@string/share_book_edit_cover_link" />
                 </LinearLayout>
 
                 <View style="@style/core_line_divider"/>
@@ -181,7 +182,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Mood"
+                            android:text="@string/share_book_edit_book_msg"
                             android:id="@+id/textView13" />
                     </LinearLayout>
 
@@ -189,7 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edt_sbe_mood"
-                        android:hint="Enter  your short motto for this book"
+                        android:hint="@string/share_book_edit_motto_hint"
                         android:visibility="gone" />
                 </LinearLayout>
 

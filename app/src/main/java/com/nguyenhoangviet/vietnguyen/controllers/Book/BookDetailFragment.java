@@ -37,7 +37,11 @@ public class BookDetailFragment extends MyFragment{
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
-		MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_book_detail_image), activity);
+		if(!MU.isEmpty(book.iconUrl)){
+			MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_book_detail_image), activity);
+		}else{
+			getImageView(R.id.img_book_detail_image).setImageResource(R.drawable.book_cover);
+		}
 		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null);
 		setLinkFor(R.id.txt_book_link, book.link);
 		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
