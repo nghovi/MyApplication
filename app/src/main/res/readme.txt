@@ -7,6 +7,9 @@ alias is selfnote, password is y...
 Now i understannd why we shouldn't use match_parent, esp in item view. It can overlap other view!
 shift ctrl alt j
 one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-all-pendingintents-set-with-alarmmanager
+donot know why api 21 require internet permission to picasso load image
+
+
 
 -1. automatic model from json
 -2. find checked icon
@@ -40,30 +43,9 @@ one way to cancel alarm: http://stackoverflow.com/questions/4315611/android-get-
  30. Mark system for words that hard to remember
  31. bug: when editting book, note,... tap other icon footer.
 
+ --word api: https://www.wordsapi.com/
 
 
-
-
-
-An app for noting, tasking, and learning second language.
-
-
-We usually struggle to choose among tons of reach-features, note-like app.
-But I doubt that you ever tried all features of those.
-So you may need the really simple, easy-to-use but fast and convenience app.
-And here my app comes.
-Basically, we used this app to:
-- Write down our brilliant idea
-- Manage our daily task effectively so we can be more productive
-- Build our own vocabulary so we learn second language faster
-
-Right now, you don't need to have a network connection to use this app.
-Your data will not be saved to remote server. This secure your important data.
-
-Future, I will focus on improving above features, making them more useful, smart
-New features may come but only if it follows:
-- our rule: simple but powerful
-- our goal: be productive and happy
 
 
 

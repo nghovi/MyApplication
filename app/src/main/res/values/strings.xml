@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">V Note</string>
     <string name="facebook_app_id">966395066741035</string>
 
     <string name="core_footer_item1">Item1</string>
@@ -61,7 +61,7 @@
     <string name="take_video">Take Video</string>
     <string name="preview">Preview</string>
     <string name="remind">You must take a photo, then enter the Title and the Description</string>
-    <string name="title_activity_splash_screen">Note</string>
+    <string name="title_activity_splash_screen">V Note</string>
     <string name="title_activity_main">Main</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

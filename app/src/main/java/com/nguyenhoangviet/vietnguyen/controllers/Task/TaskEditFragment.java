@@ -50,7 +50,6 @@ public class TaskEditFragment extends AbstractTaskFragment{
 		// updateTask();
 		MU.hideSofeKeyboard(activity);
 		buildTaskFromLayout();
-		makeAlarmForNotice();
 		activity.backToFragment(TaskDetailFragment.class, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}
 

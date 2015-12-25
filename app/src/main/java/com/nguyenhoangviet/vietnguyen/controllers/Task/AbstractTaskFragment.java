@@ -135,6 +135,7 @@ public class AbstractTaskFragment extends MyFragment{
 		task.date = targetDate;
 		task.lastupdated = targetDate;
 		task.save();
+		makeAlarmForNotice();
 	}
 
 	protected void buildCalendarPicker(){
