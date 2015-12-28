@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Note;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
-public class NoteDetailFragment extends MyFragment{
+public class NoteDetailFragment extends FragmentOfMainActivity{
 
 	private Note				note;
 	public static final String	BUNDLE_KEY_NOTE	= "NOTE";
@@ -34,10 +35,11 @@ public class NoteDetailFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_note_detail_done, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				saveAndBack();
 			}
 		});
+		getMainActivity().footer.hide();
 	}
 
 	@Override
@@ -53,22 +55,22 @@ public class NoteDetailFragment extends MyFragment{
 
 				@Override
 				public void onClick(View view){
-					MU.hideSofeKeyboard(activity);
+					hideSofeKeyboard();
 					activity.backOneFragment();
 				}
 			}).show();
 		}else{
-			MU.hideSofeKeyboard(activity);
+			hideSofeKeyboard();
 			activity.backOneFragment();
 		}
 	}
 
 	private void saveAndBack(){
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		note.message = getEditText(R.id.edt_fragment_note_detail).getText().toString();
-		if (MU.isEmpty(note.message)) {
+		if(MU.isEmpty(note.message)){
 			note.delete();
-		} else {
+		}else{
 			note.date = new Date();
 			note.save();
 		}

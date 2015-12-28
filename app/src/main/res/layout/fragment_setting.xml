@@ -54,26 +54,48 @@
         <View style="@style/core_line_divider"/>
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:padding="16dp"
-            android:visibility="gone">
+            android:background="@color/bg_reading">
 
             <TextView
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"
-                android:text="@string/fragment_setting_show_mottos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_fragment_setting_motto" />
+                android:text="@string/fragment_setting_vocabulary_reading_speed"
+                android:id="@+id/textView17"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/slow"
+                    android:id="@+id/textView18" />
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seek_bar_fragment_setting"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fast"
+                    android:id="@+id/textView19" />
+            </LinearLayout>
 
         </LinearLayout>
+
+        <View style="@style/core_line_divider"/>
+
 
 
     </LinearLayout>

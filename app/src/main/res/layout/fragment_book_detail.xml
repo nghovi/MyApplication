@@ -235,16 +235,13 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1" />
+                        android:layout_marginRight="10dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/img_book_detail_add_vocabulary"
-                        android:src="@drawable/ico_star_16_on"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
+                        android:id="@+id/img_fragment_book_detail_speaker"
+                        android:src="@drawable/ico_speaker_16" />
                 </LinearLayout>
 
                 <LinearLayout

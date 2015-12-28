@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.model.SpinnerItemModel;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -19,7 +20,7 @@ import com.nguyenhoangviet.vietnguyen.core.views.widgets.CoreSpinner;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
-public class TaskSearchFragment extends MyFragment{
+public class TaskSearchFragment extends FragmentOfMainActivity{
 
 	public static final String	KEY_TASK_SEARCH_TEXT		= "task_search_by_text";
 	public static final String	KEY_TASK_SEARCH_PRIORITY	= "task_search_by_priority";
@@ -43,6 +44,7 @@ public class TaskSearchFragment extends MyFragment{
 		buildPriority();
 		buildStatus();
 		buildPreCondition();
+		getMainActivity().footer.hide();
 	}
 
 	private void buildSearchOnClick(){
@@ -50,7 +52,7 @@ public class TaskSearchFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_task_search_search, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				onClickSearchText();
 			}
 		});
@@ -60,7 +62,7 @@ public class TaskSearchFragment extends MyFragment{
 		setOnClickFor(R.id.txt_fragment_task_search_cancel, new View.OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
+			public void onClick(View view){
 				setTextFor(R.id.edt_fragment_task_search_text, "");
 				priority = Task.TASK_PRIORITIES_WITH_ANY[0];
 				taskStatus = Task.STATUS_ANY;
@@ -76,7 +78,7 @@ public class TaskSearchFragment extends MyFragment{
 		coreSpinnerPriority.initSpinner(activity, getSpinnerItemModelsForPriority(), new CoreSpinner.OnSpinnerItemSelected() {
 
 			@Override
-			public void onSpinnerItemSelected(SpinnerItemModel spinnerItemModel) {
+			public void onSpinnerItemSelected(SpinnerItemModel spinnerItemModel){
 				priority = spinnerItemModel.getName();
 			}
 		});
@@ -112,7 +114,7 @@ public class TaskSearchFragment extends MyFragment{
 	}
 
 	private void onClickSearchText(){
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
 		Map<String, Object> conditions = buildSearchConditions();
 		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, buildSearchConditions());

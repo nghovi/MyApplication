@@ -143,7 +143,7 @@ public class MyFragment extends Fragment{
 	}
 
 	public TextView createTextView(String str){
-		TextView tv = new TextView(activity);
+		TextView tv = new TextView(this.activity);
 		tv.setText(str);
 		return tv;
 	}
@@ -306,20 +306,20 @@ public class MyFragment extends Fragment{
 	}
 
 	public void showShortToast(String msg){
-		Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.activity, msg, Toast.LENGTH_SHORT).show();
 	}
 
 	public void showLongToast(String msg){
-		Toast.makeText(activity, msg, Toast.LENGTH_LONG).show();
+		Toast.makeText(this.activity, msg, Toast.LENGTH_LONG).show();
 	}
 
 	// ///////////////////////////////// NET WORK ///////////////////////////////////////////
 	public void getApi(String url, JSONObject param, Api.OnCallApiListener listener){
-		activity.getApi(url, param, listener);
+		this.activity.getApi(url, param, listener);
 	}
 
 	public void postApi(String url, JSONObject param, Api.OnCallApiListener listener){
-		activity.postApi(url, param, listener);
+		this.activity.postApi(url, param, listener);
 	}
 
 	// /////////////////////////// UTIL ///////////////////////////////////////
@@ -365,19 +365,19 @@ public class MyFragment extends Fragment{
 	}
 
 	protected void onClickBackBtn(){
-		activity.backOneFragment();
+		this.activity.backOneFragment();
 	}
 
 	// /////////////////////////////// onFunctions /////////////////////////////////////
 	@Override
 	public void onAttach(Activity activity){
 		MU.log("Fragment onAttach: " + this.getClass().toString());
-		super.onAttach(activity);
+		super.onAttach(this.activity);
 		try{
 			this.activity = (MyActivity)activity;
 			dlgBuilder = new DialogBuilder(this.activity);
 		}catch(ClassCastException e){
-			throw new ClassCastException(activity.toString() + " must be " + MyActivity.class.toString());
+			throw new ClassCastException(this.activity.toString() + " must be " + MyActivity.class.toString());
 		}
 	}
 

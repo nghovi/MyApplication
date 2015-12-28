@@ -4,12 +4,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
 
 import java.util.List;
 //abstract classes aren't enforced to implement methods on interface, great
-public abstract class MyFragmentWithList extends MyFragment implements  MyFragmentWithListInterface{
+public abstract class MyFragmentWithList extends FragmentOfMainActivity implements  MyFragmentWithListInterface{
 
 	protected List<MyModel> models;
 	protected MyArrayAdapter adapter;

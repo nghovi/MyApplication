@@ -23,6 +23,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		getMainActivity().footer.hide();
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 	@Override
 	protected void onClickBackBtn(){
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		if(!hasChangeData()){
 			activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		}else{

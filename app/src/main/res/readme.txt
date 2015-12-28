@@ -45,7 +45,8 @@ donot know why api 21 require internet permission to picasso load image
 
  --word api: https://www.wordsapi.com/
 
-
+ref:
+icon: https://www.iconfinder.com/icons/763392/audio_device_loudspeaker_outline_sound_speaker_stroke_up_volume_icon#size=64
 
 
 

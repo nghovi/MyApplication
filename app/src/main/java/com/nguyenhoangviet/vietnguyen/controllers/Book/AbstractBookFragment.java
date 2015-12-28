@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -15,7 +16,7 @@ import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
-public abstract class AbstractBookFragment extends MyFragment implements View.OnClickListener{
+public abstract class AbstractBookFragment extends FragmentOfMainActivity implements View.OnClickListener{
 
 	public final static String	KEY_UPDATED_BOOK	= "book_updated";
 	protected Book				book;
@@ -175,7 +176,7 @@ public abstract class AbstractBookFragment extends MyFragment implements View.On
 		book.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
 		book.link = getEditText(R.id.edt_sbe_link).getText().toString();
 		book.save();
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 	}
 
 	protected boolean hasChangeData(){

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DateTimePicker;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
@@ -29,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class AbstractTaskFragment extends MyFragment{
+public class AbstractTaskFragment extends FragmentOfMainActivity{
 
 	protected Date			targetDate;
 	protected Task			task;

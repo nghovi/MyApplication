@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
 import com.activeandroid.query.Select;
+import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
@@ -18,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class BookSearchFragment extends MyFragment{
+public class BookSearchFragment extends FragmentOfMainActivity{
 
 	public static final String	KEY_BOOK_SEARCH_WORD		= "book_search_by_word";
 	public static final String	KEY_BOOK_SEARCH_NAME		= "book_search_by_name";
@@ -37,6 +38,7 @@ public class BookSearchFragment extends MyFragment{
 		buildPreCondition();
 		buildOnCancelSearch();
 		buildOnClickSearch();
+		getMainActivity().footer.hide();
 	}
 
 	private void buildOnClickSearch(){
@@ -103,7 +105,7 @@ public class BookSearchFragment extends MyFragment{
 	}
 
 	private void onClickSearchText(){
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		String word = getEditText(R.id.edt_fragment_book_search_word).getText().toString();
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
 		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();

@@ -179,7 +179,7 @@ public class TaskListFragment extends MyFragmentWithList{
 
 	@Override
 	public void initAdapter(){
-		adapter = new TaskListAdapter(activity, R.layout.item_task);
+		adapter = new TaskListAdapter(this.activity, R.layout.item_task);
 	}
 
 	@Override

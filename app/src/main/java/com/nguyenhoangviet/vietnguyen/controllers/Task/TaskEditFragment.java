@@ -28,6 +28,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		buildEditText();
+		getMainActivity().footer.hide();
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 
 	private void saveTask(){
 		// updateTask();
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		buildTaskFromLayout();
 		activity.backToFragment(TaskDetailFragment.class, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}

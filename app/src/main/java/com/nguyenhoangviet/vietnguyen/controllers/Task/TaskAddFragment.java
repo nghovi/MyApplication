@@ -30,6 +30,7 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	protected void buildLayout(){
 		super.buildLayout();
 		goneView(R.id.lnr_share_task_edit_status);
+		getMainActivity().footer.hide();
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	}
 
 	private void addNewTask(){
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		buildTaskFromLayout();
 		backToTaskList();
 		// Try to save to server

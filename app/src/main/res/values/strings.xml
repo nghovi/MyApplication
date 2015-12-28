@@ -21,6 +21,8 @@
     <string name="back">Back</string>
     <string name="delete_all">Delete All</string>
     <string name="done">Done</string>
+    <string name="slow">Slow</string>
+    <string name="fast">Fast</string>
 
 
     <!-- footer -->
@@ -106,6 +108,6 @@
     <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished</string>
     <string name="fragment_task_mark_tas_status_finished">Mark as finished</string>
     <string name="fragment_task_update_notice_time">Update remind time</string>
-
+    <string name="fragment_setting_vocabulary_reading_speed">Vocabulary Reading Speed</string>
 
 </resources>

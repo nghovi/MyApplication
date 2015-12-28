@@ -31,6 +31,7 @@ public class BookAddFragment extends AbstractBookFragment{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
+		getMainActivity().footer.hide();
 	}
 
 	@Override

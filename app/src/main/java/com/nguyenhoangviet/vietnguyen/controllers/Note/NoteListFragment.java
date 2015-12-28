@@ -41,6 +41,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 
 	@Override
 	protected void onClickItem(final MyModel model){
+		hideSofeKeyboard();
 		activity.addFragment(new NoteDetailFragment(), NoteDetailFragment.BUNDLE_KEY_NOTE, (Note)model);
 	}
 
@@ -157,15 +158,17 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 
 	private void onClickSearchIcon(){
 		if(isSearching){
+			hideSofeKeyboard();
 			cancelSearching();
-			MU.hideSofeKeyboard(activity);
+			getMainActivity().footer.show();
 		}else{
 			isSearching = true;
+			getMainActivity().footer.hide();
 			goneView(R.id.txt_fragment_note_list_edit);
 			goneView(R.id.lnr_fragment_note_list_add);
 			visibleView(R.id.edt_fragment_note_list_search);
 			getEditText(R.id.edt_fragment_note_list_search).requestFocus();
-			MU.showSofeKeyboard(activity);
+			showSofeKeyboard();
 			setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_active);
 		}
 	}
@@ -176,7 +179,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		visibleView(R.id.lnr_fragment_note_list_add);
 		goneView(R.id.edt_fragment_note_list_search);
 		setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_inactive);
-		MU.hideSofeKeyboard(activity);
+		hideSofeKeyboard();
 		reloadNotes();
 	}
 

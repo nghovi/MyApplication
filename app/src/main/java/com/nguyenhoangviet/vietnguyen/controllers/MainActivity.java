@@ -85,7 +85,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	}
 
 	private void gotoNoteListdFragment(){
-		footer.show();
 		NoteListFragment noteListFragment = new NoteListFragment();
 		replaceWithFragment(noteListFragment);
 	}
@@ -156,7 +155,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	@Override
 	public void onClick(View view){
-		MU.hideSofeKeyboard(this);
 		switch(view.getId()){
 		case R.id.lnr_footer_item1:
 			onClickFooterItem1();
@@ -192,7 +190,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	}
 
 	private void gotoPrimaryCardFragment(){
-		footer.show();
 		PrimaryCardFragment primaryCardFragment = new PrimaryCardFragment();
 		replaceWithFragment(primaryCardFragment);
 	}

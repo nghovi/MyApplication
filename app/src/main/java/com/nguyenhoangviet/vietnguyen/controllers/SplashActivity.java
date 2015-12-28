@@ -10,7 +10,7 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 public class SplashActivity extends MyActivity{
 
 	// Splash screen timer
-	private static int	SPLASH_TIME_OUT	= 1000;
+	private static int	SPLASH_TIME_OUT	= 500;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){

@@ -15,6 +15,7 @@ import com.nguyenhoangviet.vietnguyen.controllers.Background;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
 //import com.facebook.AccessToken;
 
 /**
@@ -28,7 +29,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	protected Api				api;
 
 	protected FragmentManager	mFragmentManager;
-//	private AccessToken			accessToken;
+	// private AccessToken accessToken;
 	public Background			bg;
 
 	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
@@ -116,6 +117,11 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		return pref.getInt(preferenceName, defaultValue);
 	}
 
+	public long getLongPreference(String preferenceName, long defaultValue){
+		SharedPreferences pref = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+		return pref.getLong(preferenceName, defaultValue);
+	}
+
 	public void saveStringPreference(String key, String value){
 		SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
 		editor.putString(key, value);
@@ -125,6 +131,12 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public void saveIntPreference(String key, int value){
 		SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
 		editor.putInt(key, value);
+		editor.commit();
+	}
+
+	public void saveLongPreference(String key, long value){
+		SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
+		editor.putLong(key, value);
 		editor.commit();
 	}
 
