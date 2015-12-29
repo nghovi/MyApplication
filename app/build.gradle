@@ -18,6 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        develop {
+            buildConfigField "Boolean", "DEVELOP", "true"
+        }
+        production {
+            buildConfigField "Boolean", "DEVELOP", "false"
+        }
+    }
 }
 
 repositories {

@@ -19,6 +19,7 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 public abstract class AbstractBookFragment extends FragmentOfMainActivity implements View.OnClickListener{
 
 	public final static String	KEY_UPDATED_BOOK	= "book_updated";
+	public final static String	BOOK_COVER_PREFIX	= "book_cover";
 	protected Book				book;
 	protected String			newWord;
 
@@ -49,7 +50,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	protected void buildCoverImage(){
 		addTextWatcherForBookImage();
 		if(!MU.isEmpty(book.iconUrl)){
-			MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity);
+			MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
 		}
 	}
 
@@ -88,8 +89,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			@Override
 			public void afterTextChanged(Editable editable){
 				String url = editable.toString();
-				if(!MU.isEmpty(url)){
-					MU.picassaLoadImage(url, getImageView(R.id.img_sbe_image), activity);
+				if(!MU.isEmpty(url) && !url.equals(book.iconUrl)){
+					MU.picassaLoadAndSaveImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity, AbstractBookFragment.getBookImageFileName(book));
 				}else{
 					getImageView(R.id.img_sbe_image).setImageResource(R.drawable.book_cover);
 				}
@@ -181,6 +182,10 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	protected boolean hasChangeData(){
 		return (book.author != null && !getEditText(R.id.edt_sbe_author).getText().toString().equals(book.author)) || (book.name != null && !getEditText(R.id.edt_sbe_name).getText().toString().equals(book.name)) || !getEditText(R.id.edt_sbe_link).getText().toString().equals(book.link) || (book.comment != null && !getEditText(R.id.edt_sbe_comment).getText().toString().equals(book.comment)) || !getEditText(R.id.edt_sbe_icon_url).getText().toString().equals(book.iconUrl) || (book.mood != null && !getEditText(R.id.edt_sbe_mood).getText().toString().equals(book.mood));
+	}
+
+	public static String getBookImageFileName(Book book){
+		return BOOK_COVER_PREFIX + String.valueOf(book.getId());
 	}
 
 	public void setBook(Book book){

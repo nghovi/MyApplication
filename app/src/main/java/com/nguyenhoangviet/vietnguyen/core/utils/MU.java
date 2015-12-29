@@ -33,6 +33,7 @@ import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vietnguyen.models.GsonModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nguyenhoangviet.vietnguyen.myapplication.BuildConfig;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -48,13 +49,17 @@ public class MU{
 	public static String	LOG_TAG		= "******";
 
 	public static void log(){
-		LOG_COUNTER++;
-		Log.e(LOG_TAG, String.valueOf(LOG_COUNTER));
+		if(BuildConfig.DEVELOP){
+			LOG_COUNTER++;
+			Log.e(LOG_TAG, String.valueOf(LOG_COUNTER));
+		}
 	}
 
 	public static void log(String msg){
-		LOG_COUNTER++;
-		Log.e(LOG_TAG, String.valueOf(LOG_COUNTER) + ' ' + msg);
+		if(BuildConfig.DEVELOP){
+			LOG_COUNTER++;
+			Log.e(LOG_TAG, String.valueOf(LOG_COUNTER) + ' ' + msg);
+		}
 	}
 
 	public static void log(String msg, JSONObject jsonObject){
@@ -205,13 +210,17 @@ public class MU{
 		});
 	}
 
-	public static void loadImage(String fileName, ImageView imageView, Context context){
+	public static void loadImage(Context context, String url, String fileName, ImageView imageView){
 		File f = getImageFile(fileName, context);
-		try{
-			Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-			imageView.setImageBitmap(b);
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
+		if(f.exists()){
+			try{
+				Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+				imageView.setImageBitmap(b);
+			}catch(FileNotFoundException e){
+				e.printStackTrace();
+			}
+		}else{
+			picassaLoadAndSaveImage(url, imageView, context, fileName);
 		}
 	}
 

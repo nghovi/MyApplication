@@ -40,7 +40,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	public TimerTask			timerTaskShowGoodSay;
 	// public static TimerTask timerTaskRemindTask;
 
-	public static final long	SHOW_GOOD_SAY_PERIOD_MS	= 1 * 60 * 1000;	// 1 minute
+	public static final long	SHOW_GOOD_SAY_PERIOD_MS	= 10 * 60 * 1000;	// 10 minute
 	public static final long	REMIND_TASK_PERIOD_MS	= 5 * 60 * 1000;	// 5 minute
 	public static final int		CMD_SHOW_GOOD_SAY		= 1001;
 	// public static final int CMD_REMIND_TASK = 1002;

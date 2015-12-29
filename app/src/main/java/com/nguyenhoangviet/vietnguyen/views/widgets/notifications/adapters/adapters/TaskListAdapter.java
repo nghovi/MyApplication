@@ -24,7 +24,7 @@ public class TaskListAdapter extends MyArrayAdapter<Task> {
 	@Override
 	protected void buildItemLayout(View convertView, Task task) {
 		if(task.status == Task.STATUS_FINISHED){
-			ImageView imgStatus = (ImageView)convertView.findViewById(R.id.img_icon);
+			ImageView imgStatus = (ImageView)convertView.findViewById(R.id.item_book_img_icon);
 			imgStatus.setImageResource((R.drawable.ico_checked));
 		}
 		TextView txt1 = (TextView)convertView.findViewById(R.id.txt1);

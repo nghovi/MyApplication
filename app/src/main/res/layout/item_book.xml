@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="60dp"
-        android:id="@+id/img_icon"
+        android:id="@+id/item_book_img_icon"
         android:src="@drawable/book_cover"
         android:layout_marginRight="10dp"
         android:layout_gravity="center" />

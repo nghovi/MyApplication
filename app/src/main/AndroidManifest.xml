@@ -37,7 +37,7 @@
 
     <application
         android:icon="@drawable/ico_note_32_on"
-        android:name="com.activeandroid.app.Application"
+        android:name="com.nguyenhoangviet.vietnguyen.core.controller.MyApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">

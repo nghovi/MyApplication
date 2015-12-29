@@ -59,7 +59,7 @@ public class BookDetailFragment extends MyFragment{
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
 		if(!MU.isEmpty(book.iconUrl)){
-			MU.picassaLoadImage(book.iconUrl, getImageView(R.id.img_book_detail_image), activity);
+			MU.loadImage(activity, book.iconUrl, AbstractBookFragment.getBookImageFileName(book), getImageView(R.id.img_book_detail_image));
 		}else{
 			getImageView(R.id.img_book_detail_image).setImageResource(R.drawable.book_cover);
 		}

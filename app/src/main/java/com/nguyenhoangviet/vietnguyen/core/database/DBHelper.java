@@ -1,15 +1,11 @@
 package com.nguyenhoangviet.vietnguyen.core.database;
 
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.nguyenhoangviet.vietnguyen.core.ImageEntity;
 
 /**
  * Created by viet on 6/24/2015.
@@ -82,24 +78,24 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { Integer.toString(id) });
     }
 
-    public ArrayList<ImageEntity> getAllImages()
-    {
-        ArrayList<ImageEntity> array_list = new ArrayList<ImageEntity>() ;
-
-        //hp = new HashMap();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from images", null );
-        res.moveToFirst();
-
-        while(res.isAfterLast() == false){
-            ImageEntity imageEntity = new ImageEntity(
-                    res.getString(res.getColumnIndex(IMAGES_COLUMN_TITLE)),
-                    res.getString(res.getColumnIndex(IMAGES_COLUMN_DESCRIPTION)),
-                    res.getString(res.getColumnIndex(IMAGES_COLUMN_PATH))
-            );
-            array_list.add(imageEntity);
-            res.moveToNext();
-        }
-        return array_list;
-    }
+//    public ArrayList<ImageEntity> getAllImages()
+//    {
+//        ArrayList<ImageEntity> array_list = new ArrayList<ImageEntity>() ;
+//
+//        //hp = new HashMap();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor res =  db.rawQuery( "select * from images", null );
+//        res.moveToFirst();
+//
+//        while(res.isAfterLast() == false){
+//            ImageEntity imageEntity = new ImageEntity(
+//                    res.getString(res.getColumnIndex(IMAGES_COLUMN_TITLE)),
+//                    res.getString(res.getColumnIndex(IMAGES_COLUMN_DESCRIPTION)),
+//                    res.getString(res.getColumnIndex(IMAGES_COLUMN_PATH))
+//            );
+//            array_list.add(imageEntity);
+//            res.moveToNext();
+//        }
+//        return array_list;
+//    }
 }

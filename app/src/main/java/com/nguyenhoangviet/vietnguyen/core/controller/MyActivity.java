@@ -1,5 +1,7 @@
 package com.nguyenhoangviet.vietnguyen.core.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -8,6 +10,8 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 
@@ -205,6 +209,27 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 			String fragmentName = mFragmentManager.getBackStackEntryAt(i).getName();
 			MU.log(fragmentName);
 		}
+	}
+
+	public String convertStreamToString(InputStream s){
+		return s.toString();
+	}
+
+	public String getStringFromRawFile(Activity activity) throws IOException{
+		Resources r = activity.getResources();
+		InputStream is = r.openRawResource(R.raw.test);
+		// assuming you have a function to convert a stream to a string
+		String myText = convertStreamToString(is);
+		is.close(); // take care of exceptions etc.
+		return myText;
+	}
+
+	public String getStringFromAssetFile(Activity activity) throws IOException{
+		AssetManager am = activity.getAssets();
+		InputStream is = am.open("test.txt");
+		String s = convertStreamToString(is);
+		is.close();
+		return s;
 	}
 
 	// public void setAccessToken(AccessToken accessToken){
