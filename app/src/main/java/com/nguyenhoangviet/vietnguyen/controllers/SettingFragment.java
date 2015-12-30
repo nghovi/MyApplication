@@ -1,5 +1,6 @@
 package com.nguyenhoangviet.vietnguyen.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 public class SettingFragment extends MyFragment{
 
+	// public static final int INTENT_REQUEST_CODE_SEND_EMAIL = 1001;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class SettingFragment extends MyFragment{
 	public void buildLayout(){
 		buildPushNotification();
 		buildSeekBar();
+		buildContact();
 	}
 
 	private void buildPushNotification(){
@@ -69,6 +73,28 @@ public class SettingFragment extends MyFragment{
 
 			}
 		});
+	}
+
+	public void buildContact(){
+		setOnClickFor(R.id.txt_fragment_setting_email, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v){
+				chooseEmailActivity();
+			}
+		});
+	}
+
+	private void chooseEmailActivity(){
+		Intent emailIntent = new Intent(Intent.ACTION_SEND);
+		emailIntent.setType("message/rfc822");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{getString(R.string.fragment_setting_email)});
+		emailIntent.putExtra(android.content.Intent.EXTRA_CC, getString(R.string.fragment_setting_email_cc));
+		emailIntent.putExtra(android.content.Intent.EXTRA_BCC, "");
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.fragment_setting_email_subject));
+		emailIntent.setType("text/html");
+
+		startActivity(Intent.createChooser(emailIntent, getString(R.string.fragment_setting_email_choose_sender)));
 	}
 
 	public void builMottos(){

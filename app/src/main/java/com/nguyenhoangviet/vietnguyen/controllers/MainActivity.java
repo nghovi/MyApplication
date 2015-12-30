@@ -1,9 +1,11 @@
 package com.nguyenhoangviet.vietnguyen.controllers;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Note.NoteListFragment;
@@ -147,11 +149,18 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	// // fbProfile.
 	// }
 	//
-	// @Override
-	// public void onActivityResult(int requestCode, int resultCode, Intent data){
-	// super.onActivityResult(requestCode, resultCode, data);
-	// fbCallbackManager.onActivityResult(requestCode, resultCode, data);
-	// }
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		// super.onActivityResult(requestCode, resultCode, data);
+		// // fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+		// switch(requestCode){
+		// case SettingFragment.INTENT_REQUEST_CODE_SEND_EMAIL:
+		// Toast.makeText(this, getString(R.string.fragment_setting_thank_you), Toast.LENGTH_LONG).show();
+		// break;
+		// default:
+		// break;
+		// }
+	}
 
 	@Override
 	public void onClick(View view){
