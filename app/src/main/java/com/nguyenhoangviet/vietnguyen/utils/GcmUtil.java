@@ -47,9 +47,9 @@ public class GcmUtil{
 			Intent intent = new Intent(context, MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.putExtra(BUNDLE_KEY_NOTICE, notice.toString());
-			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notice.title)).setContentText(notice.message);
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notice.title)).setContentText(notice.title);
 			mBuilder.setAutoCancel(true);
-			mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+			mBuilder.setSmallIcon(R.drawable.ico_note_32_on);
 
 			mBuilder.setTicker(notice.title);
 			mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
