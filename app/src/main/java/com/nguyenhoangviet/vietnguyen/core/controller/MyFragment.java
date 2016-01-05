@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,10 @@ public class MyFragment extends Fragment{
 
 	public EditText getEditText(int viewId){
 		return (EditText)getView().findViewById(viewId);
+	}
+
+	public ScrollView getScrollView(int viewId){
+		return (ScrollView)getView().findViewById(viewId);
 	}
 
 	public EditText getEditText(View v, int viewId){
@@ -352,6 +357,34 @@ public class MyFragment extends Fragment{
 	protected void buildLayout(){
 		MU.log("Fragment buildLayout: " + this.getClass().toString());
 		setBackBtnOnClick();
+	}
+
+	public interface VirtualItemLayoutBuilder{
+
+		public void buildItemLayout(View itemRoot, Object itemData);
+	}
+
+	/*
+	 * It's not good now buy not using removeFromVirtualListFunction
+	 * But it's acceptable by rebuilding the list since its small.
+	 */
+	public void buildVirtualListByLinearLayout(int lnrParentId, int itemLayoutId, List data, VirtualItemLayoutBuilder builder){
+		LinearLayout parent = getLinearLayout(lnrParentId);
+		parent.removeAllViews();
+		LayoutInflater inflater = activity.getLayoutInflater();
+		for(Object itemData : data){
+			View itemRoot = inflater.inflate(itemLayoutId, null);
+			builder.buildItemLayout(itemRoot, itemData);
+			parent.addView(itemRoot);
+		}
+	}
+
+	public void addToVirtualList(int lnrParentId, int itemLayoutId, Object itemData, VirtualItemLayoutBuilder builder){
+		LinearLayout parent = getLinearLayout(lnrParentId);
+		LayoutInflater inflater = activity.getLayoutInflater();
+		View itemRoot = inflater.inflate(itemLayoutId, null);
+		builder.buildItemLayout(itemRoot, itemData);
+		parent.addView(itemRoot);
 	}
 
 	protected void setBackBtnOnClick(){

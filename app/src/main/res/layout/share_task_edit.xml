@@ -1,174 +1,185 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/core_white"
     android:orientation="vertical"
-    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment"
-    android:background="@color/core_white">
+    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment">
 
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView4" >
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollview_share_task_edit" >
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:id="@+id/lnr_share_task_edit_date"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/lnr_share_task_edit_date"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Date: "
-                        android:id="@+id/textView6" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Today"
-                        android:id="@+id/txt_share_task_edit_date"
-                        android:textColor="@color/core_blue"
-                        android:layout_alignParentEnd="false"
-                        android:layout_alignParentRight="true"
                         android:layout_gravity="center"
-                        android:textIsSelectable="true" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal">
-
-                    <LinearLayout
+                        android:gravity="center_vertical|center_horizontal"
                         android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="30dp"
-                        android:id="@+id/lnr_share_task_edit_priority">
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp">
 
                         <TextView
+                            android:id="@+id/textView6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Priority: "
-                            android:id="@+id/textView" />
+                            android:text="Date: " />
 
                         <TextView
+                            android:id="@+id/txt_share_task_edit_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
-                            android:id="@+id/txt_share_task_edit_priority"
-                            android:textColor="@color/core_blue"/>
+                            android:layout_alignParentEnd="false"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:text="Today"
+                            android:textColor="@color/core_blue"
+                            android:textIsSelectable="true" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lnr_share_task_edit_status"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/lnr_share_task_edit_priority"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status: "
-                            android:id="@+id/textView8" />
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="30dp"
+                            android:paddingTop="10dp">
 
-                        <TextView
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Priority: " />
+
+                            <TextView
+                                android:id="@+id/txt_share_task_edit_priority"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10"
+                                android:textColor="@color/core_blue" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnr_share_task_edit_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Not Done"
-                            android:id="@+id/txt_share_task_edit_status"
-                            android:textColor="@color/core_blue" />
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status: " />
+
+                            <TextView
+                                android:id="@+id/txt_share_task_edit_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Not Done"
+                                android:textColor="@color/core_blue" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
+
+                    <EditText
+                        android:id="@+id/edt_share_task_edit_name"
+                        style="@style/core_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Name" />
+
+                    <EditText
+                        android:id="@+id/edt_share_task_edit_description"
+                        style="@style/core_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="left|top"
+                        android:hint="Description"
+                        android:inputType="textMultiLine"
+                        android:minLines="4" />
+
+                    <EditText
+                        android:id="@+id/edt_share_task_edit_comment"
+                        style="@style/core_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Comment"
+                        android:inputType="textMultiLine" />
                 </LinearLayout>
-
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edt_share_task_edit_name"
-                    android:hint="Name"
-                    android:layout_marginBottom="10dp"
-                    style="@style/core_edit_text" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:id="@+id/edt_share_task_edit_description"
-                    android:hint="Description"
-                    android:layout_marginBottom="10dp"
-                    style="@style/core_edit_text"
-                    android:minLines="4"
-                    android:gravity="left|top" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:id="@+id/edt_share_task_edit_comment"
-                    android:hint="Comment"
-                    style="@style/core_edit_text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/lnr_share_task_edit_remind"
-                android:padding="16dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:id="@+id/lnr_share_task_edit_remind"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Remind at:"
-                        android:id="@+id/textView16"
-                        android:layout_marginRight="20dp" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:text="Remind at:" />
+
+                        <ImageView
+                            android:id="@+id/img_share_task_edit_add_remind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ico_add_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lst_share_task_edit_remind"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/img_share_task_edit_add_remind"
-                        android:src="@drawable/ico_add_24" />
+                        android:orientation="vertical" />
+
+
                 </LinearLayout>
-
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lst_share_task_edit_remind" />
-
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>

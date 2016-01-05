@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -71,15 +73,22 @@ public class TaskDetailFragment extends MyFragment{
 
 	private void buildNotices(){
 		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
-		ListView lstNotice = getListView(R.id.lst_fragment_task_detail_remind);
-		NoticeAdapter adapter = new NoticeAdapter(activity, notices, false, null);
-		lstNotice.setAdapter(adapter);
+		buildVirtualListByLinearLayout(R.id.lst_fragment_task_detail_remind, R.layout.item_notice, notices, new VirtualItemLayoutBuilder() {
+
+			@Override
+			public void buildItemLayout(View itemRoot, Object itemData){
+				TextView txtDate = (TextView)itemRoot.findViewById(R.id.txt_item_remind_time_date);
+				txtDate.setText(MU.getDateTimeForDisplaying(((Notice)itemData).noticeDate));
+				ImageView imgDeleteIcon = (ImageView)itemRoot.findViewById(R.id.img_item_remind_time_delete);
+				imgDeleteIcon.setVisibility(View.GONE);
+			}
+		});
 	}
 
-	// @Override
-	// protected void onClickBackBtn(){
-	// //backToTaskList();
-	// }
+	@Override
+	protected void onClickBackBtn(){
+		backToTaskList();
+	}
 
 	private void onDeleteIconClicked(){
 

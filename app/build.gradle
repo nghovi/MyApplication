@@ -8,7 +8,7 @@ android {
         applicationId "com.nguyenhoangviet.vietnguyen.myapplication"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 7
+        versionCode 8
         versionName "1.0"
         multiDexEnabled true
     }

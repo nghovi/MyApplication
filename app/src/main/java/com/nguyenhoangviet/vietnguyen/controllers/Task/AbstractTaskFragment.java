@@ -6,7 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
@@ -30,14 +33,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class AbstractTaskFragment extends FragmentOfMainActivity{
+public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFragment.VirtualItemLayoutBuilder{
 
 	protected Date			targetDate;
 	protected Task			task;
 	protected List<Notice>	savedNotices	= new ArrayList<Notice>();
 	protected int			priority		= 1;
 	protected int			status			= 0;
-	private NoticeAdapter	adapter;
+
+	// private NoticeAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -174,30 +178,12 @@ public class AbstractTaskFragment extends FragmentOfMainActivity{
 				onClickAddRemind();
 			}
 		});
+		buildNoticeLayouts();
+	}
+
+	private void buildNoticeLayouts(){
 		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
-		ListView lstNotice = getListView(R.id.lst_share_task_edit_remind);
-		lstNotice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-				Notice selectedNotice = adapter.getItem(i);
-				onClickUpdateNotice(selectedNotice);
-			}
-		});
-		adapter = new NoticeAdapter(activity, notices, true, new NoticeAdapter.OnNoticeDelete() {
-
-			@Override
-			public void onDelete(Notice notice){
-				if(savedNotices.contains(notice)){
-					savedNotices.remove(notice);
-				}
-				notice.isDeleted = true;
-				notice.save();
-				adapter.data.remove(notice);
-				adapter.notifyDataSetChanged();
-			}
-		});
-		lstNotice.setAdapter(adapter);
+		buildVirtualListByLinearLayout(R.id.lst_share_task_edit_remind, R.layout.item_notice, notices, this);
 	}
 
 	private void onClickAddRemind(){
@@ -229,15 +215,22 @@ public class AbstractTaskFragment extends FragmentOfMainActivity{
 		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
 		savedNotices.add(newNotice);
 		task.addNoticeIdWithoutSave(newNotice.getId().toString());
-		adapter.data.add(newNotice);
-		adapter.notifyDataSetChanged();
+		addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
+		final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
+		scrollView.post(new Runnable() {
+
+			@Override
+			public void run(){
+				scrollView.fullScroll(View.FOCUS_DOWN);
+			}
+		});
 	}
 
 	private void updateNotice(Calendar c, Notice notice){
 		notice.noticeDate = c.getTime();
 		notice.isRemoteSaved = false;
 		notice.save();
-		adapter.notifyDataSetChanged();
+		buildNoticeLayouts();
 	}
 
 	protected void deleteUnUsedNotices(){
@@ -317,4 +310,27 @@ public class AbstractTaskFragment extends FragmentOfMainActivity{
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
 		// activity.backOneFragment();
 	}
+
+	@Override
+	public void buildItemLayout(View itemRoot, Object itemData){
+		final Notice notice = (Notice)itemData;
+		final TextView txtDate = (TextView)itemRoot.findViewById(R.id.txt_item_remind_time_date);
+		txtDate.setText(MU.getDateTimeForDisplaying(notice.noticeDate));
+		ImageView imgDeleteIcon = (ImageView)itemRoot.findViewById(R.id.img_item_remind_time_delete);
+		imgDeleteIcon.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				if(savedNotices.contains(notice)){
+					savedNotices.remove(notice);
+				}
+				notice.delete();
+				buildNoticeLayouts();
+			}
+		});
+	}
 }
+
+/*
+ * Do not use listview inside scrollview
+ */

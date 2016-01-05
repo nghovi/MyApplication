@@ -14,21 +14,20 @@ import com.nguyenhoangviet.vietnguyen.utils.GcmUtil;
  */
 public class NotificationService extends IntentService{
 
-	public final static int		NOTIFICATION_ID	= 1;
-
 	private NotificationManager	mNotificationManager;
 
 	public NotificationService(){
-		super("QkLocalIntentService");
+		super("NotificationService");
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent){
 		Bundle bundle = intent.getExtras();
 		mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+		String noticeId = bundle.getString(GcmUtil.BUNDLE_KEY_NOTICE_ID);
 		Notification notification = GcmUtil.makeNotification(this, bundle);
 		if(notification != null){
-			mNotificationManager.notify(NOTIFICATION_ID, notification);
+			mNotificationManager.notify(Integer.valueOf(noticeId), notification);
 		}
 	}
 }

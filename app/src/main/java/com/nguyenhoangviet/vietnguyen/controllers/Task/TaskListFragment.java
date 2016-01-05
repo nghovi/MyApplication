@@ -99,7 +99,7 @@ public class TaskListFragment extends MyFragmentWithList{
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
-						// reloadDailyTasks();
+						reloadDailyTasks();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");

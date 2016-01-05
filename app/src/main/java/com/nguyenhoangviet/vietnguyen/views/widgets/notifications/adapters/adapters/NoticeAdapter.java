@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vietnguyen.models.Notice;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
@@ -17,32 +18,24 @@ import java.util.ArrayList;
 /**
  * Created by viet on 8/13/2015.
  */
-public class NoticeAdapter extends ArrayAdapter<Notice>{
+public class NoticeAdapter extends MyArrayAdapter<Notice>{
 
-	private Context					context;
-	public ArrayList<Notice>		data;
-	private static LayoutInflater	inflater	= null;
-	private boolean					isEditable	= false;
-	private OnNoticeDelete onDeleteListener;
+	private boolean			isEditable	= false;
+	private OnNoticeDelete	onDeleteListener;
 
 	public NoticeAdapter(Context context, ArrayList<Notice> data, boolean isEditable, OnNoticeDelete listener){
 		super(context, R.layout.item_notice, data);
-		this.context = context;
-		this.data = data;
 		this.isEditable = isEditable;
 		this.onDeleteListener = listener;
 	}
 
-	public interface OnNoticeDelete {
+	public interface OnNoticeDelete{
 
 		public void onDelete(Notice notice);
 	}
 
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent){
-		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		final Notice notice = this.getItem(position);
-		convertView = inflater.inflate(R.layout.item_notice, null);
+	protected void buildItemLayout(View convertView, final Notice notice){
 		TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_remind_time_date);
 		txtDate.setText(MU.getDateTimeForDisplaying(notice.noticeDate));
 		ImageView imgDeleteIcon = (ImageView)convertView.findViewById(R.id.img_item_remind_time_delete);
@@ -59,6 +52,5 @@ public class NoticeAdapter extends ArrayAdapter<Notice>{
 		}else{
 			imgDeleteIcon.setVisibility(View.GONE);
 		}
-		return convertView;
 	}
 }

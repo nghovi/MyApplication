@@ -94,6 +94,8 @@
     <color name="facebook1">#8b9dc3</color>
     <color name="facebook2">#dfe3ee</color>
     <color name="facebook3">#f7f7f7</color>
+
     <color name="bg_reading">#FAFAC8</color>
+    <color name="label">#C0C0C0</color>
 
 </resources>

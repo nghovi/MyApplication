@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -160,6 +161,35 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// default:
 		// break;
 		// }
+	}
+
+	boolean	doubleBackToExitPressedOnce	= false;
+
+	@Override
+	public void onBackPressed(){
+		if(getFragmentManager().getBackStackEntryCount() <= 1){
+			setDoubleBackPressedToFinish();
+		}else{
+			backOneFragment();
+		}
+	}
+
+	public void setDoubleBackPressedToFinish(){
+		if(this.doubleBackToExitPressedOnce){
+			finish();
+			return;
+		}
+
+		this.doubleBackToExitPressedOnce = true;
+		Toast.makeText(this, getString(R.string.main_activity_back_btn_guide), Toast.LENGTH_SHORT).show();
+
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run(){
+				doubleBackToExitPressedOnce = false;
+			}
+		}, 2000);
 	}
 
 	@Override

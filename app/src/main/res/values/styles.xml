@@ -40,19 +40,26 @@
     </style>
 
 
-    <style name="cs_common_match">
+    <style name="core_match">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="cs_common_wrap">
+    <style name="core_wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="cs_common_match_wrap">
+    <style name="core_match_wrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="core_label_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/label</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
 

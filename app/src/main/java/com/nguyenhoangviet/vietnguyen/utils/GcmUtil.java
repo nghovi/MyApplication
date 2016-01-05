@@ -25,6 +25,7 @@ public class GcmUtil{
 
 	public final static String	BUNDLE_KEY_NOTICE		= "NOTICE_STRING";
 	public final static String	BUNDLE_KEY_NOTICE_ID	= "NOTICE_ID";
+	public int					requestCode				= 1234;
 
 	/**
 	 * make notification, this function will be used for both local (with AlarmManager) and remote (with Gcm)
@@ -44,6 +45,7 @@ public class GcmUtil{
 		Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).executeSingle();
 		if(notice != null && notice.isDeleted == false){
 			Intent intent = new Intent(context, MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.putExtra(BUNDLE_KEY_NOTICE, notice.toString());
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notice.title)).setContentText(notice.message);
 			mBuilder.setAutoCancel(true);
@@ -75,7 +77,7 @@ public class GcmUtil{
 			Bundle bundle = new Bundle(); // will be past to Service -> call gcm util make Notification...
 			bundle.putString(BUNDLE_KEY_NOTICE_ID, notice.getId().toString());
 			intent.putExtras(bundle);
-			PendingIntent pi = PendingIntent.getBroadcast(context, 1234, intent, 0);
+			PendingIntent pi = PendingIntent.getBroadcast(context, notice.getId().intValue(), intent, 0);
 			AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.set(AlarmManager.RTC_WAKEUP, notice.noticeDate.getTime(), pi);
 			intentArray.add(pi);
