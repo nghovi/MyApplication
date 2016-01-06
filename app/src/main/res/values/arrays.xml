@@ -1,0 +1,18 @@
+<resources>
+    <!-- Do not change item order -->
+    <string-array name="task_priorities">
+        <item>Any</item>
+        <item>Highest</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+        <item>Lowest</item>
+    </string-array>
+
+    <!-- Do not change item order -->
+    <string-array name="task_status">
+        <item>Unfinished</item>
+        <item>Finished</item>
+        <item>Any</item>
+    </string-array>
+</resources>

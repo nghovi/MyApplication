@@ -63,12 +63,12 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 	protected void builPriority(){
 		priority = task.priority;
-		setTextFor(R.id.txt_share_task_edit_priority, String.valueOf(priority));
+		setTextFor(R.id.txt_share_task_edit_priority, Task.TASK_PRIORITIES[priority - 1]);
 		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
 
 			@Override
 			public void onClick(int selectedValue, String displayedValue){
-				priority = Integer.valueOf(displayedValue);
+				priority = selectedValue + 1;
 				setTextFor(R.id.txt_share_task_edit_priority, displayedValue);
 			}
 		};
@@ -76,7 +76,8 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 			@Override
 			public void onClick(View view){
-				dlgBuilder.buildDialogNumberPicker(activity, getString(R.string.fragment_task_list_dlg_choose_priority_title), Task.TASK_PRIORITIES, listener, Arrays.asList(Task.TASK_PRIORITIES).indexOf(String.valueOf(task.priority))).show();
+				int defaultValue = task.priority - 1;
+				dlgBuilder.buildDialogNumberPicker(activity, getString(R.string.fragment_task_list_dlg_choose_priority_title), Task.TASK_PRIORITIES, listener, defaultValue).show();
 			}
 		});
 	}

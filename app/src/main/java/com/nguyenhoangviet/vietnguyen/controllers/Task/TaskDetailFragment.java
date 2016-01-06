@@ -67,7 +67,7 @@ public class TaskDetailFragment extends MyFragment{
 		setTextFor(R.id.txt_fragment_task_detail_name, task.name);
 		setTextFor(R.id.txt_fragment_task_detail_description, task.description);
 		setTextFor(R.id.txt_fragment_task_detail_comment, task.comment);
-		setTextFor(R.id.txt_fragment_task_detail_priority, String.valueOf(task.priority));
+		setTextFor(R.id.txt_fragment_task_detail_priority, Task.TASK_PRIORITIES[task.priority - 1]);
 		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
 	}
 
