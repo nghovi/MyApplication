@@ -168,8 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    custom:jsonKey="description"
-                    android:layout_marginLeft="10dp" />
+                    custom:jsonKey="description" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -184,8 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    custom:jsonKey="comment"
-                    android:layout_marginLeft="10dp" />
+                    custom:jsonKey="comment" />
 
 
             </LinearLayout>

@@ -273,6 +273,10 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 	protected void makeAlarmForNotice(){
 		for(Notice notice : savedNotices){
+			notice.title = task.name;
+			notice.value = task.getId().toString();
+			notice.message = task.name;
+			notice.save();
 			GcmUtil.makeLocalAlarm(activity, notice);
 		}
 		savedNotices = new ArrayList<Notice>();

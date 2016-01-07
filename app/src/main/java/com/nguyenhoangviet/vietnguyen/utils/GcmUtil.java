@@ -16,6 +16,7 @@ import com.nguyenhoangviet.vietnguyen.controllers.MainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyActivity;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Notice;
+import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 /**
@@ -47,7 +48,8 @@ public class GcmUtil{
 			Intent intent = new Intent(context, MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.putExtra(BUNDLE_KEY_NOTICE, notice.toString());
-			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notice.title)).setContentText(notice.title);
+			String notificationText = getNotificationText(notice);
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle(context.getString(R.string.app_name)).setStyle(new NotificationCompat.BigTextStyle().bigText(notificationText)).setContentText(notificationText);
 			mBuilder.setAutoCancel(true);
 			mBuilder.setSmallIcon(R.drawable.ico_note_32_on);
 
@@ -61,6 +63,16 @@ public class GcmUtil{
 			return mBuilder.build();
 		}
 		return null;
+	}
+
+	private static String getNotificationText(Notice notice){
+		if(Notice.NOTICE_TYPE_TASK.equals(notice.type)){
+			Task task = new Select().from(Task.class).where("otherId=?", notice.value).executeSingle();
+			if(task != null){
+				return task.name;
+			}
+		}
+		return notice.title;
 	}
 
 	/**
