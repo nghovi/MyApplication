@@ -5,14 +5,21 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
 
+import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
+import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class BookListFragment extends MyFragmentWithList{
@@ -75,12 +82,25 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void showBooks(){
+		sortByName();
 		adapter.updateDataWith(models);
 	}
 
 	private void reloadBook(){
 		models = new Select().from(Book.class).execute();
+		sortByName();
 		adapter.updateDataWith(models);
+	}
+
+	private void sortByName(){
+		// http://stackoverflow.com/questions/933447/how-do-you-cast-a-list-of-supertypes-to-a-list-of-subtypes
+		Collections.sort((List<Book>)(List<?>)models, new Comparator<Book>() {
+
+			@Override
+			public int compare(Book b1, Book b2){
+				return b1.name.compareTo(b2.name) > 0 ? 1 : -1;
+			}
+		});
 	}
 
 	public void gotoBookDetail(Book book){
@@ -100,8 +120,8 @@ public class BookListFragment extends MyFragmentWithList{
 
 	@Override
 	public void onEmptyData(){
-		 super.onEmptyData();
-		 visibleView(R.id.txt_fragment_book_list_empty);
+		super.onEmptyData();
+		visibleView(R.id.txt_fragment_book_list_empty);
 	}
 
 	@Override

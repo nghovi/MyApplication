@@ -67,11 +67,7 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 
 			@Override
 			public void onClick(View view){
-				setTextFor(R.id.edt_fragment_book_search_word, "");
-				setTextFor(R.id.edt_fragment_book_search_name, "");
-				setTextFor(R.id.edt_fragment_book_search_author, "");
-				setTextFor(R.id.edt_fragment_book_search_comment, "");
-				onClickSearchText();
+				activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
 			}
 		});
 	}
@@ -115,9 +111,6 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 
 	private Map<String, Object> buildSearchConditions(String word, String name, String author, String comment){
 		Map<String, Object> conditions = new HashMap<String, Object>();
-		if(MU.isEmpty(word) && MU.isEmpty(name) && MU.isEmpty(author) && MU.isEmpty(comment)){
-			return conditions;
-		}
 		conditions.put(KEY_BOOK_SEARCH_WORD, word);
 		conditions.put(KEY_BOOK_SEARCH_NAME, name);
 		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);

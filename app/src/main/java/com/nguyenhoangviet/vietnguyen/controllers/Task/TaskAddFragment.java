@@ -39,7 +39,7 @@ public class TaskAddFragment extends AbstractTaskFragment{
 		targetDate = new Date();
 		task.date = targetDate;
 		task.lastupdated = targetDate;
-		task.priority = Integer.parseInt(Task.TASK_PRIORITIES[0]);
+		task.priority = Task.TASK_PRIORITY_HIGHEST;
 	}
 
 	protected void buildHeaderText(){

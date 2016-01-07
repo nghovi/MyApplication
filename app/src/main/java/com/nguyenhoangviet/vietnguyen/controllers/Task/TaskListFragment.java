@@ -65,7 +65,7 @@ public class TaskListFragment extends MyFragmentWithList{
 		searchConditions = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
 		if(searchConditions.size() > 0){
 			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
-			invisibleView(R.id.txt_fragment_task_list_date);
+			goneView(R.id.txt_fragment_task_list_date);
 			models = AbstractTaskFragment.searchWithConditions(searchConditions);
 			showTasks();
 		}else{

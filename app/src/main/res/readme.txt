@@ -53,29 +53,6 @@ icon: https://www.iconfinder.com/icons/763392/audio_device_loudspeaker_outline_s
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  so, transition.replace will remove ALL fragment attached to same containerID (= remove, then add) but not call onDestroy, onDetach, just called onDestroyView
  but, when back button, will call onPause,onStop,onDestroy,then new Fragament onCreateView->onResume, then old fragment will onDestroy, onDetach.
 
@@ -95,28 +72,5 @@ activity (none)F2.onDestroy->onDetach->F3.onDestroy->onDetach->F1.onDestroy->onD
 A.onDestroy -> A.onCreate (now fragment stack is still 1.F1, 2.F2, 3.F3) F2.onAttach->onCreate->F1.onAttack->onCreate->F3.onAttach->onCreate->onCreateView->...error
 
 
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 61 Fragment onDestroy: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 62 Fragment onDetach: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 63 Fragment onDestroy: class com.example.vietnguyen.controllers.Task.TaskListFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 64 Fragment onDetach: class com.example.vietnguyen.controllers.Task.TaskListFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 65 Fragment onDestroyView: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 66 Fragment onDestroy: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 67 Fragment onDetach: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.466 22699-22699/com.example.vietnguyen.myapplication E/******: 68 onDestroy com.example.vietnguyen.controllers.MainActivity
-11-30 03:05:32.470 22699-22699/com.example.vietnguyen.myapplication E/******: 69 onCreate com.example.vietnguyen.controllers.MainActivity
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 70 Fragment onAttach: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 71 Fragment onCreate: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 72 Fragment onAttach: class com.example.vietnguyen.controllers.Task.TaskListFragment
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 73 Fragment onCreate: class com.example.vietnguyen.controllers.Task.TaskListFragment
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 74 Fragment onAttach: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.474 22699-22699/com.example.vietnguyen.myapplication E/******: 75 Fragment onCreate: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.482 22699-22699/com.example.vietnguyen.myapplication E/******: 76 Fragment onActivityCreated: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.482 22699-22699/com.example.vietnguyen.myapplication E/******: 77 Fragment buildLayout: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.486 22699-22699/com.example.vietnguyen.myapplication E/******: 78 Fragment onDestroyView: class com.example.vietnguyen.controllers.Task.TaskEditFragment
-11-30 03:05:32.490 22699-22699/com.example.vietnguyen.myapplication E/******: 79 Fragment onActivityCreated: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.490 22699-22699/com.example.vietnguyen.myapplication E/******: 80 Fragment buildLayout: class com.example.vietnguyen.controllers.Task.TaskDetailFragment
-11-30 03:05:32.506 22699-22699/com.example.vietnguyen.myapplication E/AndroidRuntime: FATAL EXCEPTION: main
-11-30 03:05:32.506 22699-22699/com.example.vietnguyen.myapplication E/AndroidRuntime: java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.vietnguyen.myapplication/com.example.vietnguyen.controllers.MainActivity}: java.lang.NullPointerException
-11-30 03:05:32.506 22699-22699/com.example.vietnguyen.myapplication E/AndroidRuntime:
-
 27. dialog builder notice error when back to app after tapping home btn
+

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,10 +64,7 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 
 			@Override
 			public void onClick(View view){
-				setTextFor(R.id.edt_fragment_task_search_text, "");
-				priority = Task.TASK_PRIORITIES_WITH_ANY[0];
-				taskStatus = Task.STATUS_ANY;
-				onClickSearchText();
+				activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
 			}
 		});
 	}
@@ -117,7 +115,7 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 		hideSofeKeyboard();
 		text = getEditText(R.id.edt_fragment_task_search_text).getText().toString();
 		Map<String, Object> conditions = buildSearchConditions();
-		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, buildSearchConditions());
+		activity.backToFragment(TaskListFragment.class, KEY_TASK_SEARCH_CONDITION, conditions);
 	}
 
 	private void buildPreCondition(){
@@ -139,9 +137,6 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 
 	private Map<String, Object> buildSearchConditions(){
 		Map<String, Object> conditions = new HashMap<String, Object>();
-		if(MU.isEmpty(text) && priority == Task.TASK_PRIORITIES_WITH_ANY[0] && taskStatus == Task.STATUS_ANY){
-			return conditions;
-		}
 		conditions.put(KEY_TASK_SEARCH_TEXT, text);
 		conditions.put(KEY_TASK_SEARCH_PRIORITY, priority);
 		conditions.put(KEY_TASK_SEARCH_STATUS, taskStatus);

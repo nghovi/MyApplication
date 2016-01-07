@@ -90,6 +90,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			public void afterTextChanged(Editable editable){
 				String url = editable.toString();
 				if(!MU.isEmpty(url) && !url.equals(book.iconUrl)){
+					book.iconUrl = url;
 					MU.picassaLoadAndSaveImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity, AbstractBookFragment.getBookImageFileName(book));
 				}else{
 					getImageView(R.id.img_sbe_image).setImageResource(R.drawable.book_cover);

@@ -298,7 +298,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 				continue;
 			}
 
-			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(String.valueOf(task.priority))){
+			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(Task.TASK_PRIORITIES[task.priority - 1])){
 				ib.remove();
 				continue;
 			}

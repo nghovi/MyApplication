@@ -58,7 +58,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	@Override
 	protected String doInBackground(Integer...integers){
 		doOneTimeTasks();
-//		startScheduledTasks();
+		// startScheduledTasks();
 		return null;
 	}
 
@@ -70,15 +70,15 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	public void doOneTimeTasks(){
-//		loadMottoFromServer();
-//		saveUnsavedTaskToServer();
-//		saveUnsavedTaskToLocal();// for new Device
-//		deleteTaskToLocal();// for another Device
-//		saveUnsavedBookToServer();
-//		saveUnsavedBookToLocal();// for new Device
+		// loadMottoFromServer();
+		// saveUnsavedTaskToServer();
+		// saveUnsavedTaskToLocal();// for new Device
+		// deleteTaskToLocal();// for another Device
+		// saveUnsavedBookToServer();
+		// saveUnsavedBookToLocal();// for new Device
 		deleteOverdueNotices();
-//		saveUnsavedNoticeToServer();
-//		saveUnsavedNoticeToLocal();
+		// saveUnsavedNoticeToServer();
+		// saveUnsavedNoticeToLocal();
 		setupAlarm();
 	}
 
@@ -129,7 +129,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 			activity.postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
 
 				@Override
-				public void onApiResponse(JSONObject response) {
+				public void onApiResponse(JSONObject response){
 					task.isRemoteSaved = true;
 					task.id = response.optString("data");
 					task.save();
@@ -137,7 +137,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 				}
 
 				@Override
-				public void onApiError(String errorMsg) {
+				public void onApiError(String errorMsg){
 					MU.log("Background sync task, saved task FAILED for" + task.getId());
 				}
 			});
@@ -269,11 +269,11 @@ public class Background extends AsyncTask<Integer, String, String>{
 		activity.getApi(Const.GET_NOTICES, params, new Api.OnCallApiListener() {
 
 			@Override
-			public void onApiResponse(JSONObject response) {
+			public void onApiResponse(JSONObject response){
 				List<Notice> noticesFromServer = MU.convertToModelList(response.optString("data"), Notice.class);
-				for (Notice notice : noticesFromServer) {
+				for(Notice notice : noticesFromServer){
 					Notice local = new Select().from(Notice.class).where("id = ?", notice.id).executeSingle();
-					if (local == null) {
+					if(local == null){
 						notice.isRemoteSaved = true;
 						notice.save();
 						MU.log("Save Notice " + notice.id + " into local database");
@@ -282,12 +282,11 @@ public class Background extends AsyncTask<Integer, String, String>{
 			}
 
 			@Override
-			public void onApiError(String errorMsg) {
+			public void onApiError(String errorMsg){
 				MU.log("saveUnsavedNoticeToLocal Failed");
 			}
 		});
 	}
-
 
 	private void createHandler(){
 		if(mHandler == null){

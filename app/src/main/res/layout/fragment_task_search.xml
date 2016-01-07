@@ -106,7 +106,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Priority: "
-                        android:id="@+id/textView" />
+                        android:id="@+id/textView"
+                        style="@style/core_label_text"
+                        android:layout_marginRight="10dp" />
 
                     <com.nguyenhoangviet.vietnguyen.core.views.widgets.CoreSpinner
                         android:layout_width="wrap_content"
@@ -129,7 +131,8 @@
                         android:layout_height="wrap_content"
                         android:text="Status: "
                         android:id="@+id/textView8"
-                        android:layout_marginRight="10dp" />
+                        android:layout_marginRight="10dp"
+                        style="@style/core_label_text" />
 
                     <com.nguyenhoangviet.vietnguyen.core.views.widgets.CoreSpinner
                         android:layout_width="wrap_content"

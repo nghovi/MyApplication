@@ -76,7 +76,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 	}
 
 	protected boolean hasChangeData(){
-		return  !MU.isEmpty(task.name) && task.status != status || task.priority != priority || !task.name.equals(getTextView(R.id.edt_share_task_edit_name).getText().toString()) || !task.description.equals(getTextView(R.id.edt_share_task_edit_description).getText().toString()) || !task.comment.equals(getTextView(R.id.edt_share_task_edit_comment).getText().toString());
+		return !MU.isEmpty(task.name) && task.status != status || task.priority != priority || !getTextView(R.id.edt_share_task_edit_name).getText().toString().equals(task.name) || !getTextView(R.id.edt_share_task_edit_description).getText().toString().equals(task.description) || !getTextView(R.id.edt_share_task_edit_comment).getText().toString().equals(task.comment);
 	}
 	// private void updateTask(){
 	// buildTaskFromLayout();
