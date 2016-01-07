@@ -115,6 +115,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	protected void addPhraseForExistingWord(List<Book> booksContainWord, String newWord, String newPhrase){
 		Book b = booksContainWord.get(0);
+		newPhrase = "[" + book.name + "] " + newPhrase;
 		if(!MU.isEmpty(newPhrase)){
 			b.addPhraseForWord(newWord, newPhrase);
 			savedBookFromLayout();
