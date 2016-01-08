@@ -109,6 +109,7 @@
     <string name="fragment_setting_email_cc"><u>vietnh1990@gmail.com</u></string>
     <string name="fragment_setting_email_subject">About your V Note</string>
     <string name="fragment_setting_email_choose_sender">Choose sender:</string>
+    <string name="fragment_setting_graph_title">Tasks Done Stats</string>
     <!--<string name="fragment_setting_thank_you">Thank you for contacting me</string>-->
 
 
