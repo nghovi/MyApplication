@@ -41,7 +41,7 @@ public abstract class MyArrayAdapter<MyModel> extends ArrayAdapter<MyModel>{
 	public View getView(int position, View convertView, ViewGroup parent){
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(resourceId, null);
-		MyModel model = data.get(position);
+		MyModel model = getItem(position);
 		buildItemLayout(convertView, model);
 		return convertView;
 	}
@@ -60,7 +60,8 @@ public abstract class MyArrayAdapter<MyModel> extends ArrayAdapter<MyModel>{
 		}
 	}
 
-	// todo confirm that renew data with a new ref doesn't work for notifyDataSetChanged ?
+	// confirm that renew data with a new ref doesn't work for notifyDataSetChanged ? confirmed.
+	// the adapter keep pointing to its first data location
 	public void updateDataWith(List<MyModel> myModels){
 
 		// delete all old items

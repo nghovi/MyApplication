@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 
 import com.activeandroid.query.Select;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -25,8 +26,11 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -92,38 +96,52 @@ public class SettingFragment extends MyFragment{
 	}
 
 	public void buildGraph(){
+		final int dayBefore = 30;
+		final int dayAfter = 10;
 		GraphView graph = (GraphView)getView().findViewById(R.id.graph);
-		LineGraphSeries<DataPoint> allTasksSeries = makeAllTasksSeries();
-		LineGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries();
-		// new LineGraphSeries<DataPoint>(new DataPoint[]{new DataPoint(0, 1), new DataPoint(1, 5), new DataPoint(2, 3), new DataPoint(3, 2), new
-		// DataPoint(4, 6)});
-		// LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>(new DataPoint[]{new DataPoint(0, 2), new DataPoint(1, 3), new
-		// DataPoint(2, 19), new DataPoint(3, 3), new DataPoint(4, 6)});
-		// graph.setScaleX(0.2f);
-		// graph.setScaleY(1);
+		LineGraphSeries<DataPoint> allTasksSeries = makeAllTasksSeries(dayBefore, dayAfter);
+		allTasksSeries.setColor(Color.RED);
+		LineGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries(dayBefore, dayAfter);
+
 		graph.setTitle(getString(R.string.fragment_setting_graph_title));
-		// graph.addSeries(allTasksSeries);
+		graph.addSeries(allTasksSeries);
 		graph.addSeries(finishedTasksSeries);
+		graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+
+			@Override
+			public String formatLabel(double value, boolean isValueX){
+				if(isValueX){
+					// show normal x values
+					return super.formatLabel(value - dayBefore, isValueX);
+				}else{
+					// show currency for y values
+					return super.formatLabel(value, isValueX) + " T";
+				}
+			}
+		});
 	}
 
-	private LineGraphSeries<DataPoint> makeAllTasksSeries(){
-		LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
-		return series;
+	private LineGraphSeries<DataPoint> makeAllTasksSeries(int dayBefore, int dayAfter){
+		List<Task> tasks = getAllTasksRecently(dayBefore, dayAfter);
+		return makeTasksSeries(tasks, dayBefore, dayAfter);
 	}
 
-	private LineGraphSeries<DataPoint> makeFinishedTasksSeries(){
-		int dayNumm = 30;
-		List<Task> tasks = getTasksRecently(dayNumm);
+	private LineGraphSeries<DataPoint> makeFinishedTasksSeries(int dayBefore, int dayAfter){
+		List<Task> tasks = getFinishedTasksRecently(dayBefore, dayAfter);
+		return makeTasksSeries(tasks, dayBefore, dayAfter);
+	}
+
+	private LineGraphSeries<DataPoint> makeTasksSeries(List<Task> tasks, int dayBefore, int dayAfter){
 		Map<Date, ArrayList<Task>> map = getDateTasksMap(tasks);
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
 		Calendar c = Calendar.getInstance();
 		int i = 0;
-		List<Date> keys = getKeys(dayNumm);
+		List<Date> keys = getKeys(dayBefore, dayAfter);
 		for(Date key : keys){
-			ArrayList<Task> dayTasks = map.get(key);
+			ArrayList<Task> tasksOnDate = map.get(key);
 			DataPoint dataPoint;
-			if(dayTasks != null){
-				dataPoint = new DataPoint(i++, dayTasks.size());
+			if(tasksOnDate != null){
+				dataPoint = new DataPoint(i++, tasksOnDate.size());
 			}else{
 				dataPoint = new DataPoint(i++, 0);
 			}
@@ -146,19 +164,39 @@ public class SettingFragment extends MyFragment{
 				map.put(mapKey, tasksOnDate);
 			}
 		}
-
 		return map;
 	}
 
-	private List<Date> getKeys(int day){
+	private void sortMapByDate(List<Date> dates){
+
+		Collections.sort(dates, new Comparator<Date>() {
+
+			@Override
+			public int compare(Date d1, Date d2){
+				return d1.compareTo(d2);
+			}
+		});
+	}
+
+	private List<Date> getKeys(int dayBefore, int dayAfter){
 		List<Date> dates = new ArrayList<>();
-		Calendar c = Calendar.getInstance();
-		for(int i = 0; i < day; i++){
+		Calendar c;
+		for(int i = 1; i <= dayBefore; i++){
+			c = Calendar.getInstance();
 			c.add(Calendar.DATE, 0 - i);
 			Date key = buildKey(c.getTime());
 			dates.add(key);
 		}
+
+		for(int i = 0; i < dayAfter; i++){
+			c = Calendar.getInstance();
+			c.add(Calendar.DATE, i);
+			Date key = buildKey(c.getTime());
+			dates.add(key);
+		}
+		sortMapByDate(dates);
 		return dates;
+
 	}
 
 	private Date buildKey(Date date){
@@ -172,14 +210,25 @@ public class SettingFragment extends MyFragment{
 		return c.getTime();
 	}
 
-	// todo select in query, not all
-	private List<Task> getTasksRecently(int day){
+	private List<Task> getAllTasksRecently(int dayBefore, int dayAfter){
+		return getTasksRecently(dayBefore, dayAfter, Task.STATUS_ANY);
+	}
+
+	private List<Task> getFinishedTasksRecently(int dayBefore, int dayAfter){
+		return getTasksRecently(dayBefore, dayAfter, Task.STATUS_FINISHED);
+	}
+
+	private List<Task> getTasksRecently(int dayBefore, int dayAfter, int taskStatus){
 		List<Task> result = new ArrayList<>();
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, 0 - day);
+		Calendar Before = Calendar.getInstance();
+		Before.add(Calendar.DATE, 0 - dayBefore);
+
+		Calendar cAfter = Calendar.getInstance();
+		cAfter.add(Calendar.DATE, dayAfter);
+
 		List<Task> allTasks = new Select().from(Task.class).execute();
 		for(Task task : allTasks){
-			if(task.date.compareTo(c.getTime()) > 0){
+			if((Task.STATUS_ANY == taskStatus || task.status == taskStatus) && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
 				result.add(task);
 			}
 		}

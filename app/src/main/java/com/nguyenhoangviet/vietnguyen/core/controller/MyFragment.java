@@ -108,6 +108,10 @@ public class MyFragment extends Fragment{
 		getImageView(imgId).setImageResource(resId);
 	}
 
+	public void setImageResourceFor(View parent, int imgId, int resId){
+		getImageView(parent, imgId).setImageResource(resId);
+	}
+
 	public void setLinkFor(int resource, String url){
 		if(!url.startsWith("http://") && !url.startsWith("https://")){
 			url = "http://" + url;

@@ -113,8 +113,9 @@ public class TaskListFragment extends MyFragmentWithList{
 
 			@Override
 			public void onClick(View view){
+
 				TaskAddFragment frg = new TaskAddFragment();
-				activity.addFragment(frg);
+				activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
 			}
 		});
 	}

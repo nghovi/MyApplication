@@ -129,6 +129,7 @@ public class BookDetailFragment extends MyFragment{
 
 				@Override
 				public void onClick(View view){
+					setImageResourceFor(R.id.img_fragment_book_detail_speaker, R.drawable.ic_volume_up_black_18dp);
 					speakAllWords();
 				}
 			});
@@ -140,7 +141,8 @@ public class BookDetailFragment extends MyFragment{
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
 		lnrVocabulary.removeAllViews();
 		for(final String word : this.book.getWords()){
-			View itemBookWord = inflater.inflate(R.layout.item_book_word, null);
+			final View itemBookWord = inflater.inflate(R.layout.item_book_word, null);
+			itemBookWord.setTag(word);
 			setTextFor(itemBookWord, R.id.txt_item_book_word_edit_word, word);
 			setOnClickFor(itemBookWord, R.id.img_item_book_word_speaker, new View.OnClickListener() {
 
@@ -155,9 +157,20 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void speakWordOnly(String word){
-		if(!MU.isEmpty(word) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-			tts.speak(word, TextToSpeech.QUEUE_FLUSH, null, "");
-		}
+		List<String> words = new ArrayList<String>();
+		words.add(word);
+		myUtteranceProgressListener.setWords(words);
+		setOnSpeakWordStartListener();
+		myUtteranceProgressListener.setOnSpeakWordDoneListener(new MyUtteranceProgressListener.OnSpeakWordDoneListener() {
+
+			@Override
+			public void onSpeakWordDone(String word){
+				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
+				View itemBookWord = lnrVocabulary.findViewWithTag(word);
+				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_mute_black_18dp);
+			}
+		});
+		myUtteranceProgressListener.startSpeak();
 	}
 
 	// The accent like robot now, so don't like to use this function
@@ -173,7 +186,38 @@ public class BookDetailFragment extends MyFragment{
 	private void speakAllWords(){
 		List<String> words = getWordsForReading();
 		myUtteranceProgressListener.setWords(words);
+		myUtteranceProgressListener.setOnSpeakAllDoneListener(new MyUtteranceProgressListener.OnSpeakAllDoneListener() {
+
+			@Override
+			public void onSpeakAllDone(){
+				setImageResourceFor(R.id.img_fragment_book_detail_speaker, R.drawable.ic_volume_mute_black_18dp);
+			}
+		});
+		setOnSpeakWordStartListener();
+		myUtteranceProgressListener.setOnSpeakWordDoneListener(new MyUtteranceProgressListener.OnSpeakWordDoneListener() {
+
+			@Override
+			public void onSpeakWordDone(String word){
+				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
+				View itemBookWord = lnrVocabulary.findViewWithTag(word);
+				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_mute_black_18dp);
+				getView(itemBookWord, R.id.lnr_ibw).performClick();
+			}
+		});
+
 		myUtteranceProgressListener.startSpeak();
+	}
+
+	private void setOnSpeakWordStartListener(){
+		myUtteranceProgressListener.setOnSpeakWordStartListener(new MyUtteranceProgressListener.OnSpeakWordStartListener() {
+
+			@Override
+			public void onSpeakWordStart(String word){
+				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
+				View itemBookWord = lnrVocabulary.findViewWithTag(word);
+				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_up_black_18dp);
+			}
+		});
 	}
 
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){

@@ -35,18 +35,20 @@ import java.util.Map;
 
 public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFragment.VirtualItemLayoutBuilder{
 
-	protected Date			targetDate;
-	protected Task			task;
-	protected List<Notice>	savedNotices	= new ArrayList<Notice>();
-	protected int			priority		= 1;
-	protected int			status			= 0;
+	public static final String	TARGET_DATE		= "target_date";
+
+	protected Date				targetDate;
+	protected Task				task;
+	protected List<Notice>		savedNotices	= new ArrayList<Notice>();
+	protected int				priority		= 1;
+	protected int				status			= 0;
 
 	// private NoticeAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		targetDate = new Date();
+		targetDate = getUpdatedDate(TARGET_DATE, new Date());
 	}
 
 	@Override

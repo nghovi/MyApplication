@@ -18,7 +18,6 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		targetDate = new Date();
 	}
 
 	@Override
@@ -36,7 +35,6 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	@Override
 	protected void prepareTask(){
 		task = new Task();
-		targetDate = new Date();
 		task.date = targetDate;
 		task.lastupdated = targetDate;
 		task.priority = Task.TASK_PRIORITY_HIGHEST;
