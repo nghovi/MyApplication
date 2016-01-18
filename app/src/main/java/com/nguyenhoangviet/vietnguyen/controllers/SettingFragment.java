@@ -7,20 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
 import com.activeandroid.query.Select;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookDetailFragment;
-import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
-import com.nguyenhoangviet.vietnguyen.core.database.DBHelper;
-import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
@@ -30,7 +28,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -102,11 +99,13 @@ public class SettingFragment extends MyFragment{
 		final int dayBefore = 30;
 		final int dayAfter = 10;
 		GraphView graph = (GraphView)getView().findViewById(R.id.graph);
-		LineGraphSeries<DataPoint> allTasksSeries = makeAllTasksSeries(dayBefore, dayAfter);
-		allTasksSeries.setColor(Color.RED);
-		LineGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries(dayBefore, dayAfter);
+		BarGraphSeries<DataPoint> unfinishedTasksSeries = makeUnfinishedTasksSeries(dayBefore, dayAfter);
+		unfinishedTasksSeries.setColor(Color.RED);
+		unfinishedTasksSeries.setTitle(getString(R.string.fragment_setting_graph_unfinished_task_title));
+		BarGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries(dayBefore, dayAfter);
+		finishedTasksSeries.setTitle(getString(R.string.fragment_setting_graph_finished_task_title));
 
-		graph.addSeries(allTasksSeries);
+		graph.addSeries(unfinishedTasksSeries);
 		graph.addSeries(finishedTasksSeries);
 		graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
 
@@ -121,22 +120,28 @@ public class SettingFragment extends MyFragment{
 				}
 			}
 		});
+		graph.getLegendRenderer().setVisible(true);
+		graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskNum));
 	}
 
-	private LineGraphSeries<DataPoint> makeAllTasksSeries(int dayBefore, int dayAfter){
-		List<Task> tasks = getAllTasksRecently(dayBefore, dayAfter);
+	private BarGraphSeries<DataPoint> makeUnfinishedTasksSeries(int dayBefore, int dayAfter){
+		List<Task> tasks = getUnfinishedTasksRecently(dayBefore, dayAfter);
 		this.taskNum = tasks.size();
-		return makeTasksSeries(tasks, dayBefore, dayAfter);
+		DataPoint dataPointsarray[] = makeTasksDataPoints(tasks, dayBefore, dayAfter);
+		BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPointsarray);
+		return series;
 	}
 
-	private LineGraphSeries<DataPoint> makeFinishedTasksSeries(int dayBefore, int dayAfter){
+	private BarGraphSeries<DataPoint> makeFinishedTasksSeries(int dayBefore, int dayAfter){
 		List<Task> tasks = getFinishedTasksRecently(dayBefore, dayAfter);
 		this.taskFinishedNum = tasks.size();
-		return makeTasksSeries(tasks, dayBefore, dayAfter);
+		DataPoint dataPointsarray[] = makeTasksDataPoints(tasks, dayBefore, dayAfter);
+		BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPointsarray);
+		return series;
 	}
 
-	private LineGraphSeries<DataPoint> makeTasksSeries(List<Task> tasks, int dayBefore, int dayAfter){
+	private DataPoint[] makeTasksDataPoints(List<Task> tasks, int dayBefore, int dayAfter){
 		Map<Date, ArrayList<Task>> map = getDateTasksMap(tasks);
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
 		Calendar c = Calendar.getInstance();
@@ -152,9 +157,7 @@ public class SettingFragment extends MyFragment{
 			}
 			dataPoints.add(dataPoint);
 		}
-		DataPoint dataPointsarray[] = dataPoints.toArray(new DataPoint[dataPoints.size()]);
-		LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPointsarray);
-		return series;
+		return dataPoints.toArray(new DataPoint[dataPoints.size()]);
 	}
 
 	private Map<Date, ArrayList<Task>> getDateTasksMap(List<Task> tasks){
@@ -215,8 +218,8 @@ public class SettingFragment extends MyFragment{
 		return c.getTime();
 	}
 
-	private List<Task> getAllTasksRecently(int dayBefore, int dayAfter){
-		return getTasksRecently(dayBefore, dayAfter, Task.STATUS_ANY);
+	private List<Task> getUnfinishedTasksRecently(int dayBefore, int dayAfter){
+		return getTasksRecently(dayBefore, dayAfter, Task.STATUS_UNFINISHED);
 	}
 
 	private List<Task> getFinishedTasksRecently(int dayBefore, int dayAfter){
@@ -233,7 +236,7 @@ public class SettingFragment extends MyFragment{
 
 		List<Task> allTasks = new Select().from(Task.class).execute();
 		for(Task task : allTasks){
-			if((Task.STATUS_ANY == taskStatus || task.status == taskStatus) && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
+			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
 				result.add(task);
 			}
 		}

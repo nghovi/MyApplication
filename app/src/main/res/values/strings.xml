@@ -95,7 +95,7 @@
     <string name="share_book_edit_cover_link">Eg: https://book_site/book_cover.jpg</string>
 
 
-    <string name="fragment_note_list_empty">Write down your stunning idea here</string>
+    <string name="fragment_note_list_empty">Write down your stunning ideas!</string>
     <string name="fragment_note_detail_today">Today</string>
     <string name="fragment_note_detail_hint">Your text here</string>
 
@@ -110,11 +110,14 @@
     <string name="fragment_setting_email_subject">About your V Note</string>
     <string name="fragment_setting_email_choose_sender">Choose sender:</string>
     <string name="fragment_setting_graph_title">Last 30 days Task stats (%1$s/%2$s)</string>
+    <string name="fragment_setting_graph_finished_task_title">Finished</string>
+    <string name="fragment_setting_graph_unfinished_task_title">Unfinished</string>
+
     <!--<string name="fragment_setting_thank_you">Thank you for contacting me</string>-->
 
 
     <string name="fragment_abstract_task_remind_time_select">Select remind time</string>
-    <string name="fragment_task_list_empty">If you are free, then enjoy it</string>
+    <string name="fragment_task_list_empty">You are free today. Relax!</string>
     <string name="fragment_task_list_dlg_choose_priority_title">Set task priority</string>
     <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished</string>
     <string name="fragment_task_mark_tas_status_finished">Mark as finished</string>
