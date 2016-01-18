@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/img_ipe_delete"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ico_delete_16"
+            android:src="@drawable/ic_delete_black_18dp"
             android:layout_marginTop="2dp" />
 
         <TextView

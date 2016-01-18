@@ -91,7 +91,7 @@
     <string name="fragment_abstract_book_default_icon_url">https://en.wikipedia.org/wiki/Book</string>
     <string name="share_book_edit_motto_hint">Eg: Be yourself!</string>
     <string name="share_book_edit_cover_image">Cover Image</string>
-    <string name="share_book_edit_book_msg">The message</string>
+    <string name="share_book_edit_book_msg">The Message</string>
     <string name="share_book_edit_cover_link">Eg: https://book_site/book_cover.jpg</string>
 
 
@@ -109,7 +109,7 @@
     <string name="fragment_setting_email_cc"><u>vietnh1990@gmail.com</u></string>
     <string name="fragment_setting_email_subject">About your V Note</string>
     <string name="fragment_setting_email_choose_sender">Choose sender:</string>
-    <string name="fragment_setting_graph_title">Tasks Done Stats</string>
+    <string name="fragment_setting_graph_title">Last 30 days Task stats (%1$s/%2$s)</string>
     <!--<string name="fragment_setting_thank_you">Thank you for contacting me</string>-->
 
 

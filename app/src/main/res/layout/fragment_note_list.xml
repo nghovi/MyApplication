@@ -21,12 +21,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/edit"
-            android:textColor="@color/core_white"
             android:visibility="visible"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp" />
+            android:paddingBottom="12dp"
+            style="@style/core_header_action_text" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -49,7 +49,8 @@
                 android:visibility="visible"
                 android:paddingLeft="20dp"
                 android:paddingTop="12dp"
-                android:paddingBottom="12dp" />
+                android:paddingBottom="12dp"
+                style="@style/core_header_action_text" />
         </LinearLayout>
 
         <EditText

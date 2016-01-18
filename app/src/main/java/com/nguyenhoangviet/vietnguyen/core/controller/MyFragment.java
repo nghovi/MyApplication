@@ -271,14 +271,14 @@ public class MyFragment extends Fragment{
 			public void onClick(View view){
 				if(View.VISIBLE == content.getVisibility()){
 					foldable.setBackgroundColor(0);
-					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
+					imgFoldIcon.setImageResource(R.drawable.ic_expand_less_black_18dp);
 					content.setVisibility(View.GONE);
 					if(otherView != null){
 						otherView.setVisibility(View.GONE);
 					}
 				}else{
-					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
-					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
+					foldable.setBackgroundColor(getResources().getColor(R.color.bg_selected_panel));
+					imgFoldIcon.setImageResource(R.drawable.ic_expand_more_black_18dp);
 					content.setVisibility(View.VISIBLE);
 					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);
@@ -297,14 +297,14 @@ public class MyFragment extends Fragment{
 			public void onClick(View view){
 				if(View.VISIBLE == content.getVisibility()){
 					foldable.setBackgroundColor(0);
-					imgFoldIcon.setImageResource(R.drawable.ico_unfold_16);
+					imgFoldIcon.setImageResource(R.drawable.ic_expand_less_black_18dp);
 					content.setVisibility(View.GONE);
 					if(otherView != null){
 						otherView.setVisibility(View.GONE);
 					}
 				}else{
-					foldable.setBackgroundColor(getResources().getColor(R.color.core_silver));
-					imgFoldIcon.setImageResource(R.drawable.ico_fold_16);
+					foldable.setBackgroundColor(getResources().getColor(R.color.bg_selected_panel));
+					imgFoldIcon.setImageResource(R.drawable.ic_expand_more_black_18dp);
 					content.setVisibility(View.VISIBLE);
 					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);

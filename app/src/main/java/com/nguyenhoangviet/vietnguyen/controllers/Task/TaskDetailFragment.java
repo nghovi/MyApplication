@@ -37,7 +37,7 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void builHeaderFunctions(){
-		setOnClickFor(R.id.txt_fragment_task_detail_edit, new View.OnClickListener() {
+		setOnClickFor(R.id.img_fragment_task_detail_eit, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_item_remind_time_delete"
-            android:src="@drawable/ico_delete_16" />
+            android:src="@drawable/ic_delete_black_18dp" />
     </LinearLayout>
 
     <View style="@style/core_line_divider_with_margin"

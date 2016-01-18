@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_ibw_fold"
-            android:src="@drawable/ico_unfold_16"
+            android:src="@drawable/ic_expand_less_black_18dp"
             android:layout_gravity="center"
             android:visibility="visible"
             android:layout_marginRight="10dp" />

@@ -24,7 +24,8 @@
             android:layout_alignParentRight="true"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="20dp" />
+            android:paddingLeft="20dp"
+            android:textStyle="bold" />
 
 
         <LinearLayout
@@ -39,11 +40,11 @@
                 android:layout_height="wrap_content"
                 android:text="Add"
                 android:id="@+id/txt_fragment_task_list_add"
-                android:textColor="@color/core_white"
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
+                android:paddingRight="20dp"
+                style="@style/core_header_action_text" />
         </LinearLayout>
 
         <ImageView

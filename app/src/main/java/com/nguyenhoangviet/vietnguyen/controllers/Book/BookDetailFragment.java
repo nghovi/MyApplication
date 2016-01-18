@@ -201,7 +201,7 @@ public class BookDetailFragment extends MyFragment{
 				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
 				View itemBookWord = lnrVocabulary.findViewWithTag(word);
 				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_mute_black_18dp);
-				getView(itemBookWord, R.id.lnr_ibw).performClick();
+				// getView(itemBookWord, R.id.lnr_ibw).performClick();
 			}
 		});
 
@@ -213,9 +213,11 @@ public class BookDetailFragment extends MyFragment{
 
 			@Override
 			public void onSpeakWordStart(String word){
-				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
-				View itemBookWord = lnrVocabulary.findViewWithTag(word);
-				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_up_black_18dp);
+				if(getView() != null){
+					LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
+					View itemBookWord = lnrVocabulary.findViewWithTag(word);
+					setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_up_black_18dp);
+				}
 			}
 		});
 	}
@@ -238,12 +240,18 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	@Override
-	public void onDestroy(){
-		super.onDestroy();
+	public void onDestroyView(){
 		if(tts != null){
 			tts.stop();
 			tts.shutdown();
 			tts = null;
 		}
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onDestroy(){
+
+		super.onDestroy();
 	}
 }

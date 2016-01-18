@@ -166,7 +166,7 @@
                             android:id="@+id/img_share_task_edit_add_remind"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ico_add_24" />
+                            android:src="@drawable/ic_alarm_add_black_18dp" />
                     </LinearLayout>
 
                     <LinearLayout

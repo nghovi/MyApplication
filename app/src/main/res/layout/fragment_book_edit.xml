@@ -22,9 +22,9 @@
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_back" />
+            android:src="@drawable/ic_arrow_back_white_36dp"
+            android:layout_gravity="center_vertical" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -42,7 +42,8 @@
                 android:paddingRight="20dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:gravity="center_vertical|right" />
+                android:gravity="center_vertical|right"
+                style="@style/core_header_action_text" />
         </LinearLayout>
 
     </LinearLayout>

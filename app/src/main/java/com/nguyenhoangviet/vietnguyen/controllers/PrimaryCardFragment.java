@@ -44,7 +44,7 @@ public class PrimaryCardFragment extends MyFragment{
 		ImageView imgSex = getImageView(R.id.icn_sex);
 		// todo if it's female
 		if(false){
-			imgSex.setImageResource(R.drawable.ico_female_16);
+//			imgSex.setImageResource(R.drawable.ico_female_16);
 		}
 
 		// File mainImage = MU.getImageFile(IMAGE_NAME, activity);

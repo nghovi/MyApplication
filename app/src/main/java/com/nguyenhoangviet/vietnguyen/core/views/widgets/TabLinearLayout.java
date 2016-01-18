@@ -96,7 +96,7 @@ public class TabLinearLayout extends LinearLayout {
 			TextView txtTabName = (TextView)lnrTab.findViewById(R.id.txt_common_bienban_tab_name);
 			TextView txtLineTab = (TextView)lnrTab.findViewById(R.id.txt_lineTab);
 			if(tabName.equals(tabNameSelected)) {
-				txtTabName.setTextColor(getResources().getColor(R.color.core_silver));
+				txtTabName.setTextColor(getResources().getColor(R.color.bg_selected_panel));
 				txtLineTab.setVisibility(VISIBLE);
 				// lnrTab.setBackgroundResource(R.color.bb_common_color_base);
 

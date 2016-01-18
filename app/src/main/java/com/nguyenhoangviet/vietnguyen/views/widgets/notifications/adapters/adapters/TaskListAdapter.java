@@ -25,7 +25,7 @@ public class TaskListAdapter extends MyArrayAdapter<Task> {
 	protected void buildItemLayout(View convertView, Task task) {
 		if(task.status == Task.STATUS_FINISHED){
 			ImageView imgStatus = (ImageView)convertView.findViewById(R.id.item_book_img_icon);
-			imgStatus.setImageResource((R.drawable.ico_checked));
+			imgStatus.setImageResource((R.drawable.ic_check_box_black_24dp));
 		}
 		TextView txt1 = (TextView)convertView.findViewById(R.id.txt1);
 		txt1.setText(task.priority + "." + task.name);

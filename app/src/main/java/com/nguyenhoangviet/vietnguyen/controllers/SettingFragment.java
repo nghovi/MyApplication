@@ -38,6 +38,9 @@ public class SettingFragment extends MyFragment{
 
 	// public static final int INTENT_REQUEST_CODE_SEND_EMAIL = 1001;
 
+	private int	taskNum			= 0;
+	private int	taskFinishedNum	= 0;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -103,7 +106,6 @@ public class SettingFragment extends MyFragment{
 		allTasksSeries.setColor(Color.RED);
 		LineGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries(dayBefore, dayAfter);
 
-		graph.setTitle(getString(R.string.fragment_setting_graph_title));
 		graph.addSeries(allTasksSeries);
 		graph.addSeries(finishedTasksSeries);
 		graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
@@ -119,15 +121,18 @@ public class SettingFragment extends MyFragment{
 				}
 			}
 		});
+		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskNum));
 	}
 
 	private LineGraphSeries<DataPoint> makeAllTasksSeries(int dayBefore, int dayAfter){
 		List<Task> tasks = getAllTasksRecently(dayBefore, dayAfter);
+		this.taskNum = tasks.size();
 		return makeTasksSeries(tasks, dayBefore, dayAfter);
 	}
 
 	private LineGraphSeries<DataPoint> makeFinishedTasksSeries(int dayBefore, int dayAfter){
 		List<Task> tasks = getFinishedTasksRecently(dayBefore, dayAfter);
+		this.taskFinishedNum = tasks.size();
 		return makeTasksSeries(tasks, dayBefore, dayAfter);
 	}
 

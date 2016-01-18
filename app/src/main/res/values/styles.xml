@@ -62,5 +62,11 @@
         <item name="android:textSize">12dp</item>
     </style>
 
+    <style name="core_header_action_text">
+        <item name="android:textColor">@color/core_white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

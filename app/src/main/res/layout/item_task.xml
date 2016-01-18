@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_book_img_icon"
-            android:src="@drawable/ico_unchecked"
+            android:src="@drawable/ic_check_box_outline_blank_black_24dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center" />
 

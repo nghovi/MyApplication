@@ -13,16 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/core_gray"
-        android:gravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/nav_btn_back" />
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back_white_36dp"
+            android:layout_gravity="center_vertical" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -38,12 +37,12 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/done"
-                android:textColor="@color/core_white"
                 custom:jsonKey="mood"
                 android:paddingLeft="20dp"
                 android:paddingTop="12dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="12dp" />
+                android:paddingBottom="12dp"
+                style="@style/core_header_action_text" />
         </LinearLayout>
 
     </LinearLayout>
