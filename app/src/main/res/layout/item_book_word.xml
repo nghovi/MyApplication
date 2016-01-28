@@ -37,7 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_item_book_word_speaker"
-            android:src="@drawable/ic_volume_mute_black_18dp" />
+            android:src="@drawable/ic_volume_mute_black_18dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingRight="5dp" />
 
     </LinearLayout>
 

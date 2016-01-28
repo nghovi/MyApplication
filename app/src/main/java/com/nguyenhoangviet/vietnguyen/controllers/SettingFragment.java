@@ -16,7 +16,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookDetailFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.models.Task;
@@ -35,8 +34,8 @@ public class SettingFragment extends MyFragment{
 
 	// public static final int INTENT_REQUEST_CODE_SEND_EMAIL = 1001;
 
-	private int	taskNum			= 0;
-	private int	taskFinishedNum	= 0;
+	private int	taskUnfinishedNum	= 0;
+	private int	taskFinishedNum		= 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -122,12 +121,12 @@ public class SettingFragment extends MyFragment{
 		});
 		graph.getLegendRenderer().setVisible(true);
 		graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskNum));
+		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskFinishedNum + taskUnfinishedNum));
 	}
 
 	private BarGraphSeries<DataPoint> makeUnfinishedTasksSeries(int dayBefore, int dayAfter){
 		List<Task> tasks = getUnfinishedTasksRecently(dayBefore, dayAfter);
-		this.taskNum = tasks.size();
+		this.taskUnfinishedNum = tasks.size();
 		DataPoint dataPointsarray[] = makeTasksDataPoints(tasks, dayBefore, dayAfter);
 		BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPointsarray);
 		return series;

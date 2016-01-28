@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -58,7 +59,7 @@ public class BookDetailFragment extends MyFragment{
 		}else{
 			getImageView(R.id.img_book_detail_image).setImageResource(R.drawable.book_cover);
 		}
-		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null);
+		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null, null);
 		setLinkFor(R.id.txt_book_link, book.link);
 		setOnClickFor(R.id.img_fragment_book_detail_delete, new View.OnClickListener() {
 
@@ -226,9 +227,17 @@ public class BookDetailFragment extends MyFragment{
 		List<String> phrases = this.book.getPhrasesOfWord(word);
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibw_phrases);
 		lnrPhrases.removeAllViews();
+		View.OnClickListener listener = new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v){
+				speakWordOnly(word);
+			}
+		};
 		if(phrases.size() > 0){
-			setFoldAction(getView(itemBookWord, R.id.lnr_ibw), getImageView(itemBookWord, R.id.img_ibw_fold), R.id.lnr_ibw_phrases, null);
+			setFoldAction(getView(itemBookWord, R.id.lnr_ibw), getImageView(itemBookWord, R.id.img_ibw_fold), R.id.lnr_ibw_phrases, null, listener);
 		}else{
+			setOnClickFor(itemBookWord, R.id.lnr_ibw, listener);
 			invisibleView(itemBookWord, R.id.img_ibw_fold);
 		}
 		for(String phrase : phrases){

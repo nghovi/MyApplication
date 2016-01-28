@@ -72,7 +72,7 @@ public class BookAddFragment extends AbstractBookFragment{
 
 	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
 		List<String> phrases = this.book.getWordUsage(word);
-		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
+		setFoldAction(getView(itemBookWord, R.id.lnr_ibwe), getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete), null);
 		if(word.equals(this.newWord)){
 			getTextView(itemBookWord, R.id.txt_ibwe_word).setTextColor(getResources().getColor(R.color.core_blue));
 			getView(itemBookWord, R.id.lnr_ibwe).performClick();

@@ -263,7 +263,10 @@ public class MyFragment extends Fragment{
 		}
 	}
 
-	public void setFoldAction(final View foldable, final ImageView imgFoldIcon, int contentId, final View otherView){
+	/*
+	 * other: speak
+	 */
+	public void setFoldAction(final View foldable, final ImageView imgFoldIcon, int contentId, final View otherView, final View.OnClickListener additionalListener){
 		final View content = getView(foldable, contentId);
 		foldable.setOnClickListener(new View.OnClickListener() {
 
@@ -283,6 +286,10 @@ public class MyFragment extends Fragment{
 					if(otherView != null){
 						otherView.setVisibility(View.VISIBLE);
 					}
+				}
+
+				if(additionalListener != null){
+					additionalListener.onClick(view);
 				}
 			}
 		});

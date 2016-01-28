@@ -2,8 +2,10 @@ package com.nguyenhoangviet.vietnguyen.core.controller;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.nguyenhoangviet.vietnguyen.controllers.Book.AddNewPhraseDialogFragment;
+import com.nguyenhoangviet.vietnguyen.controllers.Book.AddNewWordDialogFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
@@ -198,72 +202,26 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClickDone(String input1, String input2);
 	}
 
-	public Dialog buildDialogWithEdt(Context activity, String hint, String message, final OnDialogWithEdtDismiss listener){
-		dlg = new Dialog(this.activity);
-		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dlg.setContentView(R.layout.dialog_with_edt);
-
-		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_edt);
-		edt.setHint(hint);
-		if(!MU.isEmpty(message)){
-			edt.setText(message);
-		}
-		// edt.setMinLines(1);
-		// edt.setMaxLines(9);
-
-		TextView txtDone = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_done);
-		txtDone.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlg.dismiss();
-				listener.onClickDone(edt.getText().toString(), null);
-			}
-		});
-
-		TextView txtCancel = (TextView)dlg.findViewById(R.id.txt_dialog_with_edt_cancel);
-		txtCancel.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlg.dismiss();
-			}
-		});
-
-		return dlg;
+	public MyDialogFragment buildAndShowDialogWithEdt(String hint, String message, final OnDialogWithEdtDismiss listener){
+		AddNewPhraseDialogFragment addNewPhraseDialogFragment = new AddNewPhraseDialogFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString(AddNewPhraseDialogFragment.HINT, hint);
+		bundle.putString(AddNewPhraseDialogFragment.MESSAGE, message);
+		addNewPhraseDialogFragment.setArguments(bundle);
+		addNewPhraseDialogFragment.setOnDialogWithEdtDismissListener(listener);
+		addNewPhraseDialogFragment.show(activity.getFragmentManager(), null);
+		return addNewPhraseDialogFragment;
 	}
 
-	public Dialog buildDialogWith2Edt(Context activity, String hint, String hint2, final OnDialogWithEdtDismiss listener){
-		dlg = new Dialog(this.activity);
-		dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dlg.setContentView(R.layout.dialog_with_2edt);
-
-		final EditText edt = (EditText)dlg.findViewById(R.id.edt_dialog_with_2edt_word);
-		edt.setHint(hint);
-
-		final EditText edt2 = (EditText)dlg.findViewById(R.id.edt_dialog_with_2edt_phrase);
-		edt2.setHint(hint2);
-
-		TextView txtDone = (TextView)dlg.findViewById(R.id.txt_dialog_with_2edt_done);
-		txtDone.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlg.dismiss();
-				listener.onClickDone(edt.getText().toString(), edt2.getText().toString());
-			}
-		});
-
-		TextView txtCancel = (TextView)dlg.findViewById(R.id.txt_dialog_with_2edt_cancel);
-		txtCancel.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				dlg.dismiss();
-			}
-		});
-
-		return dlg;
+	public MyDialogFragment buildAndShowDialogWith2Edt(String hint1, String hint2, final OnDialogWithEdtDismiss listener){
+		AddNewWordDialogFragment addNewWordDialogFragment = new AddNewWordDialogFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString(AddNewWordDialogFragment.WORD_HINT1, hint1);
+		bundle.putString(AddNewWordDialogFragment.WORD_HINT2, hint2);
+		addNewWordDialogFragment.setArguments(bundle);
+		addNewWordDialogFragment.setOnDialogWithEdtDismissListener(listener);
+		addNewWordDialogFragment.show(activity.getFragmentManager(), null);
+		return addNewWordDialogFragment;
 	}
 
 	private void setListenerFor(View v, final View.OnClickListener listener){

@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
-import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
@@ -37,13 +36,13 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	abstract protected void buildVocabulary();
 
 	protected void builFoldActionAndOnClickEvents(){
-		setFoldAction(getView(R.id.lnr_sbe_icon_url_selectable), getImageView(R.id.img_sbe_icon_url_fold_icon), R.id.edt_sbe_icon_url, null);
-		setFoldAction(getView(R.id.lnr_sbe_comment_selectable), getImageView(R.id.img_sbe_fold), R.id.edt_sbe_comment, null);
-		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
-		setFoldAction(getView(R.id.lnr_sbe_author_selectable), getImageView(R.id.img_sbe_author_fold_icon), R.id.edt_sbe_author, null);
-		setFoldAction(getView(R.id.lnr_sbe_mood_selectable), getImageView(R.id.img_sbe_mood_fold_icon), R.id.edt_sbe_mood, null);
-		setFoldAction(getView(R.id.lnr_sbe_link_selectable), getImageView(R.id.img_sbe_link_fold_icon), R.id.edt_sbe_link, null);
-		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null);
+		setFoldAction(getView(R.id.lnr_sbe_icon_url_selectable), getImageView(R.id.img_sbe_icon_url_fold_icon), R.id.edt_sbe_icon_url, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_comment_selectable), getImageView(R.id.img_sbe_fold), R.id.edt_sbe_comment, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_author_selectable), getImageView(R.id.img_sbe_author_fold_icon), R.id.edt_sbe_author, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_mood_selectable), getImageView(R.id.img_sbe_mood_fold_icon), R.id.edt_sbe_mood, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_link_selectable), getImageView(R.id.img_sbe_link_fold_icon), R.id.edt_sbe_link, null, null);
+		setFoldAction(getView(R.id.lnr_sbe_name_selectable), getImageView(R.id.img_sbe_name_fold_icon), R.id.edt_sbe_name, null, null);
 		setOnClickFor(R.id.ico_sbe_add_vocabulary, this);
 	}
 
@@ -102,13 +101,13 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
 	protected void showDialogForAddingWord(){
-		dlgBuilder.buildDialogWith2Edt(activity, getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg1), getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg2), new DialogBuilder.OnDialogWithEdtDismiss() {
+		dlgBuilder.buildAndShowDialogWith2Edt(getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg1), getString(R.string.fragment_abstract_book_dlg_enter_new_word_msg2), new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
 			public void onClickDone(String input1, String input2){
 				addWordForBook(input1, input2);
 			}
-		}).show();
+		});
 	}
 
 	abstract protected void addWordForBook(String word, String phrase);
@@ -148,14 +147,14 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	}
 
 	protected void showDialogForAddingPhrase(final String word){
-		dlgBuilder.buildDialogWithEdt(activity, getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
+		dlgBuilder.buildAndShowDialogWithEdt(getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
 			public void onClickDone(String input1, String input2){
 				addPhraseForWord(word, input1);
 				buildVocabulary();
 			}
-		}).show();
+		});
 	}
 
 	protected void addPhraseForWord(String word, String phrase){
