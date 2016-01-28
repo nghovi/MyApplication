@@ -80,21 +80,18 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void buildTts(){
-		if(tts == null){
-			tts = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
+		stopTts();
+		tts = new TextToSpeech(activity, new TextToSpeech.OnInitListener() {
 
-				@Override
-				public void onInit(int status){
-					if(status != TextToSpeech.ERROR){
-						tts.setLanguage(Locale.US);
-						if(myUtteranceProgressListener == null){
-							myUtteranceProgressListener = new MyUtteranceProgressListener(tts, getWordsForReading(), (long)activity.getIntPreference(WORD_SPEED_INTERVAL, DEFAULT_WORD_SPEED_INTERVAL_MS));
-						}
-						tts.setOnUtteranceProgressListener(myUtteranceProgressListener);
-					}
+			@Override
+			public void onInit(int status){
+				if(status != TextToSpeech.ERROR){
+					tts.setLanguage(Locale.US);
+					myUtteranceProgressListener = new MyUtteranceProgressListener(tts, getWordsForReading(), (long)activity.getIntPreference(WORD_SPEED_INTERVAL, DEFAULT_WORD_SPEED_INTERVAL_MS));
+					tts.setOnUtteranceProgressListener(myUtteranceProgressListener);
 				}
-			});
-		}
+			}
+		});
 	}
 
 	private List<String> getWordsForReading(){
@@ -250,12 +247,16 @@ public class BookDetailFragment extends MyFragment{
 
 	@Override
 	public void onDestroyView(){
+		stopTts();
+		super.onDestroyView();
+	}
+
+	private void stopTts(){
 		if(tts != null){
 			tts.stop();
 			tts.shutdown();
 			tts = null;
 		}
-		super.onDestroyView();
 	}
 
 	@Override

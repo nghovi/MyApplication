@@ -36,9 +36,9 @@
 
 
     <application
-        android:icon="@drawable/ico_note_32_on"
         android:name="com.nguyenhoangviet.vietnguyen.core.controller.MyApplication"
         android:allowBackup="true"
+        android:icon="@drawable/ico_note_32_on"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data
@@ -47,7 +47,8 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
-        <meta-data android:name="AA_SERIALIZERS"
+        <meta-data
+            android:name="AA_SERIALIZERS"
             android:value="com.nguyenhoangviet.vietnguyen.models.UtilDateSerializer" />
 
         <activity
@@ -60,47 +61,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
             android:name="com.nguyenhoangviet.vietnguyen.controllers.MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
         <!--<activity-->
-            <!--android:name="com.facebook.FacebookActivity"-->
-            <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-            <!--android:label="@string/app_name"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--android:name="com.facebook.FacebookActivity"-->
+        <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <!--<meta-data-->
-            <!--android:name="com.facebook.sdk.ApplicationId"-->
-            <!--android:value="@string/facebook_app_id" />-->
+        <!--android:name="com.facebook.sdk.ApplicationId"-->
+        <!--android:value="@string/facebook_app_id" />-->
         <!--<meta-data-->
-            <!--android:name="com.facebook.sdk.ApplicationName"-->
-            <!--android:value="@string/app_name" />-->
+        <!--android:name="com.facebook.sdk.ApplicationName"-->
+        <!--android:value="@string/app_name" />-->
 
         <activity
             android:name="com.nguyenhoangviet.vietnguyen.core.controller.MyActivity"
             android:label="@string/title_activity_my"></activity>
 
 
-        <receiver
-            android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver"
-            android:process=":remote">
+        <receiver android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <!--<receiver-->
-            <!--android:name="com.google.android.gcm.GCMBroadcastReceiver"-->
-            <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
-            <!--<intent-filter>-->
+        <!--android:name="com.google.android.gcm.GCMBroadcastReceiver"-->
+        <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
+        <!--<intent-filter>-->
 
-                <!--&lt;!&ndash; Receives the actual messages. &ndash;&gt;-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-                <!--&lt;!&ndash; Receives the registration id. &ndash;&gt;-->
-                <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
+        <!--&lt;!&ndash; Receives the actual messages. &ndash;&gt;-->
+        <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+        <!--&lt;!&ndash; Receives the registration id. &ndash;&gt;-->
+        <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
 
-                <!--<category android:name="com.example.vietnguyen.myapplication" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="com.example.vietnguyen.myapplication" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
         <service
             android:name="com.nguyenhoangviet.vietnguyen.controllers.NotificationService"

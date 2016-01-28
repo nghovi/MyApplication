@@ -46,7 +46,7 @@ public class MU{
 
 	// Log
 	public static int		LOG_COUNTER	= 0;
-	public static String	LOG_TAG		= "******";
+	public static String	LOG_TAG		= "VNOTE******";
 
 	public static void log(){
 		if(BuildConfig.DEVELOP){
