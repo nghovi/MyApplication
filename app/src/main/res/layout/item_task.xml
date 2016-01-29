@@ -20,13 +20,11 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <ImageView
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_book_img_icon"
-            android:src="@drawable/ic_check_box_outline_blank_black_24dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center" />
+            android:id="@+id/chk_item_task"
+            android:visibility="gone" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -38,18 +36,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_book_name"
-                android:id="@+id/txt1"
+                android:id="@+id/txt_item_task_name"
                 android:textStyle="bold"
                 android:ellipsize="end"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="@color/core_black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mock_book_author"
-                android:id="@+id/txt2"
-                android:ellipsize="end"
-                android:singleLine="true" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Highest"
+                    android:id="@+id/txt_item_task_status"
+                    android:textColor="@color/core_white"
+                    android:textStyle="bold"
+                    style="@style/core_text_badged" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:id="@+id/textView25"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unfinished"
+                    android:id="@+id/txt_item_task_priority"
+                    android:textColor="@color/core_white"
+                    android:textStyle="bold"
+                    style="@style/core_text_badged" />
+            </LinearLayout>
 
 
         </LinearLayout>

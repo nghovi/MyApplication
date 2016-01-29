@@ -205,6 +205,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="&quot;Ongoing great book&quot;"
+                            android:textColor="@color/core_black"
                             android:textStyle="italic"
                             custom:jsonKey="comment" />
                     </LinearLayout>

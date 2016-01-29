@@ -15,26 +15,58 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 /**
  * Created by viet on 8/13/2015.
  */
-public class TaskListAdapter extends MyArrayAdapter<Task> {
+public class TaskListAdapter extends MyArrayAdapter<Task>{
 
 	public TaskListAdapter(Context context, int resourceId){
 		super(context, resourceId, new ArrayList<Task>());
 	}
 
 	@Override
-	protected void buildItemLayout(View convertView, Task task) {
-		if(task.status == Task.STATUS_FINISHED){
-			ImageView imgStatus = (ImageView)convertView.findViewById(R.id.item_book_img_icon);
-			imgStatus.setImageResource((R.drawable.ic_check_box_black_24dp));
-		}
-		TextView txt1 = (TextView)convertView.findViewById(R.id.txt1);
-		txt1.setText(task.priority + "." + task.name);
-		TextView txt2 = (TextView)convertView.findViewById(R.id.txt2);
-		txt2.setText(task.description);
+	protected void buildItemLayout(View convertView, Task task){
+		TextView txtTaskName = (TextView)convertView.findViewById(R.id.txt_item_task_name);
+		txtTaskName.setText(task.name);
+		TextView txtStatus = (TextView)convertView.findViewById(R.id.txt_item_task_status);
+		setTaskStatusBackground(txtStatus, task);
+
+		TextView txtPriority = (TextView)convertView.findViewById(R.id.txt_item_task_priority);
+		setTaskPriorityBackground(txtPriority, task);
+
 		if(this.mode == MyArrayAdapter.MODE_FILTER){
 			TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_task_search_result_date);
 			txtDate.setText(MU.getDateForDisplaying(task.date));
 			txtDate.setVisibility(View.VISIBLE);
 		}
+	}
+
+	public static void setTaskStatusBackground(TextView txtStatus, Task task){
+		if(task.status == Task.STATUS_FINISHED){
+			txtStatus.setText(Task.STATUS[1]);
+			txtStatus.setBackgroundResource(R.drawable.task_status_finished_bg);
+		}else{
+			txtStatus.setText(Task.STATUS[0]);
+			txtStatus.setBackgroundResource(R.drawable.task_status_unfinished_bg);
+		}
+	}
+
+	public static void setTaskPriorityBackground(TextView txtPriority, Task task){
+		int bgResource = R.drawable.task_priority_lowest;
+		switch(task.priority){
+		case 1:
+			bgResource = R.drawable.task_priority_highest;
+			break;
+		case 2:
+			bgResource = R.drawable.task_priority_high;
+			break;
+		case 3:
+			bgResource = R.drawable.task_priority_medium;
+			break;
+		case 4:
+			bgResource = R.drawable.task_priority_low;
+			break;
+		default:
+			break;
+		}
+		txtPriority.setText(Task.TASK_PRIORITIES[task.priority - 1]);
+		txtPriority.setBackgroundResource(bgResource);
 	}
 }

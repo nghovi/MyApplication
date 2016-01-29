@@ -114,8 +114,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	protected void addPhraseForExistingWord(List<Book> booksContainWord, String newWord, String newPhrase){
 		Book b = booksContainWord.get(0);
-		newPhrase = "[" + book.name + "] " + newPhrase;
 		if(!MU.isEmpty(newPhrase)){
+			newPhrase = "[" + book.name + "] " + newPhrase;
 			b.addPhraseForWord(newWord, newPhrase);
 			savedBookFromLayout();
 			showExistedWordNotifyDialog(getString(R.string.fragment_abstract_book_add_new_phrase, newWord, b.name), newWord, b);
@@ -150,7 +150,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		dlgBuilder.buildAndShowDialogWithEdt(getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
-			public void onClickDone(String input1, String input2) {
+			public void onClickDone(String input1, String input2){
 				addPhraseForWord(word, input1);
 				buildVocabulary();
 			}

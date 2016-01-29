@@ -94,6 +94,13 @@
     <color name="facebook1">#8b9dc3</color>
     <color name="facebook2">#dfe3ee</color>
     <color name="facebook3">#f7f7f7</color>
+    <color name="task_status_unfinished_bg_color">@color/core_red</color>
+    <color name="task_status_finished_bg_color">@color/core_gray</color>
+    <color name="task_priority_lowest_bg_color">@color/core_gray</color>
+    <color name="task_priority_low_bg_color">@color/core_salmon</color>
+    <color name="task_priority_medium_bg_color">@color/core_orange</color>
+    <color name="task_priority_high_bg_color">@color/core_rose</color>
+    <color name="task_priority_highest_bg_color">@color/core_red</color>
 
 
     <color name="bg_reading">#FAFAC8</color>

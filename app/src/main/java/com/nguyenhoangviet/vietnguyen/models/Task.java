@@ -21,7 +21,7 @@ public class Task extends MyModel{
 	public static final int			STATUS_UNFINISHED			= 0;
 	public static final int			STATUS_FINISHED				= 1;
 	public static final int			STATUS_ANY					= 2;
-	public static final String[]	STATUS						= new String[]{"Unfinished", "Finished", "Any"};
+	public static final String[]	STATUS						= new String[]{"Unfinished", "Finished", "Any"};//todo DO NOT change the order
 
 	public static final int			TASK_PRIORITY_HIGHEST		= 1;
 	public static final int			TASK_PRIORITY_HIGH			= 2;

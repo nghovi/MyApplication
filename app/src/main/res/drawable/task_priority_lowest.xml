@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/core_text_badge"
+    android:shape="rectangle">
+
+    <!-- view background color -->
+    <solid android:color="@color/task_priority_lowest_bg_color"></solid>
+
+    <!-- view border color and width -->
+    <stroke style="@style/core_text_badge_stroke"></stroke>
+
+
+    <!-- Here is the corner radius -->
+    <corners style="@style/core_text_badge_corner"></corners>
+
+</shape>

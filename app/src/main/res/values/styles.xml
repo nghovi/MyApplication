@@ -68,5 +68,27 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="core_text_badged">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
+    <style name="core_text_badge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="core_text_badge_stroke">
+        <item name="android:width">0dp</item>
+        <item name="android:color">@color/core_gray</item>
+    </style>
+
+    <style name="core_text_badge_corner">
+        <item name="android:radius">2dp</item>
+    </style>
 </resources>
