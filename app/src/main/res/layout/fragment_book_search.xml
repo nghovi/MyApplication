@@ -1,169 +1,210 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/core_white"
     android:orientation="vertical"
-    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment"
-    android:background="@color/core_white">
+    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
+        android:id="@+id/lnr_fbl_header"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/core_gray"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal"
-        android:id="@+id/lnr_fbl_header">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_arrow_back_white_36dp"
-            android:visibility="visible"
-            android:layout_gravity="center_vertical" />
+            android:visibility="visible" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal">
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
             <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
                 android:id="@+id/txt_fragment_book_search_cancel"
+                style="@style/core_header_action_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="Cancel"
-                android:textColor="@color/core_white"
+                android:paddingBottom="12dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:layout_weight="1"
-                style="@style/core_header_action_text" />
+                android:text="@string/cancel"
+                android:textColor="@color/core_white" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/txt_fragment_book_search_search"
+            style="@style/core_header_action_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
-            android:id="@+id/txt_fragment_book_search_search"
-            android:textColor="@color/core_white"
-            android:paddingRight="10dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
             android:gravity="center_horizontal"
-            style="@style/core_header_action_text" />
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+            android:text="@string/search"
+            android:textColor="@color/core_white" />
 
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView5" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/core_label_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_book_search_word" />
+
+                    <EditText
+                        android:id="@+id/edt_fragment_book_search_word"
+                        style="@style/core_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|top"
+                        android:hint="@string/fragment_book_search_word_hint"
+                        android:inputType="textMultiLine"
+                        android:minLines="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/core_line_divider" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/textView15"
+                    style="@style/core_label_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Word"
-                    android:id="@+id/textView15" />
+                    android:text="@string/fragment_book_search_phrase" />
 
                 <EditText
+                    android:id="@+id/edt_fragment_book_search_phrase"
+                    style="@style/core_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/core_edit_text"
-                    android:inputType="textMultiLine"
-                    android:minLines="1"
-                    android:hint="Eg: avalanche"
                     android:gravity="left|top"
-                    android:id="@+id/edt_fragment_book_search_word" />
+                    android:hint="@string/fragment_book_search_phrase_hint"
+                    android:inputType="textMultiLine"
+                    android:minLines="1" />
             </LinearLayout>
-            <View style="@style/core_line_divider"/>
+
+            <View style="@style/core_line_divider" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
+                    style="@style/core_label_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name" />
+                    android:text="@string/fragment_book_search_book_name" />
 
                 <EditText
+                    android:id="@+id/edt_fragment_book_search_name"
+                    style="@style/core_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/core_edit_text"
-                    android:inputType="textMultiLine"
-                    android:minLines="1"
-                    android:hint="Eg: Percy Jackson"
                     android:gravity="left|top"
-                    android:id="@+id/edt_fragment_book_search_name" />
+                    android:hint="@string/fragment_book_search_book_name_hint"
+                    android:inputType="textMultiLine"
+                    android:minLines="1" />
             </LinearLayout>
-            <View style="@style/core_line_divider"/>
+
+            <View style="@style/core_line_divider" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
+                    style="@style/core_label_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Author"/>
+                    android:text="@string/author" />
 
                 <EditText
+                    android:id="@+id/edt_fragment_book_search_author"
+                    style="@style/core_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/core_edit_text"
-                    android:inputType="textMultiLine"
-                    android:minLines="1"
                     android:gravity="left|top"
-                    android:hint="Eg: Rich Riordan"
-                    android:id="@+id/edt_fragment_book_search_author" />
+                    android:hint="@string/fragment_book_search_author_hint"
+                    android:inputType="textMultiLine"
+                    android:minLines="1" />
             </LinearLayout>
-            <View style="@style/core_line_divider"/>
+
+            <View style="@style/core_line_divider" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
+                    style="@style/core_label_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comment"/>
+                    android:text="@string/comment" />
 
                 <EditText
+                    android:id="@+id/edt_fragment_book_search_comment"
+                    style="@style/core_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/core_edit_text"
-                    android:inputType="textMultiLine"
-                    android:minLines="2"
-                    android:hint="Eg: love"
                     android:gravity="left|top"
-                    android:id="@+id/edt_fragment_book_search_comment" />
+                    android:hint="@string/fragment_book_search_comment_hint"
+                    android:inputType="textMultiLine"
+                    android:minLines="2" />
             </LinearLayout>
-            <View style="@style/core_line_divider"/>
+
+            <View style="@style/core_line_divider" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -22,6 +22,7 @@ import java.util.Map;
 public class BookSearchFragment extends FragmentOfMainActivity{
 
 	public static final String	KEY_BOOK_SEARCH_WORD		= "book_search_by_word";
+	public static final String	KEY_BOOK_SEARCH_PHRASE		= "book_search_by_phrase";
 	public static final String	KEY_BOOK_SEARCH_NAME		= "book_search_by_name";
 	public static final String	KEY_BOOK_SEARCH_AUTHOR		= "book_search_by_author";
 	public static final String	KEY_BOOK_SEARCH_COMMENT		= "book_search_by_comment";
@@ -57,6 +58,7 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 			}
 		};
 		setOnEditorActionFor(R.id.edt_fragment_book_search_word, EditorInfo.IME_ACTION_SEARCH, listener);
+		setOnEditorActionFor(R.id.edt_fragment_book_search_phrase, EditorInfo.IME_ACTION_SEARCH, listener);
 		setOnEditorActionFor(R.id.edt_fragment_book_search_author, EditorInfo.IME_ACTION_SEARCH, listener);
 		setOnEditorActionFor(R.id.edt_fragment_book_search_name, EditorInfo.IME_ACTION_SEARCH, listener);
 		setOnEditorActionFor(R.id.edt_fragment_book_search_comment, EditorInfo.IME_ACTION_SEARCH, listener);
@@ -77,6 +79,11 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 		if(conditions.containsKey(KEY_BOOK_SEARCH_WORD)){
 			setTextFor(R.id.edt_fragment_book_search_word, conditions.get(KEY_BOOK_SEARCH_WORD));
 		}
+
+		if(conditions.containsKey(KEY_BOOK_SEARCH_PHRASE)){
+			setTextFor(R.id.edt_fragment_book_search_phrase, conditions.get(KEY_BOOK_SEARCH_PHRASE));
+		}
+
 		if(conditions.containsKey(KEY_BOOK_SEARCH_NAME)){
 			setTextFor(R.id.edt_fragment_book_search_name, conditions.get(KEY_BOOK_SEARCH_NAME));
 		}
@@ -100,18 +107,21 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 		return books;
 	}
 
+	// too many duplicate code, I should think about it before coding!!!
 	private void onClickSearchText(){
 		hideSofeKeyboard();
 		String word = getEditText(R.id.edt_fragment_book_search_word).getText().toString();
+		String phrase = getEditText(R.id.edt_fragment_book_search_phrase).getText().toString();
 		String name = getEditText(R.id.edt_fragment_book_search_name).getText().toString();
 		String author = getEditText(R.id.edt_fragment_book_search_author).getText().toString();
 		String comment = getEditText(R.id.edt_fragment_book_search_comment).getText().toString();
-		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_CONDITION, buildSearchConditions(word, name, author, comment));
+		activity.backToFragment(BookListFragment.class, KEY_BOOK_SEARCH_CONDITION, buildSearchConditions(word, phrase, name, author, comment));
 	}
 
-	private Map<String, Object> buildSearchConditions(String word, String name, String author, String comment){
+	private Map<String, Object> buildSearchConditions(String word, String phrase, String name, String author, String comment){
 		Map<String, Object> conditions = new HashMap<String, Object>();
 		conditions.put(KEY_BOOK_SEARCH_WORD, word);
+		conditions.put(KEY_BOOK_SEARCH_PHRASE, phrase);
 		conditions.put(KEY_BOOK_SEARCH_NAME, name);
 		conditions.put(KEY_BOOK_SEARCH_AUTHOR, author);
 		conditions.put(KEY_BOOK_SEARCH_COMMENT, comment);

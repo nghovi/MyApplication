@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:id="@+id/edt_dialog_with_2edt_phrase"
-        android:hint="Enter new phrase"
+        android:hint="@string/dialog_width_2edt_phrase_hint"
         android:layout_marginBottom="10dp"
         style="@style/core_edit_text"
         android:minLines="2"
@@ -70,7 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="@string/done"
         android:id="@+id/txt_dialog_with_2edt_done"
         android:textColor="@color/core_blue"
         android:layout_gravity="right" />

@@ -82,7 +82,18 @@ public class Book extends MyModel{
 		return this.getVocabs().keySet().contains(word);
 	}
 
-	public List<String> getVocabularyList(){
+	public boolean containPhrase(String phrasePattern){
+		for(String word : getWords()){
+			for(String phrase : getPhrasesOfWord(word)){
+				if(MU.checkMatch(phrase, phrasePattern)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private List<String> getWordList(){
 		List<String> result = new ArrayList<String>();
 		if(!MU.isEmpty(this.vocabulary)){
 			String[] words = this.vocabulary.split(WORD_DELIMITER);
@@ -114,22 +125,23 @@ public class Book extends MyModel{
 		}
 		return result;
 	}
-//
-//	@Override
-//	public String toString(){
-//		Gson gson = MU.createNewGson();
-//		String str = gson.toJson(this).toString();
-//		return str;
-//	}
-//
-//	public Book fromString(String model){
-//		Gson gson = new Gson();
-//		return gson.fromJson(model, Book.class);
-//	}
+
+	//
+	// @Override
+	// public String toString(){
+	// Gson gson = MU.createNewGson();
+	// String str = gson.toJson(this).toString();
+	// return str;
+	// }
+	//
+	// public Book fromString(String model){
+	// Gson gson = new Gson();
+	// return gson.fromJson(model, Book.class);
+	// }
 
 	private void buildVocabs(){
 		vocabs = new HashMap<String, List<String>>();
-		List<String> words = getVocabularyList();
+		List<String> words = getWordList();
 		for(String word : words){
 			List<String> phrases = getWordUsage(word);
 			vocabs.put(word, phrases);

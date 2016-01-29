@@ -195,6 +195,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	public static List<MyModel> searchWithConditions(Map<String, Object> conditions){
 		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
+		String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
 		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
 		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
 		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
@@ -204,6 +205,10 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		while(ib.hasNext()){
 			Book book = (Book)ib.next();
 			if(!MU.isEmpty(word) && !book.hasWord(word)){
+				ib.remove();
+				continue;
+			}
+			if(!MU.isEmpty(phrase) && !book.containPhrase(phrase)){
 				ib.remove();
 				continue;
 			}
