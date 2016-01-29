@@ -131,5 +131,9 @@
     <string name="fragment_task_detail_priority_label"><u>Priority:</u></string>
     <string name="fragment_task_detail_status_label"><u>Status:</u></string>
 
+    <string name="dialog_width_2edt_word_hint">Enter new word</string>
+    <string name="dialog_width_2edt_next_phrase">Next Phrase</string>
+    <string name="dialog_width_2edt_next_word">Next Word</string>
+
 
 </resources>

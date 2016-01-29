@@ -67,6 +67,28 @@ public class AddNewWordDialogFragment extends MyDialogFragment{
 				onClickCancel();
 			}
 		});
+
+		TextView txtNextWord = (TextView)view.findViewById(R.id.txt_dialog_with_2edt_next_word);
+		txtNextWord.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				listener.onClickDone(edt.getText().toString(), edt2.getText().toString());
+				edt.setText("");
+				edt2.setText("");
+			}
+		});
+
+		TextView txtNextPhrase = (TextView)view.findViewById(R.id.dialog_width_2edt_next_phrase);
+		txtNextPhrase.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				listener.onClickDone(edt.getText().toString(), edt2.getText().toString());
+				edt2.setText("");
+			}
+		});
+
 		return view;
 	}
 

@@ -47,7 +47,6 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-
 		View view = inflater.inflate(R.layout.dialog_with_edt, container);
 		final EditText edt = (EditText)view.findViewById(R.id.edt_dialog_with_edt);
 		edt.setHint(getArguments().getString(HINT));
@@ -74,6 +73,16 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 			@Override
 			public void onClick(View view){
 				onClickCancel();
+			}
+		});
+
+		TextView txtContinue = (TextView)view.findViewById(R.id.txt_dialog_with_edt_continue);
+		txtContinue.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v){
+				listener.onClickDone(edt.getText().toString(), null);
+				edt.setText("");
 			}
 		});
 

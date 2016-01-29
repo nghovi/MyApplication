@@ -150,7 +150,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		dlgBuilder.buildAndShowDialogWithEdt(getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
-			public void onClickDone(String input1, String input2){
+			public void onClickDone(String input1, String input2) {
 				addPhraseForWord(word, input1);
 				buildVocabulary();
 			}

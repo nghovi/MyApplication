@@ -202,7 +202,15 @@ public class DialogBuilder implements DialogInterface.OnDismissListener{
 		public void onClickDone(String input1, String input2);
 	}
 
-	public MyDialogFragment buildAndShowDialogWithEdt(String hint, String message, final OnDialogWithEdtDismiss listener){
+	/**
+	 * Dialog for add new phrase for word
+	 * 
+	 * @param hint "Enter new phrase for 'absurd'"
+	 * @param message
+	 * @param listener "when click Done"
+	 * @return
+	 */
+	public MyDialogFragment buildAndShowDialogWithEdt(String hint, String message, final OnDialogWithEdtDismiss listener ){
 		AddNewPhraseDialogFragment addNewPhraseDialogFragment = new AddNewPhraseDialogFragment();
 		Bundle bundle = new Bundle();
 		bundle.putString(AddNewPhraseDialogFragment.HINT, hint);
