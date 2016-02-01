@@ -3,6 +3,8 @@ package com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adap
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,11 +27,18 @@ public class TaskListAdapter extends MyArrayAdapter<Task>{
 	protected void buildItemLayout(View convertView, Task task){
 		TextView txtTaskName = (TextView)convertView.findViewById(R.id.txt_item_task_name);
 		txtTaskName.setText(task.name);
-		TextView txtStatus = (TextView)convertView.findViewById(R.id.txt_item_task_status);
-		setTaskStatusBackground(txtStatus, task);
+		if(task.status == Task.STATUS_UNFINISHED){
+			txtTaskName.setTextColor(Color.BLACK);
+			txtTaskName.setTypeface(null, Typeface.BOLD);
+		}
 
-		TextView txtPriority = (TextView)convertView.findViewById(R.id.txt_item_task_priority);
-		setTaskPriorityBackground(txtPriority, task);
+		TextView txtDescription = (TextView)convertView.findViewById(R.id.txt_item_task_description);
+		txtDescription.setText(task.description);
+		// TextView txtStatus = (TextView)convertView.findViewById(R.id.txt_item_task_status);
+		// setTaskStatusBackground(txtStatus, task);
+		//
+		// TextView txtPriority = (TextView)convertView.findViewById(R.id.txt_item_task_priority);
+		// setTaskPriorityBackground(txtPriority, task);
 
 		if(this.mode == MyArrayAdapter.MODE_FILTER){
 			TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_task_search_result_date);

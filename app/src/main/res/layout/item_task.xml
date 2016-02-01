@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/bg_reading">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_reading"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/txt_item_task_search_result_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Friday, Nov 20, 2015"
-        android:id="@+id/txt_item_task_search_result_date"
-        android:singleLine="true"
-        android:ellipsize="end"
         android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Friday, Nov 20, 2015"
         android:visibility="gone" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <CheckBox
+            android:id="@+id/chk_item_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/chk_item_task"
             android:visibility="gone" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mock_book_name"
-                android:id="@+id/txt_item_task_name"
-                android:textStyle="bold"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/core_black" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -50,38 +41,46 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highest"
-                    android:id="@+id/txt_item_task_status"
-                    android:textColor="@color/core_white"
-                    android:textStyle="bold"
-                    style="@style/core_text_badged" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="|"
-                    android:id="@+id/textView25"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Unfinished"
+                    android:text=" "
                     android:id="@+id/txt_item_task_priority"
-                    android:textColor="@color/core_white"
-                    android:textStyle="bold"
-                    style="@style/core_text_badged" />
+                    android:layout_marginRight="6dp"
+                    style="@style/core_text_badge"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txt_item_task_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/mock_book_name"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_item_task_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Highest"
+                    android:ellipsize="end"
+                    android:textSize="12sp" />
             </LinearLayout>
 
 
         </LinearLayout>
+
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:src="@drawable/common_ic_grayarrow_01"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/common_ic_grayarrow_01" />
     </LinearLayout>
 
 </LinearLayout>

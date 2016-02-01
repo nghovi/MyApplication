@@ -1,5 +1,7 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Task;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +71,10 @@ public class TaskDetailFragment extends MyFragment{
 		setTextFor(R.id.txt_fragment_task_detail_comment, task.comment);
 		setTextFor(R.id.txt_fragment_task_detail_priority, Task.TASK_PRIORITIES[task.priority - 1]);
 		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
+		if(task.status == Task.STATUS_UNFINISHED){
+			TextView txtTaskStatus = getTextView(R.id.txt_fragment_task_detail_status);
+			txtTaskStatus.setTextColor(Color.BLACK);
+		}
 	}
 
 	private void buildNotices(){
