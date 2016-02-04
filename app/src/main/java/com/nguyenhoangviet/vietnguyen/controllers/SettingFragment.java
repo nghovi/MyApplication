@@ -99,11 +99,11 @@ public class SettingFragment extends MyFragment{
 		final int dayAfter = 10;
 		GraphView graph = (GraphView)getView().findViewById(R.id.graph);
 		BarGraphSeries<DataPoint> unfinishedTasksSeries = makeUnfinishedTasksSeries(dayBefore, dayAfter);
-		unfinishedTasksSeries.setColor(Color.BLACK);
+		unfinishedTasksSeries.setColor(Color.RED);
 		unfinishedTasksSeries.setTitle(getString(R.string.fragment_setting_graph_unfinished_task_title));
 		BarGraphSeries<DataPoint> finishedTasksSeries = makeFinishedTasksSeries(dayBefore, dayAfter);
 		finishedTasksSeries.setTitle(getString(R.string.fragment_setting_graph_finished_task_title));
-		finishedTasksSeries.setColor(Color.GRAY);
+		finishedTasksSeries.setColor(Color.BLUE);
 
 		graph.addSeries(unfinishedTasksSeries);
 		graph.addSeries(finishedTasksSeries);

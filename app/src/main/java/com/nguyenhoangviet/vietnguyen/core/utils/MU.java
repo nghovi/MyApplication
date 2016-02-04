@@ -219,7 +219,7 @@ public class MU{
 			}catch(FileNotFoundException e){
 				e.printStackTrace();
 			}
-		}else{
+		}else if(!MU.isEmpty(url)){
 			picassaLoadAndSaveImage(url, imageView, context, fileName);
 		}
 	}
@@ -231,6 +231,18 @@ public class MU{
 
 			fos = new FileOutputStream(mypath);
 			Bitmap bitmapImage = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+			bitmapImage.compress(Bitmap.CompressFormat.PNG, Const.BITMAP_COMPRESS_QUALITY, fos);
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static void saveBitMapImage(Bitmap bitmapImage, String fileName, Context context){
+		File mypath = getImageFile(fileName, context);
+		FileOutputStream fos = null;
+		try{
+			fos = new FileOutputStream(mypath);
 			bitmapImage.compress(Bitmap.CompressFormat.PNG, Const.BITMAP_COMPRESS_QUALITY, fos);
 			fos.close();
 		}catch(Exception e){

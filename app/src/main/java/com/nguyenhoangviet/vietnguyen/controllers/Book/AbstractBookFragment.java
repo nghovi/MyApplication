@@ -1,9 +1,17 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,8 +25,9 @@ import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 public abstract class AbstractBookFragment extends FragmentOfMainActivity implements View.OnClickListener{
 
-	public final static String	KEY_UPDATED_BOOK	= "book_updated";
-	public final static String	BOOK_COVER_PREFIX	= "book_cover";
+	public final static String	KEY_UPDATED_BOOK				= "book_updated";
+	public final static String	BOOK_COVER_PREFIX				= "book_cover";
+	public final static int		REQ_CODE_ACTIVITY_SELECT_IMAGE	= 101;
 	protected Book				book;
 	protected String			newWord;
 
@@ -48,8 +57,41 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	protected void buildCoverImage(){
 		addTextWatcherForBookImage();
-		if(!MU.isEmpty(book.iconUrl)){
-			MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
+		MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
+		setOnClickFor(R.id.img_sbe_image, new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v){
+				selectBookCover();
+			}
+		});
+	}
+
+	private void selectBookCover(){
+		Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(i, REQ_CODE_ACTIVITY_SELECT_IMAGE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent){
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+		switch(requestCode){
+		case REQ_CODE_ACTIVITY_SELECT_IMAGE:
+			if(resultCode == Activity.RESULT_OK){
+				Uri selectedImage = imageReturnedIntent.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+				Cursor cursor = activity.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String filePath = cursor.getString(columnIndex);
+				cursor.close();
+				Bitmap selectedBookCover = BitmapFactory.decodeFile(filePath);
+				MU.saveBitMapImage(selectedBookCover, getBookImageFileName(book), activity);
+				getImageView(R.id.img_sbe_image).setImageBitmap(selectedBookCover);
+			}
 		}
 	}
 
@@ -92,7 +134,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 					book.iconUrl = url;
 					MU.picassaLoadAndSaveImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity, AbstractBookFragment.getBookImageFileName(book));
 				}else{
-					getImageView(R.id.img_sbe_image).setImageResource(R.drawable.book_cover);
+					MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
 				}
 			}
 		});

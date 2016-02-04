@@ -165,7 +165,8 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:id="@+id/lnr_sbe_mood_selectable"
-                    android:background="@drawable/core_selectable">
+                    android:background="@drawable/core_selectable"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:orientation="horizontal"

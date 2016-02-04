@@ -54,11 +54,7 @@ public class BookDetailFragment extends MyFragment{
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
-		if(!MU.isEmpty(book.iconUrl)){
-			MU.loadImage(activity, book.iconUrl, AbstractBookFragment.getBookImageFileName(book), getImageView(R.id.img_book_detail_image));
-		}else{
-			getImageView(R.id.img_book_detail_image).setImageResource(R.drawable.book_cover);
-		}
+		buildCover();
 		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null, null);
 		setLinkFor(R.id.txt_book_link, book.link);
 		setOnClickFor(R.id.img_fragment_book_detail_delete, new View.OnClickListener() {
@@ -77,6 +73,10 @@ public class BookDetailFragment extends MyFragment{
 		});
 		buildWords();
 		buildTts();
+	}
+
+	private void buildCover(){
+		MU.loadImage(activity, book.iconUrl, AbstractBookFragment.getBookImageFileName(book), getImageView(R.id.img_book_detail_image));
 	}
 
 	private void buildTts(){

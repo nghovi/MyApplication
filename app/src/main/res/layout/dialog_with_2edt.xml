@@ -29,7 +29,9 @@
         android:id="@+id/txt_dialog_with_2edt_next_word"
         android:textColor="@color/core_blue"
         android:layout_gravity="right"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:paddingLeft="40dp"
+        android:paddingBottom="4dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -53,7 +55,9 @@
             android:text="@string/dialog_width_2edt_next_phrase"
             android:id="@+id/dialog_width_2edt_next_phrase"
             android:gravity="right"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="40dp" />
     </LinearLayout>
 
     <EditText

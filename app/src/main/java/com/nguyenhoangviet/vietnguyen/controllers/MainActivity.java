@@ -152,7 +152,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	//
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
-		// super.onActivityResult(requestCode, resultCode, data);
+		super.onActivityResult(requestCode, resultCode, data);
 		// // fbCallbackManager.onActivityResult(requestCode, resultCode, data);
 		// switch(requestCode){
 		// case SettingFragment.INTENT_REQUEST_CODE_SEND_EMAIL:

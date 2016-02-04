@@ -27,7 +27,9 @@
         android:id="@+id/txt_dialog_with_edt_continue"
         android:textColor="@color/core_blue"
         android:layout_gravity="right"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:paddingLeft="40dp"
+        android:paddingBottom="4dp" />
 
     <EditText
         android:layout_width="match_parent"
