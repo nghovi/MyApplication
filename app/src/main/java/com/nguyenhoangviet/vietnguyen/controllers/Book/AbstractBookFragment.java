@@ -1,6 +1,8 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -80,19 +82,46 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		case REQ_CODE_ACTIVITY_SELECT_IMAGE:
 			if(resultCode == Activity.RESULT_OK){
 				Uri selectedImage = imageReturnedIntent.getData();
-				String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-				Cursor cursor = activity.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-				cursor.moveToFirst();
-
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String filePath = cursor.getString(columnIndex);
-				cursor.close();
-				Bitmap selectedBookCover = BitmapFactory.decodeFile(filePath);
-				MU.saveBitMapImage(selectedBookCover, getBookImageFileName(book), activity);
-				getImageView(R.id.img_sbe_image).setImageBitmap(selectedBookCover);
+				Bitmap selectedBookCover = null;
+				try{
+					selectedBookCover = decodeUri(selectedImage);
+					MU.saveBitMapImage(selectedBookCover, getBookImageFileName(book), activity);
+					getImageView(R.id.img_sbe_image).setImageBitmap(selectedBookCover);
+				}catch(FileNotFoundException e){
+					e.printStackTrace();
+				}
 			}
 		}
+	}
+
+	private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException{
+
+		// Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+		BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(selectedImage), null, o);
+
+		// The new size we want to scale to
+		final int REQUIRED_SIZE = 140;
+
+		// Find the correct scale value. It should be the power of 2.
+		int width_tmp = o.outWidth, height_tmp = o.outHeight;
+		int scale = 1;
+		while(true){
+			if(width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE){
+				break;
+			}
+			width_tmp /= 2;
+			height_tmp /= 2;
+			scale *= 2;
+		}
+
+		// Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		return BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(selectedImage), null, o2);
+
 	}
 
 	@Override

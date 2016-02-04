@@ -111,7 +111,7 @@
     <string name="fragment_setting_email_cc"><u>vietnh1990@gmail.com</u></string>
     <string name="fragment_setting_email_subject">About your V Note</string>
     <string name="fragment_setting_email_choose_sender">Choose sender:</string>
-    <string name="fragment_setting_graph_title">Last 30 days Task stats (%1$s/%2$s)</string>
+    <string name="fragment_setting_graph_title">Daily Task Stats (%1$s/%2$s)</string>
     <string name="fragment_setting_graph_finished_task_title">Finished</string>
     <string name="fragment_setting_graph_unfinished_task_title">Unfinished</string>
 
@@ -148,7 +148,6 @@
     <string name="fragment_book_search_book_name_hint">E.g. Percy Jackson</string>
     <string name="fragment_book_search_author_hint">E.g. Rich</string>
     <string name="fragment_book_search_comment_hint">E.g. adventures</string>
-
 
 
 </resources>
