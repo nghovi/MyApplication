@@ -146,14 +146,6 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 
 	// //////////////////////////////////Preferences/////////////////////////////////////
 
-	public void getApi(String url, JSONObject param, Api.OnCallApiListener onCallApiListener){
-		api.get(this, url, param, onCallApiListener);
-	}
-
-	public void postApi(String url, JSONObject param, Api.OnCallApiListener onCallApiListener){
-		api.post(this, url, param, onCallApiListener);
-	}
-
 	// ///////////////////////////// onFunctions ///////////////////////////////
 
 	@Override

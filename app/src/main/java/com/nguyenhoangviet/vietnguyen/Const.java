@@ -8,6 +8,8 @@ public class Const{
 	public static final String	PREF_KEY_SESSION_ID		= "SESSION_ID";
 	public static final String	IMAGE_DIR				= "images";
 	public static final int		BITMAP_COMPRESS_QUALITY	= 100;
+	public static final int		STATUS_CODE_OK			= 1;
+	public static final int		STATUS_CODE_FAIL		= 0;
 
 	// https://developers.facebook.com/apps/966395066741035/dashboard/
 	public static final String	FACEBOOK_APP_ID			= "966395066741035";
@@ -22,9 +24,15 @@ public class Const{
 
 	public static final String	GET_PRIMARY_CARD_INFO	= SERVER_URL + "get_primary_card_info/";
 	public static final String	GET_BOOKS				= SERVER_URL + "get_books/";
+	public static final String	GET_BOOK_DETAIL			= SERVER_URL + "get_book_detail/";
+
 	public static final String	ADD_BOOK				= SERVER_URL + "add_book/";
 	public static final String	EDIT_BOOK				= SERVER_URL + "edit_book/";
 	public static final String	DELETE_BOOK				= SERVER_URL + "delete_book/";
+	public static final String	ADD_PHRASE				= SERVER_URL + "add_phrase/";
+	public static final String	ADD_WORD				= SERVER_URL + "add_word/";
+	public static final String	DELETE_WORD				= SERVER_URL + "delete_word/";
+	public static final String	DELETE_PHRASE			= SERVER_URL + "delete_phrase/";
 
 	public static final String	GET_TASKS				= SERVER_URL + "get_tasks/";
 	public static final String	GET_TASKS_BY_DATE		= SERVER_URL + "get_tasks_by_date/";
@@ -39,10 +47,10 @@ public class Const{
 	public static final String	EDIT_NOTICE				= SERVER_URL + "edit_notice/";
 	public static final String	DELETE_NOTICE			= SERVER_URL + "delete_notice/";
 
-	public static final String	GET_TASK_NOTICES				= SERVER_URL + "get_notices/";
-	public static final String	ADD_TASK_NOTICE				= SERVER_URL + "add_notice/";
-	public static final String	EDIT_TASK_NOTICE				= SERVER_URL + "edit_notice/";
-	public static final String	DELETE_TASK_NOTICE			= SERVER_URL + "delete_notice/";
+	public static final String	GET_TASK_NOTICES		= SERVER_URL + "get_notices/";
+	public static final String	ADD_TASK_NOTICE			= SERVER_URL + "add_notice/";
+	public static final String	EDIT_TASK_NOTICE		= SERVER_URL + "edit_notice/";
+	public static final String	DELETE_TASK_NOTICE		= SERVER_URL + "delete_notice/";
 
 	public static final String	GET_MOTTOS				= SERVER_URL + "get_mottos/";
 

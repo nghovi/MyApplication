@@ -3,12 +3,9 @@ package com.nguyenhoangviet.vietnguyen.controllers.Task;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -18,15 +15,13 @@ import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.DatePickerFragment;
-import com.nguyenhoangviet.vietnguyen.models.MyModel;
+import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.Notice;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.utils.GcmUtil;
-import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.NoticeAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -142,7 +137,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 		task.status = status;
 		task.date = targetDate;
 		task.lastupdated = targetDate;
-		task.save();
+//		task.save();
 		makeAlarmForNotice();
 	}
 
@@ -163,7 +158,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						txtDate.setText(MU.getDateForDisplaying(targetDate));
-						task.save();
+//						task.save();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");
@@ -185,8 +180,8 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	}
 
 	private void buildNoticeLayouts(){
-		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
-		buildVirtualListByLinearLayout(R.id.lst_share_task_edit_remind, R.layout.item_notice, notices, this);
+//		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
+//		buildVirtualListByLinearLayout(R.id.lst_share_task_edit_remind, R.layout.item_notice, notices, this);
 	}
 
 	private void onClickAddRemind(){
@@ -215,9 +210,9 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 	private void addNotice(Calendar c){
 		Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, task.name, task.description, task.id, c.getTime());
-		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
+//		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
 		savedNotices.add(newNotice);
-		task.addNoticeIdWithoutSave(newNotice.getId().toString());
+//		task.addNoticeIdWithoutSave(newNotice.getId().toString());
 		addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
 		final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
 		scrollView.post(new Runnable() {
@@ -231,8 +226,8 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 	private void updateNotice(Calendar c, Notice notice){
 		notice.noticeDate = c.getTime();
-		notice.isRemoteSaved = false;
-		notice.save();
+//		notice.isRemoteSaved = false;
+//		notice.save();
 		buildNoticeLayouts();
 	}
 
@@ -276,42 +271,42 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	protected void makeAlarmForNotice(){
 		for(Notice notice : savedNotices){
 			notice.title = task.name;
-			notice.value = task.getId().toString();
+//			notice.value = task.getId().toString();
 			notice.message = task.name;
-			notice.save();
+//			notice.save();
 			GcmUtil.makeLocalAlarm(activity, notice);
 		}
 		savedNotices = new ArrayList<Notice>();
 	}
 
-	protected static List<MyModel> searchWithConditions(Map<String, Object> conditions){
-		String text = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT);
-		String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
-		int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
+//	protected static List<Book> searchWithConditions(Map<String, Object> conditions){
+//		String text = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT);
+//		String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
+//		int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
 
-		List<MyModel> tasks = Task.getAllUndeleted(Task.class);
-		Iterator<MyModel> ib = tasks.iterator();
-		while(ib.hasNext()){
-			Task task = (Task)ib.next();
-			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
-				ib.remove();
-				continue;
-			}
+//		List<Book> tasks = Task.getAllUndeleted(Task.class);
+//		Iterator<Book> ib = tasks.iterator();
+//		while(ib.hasNext()){
+//			Task task = (Task)ib.next();
+//			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
+//				ib.remove();
+//				continue;
+//			}
+//
+//			// taskStatus = 1 mean user selected "Any" at 3 options dialog
+//			if(taskStatus != Task.STATUS_ANY && taskStatus != task.status){
+//				ib.remove();
+//				continue;
+//			}
+//
+//			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(Task.TASK_PRIORITIES[task.priority - 1])){
+//				ib.remove();
+//				continue;
+//			}
+//		}
 
-			// taskStatus = 1 mean user selected "Any" at 3 options dialog
-			if(taskStatus != Task.STATUS_ANY && taskStatus != task.status){
-				ib.remove();
-				continue;
-			}
-
-			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(Task.TASK_PRIORITIES[task.priority - 1])){
-				ib.remove();
-				continue;
-			}
-		}
-
-		return tasks;
-	}
+//		return tasks;
+//	}
 
 	protected void backToTaskList(){
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
@@ -331,7 +326,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 				if(savedNotices.contains(notice)){
 					savedNotices.remove(notice);
 				}
-				notice.delete();
+//				notice.delete();
 				buildNoticeLayouts();
 			}
 		});

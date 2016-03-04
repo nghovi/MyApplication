@@ -1,29 +1,29 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
-import com.nguyenhoangviet.vietnguyen.models.MyModel;
+import com.nguyenhoangviet.vietnguyen.models.Link;
+import com.nguyenhoangviet.vietnguyen.models.Phrase;
+import com.nguyenhoangviet.vietnguyen.models.Word;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
+import org.json.JSONObject;
 
 public abstract class AbstractBookFragment extends FragmentOfMainActivity implements View.OnClickListener{
 
@@ -59,7 +59,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 
 	protected void buildCoverImage(){
 		addTextWatcherForBookImage();
-		MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
+		MU.loadImage(activity, book.iconurl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
 		setOnClickFor(R.id.img_sbe_image, new View.OnClickListener() {
 
 			@Override
@@ -128,12 +128,10 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	public void onClick(View view){
 		switch(view.getId()){
 		case R.id.txt_fragment_book_edit_done:
-			savedBookFromLayout();
-			activity.backOneFragment();
+			savedBookFromLayout(false);
 			break;
 		case R.id.txt_fba_done:
-			savedBookFromLayout();
-			activity.backOneFragment();
+			savedBookFromLayout(true);
 			break;
 		case R.id.ico_sbe_add_vocabulary:
 			showDialogForAddingWord();
@@ -159,11 +157,11 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			@Override
 			public void afterTextChanged(Editable editable){
 				String url = editable.toString();
-				if(!MU.isEmpty(url) && !url.equals(book.iconUrl)){
-					book.iconUrl = url;
-					MU.picassaLoadAndSaveImage(book.iconUrl, getImageView(R.id.img_sbe_image), activity, AbstractBookFragment.getBookImageFileName(book));
+				if(!MU.isEmpty(url) && !url.equals(book.iconurl)){
+					book.iconurl = url;
+					MU.picassaLoadAndSaveImage(book.iconurl, getImageView(R.id.img_sbe_image), activity, AbstractBookFragment.getBookImageFileName(book));
 				}else{
-					MU.loadImage(activity, book.iconUrl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
+					MU.loadImage(activity, book.iconurl, getBookImageFileName(book), getImageView(R.id.img_sbe_image));
 				}
 			}
 		});
@@ -181,20 +179,6 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		});
 	}
 
-	abstract protected void addWordForBook(String word, String phrase);
-
-	protected void addPhraseForExistingWord(List<Book> booksContainWord, String newWord, String newPhrase){
-		Book b = booksContainWord.get(0);
-		if(!MU.isEmpty(newPhrase)){
-			newPhrase = "[" + book.name + "] " + newPhrase;
-			b.addPhraseForWord(newWord, newPhrase);
-			savedBookFromLayout();
-			showExistedWordNotifyDialog(getString(R.string.fragment_abstract_book_add_new_phrase, newWord, b.name), newWord, b);
-		}else{
-			showExistedWordNotifyDialog(getString(R.string.fragment_abstract_book_existing_word, newWord, b.name), newWord, b);
-		}
-	}
-
 	private void showExistedWordNotifyDialog(String msg, String newWord, final Book foundBook){
 		dlgBuilder.build2OptionsDialog(activity, getString(R.string.fragment_abstract_book_dlg_existing_word_msg), msg, getString(R.string.fragment_abstract_book_dlg_existing_word_btn1), new View.OnClickListener() {
 
@@ -205,20 +189,38 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		}).show();
 	}
 
-	protected void showDialogConfirmDeleteWord(final String word){
+	protected void showDialogConfirmDeleteWord(final Word word){
 		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				book.deleteWord(word);
-				savedBookFromLayout();
-				buildVocabulary();
+				sendDeleteWord(word);
 			}
 		}).show();
 	}
 
-	protected void showDialogForAddingPhrase(final String word){
-		dlgBuilder.buildAndShowDialogWithEdt(getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word), null, new DialogBuilder.OnDialogWithEdtDismiss() {
+	protected void sendDeleteWord(final Word word){
+		callPostApi(Const.DELETE_WORD, getJsonBuilder().add("word_id", word.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendDeleteWordSuccess(word, response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+	}
+
+	private void onSendDeleteWordSuccess(Word deletedWord, JSONObject response){
+		book.words.remove(deletedWord);
+		buildVocabulary();
+	}
+
+	protected void showDialogForAddingPhrase(final Word word){
+		dlgBuilder.buildAndShowDialogWithEdt(getString(R.string.fragment_abstract_book_dlg_enter_new_phrase_msg, word.syllabus), null, new DialogBuilder.OnDialogWithEdtDismiss() {
 
 			@Override
 			public void onClickDone(String input1, String input2){
@@ -228,74 +230,140 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		});
 	}
 
-	protected void addPhraseForWord(String word, String phrase){
-		if(book.hasWord(word) && !MU.isEmpty(phrase)){
-			book.addPhraseForWord(word, phrase);
-			savedBookFromLayout();
+	protected void addPhraseForWord(final Word word, String phrase){
+		if(!MU.isEmpty(phrase)){
+			callPostApi(Const.ADD_PHRASE, getJsonBuilder().add("word_id", word.id).add("new_phrase", phrase).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+				@Override
+				public void onSuccess(JSONObject response){
+					onAddPhraseSuccess(word, response);
+				}
+
+				@Override
+				public void onFailure(JSONObject repsone){
+					commonApiFailure(repsone);
+				}
+			});
 		}
 	}
 
-	protected void deletePhrase(String word, String phrase){
-		book.deletePhraseForWord(word, phrase);
-		savedBookFromLayout();
+	private void onAddPhraseSuccess(Word modifedWord, JSONObject response){
+		Phrase newPhrase = MU.convertToModel(response.optString("data"), Phrase.class);
+		modifedWord.phrases.add(newPhrase);
 		buildVocabulary();
 	}
 
-	protected void savedBookFromLayout(){
+	protected void addWordForBook(final String syllabus, String phrase){
+		if(!MU.isEmpty(phrase)){
+			Word wordExisted = book.findWord(syllabus);
+			if(wordExisted != null){
+				addPhraseForWord(wordExisted, phrase);
+			}else{
+				callPostApi(Const.ADD_WORD, getJsonBuilder().add("book_id", book.id).add("new_word", syllabus).add("new_phrase", phrase).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+					@Override
+					public void onSuccess(JSONObject response){
+						onAddWordForBookSuccess(response);
+					}
+
+					@Override
+					public void onFailure(JSONObject repsone){
+						commonApiFailure(repsone);
+					}
+				});
+			}
+		}
+	}
+
+	private void onAddWordForBookSuccess(JSONObject response){
+		Word word = MU.convertToModel(response.optString("data"), Word.class);
+		book.words.add(0, word);
+		buildVocabulary();
+	}
+
+	protected void savedBookFromLayout(boolean isNew){
 		book.name = getEditText(R.id.edt_sbe_name).getText().toString();
 		book.comment = getEditText(R.id.edt_sbe_comment).getText().toString();
 		book.author = getEditText(R.id.edt_sbe_author).getText().toString();
-		book.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
-		book.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
-		book.link = getEditText(R.id.edt_sbe_link).getText().toString();
-		book.save();
-		hideSofeKeyboard();
+		book.iconurl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
+		if(book.link != null){
+			book.link.url = getEditText(R.id.edt_sbe_link).getText().toString();
+		}else{
+			book.link = new Link();
+			book.link.url = getEditText(R.id.edt_sbe_link).getText().toString();
+		}
+
+		if(isNew){
+			sendSavingBook(Const.ADD_BOOK, book.name, book.comment, book.author, book.iconurl, book.link);
+		}else{
+			sendSavingBook(Const.EDIT_BOOK, book.name, book.comment, book.author, book.iconurl, book.link);
+		}
+	}
+
+	protected void sendSavingBook(String url, String name, String comment, String author, String iconurl, Link link){
+		callPostApi(url, getJsonBuilder().add("id", book.id).add("name", name).add("comment", comment).add("author", author).add("iconurl", iconurl).add("link", link.url).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendSavingBookSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+	}
+
+	private void onSendSavingBookSuccess(JSONObject response){
+		book = MU.convertToModel(response.optString("data"), Book.class);
+		this.activity.backOneFragment();
 	}
 
 	protected boolean hasChangeData(){
-		return (book.author != null && !getEditText(R.id.edt_sbe_author).getText().toString().equals(book.author)) || (book.name != null && !getEditText(R.id.edt_sbe_name).getText().toString().equals(book.name)) || !getEditText(R.id.edt_sbe_link).getText().toString().equals(book.link) || (book.comment != null && !getEditText(R.id.edt_sbe_comment).getText().toString().equals(book.comment)) || !getEditText(R.id.edt_sbe_icon_url).getText().toString().equals(book.iconUrl) || (book.mood != null && !getEditText(R.id.edt_sbe_mood).getText().toString().equals(book.mood));
+		return (book.author != null && !getEditText(R.id.edt_sbe_author).getText().toString().equals(book.author)) || (book.name != null && !getEditText(R.id.edt_sbe_name).getText().toString().equals(book.name)) || (book.link != null && !getEditText(R.id.edt_sbe_link).getText().toString().equals(book.link.url)) || (book.comment != null && !getEditText(R.id.edt_sbe_comment).getText().toString().equals(book.comment)) || !getEditText(R.id.edt_sbe_icon_url).getText().toString().equals(book.iconurl);
 	}
 
 	public static String getBookImageFileName(Book book){
-		return BOOK_COVER_PREFIX + String.valueOf(book.getId());
+		return BOOK_COVER_PREFIX + book.id;
 	}
 
 	public void setBook(Book book){
 		this.book = book;
 	}
 
-	public static List<MyModel> searchWithConditions(Map<String, Object> conditions){
-		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
-		String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
-		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
-		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
-		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
-
-		List<MyModel> books = Book.getAllUndeleted(Book.class);
-		Iterator<MyModel> ib = books.iterator();
-		while(ib.hasNext()){
-			Book book = (Book)ib.next();
-			if(!MU.isEmpty(word) && !book.hasWord(word)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(phrase) && !book.containPhrase(phrase)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
-				ib.remove();
-				continue;
-			}
-			if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
-				ib.remove();
-				continue;
-			}
-		}
-		return books;
-	}
+	// public static List<Book> searchWithConditions(Map<String, Object> conditions){
+	// String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
+	// String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
+	// String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
+	// String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
+	// String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
+	//
+	// List<Book> books = Book.getAllUndeleted(Book.class);
+	// Iterator<Book> ib = books.iterator();
+	// while(ib.hasNext()){
+	// Book book = (Book)ib.next();
+	// if(!MU.isEmpty(word) && !book.hasWord(word)){
+	// ib.remove();
+	// continue;
+	// }
+	// if(!MU.isEmpty(phrase) && !book.containPhrase(phrase)){
+	// ib.remove();
+	// continue;
+	// }
+	// if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
+	// ib.remove();
+	// continue;
+	// }
+	// if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
+	// ib.remove();
+	// continue;
+	// }
+	// if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
+	// ib.remove();
+	// continue;
+	// }
+	// }
+	// return books;
+	// }
 }

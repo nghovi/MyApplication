@@ -3,12 +3,15 @@ package com.nguyenhoangviet.vietnguyen.core.controller;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,9 +27,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
+import com.nguyenhoangviet.vietnguyen.myapplication.BuildConfig;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 import java.util.Date;
@@ -38,7 +43,7 @@ import java.util.Map;
  * Created by viet on 8/11/2015.
  * http://developer.android.com/guide/components/fragments.html
  */
-public class MyFragment extends Fragment{
+public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	/**
 	 * The Activity.
@@ -225,6 +230,10 @@ public class MyFragment extends Fragment{
 		v.setVisibility(View.VISIBLE);
 	}
 
+	public MU.JsonBuilder getJsonBuilder(){
+		return new MU.JsonBuilder().add("version", BuildConfig.VERSION_NAME);
+	}
+
 	/*
 	 * Determine the enable/disable status of a button base on EditTexts or TextViews
 	 * ONLY enable button when ALL text views already has data.
@@ -329,13 +338,51 @@ public class MyFragment extends Fragment{
 		Toast.makeText(this.activity, msg, Toast.LENGTH_LONG).show();
 	}
 
-	// ///////////////////////////////// NET WORK ///////////////////////////////////////////
-	public void getApi(String url, JSONObject param, Api.OnCallApiListener listener){
-		this.activity.getApi(url, param, listener);
+	// //////////////////////// API Listener interface /////////////////////////////////////
+
+	public void callGetApi(String url, JSONObject param, Api.OnApiSuccessObserver observer){
+		Api.get(getActivity(), url, param, this, observer);
 	}
 
-	public void postApi(String url, JSONObject param, Api.OnCallApiListener listener){
-		this.activity.postApi(url, param, listener);
+	public void callPostApi(String url, JSONObject param, Api.OnApiSuccessObserver observer){
+		Api.post(getActivity(), url, param, this, observer);
+	}
+
+	public void OnApiResponse(String url, JSONObject response, Api.OnApiSuccessObserver observer){
+		if(getView() == null){
+			return;
+		}
+		if(response.optInt("statusCode") == Const.STATUS_CODE_OK){
+			observer.onSuccess(response);
+		}else{
+			observer.onFailure(response);
+		}
+	}
+
+	/**
+	 * When recceive response from server but, logic status return false
+	 *
+	 * @param response
+	 */
+	protected void commonApiFailure(JSONObject response){
+		showAlertDialog("Error", response.optString("data"), getString(android.R.string.ok), null);
+	}
+
+	public void OnApiError(String url, String errorMsg){
+		if(getView() == null){
+			return;
+		}
+		showAlertDialog("API Error", errorMsg, getString(android.R.string.ok), null);
+	}
+
+	// //////////////////////// END API Listener interface /////////////////////////////////////
+	// ////////////////////////////// ////////////////////////////////////////////////////
+	protected void showAlertDialog(String title, String message, String buttonStr, DialogInterface.OnClickListener listener){
+		new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Dialog)).setTitle(title).setMessage(message).setPositiveButton(buttonStr, listener).setIcon(android.R.drawable.ic_dialog_info).show();
+	}
+
+	protected void showAlertDialogWithOption(String title, String message, String positiveStr, String negativeStr, DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener){
+		new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), android.R.style.Theme_Holo_Dialog)).setTitle(title).setMessage(message).setPositiveButton(positiveStr, positiveListener).setNegativeButton(negativeStr, negativeListener).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 
 	// /////////////////////////// UTIL ///////////////////////////////////////
@@ -415,7 +462,7 @@ public class MyFragment extends Fragment{
 	// /////////////////////////////// onFunctions /////////////////////////////////////
 	@Override
 	public void onAttach(Activity activity){
-		MU.log("Fragment onAttach: " + this.getClass().toString());
+		// MU.log("Fragment onAttach: " + this.getClass().toString());
 		super.onAttach(this.activity);
 		try{
 			this.activity = (MyActivity)activity;
@@ -427,7 +474,7 @@ public class MyFragment extends Fragment{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
-		MU.log("Fragment onCreate: " + this.getClass().toString());
+		// MU.log("Fragment onCreate: " + this.getClass().toString());
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
@@ -449,50 +496,50 @@ public class MyFragment extends Fragment{
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
-		MU.log("Fragment onActivityCreated: " + this.getClass().toString());
+		// MU.log("Fragment onActivityCreated: " + this.getClass().toString());
 		super.onActivityCreated(savedInstanceState);
 		buildLayout();
 	}
 
 	@Override
 	public void onStart(){
-		MU.log("Fragment onStart: " + this.getClass().toString());
+		// MU.log("Fragment onStart: " + this.getClass().toString());
 		super.onStart();
 	}
 
 	@Override
 	public void onResume(){
-		MU.log("Fragment onResume: " + this.getClass().toString());
+		// MU.log("Fragment onResume: " + this.getClass().toString());
 		super.onResume();
 	}
 
 	@Override
 	public void onPause(){
-		MU.log("Fragment onPause: " + this.getClass().toString());
+		// MU.log("Fragment onPause: " + this.getClass().toString());
 		super.onPause();
 	}
 
 	@Override
 	public void onStop(){
-		MU.log("Fragment onStop: " + this.getClass().toString());
+		// MU.log("Fragment onStop: " + this.getClass().toString());
 		super.onStop();
 	}
 
 	@Override
 	public void onDestroyView(){
-		MU.log("Fragment onDestroyView: " + this.getClass().toString());
+		// MU.log("Fragment onDestroyView: " + this.getClass().toString());
 		super.onDestroyView();
 	}
 
 	@Override
 	public void onDestroy(){
-		MU.log("Fragment onDestroy: " + this.getClass().toString());
+		// MU.log("Fragment onDestroy: " + this.getClass().toString());
 		super.onDestroy();
 	}
 
 	@Override
 	public void onDetach(){
-		MU.log("Fragment onDetach: " + this.getClass().toString());
+		// MU.log("Fragment onDetach: " + this.getClass().toString());
 		super.onDetach();
 	}
 }

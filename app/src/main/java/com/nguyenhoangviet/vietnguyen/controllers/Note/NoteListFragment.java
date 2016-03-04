@@ -2,16 +2,14 @@ package com.nguyenhoangviet.vietnguyen.controllers.Note;
 
 import java.util.Date;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.activeandroid.query.Select;
+//import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
@@ -112,8 +110,8 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 			if(viewNote != null){
 				CheckBox checkBox = (CheckBox)viewNote.findViewById(R.id.item_note_checkbox);
 				if(checkBox.isChecked() || isDeleteAll){
-					Note note = (Note)models.get(i);
-					note.delete();
+//					Note note = (Note)models.get(i);
+//					note.delete();
 				}
 			}
 		}
@@ -125,7 +123,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		if(!MU.isEmpty(message)){
 			Date date = new Date();
 			Note note = new Note(message, date);
-			note.save();
+//			note.save();
 			reloadNotes();
 		}
 	}
@@ -133,7 +131,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	public void saveOldNote(Note note, String message){
 		if(!note.message.equals(message)){
 			note.message = message;
-			note.save();
+//			note.save();
 			reloadNotes();
 		}
 	}
@@ -199,7 +197,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void reloadNotes(){
-		models = new Select().from(Note.class).execute();
+//		models = new Select().from(Note.class).execute();
 		adapter.updateDataWith(models);
 	}
 

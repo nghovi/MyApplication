@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import org.json.JSONException;
@@ -112,6 +113,28 @@ public class MU{
 		}
 	}
 
+	public static final class JsonBuilder{
+
+		JSONObject	jsonObject;
+
+		public JsonBuilder(){
+			this.jsonObject = new JSONObject();
+		}
+
+		public JsonBuilder add(String key, Object value){
+			try{
+				this.jsonObject.put(key, value);
+			}catch(JSONException e){
+				e.printStackTrace();
+			}
+			return this;
+		}
+
+		public JSONObject getJsonObj(){
+			return this.jsonObject;
+		}
+	}
+
 	public static JSONObject buildJsonObj(List<String> keyValues){
 		JSONObject jsonObject = new JSONObject();
 		try{
@@ -164,7 +187,7 @@ public class MU{
 		Object result = new ArrayList();
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ssZZZ").create();
+			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 			if(jsonString != null){
 				result = (List)ex.fromJson(jsonString, new GsonModel(cls));
 			}
@@ -286,6 +309,21 @@ public class MU{
 	public static String getDateForDisplaying(Date date){
 		// http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
 		SimpleDateFormat ex = new SimpleDateFormat("EEEE, MMM d, yyyy");
+		return ex.format(date);
+	}
+
+	public static String getYearDisplay(Date date){
+		SimpleDateFormat ex = new SimpleDateFormat("yyyy");
+		return ex.format(date);
+	}
+
+	public static String getMonthDisplay(Date date){
+		SimpleDateFormat ex = new SimpleDateFormat("MM");
+		return ex.format(date);
+	}
+
+	public static String getDayDisplay(Date date){
+		SimpleDateFormat ex = new SimpleDateFormat("dd");
 		return ex.format(date);
 	}
 

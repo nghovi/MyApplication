@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Note.NoteListFragment;
+//import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.Footer;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyActivity;
@@ -70,8 +71,8 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// gotoTaskListFragment();
 		// }
 		gotoTaskListFragment();
-		bg = new Background(this);
-		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//		bg = new Background(this);
+//		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 		checkNotice();
 	}
@@ -261,7 +262,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// facebook
 		// Logs 'install' and 'app activate' App Events.
 		// AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
-		bg.startScheduledTasks();
+//		bg.startScheduledTasks();
 
 	}
 
@@ -270,7 +271,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		super.onPause();
 		// Logs 'app deactivate' App Event.
 		// AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
-		bg.stopScheduledTasks();
+//		bg.stopScheduledTasks();
 	}
 
 	@Override

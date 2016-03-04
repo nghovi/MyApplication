@@ -5,24 +5,25 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
 
-import com.activeandroid.Model;
-import com.activeandroid.query.Select;
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
-import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
+
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class BookListFragment extends MyFragmentWithList{
+
+	protected List<Book>		models;
 
 	private Map<String, Object>	searchConditions;
 
@@ -36,6 +37,29 @@ public class BookListFragment extends MyFragmentWithList{
 		super.buildLayout();
 		buildAddBookFunction();
 		buildSearchFunction();
+		callApiGetBooks();
+	}
+
+	private void callApiGetBooks(){
+		// // TODO: 3/3/2016 how to use callGet ?
+		callGetApi(Const.GET_BOOKS, getJsonBuilder().getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onGetBooksSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+
+	}
+
+	private void onGetBooksSuccess(JSONObject response){
+		models = MU.convertToModelList(response.optString("data"), Book.class);
+		showBooks(models);
 	}
 
 	@Override
@@ -54,42 +78,36 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void buildSearchFunction(){
-		searchConditions = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
-		if(searchConditions.size() > 0){
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
-			models = AbstractBookFragment.searchWithConditions(searchConditions);
-			showBooks();
-		}else{
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
-			reloadBook();
-		}
-		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				onClickSearchIcon(searchConditions);
-			}
-		});
+		// searchConditions = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
+		// if(searchConditions.size() > 0){
+		// setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
+		// List<Book> foundBooks = AbstractBookFragment.searchWithConditions(searchConditions);
+		// showBooks(foundBooks);
+		// }else{
+		// setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
+		// showBooks(models);
+		// }
+		// setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View view){
+		// onClickSearchIcon(searchConditions);
+		// }
+		// });
 
 	}
 
 	private void onClickSearchIcon(Map<String, Object> searchCondition){
-		if(searchCondition != null){
-			activity.addFragment(new BookSearchFragment(), BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, searchCondition);
-		}else{
-			activity.addFragment(new BookSearchFragment());
-		}
+		// if(searchCondition != null){
+		// activity.addFragment(new BookSearchFragment(), BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, searchCondition);
+		// }else{
+		// activity.addFragment(new BookSearchFragment());
+		// }
 	}
 
-	private void showBooks(){
+	private void showBooks(List<Book> books){
 		sortByName();
-		adapter.updateDataWith(models);
-	}
-
-	private void reloadBook(){
-		models = new Select().from(Book.class).execute();
-		sortByName();
-		adapter.updateDataWith(models);
+		adapter.updateDataWith(books);
 	}
 
 	private void sortByName(){
@@ -105,7 +123,7 @@ public class BookListFragment extends MyFragmentWithList{
 
 	public void gotoBookDetail(Book book){
 		BookDetailFragment frg = new BookDetailFragment();
-		activity.addFragment(frg, AbstractBookFragment.KEY_UPDATED_BOOK, book);
+		activity.addFragment(frg, BookDetailFragment.BOOK_ID, book.id);
 	}
 
 	@Override

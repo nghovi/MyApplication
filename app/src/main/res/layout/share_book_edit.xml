@@ -24,7 +24,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sbe_part1"
+                android:id="@+id/lnr_sbe_part1"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -273,55 +273,61 @@
 
             </LinearLayout>
 
-            <View android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:paddingBottom="6dp"
-                android:background="@color/core_tan" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/sbe_part2"
-                android:padding="16dp">
+                android:id="@+id/lnr_sbe_part2">
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@color/core_tan" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Vocabulary:"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ico_sbe_add_vocabulary"
-                        android:src="@drawable/ico_add_16"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-
-                <ScrollView
-                    android:id="@+id/scrollView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:id="@+id/lnr_sbe_vocabulary_list"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"></LinearLayout>
-                </ScrollView>
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vocabulary:"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ico_sbe_add_vocabulary"
+                            android:src="@drawable/ico_add_16"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:id="@+id/scrollView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/lnr_sbe_vocabulary_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"></LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

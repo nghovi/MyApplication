@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -95,17 +94,17 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 		}
 	}
 
-	public static List<Book> searchWord(String word){
-		List<Book> books = new Select().from(Book.class).execute();
-		Iterator<Book> ib = books.iterator();
-		while(ib.hasNext()){
-			Book book = ib.next();
-			if(!MU.isEmpty(word) && !book.hasWord(word)){
-				ib.remove();
-			}
-		}
-		return books;
-	}
+	// public static List<Book> searchWord(String word){
+	// List<Book> books = new Select().from(Book.class).execute();
+	// Iterator<Book> ib = books.iterator();
+	// while(ib.hasNext()){
+	// Book book = ib.next();
+	// if(!MU.isEmpty(word) && !book.hasWord(word)){
+	// ib.remove();
+	// }
+	// }
+	// return books;
+	// }
 
 	// too many duplicate code, I should think about it before coding!!!
 	private void onClickSearchText(){

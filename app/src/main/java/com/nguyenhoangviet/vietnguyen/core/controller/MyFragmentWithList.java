@@ -6,7 +6,9 @@ import android.widget.ListView;
 
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
+import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
+import com.nguyenhoangviet.vietnguyen.models.Task;
 
 import java.util.List;
 //abstract classes aren't enforced to implement methods on interface, great

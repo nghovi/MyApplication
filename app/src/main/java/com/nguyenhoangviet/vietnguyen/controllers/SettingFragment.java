@@ -10,7 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
-import com.activeandroid.query.Select;
+//import com.activeandroid.query.Select;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -234,12 +234,12 @@ public class SettingFragment extends MyFragment{
 		Calendar cAfter = Calendar.getInstance();
 		cAfter.add(Calendar.DATE, dayAfter);
 
-		List<Task> allTasks = new Select().from(Task.class).execute();
-		for(Task task : allTasks){
-			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
-				result.add(task);
-			}
-		}
+//		List<Task> allTasks = new Select().from(Task.class).execute();
+//		for(Task task : allTasks){
+//			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
+//				result.add(task);
+//			}
+//		}
 		return result;
 	}
 

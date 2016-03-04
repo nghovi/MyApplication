@@ -29,6 +29,6 @@ public class BookListAdapter extends MyArrayAdapter<Book>{
 		TextView txt2 = (TextView)convertView.findViewById(R.id.txt_item_book_author);
 		txt2.setText(book.author);
 		ImageView imgBookCover = (ImageView)convertView.findViewById(R.id.item_book_img_icon);
-		MU.loadImage(context, book.iconUrl, AbstractBookFragment.getBookImageFileName(book), imgBookCover);
+		MU.loadImage(context, book.iconurl, AbstractBookFragment.getBookImageFileName(book), imgBookCover);
 	}
 }

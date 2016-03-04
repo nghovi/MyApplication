@@ -82,6 +82,9 @@
     <string name="fragment_book_list_add">Add</string>
     <string name="fragment_book_list_empty">Enjoy Reading</string>
 
+    <string name="fragment_book_detail_phrase_start">*</string>
+
+
     <string name="fragment_abstract_book_add_new_phrase">Added new phrase for \"%1$s\" at \"%2$s\"</string>
     <string name="fragment_abstract_book_existing_word">Found word \"%1$s\" at \"%2$s\"</string>
     <string name="fragment_abstract_book_dlg_existing_word_msg">Word Existed!</string>

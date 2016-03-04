@@ -74,3 +74,7 @@ A.onDestroy -> A.onCreate (now fragment stack is still 1.F1, 2.F2, 3.F3) F2.onAt
 
 27. dialog builder notice error when back to app after tapping home btn
 
+================================================= V NOTE 2.0 ================================================
+
+
+

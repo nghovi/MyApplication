@@ -77,18 +77,18 @@ public class SignUpInFragment extends MyFragment{
 		}
 
 		String url = "http://dev01clnt.shk.x.recruit.co.jp/api/shop/detail/";
-		getApi(url, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-
-			}
-		});
+//		getApi(url, param, new Api.OnCallApiListener() {
+//
+//			@Override
+//			public void onApiResponse(JSONObject response){
+//
+//			}
+//
+//			@Override
+//			public void onApiError(String errorMsg){
+//
+//			}
+//		});
 	}
 
 	private void updateLayoutToSignUp(){
@@ -104,34 +104,34 @@ public class SignUpInFragment extends MyFragment{
 
 	private void signIn(){
 		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-		getApi(Const.SIGN_IN, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-
-			}
-		});
+//		getApi(Const.SIGN_IN, param, new Api.OnCallApiListener() {
+//
+//			@Override
+//			public void onApiResponse(JSONObject response){
+//
+//			}
+//
+//			@Override
+//			public void onApiError(String errorMsg){
+//
+//			}
+//		});
 	}
 
 	private void signUp(){
-		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-		getApi(Const.SIGN_UP, param, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-
-			}
-		});
+//		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
+//		getApi(Const.SIGN_UP, param, new Api.OnCallApiListener() {
+//
+//			@Override
+//			public void onApiResponse(JSONObject response){
+//
+//			}
+//
+//			@Override
+//			public void onApiError(String errorMsg){
+//
+//			}
+//		});
 	}
 
 }

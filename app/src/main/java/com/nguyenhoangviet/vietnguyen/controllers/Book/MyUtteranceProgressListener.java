@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 
+import com.nguyenhoangviet.vietnguyen.models.Word;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 import java.util.Iterator;
@@ -20,17 +21,17 @@ import java.util.TimerTask;
  */
 public class MyUtteranceProgressListener extends UtteranceProgressListener{
 
-	List<String>						words;
-	Iterator<String>					iterator;
+	List<Word>							words;
+	Iterator<Word>						iterator;
 	private long						intervalMS;
 	private TextToSpeech				tts;
 	private final String				UTTERANCE_ID	= "UTTERANCE_ID";
 	private OnSpeakAllDoneListener		onSpeakAllDoneListener;
 	private OnSpeakWordDoneListener		onSpeakWordDoneListener;
 	private OnSpeakWordStartListener	onSpeakWordStartListener;
-	private String						word;
+	private Word						word;
 
-	public MyUtteranceProgressListener(TextToSpeech tts, List<String> words, long intervalMS){
+	public MyUtteranceProgressListener(TextToSpeech tts, List<Word> words, long intervalMS){
 		this.words = words;
 		this.tts = tts;
 		this.intervalMS = intervalMS;
@@ -44,14 +45,14 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		this.onSpeakWordDoneListener = new OnSpeakWordDoneListener() {
 
 			@Override
-			public void onSpeakWordDone(String word){
+			public void onSpeakWordDone(Word word){
 
 			}
 		};
 		this.onSpeakWordStartListener = new OnSpeakWordStartListener() {
 
 			@Override
-			public void onSpeakWordStart(String word){
+			public void onSpeakWordStart(Word word){
 
 			}
 		};
@@ -64,12 +65,12 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 
 	public interface OnSpeakWordDoneListener{
 
-		public void onSpeakWordDone(String word);
+		public void onSpeakWordDone(Word word);
 	}
 
 	public interface OnSpeakWordStartListener{
 
-		public void onSpeakWordStart(String word);
+		public void onSpeakWordStart(Word word);
 	}
 
 	public void setOnSpeakAllDoneListener(OnSpeakAllDoneListener listener){
@@ -84,7 +85,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		onSpeakWordStartListener = listener;
 	}
 
-	public void setWords(List<String> words){
+	public void setWords(List<Word> words){
 		this.words = words;
 	}
 
@@ -105,7 +106,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		if(UTTERANCE_ID.equals(s)){
 			callOnSpeakWordDoneListener(word);
 			if(iterator.hasNext()){
-				final String w = iterator.next();
+				final Word w = iterator.next();
 				Timer timer = new Timer();
 
 				timer.schedule(new TimerTask() {
@@ -130,7 +131,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		});
 	}
 
-	private void callOnSpeakWordStartListener(final String w){
+	private void callOnSpeakWordStartListener(final Word w){
 		new Handler(Looper.getMainLooper()).post(new Runnable() {
 
 			@Override
@@ -140,7 +141,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		});
 	}
 
-	private void callOnSpeakWordDoneListener(final String word){
+	private void callOnSpeakWordDoneListener(final Word word){
 		new Handler(Looper.getMainLooper()).post(new Runnable() {
 
 			@Override
@@ -150,7 +151,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		});
 	}
 
-	private void speakWord(String word){
+	private void speakWord(Word word){
 		this.word = word;
 		Bundle bundle = new Bundle();
 		bundle.putString(TextToSpeech.Engine.KEY_PARAM_PAN, "0");
@@ -158,7 +159,7 @@ public class MyUtteranceProgressListener extends UtteranceProgressListener{
 		bundle.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
 			callOnSpeakWordStartListener(this.word);
-			tts.speak(word, TextToSpeech.QUEUE_FLUSH, bundle, UTTERANCE_ID);
+			tts.speak(word.syllabus, TextToSpeech.QUEUE_FLUSH, bundle, UTTERANCE_ID);
 		}
 	}
 

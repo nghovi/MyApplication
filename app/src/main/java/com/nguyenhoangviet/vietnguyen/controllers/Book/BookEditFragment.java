@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.models.Book;
+import com.nguyenhoangviet.vietnguyen.Const;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.models.Phrase;
+import com.nguyenhoangviet.vietnguyen.models.Word;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
-import java.util.List;
+import org.json.JSONObject;
 
 public class BookEditFragment extends AbstractBookFragment implements View.OnClickListener{
 
@@ -33,11 +35,10 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		// MU.interpolate(lnrContent, jsonObject);
 		setOnClickFor(R.id.txt_fragment_book_edit_done, this);
 		setTextFor(R.id.edt_sbe_name, book.name);
-		setTextFor(R.id.edt_sbe_link, book.link);
+		setTextFor(R.id.edt_sbe_link, book.link.url);
 		setTextFor(R.id.edt_sbe_author, book.author);
 		setTextFor(R.id.edt_sbe_comment, book.comment);
-		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
-		setTextFor(R.id.edt_sbe_mood, book.mood);
+		setTextFor(R.id.edt_sbe_icon_url, book.iconurl);
 	}
 
 	@Override
@@ -46,10 +47,10 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_sbe_vocabulary_list);
 		lnrVocabulary.removeAllViews();
 		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		for(final String word : this.book.getWords()){
+		for(final Word word : this.book.words){
 			View itemBookWordEdit = inflater.inflate(R.layout.item_book_word_edit, null);
 
-			setTextFor(itemBookWordEdit, R.id.txt_ibwe_word, word);
+			setTextFor(itemBookWordEdit, R.id.txt_ibwe_word, word.syllabus);
 			setOnClickFor(itemBookWordEdit, R.id.lnr_ibwe_add_phrase, new View.OnClickListener() {
 
 				@Override
@@ -69,52 +70,54 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		}
 	}
 
-	@Override
-	protected void addWordForBook(String newWord, String newPhrase){
-		if(!MU.isEmpty(newWord)){
-			if(book.hasWord(newWord)){
-				addPhraseForWord(newWord, newPhrase);
-			}else{
-				List<Book> booksContainWord = BookSearchFragment.searchWord(newWord);
-				if(booksContainWord.size() > 0){
-					addPhraseForExistingWord(booksContainWord, newWord, newPhrase);
-				}else{
-					book.addWordForBook(newWord);
-					savedBookFromLayout();
-					addPhraseForWord(newWord, newPhrase);
-				}
-			}
-			buildVocabulary();
-		}
-	}
-
-	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
-		List<String> phrases = this.book.getWordUsage(word);
+	private void builPhrasesForWord(final Word word, View itemBookWord, LayoutInflater inflater){
 		setFoldAction2(getView(itemBookWord, R.id.lnr_ibwe), R.id.lnr_item_book_word_word, getImageView(itemBookWord, R.id.img_ibwe_fold), R.id.lnr_ibwe_foldable, getView(itemBookWord, R.id.img_ibwe_delete));
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibwe_phrases);
 		lnrPhrases.removeAllViews();
-		for(final String phrase : phrases){
-			View line = inflater.inflate(R.layout.item_phrase_edit, null);
-			setTextFor(line, R.id.txt_ipe_phrase, phrase);
-			setOnClickFor(line, R.id.lnr_item_phrase_edit, new View.OnClickListener() {
+		if(word.phrases != null){
+			for(final Phrase phrase : word.phrases){
+				View line = inflater.inflate(R.layout.item_phrase_edit, null);
+				setTextFor(line, R.id.txt_ipe_phrase, phrase.content);
+				setOnClickFor(line, R.id.lnr_item_phrase_edit, new View.OnClickListener() {
 
-				@Override
-				public void onClick(View view){
-					showConfirmdDlgDeletePhrase(word, phrase);
-				}
-			});
-			lnrPhrases.addView(line);
+					@Override
+					public void onClick(View view){
+						showConfirmdDlgDeletePhrase(word, phrase);
+					}
+				});
+				lnrPhrases.addView(line);
+			}
 		}
 	}
 
-	private void showConfirmdDlgDeletePhrase(final String word, final String phrase){
+	private void showConfirmdDlgDeletePhrase(final Word word, final Phrase phrase){
 		dlgBuilder.buildConfirmDlgTopDown(getString(R.string.cancel), getString(R.string.delete), new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				deletePhrase(word, phrase);
+				sendDeletePhrase(word, phrase);
 			}
 		}).show();
+	}
+
+	protected void sendDeletePhrase(final Word word, final Phrase phrase){
+		callPostApi(Const.DELETE_PHRASE, getJsonBuilder().add("phrase_id", phrase.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendDeletePhraseSuccess(word, phrase, response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+	}
+
+	private void onSendDeletePhraseSuccess(Word word, Phrase deletedPhrase, JSONObject response){
+		word.phrases.remove(deletedPhrase);
+		buildVocabulary();
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,8 +138,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 				@Override
 				public void onClick(View view){
-					savedBookFromLayout();
-					activity.backToFragment(BookDetailFragment.class, AbstractBookFragment.KEY_UPDATED_BOOK, book);
+					savedBookFromLayout(true);
 				}
 			}).show();
 		}

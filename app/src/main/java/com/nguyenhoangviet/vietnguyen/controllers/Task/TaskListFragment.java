@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import android.app.DatePickerDialog;
@@ -17,15 +18,22 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.DatePickerFragment;
+import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.TaskListAdapter;
 
+import org.json.JSONObject;
+
 public class TaskListFragment extends MyFragmentWithList{
+
+	protected List<Task>					models			= new ArrayList<>();
 
 	private Date							targetDate;
 	private Map<String, ArrayList<Task>>	map;
@@ -46,6 +54,32 @@ public class TaskListFragment extends MyFragmentWithList{
 		buildTargetDate();
 		buildAddBtn();
 		buildSearchFunction();
+		callApiGetTasks();
+	}
+
+	private void callApiGetTasks(){
+		callPostApi(Const.GET_TASKS_BY_DATE, getJsonBuilder().add("year", MU.getYearDisplay(targetDate)).add("month", MU.getMonthDisplay(targetDate)).add("day", MU.getDayDisplay(targetDate)).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onGetTasksSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+
+	}
+
+	private void onGetTasksSuccess(JSONObject response){
+		models = MU.convertToModelList(response.optString("data"), Task.class);
+		showTasks(models);
+	}
+
+	private void showTasks(List<Task> tasks){
+		adapter.updateDataWith(tasks);
 	}
 
 	@Override
@@ -66,8 +100,8 @@ public class TaskListFragment extends MyFragmentWithList{
 		if(searchConditions.size() > 0){
 			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
 			goneView(R.id.txt_fragment_task_list_date);
-			models = AbstractTaskFragment.searchWithConditions(searchConditions);
-			showTasks();
+			// models = AbstractTaskFragment.searchWithConditions(searchConditions);
+			// showTasks();
 		}else{
 			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
 			reloadDailyTasks();
@@ -82,7 +116,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void loadTasksFromLocal(){
-		models = Task.getAllUndeleted(Task.class);
+		// models = Task.getAllUndeleted(Task.class);
 	}
 
 	private void buildCalendarPicker(){
@@ -114,14 +148,10 @@ public class TaskListFragment extends MyFragmentWithList{
 			@Override
 			public void onClick(View view){
 
-				TaskAddFragment frg = new TaskAddFragment();
-				activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
+				// TaskAddFragment frg = new TaskAddFragment();
+				// activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
 			}
 		});
-	}
-
-	private void showTasks(){
-		adapter.updateDataWith(models);
 	}
 
 	public void reloadDailyTasks(){
@@ -163,8 +193,8 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	public void gotoTaskDetail(Task task){
-		TaskDetailFragment frg = new TaskDetailFragment();
-		activity.addFragment(frg, TaskDetailFragment.BUNDLE_KEY_TASK, task);
+		// TaskDetailFragment frg = new TaskDetailFragment();
+		// activity.addFragment(frg, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}
 
 	private String buildKey(Date d){

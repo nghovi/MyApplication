@@ -21,36 +21,52 @@ public class Api{
 
 	public interface OnCallApiListener{
 
-		public void onApiResponse(JSONObject response);
+		void OnApiResponse(String url, JSONObject response, OnApiSuccessObserver observer);
 
-		public void onApiError(String errorMsg);
+		/**
+		 * Called when cannot receive response. E.g. 404, ...
+		 *
+		 * @param url
+		 * @param errorMsg
+		 */
+		void OnApiError(String url, String errorMsg);
 	}
 
-	public void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
-		makeRequest(Request.Method.GET, context, url, param, onCallApiListener);
+	/**
+	 * Depend on how we implement OnApiResponse
+	 */
+	public interface OnApiSuccessObserver{
+
+		void onSuccess(JSONObject response);
+
+		void onFailure(JSONObject repsone);
 	}
 
-	public void post(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener){
-		makeRequest(Request.Method.POST, context, url, param, onCallApiListener);
+	public static void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener, final OnApiSuccessObserver observer){
+		makeRequest(Request.Method.GET, context, url, param, onCallApiListener, observer);
 	}
 
-	private void makeRequest(int method, Context context, String url, JSONObject param, final OnCallApiListener onCallApiListener){
+	public static void post(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener, final OnApiSuccessObserver observer){
+		makeRequest(Request.Method.POST, context, url, param, onCallApiListener, observer);
+	}
+
+	private static void makeRequest(int method, Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener, final OnApiSuccessObserver observer){
 		MU.log("<<<< param: " + param.toString());
 		final String finalUrl = Api.getUrl(url, method, param);
-		JsonObjectRequest jsonObjRequest = new BasicJsonRequest(method, url, param, new Response.Listener<JSONObject>() {
+		JsonObjectRequest jsonObjRequest = new BasicJsonRequest(method, finalUrl, param, new Response.Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject response){
 				MU.log("Response for " + finalUrl + ": ");
 				MU.log("Response:" + response.toString());
-				onCallApiListener.onApiResponse(response);
+				onCallApiListener.OnApiResponse(url, response, observer);
 			}
 		}, new Response.ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError error){
 				MU.log("Error for " + finalUrl + ": ERROR! " + error.toString());
-				onCallApiListener.onApiError(error.toString());
+				onCallApiListener.OnApiError(url, error.toString());
 			}
 		});
 

@@ -1,13 +1,13 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -15,9 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
+import com.nguyenhoangviet.vietnguyen.models.Phrase;
+import com.nguyenhoangviet.vietnguyen.models.Word;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 public class BookDetailFragment extends MyFragment{
@@ -25,6 +29,7 @@ public class BookDetailFragment extends MyFragment{
 	public static final String			WORD_SPEED_INTERVAL				= "WORD_SPEED_INTERVAL";
 	public static final int				DEFAULT_WORD_SPEED_INTERVAL_MS	= 0;						// fastest
 	public static final int				SLOWEST_WORD_SPEED_INTERVAL_MS	= 5000;					// slowest
+	public static final String			BOOK_ID							= "BOOK_ID";				// slowest
 
 	private Book						book;
 	private TextToSpeech				tts;
@@ -43,7 +48,6 @@ public class BookDetailFragment extends MyFragment{
 
 	@Override
 	protected void buildLayout(){
-		book = (Book)getUpdatedData(AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		setOnClickFor(R.id.img_back, new View.OnClickListener() {
 
 			@Override
@@ -51,12 +55,40 @@ public class BookDetailFragment extends MyFragment{
 				activity.backOneFragment();
 			}
 		});
-		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
-		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
-		MU.interpolate(lnrContent, jsonObject);
+		callApiGetBookDetail();
+	}
+
+	private void callApiGetBookDetail(){
+		String bookId = (String)getUpdatedData(BOOK_ID, "");
+		JSONObject params = MU.buildJsonObj(Arrays.asList("id", bookId));
+		callPostApi(Const.GET_BOOK_DETAIL, params, new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onGetBookDetailSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+
+	}
+
+	private void onGetBookDetailSuccess(JSONObject response){
+		book = MU.convertToModel(response.optString("data"), Book.class);
+		buildLayoutAfterGetBook();
+	}
+
+	private void buildLayoutAfterGetBook(){
 		buildCover();
+		setTextFor(R.id.txt_fbd_author, book.author);
+		setTextFor(R.id.txt_fbd_name, book.name);
+		setTextFor(R.id.txt_fbd_link, book.link.url);
+		setTextFor(R.id.txt_fbd_comment, book.comment);
 		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null, null);
-		setLinkFor(R.id.txt_book_link, book.link);
+		setLinkFor(R.id.txt_fbd_link, book.link.url);
 		setOnClickFor(R.id.img_fragment_book_detail_delete, new View.OnClickListener() {
 
 			@Override
@@ -76,7 +108,7 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void buildCover(){
-		MU.loadImage(activity, book.iconUrl, AbstractBookFragment.getBookImageFileName(book), getImageView(R.id.img_book_detail_image));
+		MU.loadImage(activity, book.iconurl, AbstractBookFragment.getBookImageFileName(book), getImageView(R.id.img_book_detail_image));
 	}
 
 	private void buildTts(){
@@ -87,19 +119,11 @@ public class BookDetailFragment extends MyFragment{
 			public void onInit(int status){
 				if(status != TextToSpeech.ERROR){
 					tts.setLanguage(Locale.US);
-					myUtteranceProgressListener = new MyUtteranceProgressListener(tts, getWordsForReading(), (long)activity.getIntPreference(WORD_SPEED_INTERVAL, DEFAULT_WORD_SPEED_INTERVAL_MS));
+					myUtteranceProgressListener = new MyUtteranceProgressListener(tts, book.words, (long)activity.getIntPreference(WORD_SPEED_INTERVAL, DEFAULT_WORD_SPEED_INTERVAL_MS));
 					tts.setOnUtteranceProgressListener(myUtteranceProgressListener);
 				}
 			}
 		});
-	}
-
-	private List<String> getWordsForReading(){
-		List<String> words = new ArrayList<String>();
-		for(String word : book.getWords()){
-			words.add(word);
-		}
-		return words;
 	}
 
 	private void onDeleteIconClicked(){
@@ -108,11 +132,34 @@ public class BookDetailFragment extends MyFragment{
 
 			@Override
 			public void onClick(View view){
-				// sendDeleteTask();
-				book.delete();
-				onClickBackBtn();
+				sendDeleteBook();
 			}
 		}).show();
+	}
+
+	private void sendDeleteBook(){
+		callPostApi(Const.DELETE_BOOK, getJsonBuilder().add("id", book.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendDeleteBookSuccess();
+			}
+
+			@Override
+			public void onFailure(JSONObject repsone){
+				commonApiFailure(repsone);
+			}
+		});
+	}
+
+	private void onSendDeleteBookSuccess(){
+		showAlertDialog("Info", "Delete book " + book.name + " successfully", getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which){
+				onClickBackBtn();
+			}
+		});
 	}
 
 	private void gotoBookEditFragment(){
@@ -122,7 +169,7 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void buildWords(){
-		if(book.getWords().size() > 0){
+		if(book.words.size() > 0){
 			setOnClickFor(R.id.img_fragment_book_detail_speaker, new View.OnClickListener() {
 
 				@Override
@@ -138,10 +185,10 @@ public class BookDetailFragment extends MyFragment{
 		LayoutInflater inflater = (LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
 		LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
 		lnrVocabulary.removeAllViews();
-		for(final String word : this.book.getWords()){
+		for(final Word word : this.book.words){
 			final View itemBookWord = inflater.inflate(R.layout.item_book_word, null);
-			itemBookWord.setTag(word);
-			setTextFor(itemBookWord, R.id.txt_item_book_word_edit_word, word);
+			itemBookWord.setTag(word.id);
+			setTextFor(itemBookWord, R.id.txt_item_book_word_edit_word, word.syllabus);
 			setOnClickFor(itemBookWord, R.id.img_item_book_word_speaker, new View.OnClickListener() {
 
 				@Override
@@ -154,17 +201,17 @@ public class BookDetailFragment extends MyFragment{
 		}
 	}
 
-	private void speakWordOnly(String word){
-		List<String> words = new ArrayList<String>();
+	private void speakWordOnly(Word word){
+		List<Word> words = new ArrayList<Word>();
 		words.add(word);
 		myUtteranceProgressListener.setWords(words);
 		setOnSpeakWordStartListener();
 		myUtteranceProgressListener.setOnSpeakWordDoneListener(new MyUtteranceProgressListener.OnSpeakWordDoneListener() {
 
 			@Override
-			public void onSpeakWordDone(String word){
+			public void onSpeakWordDone(Word word){
 				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
-				View itemBookWord = lnrVocabulary.findViewWithTag(word);
+				View itemBookWord = lnrVocabulary.findViewWithTag(word.id);
 				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_mute_black_18dp);
 			}
 		});
@@ -172,18 +219,17 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	// The accent like robot now, so don't like to use this function
-	private void speakWordAndPhrase(String word){
-		List<String> words = new ArrayList<String>();
+	private void speakWordAndPhrase(Word word){
+		List<Word> words = new ArrayList<Word>();
 		words.add(word);
-		List<String> phrases = this.book.getPhrasesOfWord(word);
-		words.addAll(phrases);
+		// List<String> phrases = this.book.getPhrasesOfWord(word);
+		// words.addAll(phrases);
 		myUtteranceProgressListener.setWords(words);
 		myUtteranceProgressListener.startSpeak();
 	}
 
 	private void speakAllWords(){
-		List<String> words = getWordsForReading();
-		myUtteranceProgressListener.setWords(words);
+		myUtteranceProgressListener.setWords(book.words);
 		myUtteranceProgressListener.setOnSpeakAllDoneListener(new MyUtteranceProgressListener.OnSpeakAllDoneListener() {
 
 			@Override
@@ -195,9 +241,9 @@ public class BookDetailFragment extends MyFragment{
 		myUtteranceProgressListener.setOnSpeakWordDoneListener(new MyUtteranceProgressListener.OnSpeakWordDoneListener() {
 
 			@Override
-			public void onSpeakWordDone(String word){
+			public void onSpeakWordDone(Word word){
 				LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
-				View itemBookWord = lnrVocabulary.findViewWithTag(word);
+				View itemBookWord = lnrVocabulary.findViewWithTag(word.id);
 				setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_mute_black_18dp);
 				// getView(itemBookWord, R.id.lnr_ibw).performClick();
 			}
@@ -210,18 +256,17 @@ public class BookDetailFragment extends MyFragment{
 		myUtteranceProgressListener.setOnSpeakWordStartListener(new MyUtteranceProgressListener.OnSpeakWordStartListener() {
 
 			@Override
-			public void onSpeakWordStart(String word){
+			public void onSpeakWordStart(Word word){
 				if(getView() != null){
 					LinearLayout lnrVocabulary = getLinearLayout(R.id.lnr_book_detail_vocabulary_list);
-					View itemBookWord = lnrVocabulary.findViewWithTag(word);
+					View itemBookWord = lnrVocabulary.findViewWithTag(word.id);
 					setImageResourceFor(itemBookWord, R.id.img_item_book_word_speaker, R.drawable.ic_volume_up_black_18dp);
 				}
 			}
 		});
 	}
 
-	private void builPhrasesForWord(final String word, View itemBookWord, LayoutInflater inflater){
-		List<String> phrases = this.book.getPhrasesOfWord(word);
+	private void builPhrasesForWord(final Word word, View itemBookWord, LayoutInflater inflater){
 		LinearLayout lnrPhrases = getLinearLayout(itemBookWord, R.id.lnr_ibw_phrases);
 		lnrPhrases.removeAllViews();
 		View.OnClickListener listener = new View.OnClickListener() {
@@ -231,16 +276,16 @@ public class BookDetailFragment extends MyFragment{
 				speakWordOnly(word);
 			}
 		};
-		if(phrases.size() > 0){
+		if(word.phrases.size() > 0){
 			setFoldAction(getView(itemBookWord, R.id.lnr_ibw), getImageView(itemBookWord, R.id.img_ibw_fold), R.id.lnr_ibw_phrases, null, listener);
 		}else{
 			setOnClickFor(itemBookWord, R.id.lnr_ibw, listener);
 			invisibleView(itemBookWord, R.id.img_ibw_fold);
 		}
-		for(String phrase : phrases){
+		for(Phrase phrase : word.phrases){
 			View line = inflater.inflate(R.layout.item_phrase, null);
-			setTextFor(line, R.id.txt_item_word_mark, Book.PHRASE_START_STR);
-			setTextFor(line, R.id.txt_item_word_content, phrase);
+			setTextFor(line, R.id.txt_item_word_mark, getString(R.string.fragment_book_detail_phrase_start));
+			setTextFor(line, R.id.txt_item_word_content, phrase.content);
 			lnrPhrases.addView(line);
 		}
 	}
