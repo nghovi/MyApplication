@@ -8,7 +8,7 @@ import android.content.Context;
 /**
  * Created by viet on 12/29/2015.
  */
-public class MyApplication extends Application {
+public class MyApplication extends Application{
 
 	// Make sure to check for null for this variable
 	public static volatile Context	appContext	= null;
@@ -16,8 +16,7 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate(){
 		super.onCreate();
-//		MyApplication.appContext = this.getApplicationContext();
+		// MyApplication.appContext = this.getApplicationContext();
 	}
-
 
 }

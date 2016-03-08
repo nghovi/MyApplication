@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -171,7 +172,7 @@ public class MU{
 		T result = null;
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ssZZZ").create();
+			Gson ex = (new GsonBuilder()).setDateFormat(Const.APP_DATE_FORMAT).create();
 			if(jsonString != null){
 				result = ex.fromJson(jsonString, cls);
 			}
@@ -187,7 +188,7 @@ public class MU{
 		Object result = new ArrayList();
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+			Gson ex = (new GsonBuilder()).setDateFormat(Const.APP_DATE_FORMAT).create();
 			if(jsonString != null){
 				result = (List)ex.fromJson(jsonString, new GsonModel(cls));
 			}
@@ -291,12 +292,33 @@ public class MU{
 		return str == null || "".equals(str);
 	}
 
+	public static boolean isNotEmpty(String str){
+		return str != null && !"".equals(str);
+	}
+
 	public static boolean isSameDay(Date d1, Date d2){
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(d1);
 		Calendar c2 = Calendar.getInstance();
 		c2.setTime(d2);
 		return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+	}
+
+	public static String getDateString(String dateStr, String sourceFormat, String destinateFormat){
+		SimpleDateFormat sourceFormatter = new SimpleDateFormat(sourceFormat);
+		SimpleDateFormat destinateFormatter = new SimpleDateFormat(destinateFormat);
+		try{
+			Date date = sourceFormatter.parse(dateStr);
+			return destinateFormatter.format(date);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
+		return dateStr;
+	}
+
+	public static String getDateString(Date date, String destinateFormat){
+		SimpleDateFormat destinateFormatter = new SimpleDateFormat(destinateFormat);
+		return destinateFormatter.format(date);
 	}
 
 	public static boolean checkMatch(String parent, String pattern){

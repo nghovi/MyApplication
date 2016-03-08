@@ -69,8 +69,8 @@ public class BookDetailFragment extends MyFragment{
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 
@@ -146,8 +146,8 @@ public class BookDetailFragment extends MyFragment{
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 	}

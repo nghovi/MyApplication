@@ -37,8 +37,8 @@ public class TaskListAdapter extends MyArrayAdapter<Task>{
 		// TextView txtStatus = (TextView)convertView.findViewById(R.id.txt_item_task_status);
 		// setTaskStatusBackground(txtStatus, task);
 		//
-		// TextView txtPriority = (TextView)convertView.findViewById(R.id.txt_item_task_priority);
-		// setTaskPriorityBackground(txtPriority, task);
+		TextView txtPriority = (TextView)convertView.findViewById(R.id.txt_item_task_priority);
+		setTaskPriorityBackground(txtPriority, task);
 
 		if(this.mode == MyArrayAdapter.MODE_FILTER){
 			TextView txtDate = (TextView)convertView.findViewById(R.id.txt_item_task_search_result_date);
@@ -61,21 +61,18 @@ public class TaskListAdapter extends MyArrayAdapter<Task>{
 		int bgResource = R.drawable.task_priority_lowest;
 		switch(task.priority){
 		case 1:
-			bgResource = R.drawable.task_priority_highest;
-			break;
-		case 2:
 			bgResource = R.drawable.task_priority_high;
 			break;
-		case 3:
+		case 2:
 			bgResource = R.drawable.task_priority_medium;
 			break;
-		case 4:
+		case 3:
 			bgResource = R.drawable.task_priority_low;
 			break;
 		default:
 			break;
 		}
-		txtPriority.setText(Task.TASK_PRIORITIES[task.priority - 1]);
+		txtPriority.setText(Task.TASK_PRIORITIES_SHORT[task.priority]);
 		txtPriority.setBackgroundResource(bgResource);
 	}
 }

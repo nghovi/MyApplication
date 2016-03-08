@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFragment.VirtualItemLayoutBuilder{
+public abstract class AbstractTaskFragment extends FragmentOfMainActivity{
 
 	public static final String	TARGET_DATE		= "target_date";
 
@@ -55,12 +55,12 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 		builPriority();
 		buildStatus();
 		buildEditText();
-		buildNotices();
+		// buildNotices();
 	}
 
 	protected void builPriority(){
 		priority = task.priority;
-		setTextFor(R.id.txt_share_task_edit_priority, Task.TASK_PRIORITIES[priority - 1]);
+		setTextFor(R.id.txt_share_task_edit_priority, getPriorities()[priority - 1]);
 		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
 
 			@Override
@@ -74,10 +74,12 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 			@Override
 			public void onClick(View view){
 				int defaultValue = task.priority - 1;
-				dlgBuilder.buildDialogNumberPicker(activity, getString(R.string.fragment_task_list_dlg_choose_priority_title), Task.TASK_PRIORITIES, listener, defaultValue).show();
+				dlgBuilder.buildDialogNumberPicker(activity, getString(R.string.fragment_task_list_dlg_choose_priority_title), getPriorities(), listener, defaultValue).show();
 			}
 		});
 	}
+
+	abstract String[] getPriorities();
 
 	protected void buildStatus(){
 		status = task.status;
@@ -94,10 +96,8 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	protected void buildEditText(){
 		EditText edtName = getEditText(R.id.edt_share_task_edit_name);
 		EditText edtDescription = getEditText(R.id.edt_share_task_edit_description);
-		EditText edtComment = getEditText(R.id.edt_share_task_edit_comment);
 		edtName.setText(this.task.name);
 		edtDescription.setText(this.task.description);
-		edtComment.setText(this.task.comment);
 	}
 
 	protected void prepareTask(){
@@ -132,13 +132,12 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	protected void buildTaskFromLayout(){
 		task.name = getEditText(R.id.edt_share_task_edit_name).getText().toString();
 		task.description = getEditText(R.id.edt_share_task_edit_description).getText().toString();
-		task.comment = getEditText(R.id.edt_share_task_edit_comment).getText().toString();
 		task.priority = priority;
 		task.status = status;
 		task.date = targetDate;
 		task.lastupdated = targetDate;
-//		task.save();
-		makeAlarmForNotice();
+		// task.save();
+		// makeAlarmForNotice();
 	}
 
 	protected void buildCalendarPicker(){
@@ -158,7 +157,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						txtDate.setText(MU.getDateForDisplaying(targetDate));
-//						task.save();
+						// task.save();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");
@@ -168,75 +167,75 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 		setOnClickFor(R.id.txt_share_task_edit_date, listener);// todo minor why cannot trigger
 	}
 
-	protected void buildNotices(){
-		setOnClickFor(R.id.img_share_task_edit_add_remind, new View.OnClickListener() {
+	// protected void buildNotices(){
+	// setOnClickFor(R.id.img_share_task_edit_add_remind, new View.OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View view){
+	// onClickAddRemind();
+	// }
+	// });
+	// buildNoticeLayouts();
+	// }
 
-			@Override
-			public void onClick(View view){
-				onClickAddRemind();
-			}
-		});
-		buildNoticeLayouts();
-	}
+	// private void buildNoticeLayouts(){
+	// // ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
+	// // buildVirtualListByLinearLayout(R.id.lst_share_task_edit_remind, R.layout.item_notice, notices, this);
+	// }
 
-	private void buildNoticeLayouts(){
-//		ArrayList<Notice> notices = Notice.getOnGoingNoticesForTask(task);
-//		buildVirtualListByLinearLayout(R.id.lst_share_task_edit_remind, R.layout.item_notice, notices, this);
-	}
+	// private void onClickAddRemind(){
+	// final DateTimePicker dateTimePicker = new DateTimePicker(activity);
+	// dateTimePicker.setDateTimeListener(new View.OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View view){
+	// addNotice(dateTimePicker.getDateTime());
+	// }
+	// });
+	// dateTimePicker.show(getString(R.string.fragment_abstract_task_remind_time_select));
+	// }
 
-	private void onClickAddRemind(){
-		final DateTimePicker dateTimePicker = new DateTimePicker(activity);
-		dateTimePicker.setDateTimeListener(new View.OnClickListener() {
+	// private void onClickUpdateNotice(final Notice notice){
+	// final DateTimePicker dateTimePicker = new DateTimePicker(activity);
+	// dateTimePicker.setDateTimeListener(new View.OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View view){
+	// updateNotice(dateTimePicker.getDateTime(), notice);
+	// }
+	// });
+	// dateTimePicker.show(getString(R.string.fragment_task_update_notice_time));
+	// }
 
-			@Override
-			public void onClick(View view){
-				addNotice(dateTimePicker.getDateTime());
-			}
-		});
-		dateTimePicker.show(getString(R.string.fragment_abstract_task_remind_time_select));
-	}
+	// private void addNotice(Calendar c){
+	// Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, task.name, task.description, task.id, c.getTime());
+	// newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
+	// savedNotices.add(newNotice);
+	// // task.addNoticeIdWithoutSave(newNotice.getId().toString());
+	// addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
+	// final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
+	// scrollView.post(new Runnable() {
+	//
+	// @Override
+	// public void run(){
+	// scrollView.fullScroll(View.FOCUS_DOWN);
+	// }
+	// });
+	// }
 
-	private void onClickUpdateNotice(final Notice notice){
-		final DateTimePicker dateTimePicker = new DateTimePicker(activity);
-		dateTimePicker.setDateTimeListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				updateNotice(dateTimePicker.getDateTime(), notice);
-			}
-		});
-		dateTimePicker.show(getString(R.string.fragment_task_update_notice_time));
-	}
-
-	private void addNotice(Calendar c){
-		Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, task.name, task.description, task.id, c.getTime());
-//		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
-		savedNotices.add(newNotice);
-//		task.addNoticeIdWithoutSave(newNotice.getId().toString());
-		addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
-		final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
-		scrollView.post(new Runnable() {
-
-			@Override
-			public void run(){
-				scrollView.fullScroll(View.FOCUS_DOWN);
-			}
-		});
-	}
-
-	private void updateNotice(Calendar c, Notice notice){
-		notice.noticeDate = c.getTime();
-//		notice.isRemoteSaved = false;
-//		notice.save();
-		buildNoticeLayouts();
-	}
-
-	protected void deleteUnUsedNotices(){
-		// for(Notice notice : savedNotices){
-		// notice.delete();
-		// }
-		savedNotices = new ArrayList<Notice>();
-	}
+	// private void updateNotice(Calendar c, Notice notice){
+	// notice.noticeDate = c.getTime();
+	// // notice.isRemoteSaved = false;
+	// // notice.save();
+	// buildNoticeLayouts();
+	// }
+	//
+	// protected void deleteUnUsedNotices(){
+	// // for(Notice notice : savedNotices){
+	// // notice.delete();
+	// // }
+	// savedNotices = new ArrayList<Notice>();
+	// }
 
 	// protected void saveTaskNotices() {
 	// for(Notice notice : savedNotices){
@@ -267,70 +266,70 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	// }
 	// });
 	// }
+	//
+	// protected void makeAlarmForNotice(){
+	// for(Notice notice : savedNotices){
+	// notice.title = task.name;
+	// // notice.value = task.getId().toString();
+	// notice.message = task.name;
+	// // notice.save();
+	// GcmUtil.makeLocalAlarm(activity, notice);
+	// }
+	// savedNotices = new ArrayList<Notice>();
+	// }
 
-	protected void makeAlarmForNotice(){
-		for(Notice notice : savedNotices){
-			notice.title = task.name;
-//			notice.value = task.getId().toString();
-			notice.message = task.name;
-//			notice.save();
-			GcmUtil.makeLocalAlarm(activity, notice);
-		}
-		savedNotices = new ArrayList<Notice>();
-	}
+	// protected static List<Book> searchWithConditions(Map<String, Object> conditions){
+	// String text = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT);
+	// String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
+	// int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
 
-//	protected static List<Book> searchWithConditions(Map<String, Object> conditions){
-//		String text = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT);
-//		String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
-//		int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
+	// List<Book> tasks = Task.getAllUndeleted(Task.class);
+	// Iterator<Book> ib = tasks.iterator();
+	// while(ib.hasNext()){
+	// Task task = (Task)ib.next();
+	// if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
+	// ib.remove();
+	// continue;
+	// }
+	//
+	// // taskStatus = 1 mean user selected "Any" at 3 options dialog
+	// if(taskStatus != Task.STATUS_ANY && taskStatus != task.status){
+	// ib.remove();
+	// continue;
+	// }
+	//
+	// if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(Task.TASK_PRIORITIES[task.priority - 1])){
+	// ib.remove();
+	// continue;
+	// }
+	// }
 
-//		List<Book> tasks = Task.getAllUndeleted(Task.class);
-//		Iterator<Book> ib = tasks.iterator();
-//		while(ib.hasNext()){
-//			Task task = (Task)ib.next();
-//			if(!MU.isEmpty(text) && !MU.checkMatch(task.name, text) && !MU.checkMatch(task.description, text) && !MU.checkMatch(task.comment, text)){
-//				ib.remove();
-//				continue;
-//			}
-//
-//			// taskStatus = 1 mean user selected "Any" at 3 options dialog
-//			if(taskStatus != Task.STATUS_ANY && taskStatus != task.status){
-//				ib.remove();
-//				continue;
-//			}
-//
-//			if(!Task.TASK_PRIORITIES_WITH_ANY[0].equals(priority) && !priority.equals(Task.TASK_PRIORITIES[task.priority - 1])){
-//				ib.remove();
-//				continue;
-//			}
-//		}
-
-//		return tasks;
-//	}
+	// return tasks;
+	// }
 
 	protected void backToTaskList(){
 		activity.backToFragment(TaskListFragment.class, TaskListFragment.KEY_TARGET_DATE, targetDate);
 		// activity.backOneFragment();
 	}
 
-	@Override
-	public void buildItemLayout(View itemRoot, Object itemData){
-		final Notice notice = (Notice)itemData;
-		final TextView txtDate = (TextView)itemRoot.findViewById(R.id.txt_item_remind_time_date);
-		txtDate.setText(MU.getDateTimeForDisplaying(notice.noticeDate));
-		ImageView imgDeleteIcon = (ImageView)itemRoot.findViewById(R.id.img_item_remind_time_delete);
-		imgDeleteIcon.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				if(savedNotices.contains(notice)){
-					savedNotices.remove(notice);
-				}
-//				notice.delete();
-				buildNoticeLayouts();
-			}
-		});
-	}
+	// @Override
+	// public void buildItemLayout(View itemRoot, Object itemData){
+	// final Notice notice = (Notice)itemData;
+	// final TextView txtDate = (TextView)itemRoot.findViewById(R.id.txt_item_remind_time_date);
+	// txtDate.setText(MU.getDateTimeForDisplaying(notice.noticeDate));
+	// ImageView imgDeleteIcon = (ImageView)itemRoot.findViewById(R.id.img_item_remind_time_delete);
+	// imgDeleteIcon.setOnClickListener(new View.OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View view){
+	// if(savedNotices.contains(notice)){
+	// savedNotices.remove(notice);
+	// }
+	// // notice.delete();
+	// // buildNoticeLayouts();
+	// }
+	// });
+	// }
 }
 
 /*

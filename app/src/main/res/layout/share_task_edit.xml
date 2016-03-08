@@ -132,14 +132,6 @@
                         android:inputType="textMultiLine"
                         android:minLines="4" />
 
-                    <EditText
-                        android:id="@+id/edt_share_task_edit_comment"
-                        style="@style/core_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Comment"
-                        android:inputType="textMultiLine" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -147,7 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"

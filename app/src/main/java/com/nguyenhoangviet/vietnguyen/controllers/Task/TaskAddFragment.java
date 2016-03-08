@@ -1,83 +1,89 @@
-//package com.nguyenhoangviet.vietnguyen.controllers.Task;
-//
-//import java.util.Arrays;
-//import java.util.Date;
-//
-//import android.os.Bundle;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.TextView;
-//
-//import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-//import com.nguyenhoangviet.vietnguyen.models.Task;
-//import com.nguyenhoangviet.vietnguyen.myapplication.R;
-//
-//public class TaskAddFragment extends AbstractTaskFragment{
-//
-//	@Override
-//	public void onCreate(Bundle savedInstanceState){
-//		super.onCreate(savedInstanceState);
-//	}
-//
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-//		return inflater.inflate(R.layout.fragment_task_add, container, false);
-//	}
-//
-//	@Override
-//	protected void buildLayout(){
-//		super.buildLayout();
-//		goneView(R.id.lnr_share_task_edit_status);
-//		getMainActivity().footer.hide();
-//	}
-//
-//	@Override
-//	protected void prepareTask(){
-//		task = new Task();
-//		task.date = targetDate;
-//		task.lastupdated = targetDate;
-//		task.priority = Task.TASK_PRIORITY_HIGHEST;
-//	}
-//
-//	protected void buildHeaderText(){
-//		TextView txtCommit = getTextView(R.id.txt_fragment_task_add_add);
-//		txtCommit.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View view){
-//				addNewTask();
-//			}
-//		});
-//		addTextWatcher(txtCommit, Arrays.asList((View)getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
-//	}
-//
-//	private void addNewTask(){
-//		hideSofeKeyboard();
-//		buildTaskFromLayout();
-//		backToTaskList();
-//		// Try to save to server
-//		// JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
-//		// postApi(Const.ADD_TASK, param, new Api.OnCallApiListener() {
-//		//
-//		// @Override
-//		// public void onApiResponse(JSONObject response) {
-//		// showShortToast("Save new task to server success");
-//		// task.id = response.optString("data");
-//		// task.isRemoteSaved = true;
-//		// task.save();
-//		// savedNotices = new ArrayList<Notice>();
-//		// backToTaskList();
-//		// }
-//		//
-//		// @Override
-//		// public void onApiError(String errorMsg) {
-//		// showShortToast("Save new task to server failed");
-//		// deleteUnUsedNotices();
-//		// task.save();
-//		// backToTaskList();
-//		// }
-//		// });
-//	}
-//
-//}
+package com.nguyenhoangviet.vietnguyen.controllers.Task;
+
+import java.util.Arrays;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.nguyenhoangviet.vietnguyen.Const;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.models.Task;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
+import org.json.JSONObject;
+
+public class TaskAddFragment extends AbstractTaskFragment{
+
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		return inflater.inflate(R.layout.fragment_task_add, container, false);
+	}
+
+	@Override
+	protected void buildLayout(){
+		super.buildLayout();
+		goneView(R.id.lnr_share_task_edit_status);
+		getMainActivity().footer.hide();
+	}
+
+	@Override
+	String[] getPriorities(){
+		return Task.TASK_PRIORITIES_REAL;
+	}
+
+	@Override
+	protected void prepareTask(){
+		task = new Task();
+		task.date = targetDate;
+		task.lastupdated = targetDate;
+		task.priority = Task.TASK_PRIORITY_HIGH;
+	}
+
+	protected void buildHeaderText(){
+		TextView txtCommit = getTextView(R.id.txt_fragment_task_add_add);
+		txtCommit.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view){
+				addNewTask();
+			}
+		});
+		addTextWatcher(txtCommit, Arrays.asList((View)getEditText(R.id.edt_share_task_edit_name), getEditText(R.id.edt_share_task_edit_description)));
+	}
+
+	private void addNewTask(){
+		hideSofeKeyboard();
+		buildTaskFromLayout();
+		callApiAddNewTask();
+	}
+
+	private void callApiAddNewTask(){
+		callPostApi(Const.ADD_TASK, getJsonBuilder().add("date", MU.getDateString(targetDate, Const.APP_DATE_FORMAT)).add("name", task.name).add("description", task.description).add("priority", task.priority).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onAddNewTaskSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+
+	}
+
+	private void onAddNewTaskSuccess(JSONObject response){
+		backToTaskList();
+	}
+
+}

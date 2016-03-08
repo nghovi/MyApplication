@@ -22,6 +22,7 @@ import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.DatePickerFragment;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
@@ -39,7 +40,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	private Map<String, ArrayList<Task>>	map;
 	private ArrayList<Task>					showedTasks;
 	private Map<String, Object>				searchConditions;
-
+	private boolean							isSearching		= false;
 	public static final String				KEY_TARGET_DATE	= "targetDate";
 
 	@Override
@@ -54,7 +55,36 @@ public class TaskListFragment extends MyFragmentWithList{
 		buildTargetDate();
 		buildAddBtn();
 		buildSearchFunction();
-		callApiGetTasks();
+	}
+
+	/**
+	 * todo search by date range
+	 * 
+	 * @param searchConditions
+	 */
+	private void callApiSearchTasks(Map<String, Object> searchConditions){
+		MU.JsonBuilder jsonBuilder = getJsonBuilder().add("text", searchConditions.get(TaskSearchFragment.KEY_TASK_SEARCH_TEXT));
+		int priority = (int)searchConditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
+		if(priority != 0){
+			jsonBuilder.add("priority", priority);
+		}
+		int status = (int)searchConditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
+		if(status != Task.STATUS_ANY){
+			jsonBuilder.add("status", status);
+		}
+		callPostApi(Const.GET_TASKS, jsonBuilder.getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onGetTasksSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+
 	}
 
 	private void callApiGetTasks(){
@@ -66,8 +96,8 @@ public class TaskListFragment extends MyFragmentWithList{
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 
@@ -80,6 +110,9 @@ public class TaskListFragment extends MyFragmentWithList{
 
 	private void showTasks(List<Task> tasks){
 		adapter.updateDataWith(tasks);
+		if(isSearching){
+			adapter.setMode(MyArrayAdapter.MODE_FILTER);
+		}
 	}
 
 	@Override
@@ -98,14 +131,13 @@ public class TaskListFragment extends MyFragmentWithList{
 	private void buildSearchFunction(){
 		searchConditions = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
 		if(searchConditions.size() > 0){
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
-			goneView(R.id.txt_fragment_task_list_date);
-			// models = AbstractTaskFragment.searchWithConditions(searchConditions);
-			// showTasks();
+			isSearching = true;
+			callApiSearchTasks(searchConditions);
 		}else{
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
-			reloadDailyTasks();
+			isSearching = false;
+			callApiGetTasks();
 		}
+		updateHeaderLayoutForSearching();
 		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
 
 			@Override
@@ -113,6 +145,18 @@ public class TaskListFragment extends MyFragmentWithList{
 				activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchConditions);
 			}
 		});
+	}
+
+	private void updateHeaderLayoutForSearching(){
+		if(isSearching){
+			setTextFor(R.id.txt_fragment_task_list_add, getString(R.string.cancel));
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
+			goneView(R.id.txt_fragment_task_list_date);
+		}else{
+			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
+			visibleView(R.id.txt_fragment_task_list_date);
+			setTextFor(R.id.txt_fragment_task_list_add, getString(R.string.add));
+		}
 	}
 
 	private void loadTasksFromLocal(){
@@ -133,7 +177,7 @@ public class TaskListFragment extends MyFragmentWithList{
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
-						reloadDailyTasks();
+						callApiGetTasks();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");
@@ -142,20 +186,24 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void buildAddBtn(){
-		TextView txtAdd = getTextView(R.id.txt_fragment_task_list_add);
+		final TextView txtAdd = getTextView(R.id.txt_fragment_task_list_add);
 		txtAdd.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-
-				// TaskAddFragment frg = new TaskAddFragment();
-				// activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
+				if(txtAdd.getText().equals(getString(R.string.cancel))){
+					isSearching = false;
+					updateHeaderLayoutForSearching();
+					callApiGetTasks();
+				}else{
+					TaskAddFragment frg = new TaskAddFragment();
+					activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
+				}
 			}
 		});
 	}
 
 	public void reloadDailyTasks(){
-		loadTasksFromLocal();
 		mapTasksToDate();
 		this.showedTasks = map.get(buildKey(targetDate));
 		adapter.updateDataWith(this.showedTasks);
@@ -193,8 +241,8 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	public void gotoTaskDetail(Task task){
-		// TaskDetailFragment frg = new TaskDetailFragment();
-		// activity.addFragment(frg, TaskDetailFragment.BUNDLE_KEY_TASK, task);
+		TaskDetailFragment frg = new TaskDetailFragment();
+		activity.addFragment(frg, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}
 
 	private String buildKey(Date d){

@@ -39,7 +39,7 @@ public class Api{
 
 		void onSuccess(JSONObject response);
 
-		void onFailure(JSONObject repsone);
+		void onFailure(JSONObject response);
 	}
 
 	public static void get(Context context, final String url, JSONObject param, final OnCallApiListener onCallApiListener, final OnApiSuccessObserver observer){

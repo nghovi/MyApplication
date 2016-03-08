@@ -1,16 +1,20 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Note;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
-//import com.activeandroid.query.Select;
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
@@ -19,9 +23,12 @@ import com.nguyenhoangviet.vietnguyen.models.Note;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.NoteListAdapter;
 
+import org.json.JSONObject;
+
 public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
-	private boolean	isSearching	= false;
+	private boolean			isSearching	= false;
+	protected List<Note>	models;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -34,7 +41,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		buildEditNoteFunction();
 		buildAddNoteFunction();
 		buildSearchFunction();
-		reloadNotes();
+		sendGetNotesApi();
 	}
 
 	@Override
@@ -43,6 +50,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		activity.addFragment(new NoteDetailFragment(), NoteDetailFragment.BUNDLE_KEY_NOTE, (Note)model);
 	}
 
+	// // TODO: 3/7/2016 when empty note list, do not show EDIT Button
 	private void buildEditNoteFunction(){
 		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
 
@@ -72,7 +80,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		setTextFor(R.id.txt_fragment_note_list_edit, "Edit");
 		setTextFor(R.id.txt_fragment_note_list_add, "Add");
 		visibleView(R.id.img_fragment_note_list_search);
-		reloadNotes();
+		sendGetNotesApi();
 	}
 
 	private void buildAddNoteFunction(){
@@ -105,35 +113,45 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 
 	private void confirmDeleteNotes(){
 		boolean isDeleteAll = getTextView(R.id.txt_fragment_note_list_add).getText().toString().equals(getString(R.string.delete_all));
+		List<String> deletedNoteIds;
+		deletedNoteIds = new ArrayList<>();
 		for(int i = 0; i < models.size(); i++){
 			View viewNote = listView.getChildAt(i);
 			if(viewNote != null){
 				CheckBox checkBox = (CheckBox)viewNote.findViewById(R.id.item_note_checkbox);
 				if(checkBox.isChecked() || isDeleteAll){
-//					Note note = (Note)models.get(i);
-//					note.delete();
+					deletedNoteIds.add(models.get(i).id);
 				}
 			}
 		}
-		reloadNotes();
-		onClickTextDone();
+		sendDeleteNotes(TextUtils.join(",", deletedNoteIds));
 	}
 
-	public void saveNewNotice(String message){
-		if(!MU.isEmpty(message)){
-			Date date = new Date();
-			Note note = new Note(message, date);
-//			note.save();
-			reloadNotes();
-		}
+	public void sendDeleteNotes(String note_ids){
+		callPostApi(Const.DELETE_NOTE, getJsonBuilder().add("ids", note_ids).getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendDeleteNoteSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
 	}
 
-	public void saveOldNote(Note note, String message){
-		if(!note.message.equals(message)){
-			note.message = message;
-//			note.save();
-			reloadNotes();
+	private void onSendDeleteNoteSuccess(JSONObject response){
+		List<String> deletedNoteIds = MU.convertToModelList(response.optString("data"), String.class);
+		Iterator<Note> in = models.iterator();
+		while(in.hasNext()){
+			Note note = in.next();
+			if(deletedNoteIds.contains(note.id)){
+				in.remove();
+			}
 		}
+		adapter.updateDataWith(models);
 	}
 
 	private void buildSearchFunction(){
@@ -178,7 +196,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		goneView(R.id.edt_fragment_note_list_search);
 		setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_inactive);
 		hideSofeKeyboard();
-		reloadNotes();
+		sendGetNotesApi();
 	}
 
 	private void performSearch(String keyword){
@@ -187,7 +205,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 			return;
 		}
 		for(MyModel note : models){
-			if(!((Note)note).message.contains(keyword)){
+			if(!((Note)note).content.contains(keyword)){
 				adapter.removeDataItem(note);
 			}else{
 				adapter.checkToAddDataItem(note);
@@ -196,8 +214,23 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		adapter.notifyDataSetChanged();
 	}
 
-	private void reloadNotes(){
-//		models = new Select().from(Note.class).execute();
+	private void sendGetNotesApi(){
+		callGetApi(Const.GET_NOTES, getJsonBuilder().getJsonObj(), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendGetNotesApiSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+	}
+
+	private void onSendGetNotesApiSuccess(JSONObject response){
+		models = MU.convertToModelList(response.optString("data"), Note.class);
 		adapter.updateDataWith(models);
 	}
 

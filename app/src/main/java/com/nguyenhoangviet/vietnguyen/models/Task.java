@@ -14,19 +14,19 @@ import java.util.List;
  */
 public class Task extends MyModel{
 
-	public static final String		NOTICE_ID_DELIMITER			= ",";
-	public static final int			STATUS_UNFINISHED			= 0;
-	public static final int			STATUS_FINISHED				= 1;
-	public static final int			STATUS_ANY					= 2;
-	public static final String[]	STATUS						= new String[]{"Unfinished", "Finished", "Any"};//todo DO NOT change the order
+	public static final String		NOTICE_ID_DELIMITER		= ",";
+	public static final int			STATUS_UNFINISHED		= 0;
+	public static final int			STATUS_FINISHED			= 1;
+	public static final int			STATUS_ANY				= 2;
+	public static final String[]	STATUS					= new String[]{"Unfinished", "Finished", "Any"};	// todo DO NOT change the order
 
-	public static final int			TASK_PRIORITY_HIGHEST		= 1;
-	public static final int			TASK_PRIORITY_HIGH			= 2;
-	public static final int			TASK_PRIORITY_MEDIUM		= 3;
-	public static final int			TASK_PRIORITY_LOW			= 4;
-	public static final int			TASK_PRIORITY_LOWEST		= 5;
-	public static final String[]	TASK_PRIORITIES				= new String[]{"Highest", "High", "Medium", "Low", "Lowest"};
-	public static final String[]	TASK_PRIORITIES_WITH_ANY	= new String[]{"Any", "Highest", "High", "Medium", "Low", "Lowest"};
+	public static final int			TASK_PRIORITY_HIGH		= 1;
+	public static final int			TASK_PRIORITY_MEDIUM	= 2;
+	public static final int			TASK_PRIORITY_LOW		= 3;
+	public static final String[]	TASK_PRIORITIES			= new String[]{"Any", "High", "Medium", "Low"};
+	public static final String[]	TASK_PRIORITIES_REAL	= new String[]{"High", "Medium", "Low"};
+
+	public static final String[]	TASK_PRIORITIES_SHORT	= new String[]{"A", "H", "M", "L"};
 
 	public Task(){
 
@@ -39,8 +39,6 @@ public class Task extends MyModel{
 	public Date		lastupdated;
 
 	public String	name;
-
-	public String	comment;
 
 	public int		priority;
 

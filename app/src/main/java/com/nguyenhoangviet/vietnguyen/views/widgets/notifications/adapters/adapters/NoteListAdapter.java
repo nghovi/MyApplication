@@ -34,9 +34,9 @@ public class NoteListAdapter extends MyArrayAdapter<Note> {
 	@Override
 	protected void buildItemLayout(View convertView, final Note note) {
 		TextView txtMessage = (TextView)convertView.findViewById(R.id.item_note_message);
-		txtMessage.setText(note.message);
+		txtMessage.setText(note.content);
 		TextView txtDate = (TextView)convertView.findViewById(R.id.item_note_date);
-		txtDate.setText(MU.getDateForDisplaying(note.date));
+		txtDate.setText(MU.getDateForDisplaying(note.modified));
 		CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.item_note_checkbox);
 		checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 

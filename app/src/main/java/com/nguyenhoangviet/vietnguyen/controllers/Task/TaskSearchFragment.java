@@ -28,9 +28,9 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 	public static final String	KEY_TASK_SEARCH_STATUS		= "task_search_by_status";
 	public static final String	KEY_TASK_SEARCH_CONDITION	= "task_search_condition";
 
-	private String				priority					= Task.TASK_PRIORITIES_WITH_ANY[0];
+	private int					priority					= 0;
 	private int					taskStatus					= Task.STATUS_ANY;
-	private String				text;															// search key word
+	private String				text;														// search key word
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -77,15 +77,15 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 
 			@Override
 			public void onSpinnerItemSelected(SpinnerItemModel spinnerItemModel){
-				priority = spinnerItemModel.getName();
+				priority = (int)spinnerItemModel.originModel;
 			}
 		});
 	}
 
 	private List<SpinnerItemModel> getSpinnerItemModelsForPriority(){
 		List<SpinnerItemModel> spinnerItemModelList = new ArrayList<SpinnerItemModel>();
-		for(String priority : Task.TASK_PRIORITIES_WITH_ANY){
-			SpinnerItemModel spinnerItemModel = new SpinnerItemModel(priority, priority);
+		for(int i = 0; i < Task.TASK_PRIORITIES.length; i++){
+			SpinnerItemModel spinnerItemModel = new SpinnerItemModel(Task.TASK_PRIORITIES[i], i);
 			spinnerItemModelList.add(spinnerItemModel);
 		}
 		return spinnerItemModelList;
@@ -125,9 +125,8 @@ public class TaskSearchFragment extends FragmentOfMainActivity{
 			setTextFor(R.id.edt_fragment_task_search_text, text);
 		}
 		if(conditions.containsKey(KEY_TASK_SEARCH_PRIORITY)){
-			priority = (String)conditions.get(KEY_TASK_SEARCH_PRIORITY);
-			int position = Arrays.asList(Task.TASK_PRIORITIES_WITH_ANY).indexOf(priority);
-			((CoreSpinner)getView(R.id.spn_fragment_task_search_priority)).setSelection(position);
+			priority = (int)conditions.get(KEY_TASK_SEARCH_PRIORITY);
+			((CoreSpinner)getView(R.id.spn_fragment_task_search_priority)).setSelection(priority);
 		}
 		if(conditions.containsKey(KEY_TASK_SEARCH_STATUS)){
 			taskStatus = (int)conditions.get(KEY_TASK_SEARCH_STATUS);

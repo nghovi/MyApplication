@@ -109,8 +109,8 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 	}

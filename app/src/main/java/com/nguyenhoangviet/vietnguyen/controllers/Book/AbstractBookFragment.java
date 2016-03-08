@@ -1,7 +1,9 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -208,8 +210,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 	}
@@ -240,8 +242,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 				}
 
 				@Override
-				public void onFailure(JSONObject repsone){
-					commonApiFailure(repsone);
+				public void onFailure(JSONObject response){
+					commonApiFailure(response);
 				}
 			});
 		}
@@ -253,13 +255,13 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		buildVocabulary();
 	}
 
-	protected void addWordForBook(final String syllabus, String phrase){
-		if(!MU.isEmpty(phrase)){
+	protected void addWordForBook(final String syllabus, String content){
+		if(!MU.isEmpty(syllabus)){
 			Word wordExisted = book.findWord(syllabus);
 			if(wordExisted != null){
-				addPhraseForWord(wordExisted, phrase);
+				addPhraseForWord(wordExisted, content);
 			}else{
-				callPostApi(Const.ADD_WORD, getJsonBuilder().add("book_id", book.id).add("new_word", syllabus).add("new_phrase", phrase).getJsonObj(), new Api.OnApiSuccessObserver() {
+				callPostApi(Const.ADD_WORD, getJsonBuilder().add("book_id", book.id).add("new_word", syllabus).add("new_phrase", content).getJsonObj(), new Api.OnApiSuccessObserver() {
 
 					@Override
 					public void onSuccess(JSONObject response){
@@ -267,8 +269,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 					}
 
 					@Override
-					public void onFailure(JSONObject repsone){
-						commonApiFailure(repsone);
+					public void onFailure(JSONObject response){
+						commonApiFailure(response);
 					}
 				});
 			}
@@ -309,8 +311,8 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			}
 
 			@Override
-			public void onFailure(JSONObject repsone){
-				commonApiFailure(repsone);
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
 			}
 		});
 	}
@@ -332,38 +334,37 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		this.book = book;
 	}
 
-	// public static List<Book> searchWithConditions(Map<String, Object> conditions){
-	// String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
-	// String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
-	// String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
-	// String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
-	// String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
-	//
-	// List<Book> books = Book.getAllUndeleted(Book.class);
-	// Iterator<Book> ib = books.iterator();
-	// while(ib.hasNext()){
-	// Book book = (Book)ib.next();
-	// if(!MU.isEmpty(word) && !book.hasWord(word)){
-	// ib.remove();
-	// continue;
-	// }
-	// if(!MU.isEmpty(phrase) && !book.containPhrase(phrase)){
-	// ib.remove();
-	// continue;
-	// }
-	// if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
-	// ib.remove();
-	// continue;
-	// }
-	// if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
-	// ib.remove();
-	// continue;
-	// }
-	// if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
-	// ib.remove();
-	// continue;
-	// }
-	// }
-	// return books;
-	// }
+	public static List<Book> searchWithConditions(Map<String, Object> conditions, List<Book> books){
+		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
+		String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
+		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
+		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
+		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
+
+		Iterator<Book> ib = books.iterator();
+		while(ib.hasNext()){
+			Book book = (Book)ib.next();
+			if(!MU.isEmpty(word) && book.findWord(word) == null){
+				ib.remove();
+				continue;
+			}
+			if(!MU.isEmpty(phrase) && !book.hasPhrase(phrase)){
+				ib.remove();
+				continue;
+			}
+			// if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
+			// ib.remove();
+			// continue;
+			// }
+			// if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
+			// ib.remove();
+			// continue;
+			// }
+			// if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
+			// ib.remove();
+			// continue;
+			// }
+		}
+		return books;
+	}
 }

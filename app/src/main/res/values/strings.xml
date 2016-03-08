@@ -106,7 +106,7 @@
 
 
     <string name="fragment_setting_title">Setting</string>
-    <string name="fragment_setting_push">Task Reminder</string>
+    <string name="fragment_setting_push">Push Notification</string>
     <string name="fragment_setting_task_reminder_explain">Turn on/off task reminder</string>
     <string name="fragment_setting_show_mottos">Show mottos</string>
     <string name="fragment_setting_contact">Contact me at</string>
