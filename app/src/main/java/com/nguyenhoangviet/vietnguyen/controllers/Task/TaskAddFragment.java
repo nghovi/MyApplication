@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -67,7 +68,7 @@ public class TaskAddFragment extends AbstractTaskFragment{
 	}
 
 	private void callApiAddNewTask(){
-		callPostApi(Const.ADD_TASK, getJsonBuilder().add("date", MU.getDateString(targetDate, Const.APP_DATE_FORMAT)).add("name", task.name).add("description", task.description).add("priority", task.priority).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.addTask(task), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){

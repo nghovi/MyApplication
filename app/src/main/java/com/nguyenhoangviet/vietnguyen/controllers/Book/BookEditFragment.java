@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.models.Phrase;
 import com.nguyenhoangviet.vietnguyen.models.Word;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -35,7 +36,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 		// MU.interpolate(lnrContent, jsonObject);
 		setOnClickFor(R.id.txt_fragment_book_edit_done, this);
 		setTextFor(R.id.edt_sbe_name, book.name);
-		setTextFor(R.id.edt_sbe_link, book.link.url);
+		setTextFor(R.id.edt_sbe_link, (book.link != null ? book.link.url : ""));
 		setTextFor(R.id.edt_sbe_author, book.author);
 		setTextFor(R.id.edt_sbe_comment, book.comment);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconurl);
@@ -101,7 +102,7 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 	}
 
 	protected void sendDeletePhrase(final Word word, final Phrase phrase){
-		callPostApi(Const.DELETE_PHRASE, getJsonBuilder().add("phrase_id", phrase.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.deletePhrase(phrase.id), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){

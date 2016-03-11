@@ -1,6 +1,5 @@
 package com.nguyenhoangviet.vietnguyen.controllers;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
@@ -11,12 +10,12 @@ import android.widget.Button;
 
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
+import com.nguyenhoangviet.vietnguyen.core.model.User;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
-//import com.facebook.login.widget.LoginButton;
 
-import java.util.Arrays;
+//import com.facebook.login.widget.LoginButton;
 
 /**
  * Created by viet on 8/20/2015.
@@ -24,8 +23,8 @@ import java.util.Arrays;
 
 public class SignUpInFragment extends MyFragment{
 
-//	private LoginButton	btnFacebookLogin;
-	private boolean		isSigningUp	= false;
+	// private LoginButton btnFacebookLogin;
+	private boolean	isSigningUp	= false;
 
 	public SignUpInFragment(){
 	}
@@ -65,30 +64,6 @@ public class SignUpInFragment extends MyFragment{
 			}
 		});
 
-		JSONObject param = new JSONObject();
-		try{
-			param.put("accessToken", "6af65192bde50a2849a69b2f634b41a38b6afc3b");
-			param.put("userId", "72b88e38b9a4f1388b47959693673c34");
-			param.put("apiKey", "23z37jp77fjxk45hnkyt8ud84g6tzugj");
-			param.put("version", "1");
-			param.put("shopId", "00000000675");
-		}catch(JSONException e){
-			e.printStackTrace();
-		}
-
-		String url = "http://dev01clnt.shk.x.recruit.co.jp/api/shop/detail/";
-//		getApi(url, param, new Api.OnCallApiListener() {
-//
-//			@Override
-//			public void onApiResponse(JSONObject response){
-//
-//			}
-//
-//			@Override
-//			public void onApiError(String errorMsg){
-//
-//			}
-//		});
 	}
 
 	private void updateLayoutToSignUp(){
@@ -103,35 +78,43 @@ public class SignUpInFragment extends MyFragment{
 	}
 
 	private void signIn(){
-		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-//		getApi(Const.SIGN_IN, param, new Api.OnCallApiListener() {
-//
-//			@Override
-//			public void onApiResponse(JSONObject response){
-//
-//			}
-//
-//			@Override
-//			public void onApiError(String errorMsg){
-//
-//			}
-//		});
+		String userName = getEditText(R.id.edt_fragment_sign_up_in_username).getText().toString();
+		String passWord = getEditText(R.id.edt_fragment_sign_up_in_password).getText().toString();
+		callApi(UrlBuilder.signIn(userName, passWord), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSignInSucces(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+	}
+
+	private void onSignInSucces(JSONObject response){
+		String token = response.optString("token");
+		activity.loginUser = new User(token);
+		activity.saveStringPreference(Const.PREF_KEY_TOKEN, token);
+		((MainActivity)activity).gotoTaskListFragment();
 	}
 
 	private void signUp(){
-//		JSONObject param = MU.buildJsonObj(Arrays.asList(""));
-//		getApi(Const.SIGN_UP, param, new Api.OnCallApiListener() {
-//
-//			@Override
-//			public void onApiResponse(JSONObject response){
-//
-//			}
-//
-//			@Override
-//			public void onApiError(String errorMsg){
-//
-//			}
-//		});
+		// JSONObject param = MU.buildJsonObj(Arrays.asList(""));
+		// getApi(Const.SIGN_UP, param, new Api.OnCallApiListener() {
+		//
+		// @Override
+		// public void onApiResponse(JSONObject response){
+		//
+		// }
+		//
+		// @Override
+		// public void onApiError(String errorMsg){
+		//
+		// }
+		// });
 	}
 
 }

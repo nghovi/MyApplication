@@ -1,19 +1,15 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Note;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
-import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Note;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -69,13 +65,12 @@ public class NoteDetailFragment extends FragmentOfMainActivity{
 		}
 	}
 
-	// // TODO: 3/8/2016 call sendEditNote to save each 5s
-	public void sendAddNewNote(){
-		callPostApi(Const.ADD_NOTE, getJsonBuilder().add("content", note.content).add("notetype", note.notetype).getJsonObj(), new Api.OnApiSuccessObserver() {
+	private void sendAddNote(){
+		callApi(UrlBuilder.addNote(note), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
-				onSendAddNewNoteSuccess(response);
+				onCallApiNoteSuccess(response);
 			}
 
 			@Override
@@ -85,17 +80,12 @@ public class NoteDetailFragment extends FragmentOfMainActivity{
 		});
 	}
 
-	private void onSendAddNewNoteSuccess(JSONObject response){
-		note = MU.convertToModel(response.optString("data"), Note.class);
-		activity.backOneFragment();
-	}
-
-	private void sendEditNotes(){
-		callPostApi(Const.EDIT_NOTE, getJsonBuilder().add("id", note.id).add("content", note.content).add("notetype", note.notetype).getJsonObj(), new Api.OnApiSuccessObserver() {
+	private void sendEditNote(){
+		callApi(UrlBuilder.editNote(note), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
-				onSendEditNoteSuccess(response);
+				onCallApiNoteSuccess(response);
 			}
 
 			@Override
@@ -105,7 +95,7 @@ public class NoteDetailFragment extends FragmentOfMainActivity{
 		});
 	}
 
-	private void onSendEditNoteSuccess(JSONObject response){
+	private void onCallApiNoteSuccess(JSONObject response){
 		note = MU.convertToModel(response.optString("data"), Note.class);
 		activity.backOneFragment();
 	}
@@ -115,9 +105,9 @@ public class NoteDetailFragment extends FragmentOfMainActivity{
 		note.content = getEditText(R.id.edt_fragment_note_detail).getText().toString();
 		if(MU.isNotEmpty(note.content)){
 			if(note.id == null){
-				sendAddNewNote();
+				sendAddNote();
 			}else{
-				sendEditNotes();
+				sendEditNote();
 			}
 		}
 	}

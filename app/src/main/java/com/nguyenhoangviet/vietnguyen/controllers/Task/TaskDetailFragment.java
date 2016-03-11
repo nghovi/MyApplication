@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -65,7 +66,7 @@ public class TaskDetailFragment extends MyFragment{
 		setTextFor(R.id.txt_fragment_task_detail_date, MU.getDateForDisplaying(task.date));
 		setTextFor(R.id.txt_fragment_task_detail_name, task.name);
 		setTextFor(R.id.txt_fragment_task_detail_description, task.description);
-		setTextFor(R.id.txt_fragment_task_detail_priority, Task.TASK_PRIORITIES[task.priority - 1]);
+		setTextFor(R.id.txt_fragment_task_detail_priority, Task.TASK_PRIORITIES_REAL[task.priority - 1]);
 		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
 		if(task.status == Task.STATUS_UNFINISHED){
 			TextView txtTaskStatus = getTextView(R.id.txt_fragment_task_detail_status);
@@ -106,24 +107,24 @@ public class TaskDetailFragment extends MyFragment{
 
 	private void onCheckIconClicked(){
 		int newStatus = Task.STATUS_UNFINISHED;
-		String option = "Mark as unfinished";
+		String option = getString(R.string.fragment_task_detail_mark_as_unfinished);
 		if(this.task.status == Task.STATUS_UNFINISHED){
 			newStatus = Task.STATUS_FINISHED;
-			option = "Mark as finished";
+			option = getString(R.string.fragment_task_detail_mark_as_finished);
 		}
-		final int finalNewStatus = newStatus;
+		task.status = newStatus;
 		dlgBuilder.build2OptsDlgTopDown(getString(R.string.cancel), option, null, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				sendEditTask(finalNewStatus);
+				sendEditTask();
 			}
 		}).show();
 	}
 
-	private void sendEditTask(int status){
+	private void sendEditTask(){
 
-		callPostApi(Const.EDIT_TASK, getJsonBuilder().add("id", task.id).add("name", task.name).add("description", task.description).add("date", MU.getDateString(task.date, Const.APP_DATE_FORMAT)).add("priority", task.priority).add("status", status).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.editTask(task), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -139,12 +140,12 @@ public class TaskDetailFragment extends MyFragment{
 	}
 
 	private void onSendEditTaskSuccess(JSONObject response){
-		this.task = MU.convertToModel(response.optString("data"), Task.class);
+		this.task = MU.convertToModel(response.toString(), Task.class);
 		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
 	}
 
 	private void sendDeleteTask(){
-		callPostApi(Const.DELETE_TASK, getJsonBuilder().add("id", task.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.deleteTask(task.id), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -16,7 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.nguyenhoangviet.vietnguyen.controllers.Background;
-import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.model.User;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
@@ -30,10 +28,8 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 	public static final String	SHARED_PREFERENCES_NAME	= "MY_PREFERENCES";
 	public static final String	PREF_SHOW_MOTTOS		= "SHOW_MOTTOS";
 	public static final String	PREF_PUSH_NOTIFICATION	= "PUSH_NOTIFICATION";
-	protected Api				api;
-
+	public User loginUser;
 	protected FragmentManager	mFragmentManager;
-	// private AccessToken accessToken;
 	public Background			bg;
 
 	// /////////////////////////// ACTIVITY CONTACT ///////////////////////////////
@@ -150,57 +146,55 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
-		MU.log("onCreate " + this.getLocalClassName());
+//		MU.log("onCreate " + this.getLocalClassName());
 		super.onCreate(savedInstanceState);
 		mFragmentManager = getFragmentManager();
 		mFragmentManager.addOnBackStackChangedListener(this);
-		api = new Api();
-		// setContentView(R.layout.activity_my);
 	}
 
 	@Override
 	protected void onStart(){
-		MU.log("onStart " + this.getLocalClassName());
+//		MU.log("onStart " + this.getLocalClassName());
 		super.onStart();
 	}
 
 	@Override
 	protected void onRestart(){
-		MU.log("onRestart " + this.getLocalClassName());
+//		MU.log("onRestart " + this.getLocalClassName());
 		super.onRestart();
 	}
 
 	@Override
 	protected void onResume(){
-		MU.log("onResume " + this.getLocalClassName());
+//		MU.log("onResume " + this.getLocalClassName());
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause(){
-		MU.log("onPause " + this.getLocalClassName());
+//		MU.log("onPause " + this.getLocalClassName());
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop(){
-		MU.log("onStop " + this.getLocalClassName());
+//		MU.log("onStop " + this.getLocalClassName());
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy(){
-		MU.log("onDestroy " + this.getLocalClassName());
+//		MU.log("onDestroy " + this.getLocalClassName());
 		super.onDestroy();
 	}
 
 	@Override
 	public void onBackStackChanged(){
-		MU.log("Fragment backstack changed: ");
-		for(int i = 0; i < mFragmentManager.getBackStackEntryCount(); i++){
-			String fragmentName = mFragmentManager.getBackStackEntryAt(i).getName();
-			MU.log(fragmentName);
-		}
+//		MU.log("Fragment backstack changed: ");
+//		for(int i = 0; i < mFragmentManager.getBackStackEntryCount(); i++){
+//			String fragmentName = mFragmentManager.getBackStackEntryAt(i).getName();
+//			MU.log(fragmentName);
+//		}
 	}
 
 	public String convertStreamToString(InputStream s){

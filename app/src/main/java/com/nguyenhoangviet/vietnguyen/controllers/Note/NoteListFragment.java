@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
@@ -127,8 +128,11 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		sendDeleteNotes(TextUtils.join(",", deletedNoteIds));
 	}
 
-	public void sendDeleteNotes(String note_ids){
-		callPostApi(Const.DELETE_NOTE, getJsonBuilder().add("ids", note_ids).getJsonObj(), new Api.OnApiSuccessObserver() {
+	/**
+	 * @param noteIds @String list of note id separated by comma
+	 */
+	public void sendDeleteNotes(String noteIds){
+		callApi(UrlBuilder.deleteNote(noteIds), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -215,7 +219,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void sendGetNotesApi(){
-		callGetApi(Const.GET_NOTES, getJsonBuilder().getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.noteList(null), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -230,7 +234,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void onSendGetNotesApiSuccess(JSONObject response){
-		models = MU.convertToModelList(response.optString("data"), Note.class);
+		models = MU.convertToModelList(response.optString("results"), Note.class);
 		adapter.updateDataWith(models);
 	}
 

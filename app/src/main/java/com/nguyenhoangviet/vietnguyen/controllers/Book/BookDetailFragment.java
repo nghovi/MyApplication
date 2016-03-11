@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.Phrase;
@@ -60,8 +61,7 @@ public class BookDetailFragment extends MyFragment{
 
 	private void callApiGetBookDetail(){
 		String bookId = (String)getUpdatedData(BOOK_ID, "");
-		JSONObject params = MU.buildJsonObj(Arrays.asList("id", bookId));
-		callPostApi(Const.GET_BOOK_DETAIL, params, new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.bookDetail(bookId), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -73,11 +73,10 @@ public class BookDetailFragment extends MyFragment{
 				commonApiFailure(response);
 			}
 		});
-
 	}
 
 	private void onGetBookDetailSuccess(JSONObject response){
-		book = MU.convertToModel(response.optString("data"), Book.class);
+		book = MU.convertToModel(response.toString(), Book.class);
 		buildLayoutAfterGetBook();
 	}
 
@@ -85,10 +84,14 @@ public class BookDetailFragment extends MyFragment{
 		buildCover();
 		setTextFor(R.id.txt_fbd_author, book.author);
 		setTextFor(R.id.txt_fbd_name, book.name);
-		setTextFor(R.id.txt_fbd_link, book.link.url);
+		if(book.link != null){
+			setTextFor(R.id.txt_fbd_link, book.link.url);
+			setLinkFor(R.id.txt_fbd_link, book.link.url);
+		}else{
+			goneView(R.id.txt_fbd_link);
+		}
 		setTextFor(R.id.txt_fbd_comment, book.comment);
 		setFoldAction(getView(R.id.lnr_fbd_comment), getImageView(R.id.img_fbd_fold), R.id.lnr_fbd_comment_content, null, null);
-		setLinkFor(R.id.txt_fbd_link, book.link.url);
 		setOnClickFor(R.id.img_fragment_book_detail_delete, new View.OnClickListener() {
 
 			@Override
@@ -138,7 +141,7 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void sendDeleteBook(){
-		callPostApi(Const.DELETE_BOOK, getJsonBuilder().add("id", book.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.deleteBook(book.id), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -153,7 +156,7 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	private void onSendDeleteBookSuccess(){
-		showAlertDialog("Info", "Delete book " + book.name + " successfully", getString(R.string.ok), new DialogInterface.OnClickListener() {
+		showAlertDialog("Info", "Delete book \"" + book.name + "\" successfully", getString(R.string.ok), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which){

@@ -135,6 +135,9 @@
     <string name="fragment_task_detail_date_label"><u>Date:</u></string>
     <string name="fragment_task_detail_priority_label"><u>Priority:</u></string>
     <string name="fragment_task_detail_status_label"><u>Status:</u></string>
+    <string name="fragment_task_detail_mark_as_unfinished">Mark as unfinished</string>
+    <string name="fragment_task_detail_mark_as_finished">Mark as finished</string>
+
 
     <string name="dialog_width_2edt_word_hint">Enter new word</string>
     <string name="dialog_width_2edt_next_phrase">Next Phrase</string>
@@ -151,6 +154,8 @@
     <string name="fragment_book_search_book_name_hint">E.g. Percy Jackson</string>
     <string name="fragment_book_search_author_hint">E.g. Rich</string>
     <string name="fragment_book_search_comment_hint">E.g. adventures</string>
+
+    <string name="fragment_book_add_link_description">fragment_book_add_link_description</string>
 
 
 </resources>

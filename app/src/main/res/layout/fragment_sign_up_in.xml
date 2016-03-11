@@ -13,15 +13,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-    <EditText android:id="@+id/mail_address"
+    <EditText android:id="@+id/edt_fragment_sign_up_in_username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/mail_address" />
+        android:hint="@string/mail_address"
+        style="@style/core_edit_text"
+        android:layout_marginBottom="10dp" />
 
-    <EditText android:id="@+id/pass_word"
+    <EditText android:id="@+id/edt_fragment_sign_up_in_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/pass_word" />
+        android:hint="@string/pass_word"
+        style="@style/core_edit_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,14 +49,14 @@
         android:background="@color/core_blue"
         android:layout_marginTop="200dp" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/btn_facebook_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/facebook"
-        android:text="Login = Facebook"
-        android:textColor="@color/core_white" />
+    <!--<com.facebook.login.widget.LoginButton-->
+        <!--android:id="@+id/btn_facebook_login"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:background="@color/facebook"-->
+        <!--android:text="Login = Facebook"-->
+        <!--android:textColor="@color/core_white" />-->
 </LinearLayout>

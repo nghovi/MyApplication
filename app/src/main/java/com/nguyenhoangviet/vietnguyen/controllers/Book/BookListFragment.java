@@ -12,6 +12,7 @@ import com.nguyenhoangviet.vietnguyen.controllers.Task.AbstractTaskFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskAddFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
@@ -48,8 +49,7 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void callApiGetBooks(){
-		// // TODO: 3/3/2016 how to use callGet ?
-		callGetApi(Const.GET_BOOKS, getJsonBuilder().getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.bookList(null), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -65,7 +65,7 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void onGetBooksSuccess(JSONObject response){
-		models = MU.convertToModelList(response.optString("data"), Book.class);
+		models = MU.convertToModelList(response.optString("results"), Book.class);
 		showBooks(models);
 	}
 
@@ -111,7 +111,8 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void callApiSearchBook(){
-		callPostApi(Const.SEARCH_BOOKS, getJsonBuilder().add("name", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME)).add("author", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR)).add("comment", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT)).getJsonObj(), new Api.OnApiSuccessObserver() {
+		JSONObject filterValues = getJsonBuilder().add("name", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME)).add("author", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR)).add("comment", searchConditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT)).getJsonObj();
+		callApi(UrlBuilder.bookList(filterValues), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){

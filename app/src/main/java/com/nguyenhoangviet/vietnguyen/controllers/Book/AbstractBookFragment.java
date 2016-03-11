@@ -18,6 +18,7 @@ import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.Link;
@@ -33,7 +34,6 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	public final static String	BOOK_COVER_PREFIX				= "book_cover";
 	public final static int		REQ_CODE_ACTIVITY_SELECT_IMAGE	= 101;
 	protected Book				book;
-	protected String			newWord;
 
 	@Override
 	protected void buildLayout(){
@@ -202,7 +202,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	}
 
 	protected void sendDeleteWord(final Word word){
-		callPostApi(Const.DELETE_WORD, getJsonBuilder().add("word_id", word.id).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.deleteWord(word.id), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -232,9 +232,9 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 		});
 	}
 
-	protected void addPhraseForWord(final Word word, String phrase){
-		if(!MU.isEmpty(phrase)){
-			callPostApi(Const.ADD_PHRASE, getJsonBuilder().add("word_id", word.id).add("new_phrase", phrase).getJsonObj(), new Api.OnApiSuccessObserver() {
+	protected void addPhraseForWord(final Word word, String content){
+		if(!MU.isEmpty(content)){
+			callApi(UrlBuilder.addPhrase(word.id, content), new Api.OnApiSuccessObserver() {
 
 				@Override
 				public void onSuccess(JSONObject response){
@@ -261,7 +261,7 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			if(wordExisted != null){
 				addPhraseForWord(wordExisted, content);
 			}else{
-				callPostApi(Const.ADD_WORD, getJsonBuilder().add("book_id", book.id).add("new_word", syllabus).add("new_phrase", content).getJsonObj(), new Api.OnApiSuccessObserver() {
+				callApi(UrlBuilder.addWord(book.id, syllabus, content), new Api.OnApiSuccessObserver() {
 
 					@Override
 					public void onSuccess(JSONObject response){
@@ -292,18 +292,34 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 			book.link.url = getEditText(R.id.edt_sbe_link).getText().toString();
 		}else{
 			book.link = new Link();
+			book.link.description = getString(R.string.fragment_book_add_link_description);
 			book.link.url = getEditText(R.id.edt_sbe_link).getText().toString();
 		}
 
 		if(isNew){
-			sendSavingBook(Const.ADD_BOOK, book.name, book.comment, book.author, book.iconurl, book.link);
+			sendCreateBook();
 		}else{
-			sendSavingBook(Const.EDIT_BOOK, book.name, book.comment, book.author, book.iconurl, book.link);
+			sendSavingBook();
 		}
 	}
 
-	protected void sendSavingBook(String url, String name, String comment, String author, String iconurl, Link link){
-		callPostApi(url, getJsonBuilder().add("id", book.id).add("name", name).add("comment", comment).add("author", author).add("iconurl", iconurl).add("link", link.url).getJsonObj(), new Api.OnApiSuccessObserver() {
+	protected void sendCreateBook(){
+		callApi(UrlBuilder.addBook(book), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onSendSavingBookSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+	}
+
+	protected void sendSavingBook(){
+		callApi(UrlBuilder.editBook(book), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -337,9 +353,6 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	public static List<Book> searchWithConditions(Map<String, Object> conditions, List<Book> books){
 		String word = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_WORD);
 		String phrase = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_PHRASE);
-		String name = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_NAME);
-		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
-		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
 
 		Iterator<Book> ib = books.iterator();
 		while(ib.hasNext()){
@@ -352,18 +365,6 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 				ib.remove();
 				continue;
 			}
-			// if(!MU.isEmpty(name) && !MU.checkMatch(book.name, name)){
-			// ib.remove();
-			// continue;
-			// }
-			// if(!MU.isEmpty(author) && !MU.checkMatch(book.author, author)){
-			// ib.remove();
-			// continue;
-			// }
-			// if(!MU.isEmpty(comment) && !MU.checkMatch(book.comment, comment)){
-			// ib.remove();
-			// continue;
-			// }
 		}
 		return books;
 	}

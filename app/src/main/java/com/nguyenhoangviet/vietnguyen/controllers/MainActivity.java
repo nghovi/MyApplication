@@ -2,18 +2,19 @@ package com.nguyenhoangviet.vietnguyen.controllers;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
+import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Note.NoteListFragment;
 //import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.Footer;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyActivity;
+import com.nguyenhoangviet.vietnguyen.core.model.User;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Notice;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -62,17 +63,16 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// for(String p : accessToken.getPermissions()){
 		// MU.log("lsfslfasfsf ++++++++++ " + p);
 		// }
-		// if(accessToken == null || accessToken.isExpired()){
-		// // gotoSignUpInFragment(); //todo
-		// setAccessToken(accessToken);
+		String accessToken = getStringPreference(Const.PREF_KEY_TOKEN, "");
+		if(MU.isNotEmpty(accessToken)){
+			loginUser = new User(accessToken);
+			gotoTaskListFragment();
+		}else{
+			gotoSignUpInFragment();
+		}
 		// gotoTaskListFragment();
-		// }else if(!accessToken.isExpired()){
-		// setAccessToken(accessToken);
-		// gotoTaskListFragment();
-		// }
-		gotoTaskListFragment();
-//		bg = new Background(this);
-//		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		// bg = new Background(this);
+		// bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 		checkNotice();
 	}
@@ -262,7 +262,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// facebook
 		// Logs 'install' and 'app activate' App Events.
 		// AppEventsLogger.activateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
-//		bg.startScheduledTasks();
+		// bg.startScheduledTasks();
 
 	}
 
@@ -271,7 +271,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		super.onPause();
 		// Logs 'app deactivate' App Event.
 		// AppEventsLogger.deactivateApp(this.getApplicationContext(), Const.FACEBOOK_APP_ID);
-//		bg.stopScheduledTasks();
+		// bg.stopScheduledTasks();
 	}
 
 	@Override

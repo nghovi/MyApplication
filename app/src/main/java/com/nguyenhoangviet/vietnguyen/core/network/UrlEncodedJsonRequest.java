@@ -5,6 +5,8 @@ import android.util.Base64;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.nguyenhoangviet.vietnguyen.Const;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,42 +18,36 @@ import java.util.Map;
 
 /**
  * Created by viet on 10/8/2015.
- * #todo: don't know why simple JsonObjectRequest of volley doesn't work, so using BasicJsonRequest from quicker as temporary solution.
+ * # don't know why simple JsonObjectRequest of volley doesn't work, so using UrlEncodedJsonRequest from quicker as temporary solution.
+ * Because JsoonObjectRequest used JSONObject as body param, why this class use urlencoded type.
  */
-public class BasicJsonRequest extends JsonObjectRequest{
+public class UrlEncodedJsonRequest extends JsonObjectRequest{
 
 	private Map<String, String>	mParams	= new HashMap<String, String>();
 
-	public BasicJsonRequest(int method, String url, Map<String, String> params, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
-		super(method, url, "", listener, errorListener);
-		mParams = params;
-	}
+	public UrlEncodedJsonRequest(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
 
-	public BasicJsonRequest(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
+		super(method, url, listener, errorListener);
 
-		super(method, url, "", listener, errorListener);
+		MU.log("UrlEncodedJsonRequest========== jsonRequest =  " + (jsonRequest == null ? "NULL" : jsonRequest.toString()));
 		try{
-			JSONArray array = jsonRequest.names();
-			if(array != null){
-				for(int i = 0; i < array.length(); i++){
-					String key = array.getString(i);
-					String val = jsonRequest.getString(key);
-					mParams.put(key, val);
+			if(jsonRequest != null){
+				JSONArray array = jsonRequest.names();
+				if(array != null){
+					for(int i = 0; i < array.length(); i++){
+						String key = array.getString(i);
+						String val = jsonRequest.getString(key);
+						mParams.put(key, val);
+					}
 				}
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-
 	}
 
-	@Override
-	public Map<String, String> getHeaders() throws AuthFailureError{
-		HashMap<String, String> params = new HashMap<String, String>();
-		String creds = String.format("%s:%s", "shk", "258456");
-		String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.NO_WRAP);
-		params.put("Authorization", auth);
-		return params;
+	public String getBodyContentType(){
+		return "application/x-www-form-urlencoded; charset=" + getParamsEncoding();
 	}
 
 	/**
@@ -61,16 +57,6 @@ public class BasicJsonRequest extends JsonObjectRequest{
 	@Override
 	protected Map<String, String> getParams(){
 		return mParams;
-	}
-
-	/**
-	 * リクエストパラメータの形式を、JSON形式ではなく、通常のPOSTに変更する。通常のJSONObjectRequestではこの設定ができない。
-	 * Request.javaから引用
-	 *
-	 * @return
-	 */
-	public String getBodyContentType(){
-		return "application/x-www-form-urlencoded; charset=" + getParamsEncoding();
 	}
 
 	@Override

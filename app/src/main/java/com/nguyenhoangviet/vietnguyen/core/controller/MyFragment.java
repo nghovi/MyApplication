@@ -27,11 +27,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nguyenhoangviet.vietnguyen.Const;
+import com.android.volley.Request;
+import com.nguyenhoangviet.vietnguyen.core.model.Url;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
-import com.nguyenhoangviet.vietnguyen.myapplication.BuildConfig;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 import java.util.Date;
@@ -231,7 +231,7 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 	}
 
 	public MU.JsonBuilder getJsonBuilder(){
-		return new MU.JsonBuilder().add("version", BuildConfig.VERSION_NAME);
+		return new MU.JsonBuilder();
 	}
 
 	/*
@@ -340,23 +340,42 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 
 	// //////////////////////// API Listener interface /////////////////////////////////////
 
-	public void callGetApi(String url, JSONObject param, Api.OnApiSuccessObserver observer){
-		Api.get(getActivity(), url, param, this, observer);
+	private void callPostApi(String url, JSONObject param, Api.OnApiSuccessObserver observer, int authorizationType, int bodyType){
+		if(authorizationType == Api.AUTHORIZATION_TYPE_TOKEN){
+			Api.postWithTokenAuth(getActivity(), url, param, this, observer, activity.loginUser.token, bodyType);
+		}else if(authorizationType == Api.AUTHORIZATION_TYPE_BASIC){
+			Api.postWithBasicAuth(getActivity(), url, param, this, observer, bodyType);
+		}
 	}
 
-	public void callPostApi(String url, JSONObject param, Api.OnApiSuccessObserver observer){
-		Api.post(getActivity(), url, param, this, observer);
+	public void callApi(Url url, Api.OnApiSuccessObserver observer){
+		switch(url.method){
+		case Request.Method.POST:
+			callPostApi(url.baseUrl, url.param, observer, url.authorizationType, url.bodyType);
+			break;
+		case Request.Method.GET:
+			Api.get(getActivity(), url.baseUrl, url.param, this, observer, activity.loginUser.token, url.bodyType);
+			break;
+		case Request.Method.PUT:
+			Api.put(getActivity(), url.baseUrl, url.param, this, observer, activity.loginUser.token, url.bodyType);
+			break;
+		case Request.Method.DELETE:
+			Api.delete(getActivity(), url.baseUrl, url.param, this, observer, activity.loginUser.token, url.bodyType);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void OnApiResponse(String url, JSONObject response, Api.OnApiSuccessObserver observer){
 		if(getView() == null){
 			return;
 		}
-		if(response.optInt("statusCode") == Const.STATUS_CODE_OK){
-			observer.onSuccess(response);
-		}else{
-			observer.onFailure(response);
-		}
+		// if(response.optInt("statusCode") == Const.STATUS_CODE_OK){
+		observer.onSuccess(response);
+		// }else{
+		// observer.onFailure(response);
+		// }
 	}
 
 	/**

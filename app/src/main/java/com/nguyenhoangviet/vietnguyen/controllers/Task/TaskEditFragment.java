@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.nguyenhoangviet.vietnguyen.Const;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
@@ -37,7 +38,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 
 	@Override
 	String[] getPriorities(){
-		return Task.TASK_PRIORITIES;
+		return Task.TASK_PRIORITIES_REAL;
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 
 	private void sendEditTask(){
 
-		callPostApi(Const.EDIT_TASK, getJsonBuilder().add("id", task.id).add("name", task.name).add("description", task.description).add("date", MU.getDateString(task.date, Const.APP_DATE_FORMAT)).add("priority", task.priority).add("status", task.status).getJsonObj(), new Api.OnApiSuccessObserver() {
+		callApi(UrlBuilder.editTask(task), new Api.OnApiSuccessObserver() {
 
 			@Override
 			public void onSuccess(JSONObject response){
@@ -80,7 +81,7 @@ public class TaskEditFragment extends AbstractTaskFragment{
 	}
 
 	private void onSendEditTaskSuccess(JSONObject response){
-		this.task = MU.convertToModel(response.optString("data"), Task.class);
+		this.task = MU.convertToModel(response.toString(), Task.class);
 		activity.backToFragment(TaskDetailFragment.class, TaskDetailFragment.BUNDLE_KEY_TASK, task);
 	}
 

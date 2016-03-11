@@ -60,7 +60,7 @@ public abstract class AbstractTaskFragment extends FragmentOfMainActivity{
 
 	protected void builPriority(){
 		priority = task.priority;
-		setTextFor(R.id.txt_share_task_edit_priority, getPriorities()[priority - 1]);
+		setTextFor(R.id.txt_share_task_edit_priority, getPriorities()[priority-1]);
 		final DialogBuilder.OnNumberPickerBtnOkClickListener listener = new DialogBuilder.OnNumberPickerBtnOkClickListener() {
 
 			@Override
@@ -214,7 +214,7 @@ public abstract class AbstractTaskFragment extends FragmentOfMainActivity{
 	// // task.addNoticeIdWithoutSave(newNotice.getId().toString());
 	// addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
 	// final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
-	// scrollView.post(new Runnable() {
+	// scrollView.postWithTokenAuth(new Runnable() {
 	//
 	// @Override
 	// public void run(){

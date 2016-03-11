@@ -162,8 +162,8 @@ public class MU{
 
 	public static Gson createNewGson(){
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
-		gsonBuilder.setDateFormat("yyyy-MM-dd HH:mm:ssZZZ");
+//		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+		gsonBuilder.setDateFormat(Const.APP_DATE_FORMAT);
 		Gson gson = gsonBuilder.create();
 		return gson;
 	}
@@ -172,9 +172,9 @@ public class MU{
 		T result = null;
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat(Const.APP_DATE_FORMAT).create();
+			Gson gson = createNewGson();
 			if(jsonString != null){
-				result = ex.fromJson(jsonString, cls);
+				result = gson.fromJson(jsonString, cls);
 			}
 		}catch(Exception var4){
 			var4.printStackTrace();
@@ -188,9 +188,9 @@ public class MU{
 		Object result = new ArrayList();
 
 		try{
-			Gson ex = (new GsonBuilder()).setDateFormat(Const.APP_DATE_FORMAT).create();
+			Gson gson = createNewGson();
 			if(jsonString != null){
-				result = (List)ex.fromJson(jsonString, new GsonModel(cls));
+				result = (List)gson.fromJson(jsonString, new GsonModel(cls));
 			}
 
 			return (List)result;
@@ -211,7 +211,7 @@ public class MU{
 
 			@Override
 			public void onError(){
-				log("picassaLoadAndSaveImage failed for url " + url);
+				log("picassaLoadAndSaveImage failed for baseUrl " + url);
 			}
 		});
 	}
@@ -229,7 +229,7 @@ public class MU{
 
 			@Override
 			public void onError(){
-				log("picassaLoadAndSaveImage failed for url " + url);
+				log("picassaLoadAndSaveImage failed for baseUrl " + url);
 			}
 		});
 	}
@@ -319,6 +319,10 @@ public class MU{
 	public static String getDateString(Date date, String destinateFormat){
 		SimpleDateFormat destinateFormatter = new SimpleDateFormat(destinateFormat);
 		return destinateFormatter.format(date);
+	}
+
+	public static String getAppDateString(Date date){
+		return getDateString(date, Const.APP_DATE_FORMAT);
 	}
 
 	public static boolean checkMatch(String parent, String pattern){

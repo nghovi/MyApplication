@@ -68,7 +68,6 @@ public class BookAddFragment extends AbstractBookFragment{
 		book.iconurl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
 		book.link = new Link();
 		book.link.url = getEditText(R.id.edt_sbe_link).getText().toString();
-
 		return !(MU.isEmpty(book.name) && MU.isEmpty(book.author) && MU.isEmpty(book.comment) && MU.isEmpty(book.iconurl) && MU.isEmpty(book.link.url));
 	}
 }
