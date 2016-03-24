@@ -40,9 +40,9 @@ public class Api{
 		 * Called when cannot receive response. E.g. 404, ...
 		 *
 		 * @param url
-		 * @param errorMsg
+		 * @param error
 		 */
-		void OnApiError(String url, String errorMsg);
+		void OnApiError(String url, VolleyError error);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class Api{
 			@Override
 			public void onErrorResponse(VolleyError error){
 				MU.log("Error for " + fullUrl + ": ERROR! " + error.toString());
-				onCallApiListener.OnApiError(fullUrl, error.toString());
+				onCallApiListener.OnApiError(fullUrl, error);
 			}
 		}) {
 
@@ -173,7 +173,7 @@ public class Api{
 			@Override
 			public void onErrorResponse(VolleyError error){
 				MU.log("Error for " + url + ": ERROR! " + error.toString());
-				onCallApiListener.OnApiError(url, error.toString());
+				onCallApiListener.OnApiError(url, error);
 			}
 		}) {
 

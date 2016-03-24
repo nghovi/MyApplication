@@ -18,8 +18,14 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookDetailFragment;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.network.UrlBuilder;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Task;
+import com.nguyenhoangviet.vietnguyen.models.TaskStat;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,8 +40,9 @@ public class SettingFragment extends MyFragment{
 
 	// public static final int INTENT_REQUEST_CODE_SEND_EMAIL = 1001;
 
-	private int	taskUnfinishedNum	= 0;
-	private int	taskFinishedNum		= 0;
+	TaskStat	taskStat;
+	final int	dayBefore	= 30;
+	final int	dayAfter	= 10;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -52,7 +59,7 @@ public class SettingFragment extends MyFragment{
 	public void buildLayout(){
 		buildPushNotification();
 		buildSeekBar();
-		buildGraph();
+		callApiGetTaskStats();
 		buildContact();
 	}
 
@@ -95,8 +102,7 @@ public class SettingFragment extends MyFragment{
 	}
 
 	public void buildGraph(){
-		final int dayBefore = 30;
-		final int dayAfter = 10;
+
 		GraphView graph = (GraphView)getView().findViewById(R.id.graph);
 		BarGraphSeries<DataPoint> unfinishedTasksSeries = makeUnfinishedTasksSeries(dayBefore, dayAfter);
 		unfinishedTasksSeries.setColor(Color.RED);
@@ -122,36 +128,30 @@ public class SettingFragment extends MyFragment{
 		});
 		graph.getLegendRenderer().setVisible(true);
 		graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskFinishedNum + taskUnfinishedNum));
+		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskStat.totalFinished, taskStat.totalUnfinished + taskStat.totalFinished));
 	}
 
 	private BarGraphSeries<DataPoint> makeUnfinishedTasksSeries(int dayBefore, int dayAfter){
-		List<Task> tasks = getUnfinishedTasksRecently(dayBefore, dayAfter);
-		this.taskUnfinishedNum = tasks.size();
-		DataPoint dataPointsarray[] = makeTasksDataPoints(tasks, dayBefore, dayAfter);
+		DataPoint dataPointsarray[] = makeTasksDataPoints(Task.STATUS_UNFINISHED);
 		BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPointsarray);
 		return series;
 	}
 
 	private BarGraphSeries<DataPoint> makeFinishedTasksSeries(int dayBefore, int dayAfter){
-		List<Task> tasks = getFinishedTasksRecently(dayBefore, dayAfter);
-		this.taskFinishedNum = tasks.size();
-		DataPoint dataPointsarray[] = makeTasksDataPoints(tasks, dayBefore, dayAfter);
+		DataPoint dataPointsarray[] = makeTasksDataPoints(Task.STATUS_FINISHED);
 		BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPointsarray);
 		return series;
 	}
 
-	private DataPoint[] makeTasksDataPoints(List<Task> tasks, int dayBefore, int dayAfter){
-		Map<Date, ArrayList<Task>> map = getDateTasksMap(tasks);
+	private DataPoint[] makeTasksDataPoints(int type){
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-		Calendar c = Calendar.getInstance();
+		Map<Date, TaskStat.DailyTask> dateDailyTaskMap = getDateDailyTaskMap(taskStat.daily_tasks);
 		int i = 0;
-		List<Date> keys = getKeys(dayBefore, dayAfter);
-		for(Date key : keys){
-			ArrayList<Task> tasksOnDate = map.get(key);
-			DataPoint dataPoint;
-			if(tasksOnDate != null){
-				dataPoint = new DataPoint(i++, tasksOnDate.size());
+		DataPoint dataPoint;
+		for(Date date : getKeys(dayBefore, dayAfter)){
+			if(dateDailyTaskMap.containsKey(date)){
+				TaskStat.DailyTask dailyTask = dateDailyTaskMap.get(date);
+				dataPoint = new DataPoint(i++, type == Task.STATUS_FINISHED ? dailyTask.taskFinishedCount : dailyTask.taskUnFinishedCount);
 			}else{
 				dataPoint = new DataPoint(i++, 0);
 			}
@@ -160,17 +160,10 @@ public class SettingFragment extends MyFragment{
 		return dataPoints.toArray(new DataPoint[dataPoints.size()]);
 	}
 
-	private Map<Date, ArrayList<Task>> getDateTasksMap(List<Task> tasks){
-		Map<Date, ArrayList<Task>> map = new HashMap<Date, ArrayList<Task>>();
-		for(Task task : tasks){
-			Date mapKey = buildKey(task.date);
-			if(map.containsKey(mapKey)){
-				map.get(mapKey).add(task);
-			}else{
-				ArrayList<Task> tasksOnDate = new ArrayList<Task>();
-				tasksOnDate.add(task);
-				map.put(mapKey, tasksOnDate);
-			}
+	private Map<Date, TaskStat.DailyTask> getDateDailyTaskMap(List<TaskStat.DailyTask> dailyTasks){
+		Map<Date, TaskStat.DailyTask> map = new HashMap<Date, TaskStat.DailyTask>();
+		for(TaskStat.DailyTask dailyTask : dailyTasks){
+			map.put(buildKey(dailyTask.date), dailyTask);
 		}
 		return map;
 	}
@@ -234,13 +227,39 @@ public class SettingFragment extends MyFragment{
 		Calendar cAfter = Calendar.getInstance();
 		cAfter.add(Calendar.DATE, dayAfter);
 
-//		List<Task> allTasks = new Select().from(Task.class).execute();
-//		for(Task task : allTasks){
-//			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
-//				result.add(task);
-//			}
-//		}
+		// List<Task> allTasks = new Select().from(Task.class).execute();
+		// for(Task task : allTasks){
+		// if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
+		// result.add(task);
+		// }
+		// }
 		return result;
+	}
+
+	private void callApiGetTaskStats(){
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 0 - dayBefore);
+		String dateFrom = MU.getAppDateString(c.getTime());
+		c.add(Calendar.DATE, dayBefore + dayAfter);
+		String dateTo = MU.getAppDateString(c.getTime());
+		callApi(UrlBuilder.taskStats(new MU.JsonBuilder().add("date_from", dateFrom).add("date_to", dateTo).getJsonObj()), new Api.OnApiSuccessObserver() {
+
+			@Override
+			public void onSuccess(JSONObject response){
+				onGetTasksSuccess(response);
+			}
+
+			@Override
+			public void onFailure(JSONObject response){
+				commonApiFailure(response);
+			}
+		});
+
+	}
+
+	private void onGetTasksSuccess(JSONObject response){
+		taskStat = MU.convertToModel(response.optString("data"), TaskStat.class);
+		buildGraph();
 	}
 
 	public void buildContact(){

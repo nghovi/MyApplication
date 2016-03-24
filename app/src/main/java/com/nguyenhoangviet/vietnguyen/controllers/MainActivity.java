@@ -93,7 +93,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		replaceWithFragment(noteListFragment);
 	}
 
-	private void gotoSignUpInFragment(){
+	public void gotoSignUpInFragment(){
 		footer.hide();
 		signUpInFragment = new SignUpInFragment();
 		replaceWithFragment(signUpInFragment);

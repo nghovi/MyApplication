@@ -21,9 +21,8 @@ import java.util.Iterator;
  */
 public class UrlBuilder{
 
-//	public static final String	SERVER_URL	= SERVER_URL + "";
+	// public static final String SERVER_URL = "http://10.0.3.2:8000/ecard/";
 	public static final String	SERVER_URL	= "http://ec2-54-186-181-131.us-west-2.compute.amazonaws.com:8000/ecard/";
-
 
 	// public static final String SIGN_IN = SERVER_URL + "api-token-auth/";
 	// public static final String SIGN_UP = "sign_up";
@@ -78,6 +77,16 @@ public class UrlBuilder{
 		Url url = new Url();
 		url.method = Request.Method.GET;
 		url.baseUrl = SERVER_URL + "tasks/";
+		url.authorizationType = Api.AUTHORIZATION_TYPE_TOKEN;
+		url.param = filterValues;
+		url.bodyType = Api.BODY_TYPE_URLENCODED;
+		return url;
+	}
+
+	public static Url taskStats(JSONObject filterValues){
+		Url url = new Url();
+		url.method = Request.Method.GET;
+		url.baseUrl = SERVER_URL + "task_stats/";
 		url.authorizationType = Api.AUTHORIZATION_TYPE_TOKEN;
 		url.param = filterValues;
 		url.bodyType = Api.BODY_TYPE_URLENCODED;

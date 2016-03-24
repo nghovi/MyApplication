@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.nguyenhoangviet.vietnguyen.controllers.MainActivity;
 import com.nguyenhoangviet.vietnguyen.core.model.Url;
 import com.nguyenhoangviet.vietnguyen.core.network.Api;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -387,11 +389,14 @@ public class MyFragment extends Fragment implements Api.OnCallApiListener{
 		showAlertDialog("Error", response.optString("data"), getString(android.R.string.ok), null);
 	}
 
-	public void OnApiError(String url, String errorMsg){
+	public void OnApiError(String url, VolleyError error){
 		if(getView() == null){
 			return;
 		}
-		showAlertDialog("API Error", errorMsg, getString(android.R.string.ok), null);
+		if(error.networkResponse != null && error.networkResponse.statusCode == 401){
+			((MainActivity)activity).gotoSignUpInFragment();
+		}
+		showAlertDialog("API Error", error.getMessage(), getString(android.R.string.ok), null);
 	}
 
 	// //////////////////////// END API Listener interface /////////////////////////////////////

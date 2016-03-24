@@ -39,10 +39,12 @@ public abstract class MyArrayAdapter<MyModel> extends ArrayAdapter<MyModel>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
-		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(resourceId, null);
-		MyModel model = getItem(position);
-		buildItemLayout(convertView, model);
+		if(convertView == null){ // ListView recycle
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(resourceId, null);
+			MyModel model = getItem(position);
+			buildItemLayout(convertView, model);
+		}
 		return convertView;
 	}
 

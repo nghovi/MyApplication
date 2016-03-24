@@ -38,6 +38,22 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 		// Empty constructor required for DialogFragment
 	}
 
+	/**
+	 * to comment on who wrote about television
+	 * one of the highest, part of the show, people like peter fork, wiliam sha
+	 * each epidsode, you watch an epidsode,
+	 * more interesting to watch, you know you're going to
+	 * even today, some television channel,
+	 * a television station, all epidsode, know what the twightlight, does happen
+	 * humming the music from the show. begins with this very strange, science fi
+	 * responsibiliy
+	 * liability
+	 * accountability
+	 * obligation
+	 *
+	 * it was dif time
+	 * @param listener
+	 */
 	public void setOnDialogWithEdtDismissListener(DialogBuilder.OnDialogWithEdtDismiss listener){
 		this.listener = listener;
 	}
