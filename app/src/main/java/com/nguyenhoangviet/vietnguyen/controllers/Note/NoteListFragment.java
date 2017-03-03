@@ -2,15 +2,6 @@ package com.nguyenhoangviet.vietnguyen.controllers.Note;
 
 import java.util.Date;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.TextView;
-
 import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
@@ -20,6 +11,13 @@ import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.models.Note;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.NoteListAdapter;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
@@ -37,6 +35,12 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		buildAddNoteFunction();
 		buildSearchFunction();
 		reloadNotes();
+		loadAds();
+	}
+
+	@Override
+	protected void buildHeader(){
+		// // TODO: 3/3/2017 not good name class HeaderFooter, WithList maybe interface is better
 	}
 
 	@Override

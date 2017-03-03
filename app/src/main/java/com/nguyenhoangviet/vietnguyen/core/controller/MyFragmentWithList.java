@@ -10,7 +10,7 @@ import com.nguyenhoangviet.vietnguyen.models.MyModel;
 
 import java.util.List;
 //abstract classes aren't enforced to implement methods on interface, great
-public abstract class MyFragmentWithList extends FragmentOfMainActivity implements  MyFragmentWithListInterface{
+public abstract class MyFragmentWithList extends MyFragmentWithHeaderFooter implements  MyFragmentWithListInterface{
 
 	protected List<MyModel> models;
 	protected MyArrayAdapter adapter;

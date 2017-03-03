@@ -39,20 +39,19 @@ public class BookDetailFragment extends MyFragmentWithHeaderFooter{
 	}
 
 	@Override
-	protected boolean hasBackButton() {
+	protected boolean hasBackButton(){
 		return true;
 	}
 
 	@Override
-	public void onBackImgClicked() {
+	public void onBackImgClicked(){
 		onClickBackBtn();
 	}
 
 	@Override
-	protected String getHeaderTitle() {
+	protected String getHeaderTitle(){
 		return getString(R.string.fragment_abstract_book_book_detail);
 	}
-
 
 	@Override
 	protected void buildLayout(){

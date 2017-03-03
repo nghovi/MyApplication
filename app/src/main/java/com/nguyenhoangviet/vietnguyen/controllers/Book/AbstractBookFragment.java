@@ -1,31 +1,27 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-
-import com.nguyenhoangviet.vietnguyen.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
+import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithHeaderFooter;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
-public abstract class AbstractBookFragment extends FragmentOfMainActivity implements View.OnClickListener{
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+
+public abstract class AbstractBookFragment extends MyFragmentWithHeaderFooter implements View.OnClickListener{
 
 	public final static String	KEY_UPDATED_BOOK				= "book_updated";
 	public final static String	BOOK_COVER_PREFIX				= "book_cover";
@@ -72,6 +68,27 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	private void selectBookCover(){
 		Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(i, REQ_CODE_ACTIVITY_SELECT_IMAGE);
+	}
+
+	@Override
+	protected boolean hasBackButton(){
+		return true;
+	}
+
+	@Override
+	protected int getRightImageId(){
+		return R.drawable.ic_done_white_36dp;
+	}
+
+	@Override
+	protected String getHeaderTitle(){
+		return getString(R.string.book_edit_title);
+	}
+
+	@Override
+	public void onRightImgClicked(){
+		savedBookFromLayout();
+		activity.backOneFragment();
 	}
 
 	@Override
@@ -127,20 +144,17 @@ public abstract class AbstractBookFragment extends FragmentOfMainActivity implem
 	@Override
 	public void onClick(View view){
 		switch(view.getId()){
-		case R.id.txt_fragment_book_edit_done:
-			savedBookFromLayout();
-			activity.backOneFragment();
-			break;
-		case R.id.txt_fba_done:
-			savedBookFromLayout();
-			activity.backOneFragment();
-			break;
 		case R.id.ico_sbe_add_vocabulary:
 			showDialogForAddingWord();
 			break;
 		default:
 			break;
 		}
+	}
+
+	protected void onDoneClicked() {
+		savedBookFromLayout();
+		activity.backOneFragment();
 	}
 
 	protected void addTextWatcherForBookImage(){

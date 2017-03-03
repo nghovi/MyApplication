@@ -18,12 +18,15 @@ public class HeaderView extends LinearLayout{
 	private TextView	txtTitle;
 	private ImageView	imgBack;
 	private ImageView	imgRight;
+	private ImageView	imgLeft;
 
 	public interface HeaderViewActionListener{
 
-		public void onRightImgClicked();
-
 		public void onBackImgClicked();
+
+		public void onLeftImgClicked();
+
+		public void onRightImgClicked();
 	}
 
 	HeaderViewActionListener	listener;
@@ -40,10 +43,13 @@ public class HeaderView extends LinearLayout{
 		super(context, attrs, defStyleAttr);
 	}
 
-	public void initView(String title, int rightImageId, boolean hasBackBtn, final HeaderViewActionListener listener){
-		this.listener = listener;
+	public void initView(boolean hasBackBtn, int leftImageId, String title, int rightImageId, HeaderViewActionListener headerViewActionListener){
+		this.listener = headerViewActionListener;
 		imgBack = (ImageView)findViewById(R.id.img_vnote_header_back);
 		imgBack.setVisibility(hasBackBtn ? View.VISIBLE : View.GONE);
+
+		imgLeft = (ImageView)findViewById(R.id.img_vnote_header_left);
+		imgLeft.setVisibility(leftImageId != 0 ? View.VISIBLE : View.GONE);
 
 		txtTitle = (TextView)findViewById(R.id.txt_vnote_header_title);
 		txtTitle.setText(title);
@@ -59,6 +65,13 @@ public class HeaderView extends LinearLayout{
 				@Override
 				public void onClick(View view){
 					listener.onBackImgClicked();
+				}
+			});
+			imgLeft.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View view){
+					listener.onLeftImgClicked();
 				}
 			});
 			imgRight.setOnClickListener(new OnClickListener() {

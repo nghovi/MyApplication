@@ -1,17 +1,17 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
+import java.util.List;
+
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.models.Book;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.models.Book;
-import com.nguyenhoangviet.vietnguyen.myapplication.R;
-
-import java.util.List;
 
 public class BookEditFragment extends AbstractBookFragment implements View.OnClickListener{
 
@@ -28,10 +28,6 @@ public class BookEditFragment extends AbstractBookFragment implements View.OnCli
 
 	@Override
 	protected void buildBookInfo(){
-		// LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_sbe_main_content);
-		// JSONObject jsonObject = MU.buildJsonObjFromModel(book);
-		// MU.interpolate(lnrContent, jsonObject);
-		setOnClickFor(R.id.txt_fragment_book_edit_done, this);
 		setTextFor(R.id.edt_sbe_name, book.name);
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_author, book.author);

@@ -15,6 +15,16 @@
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_arrow_back_white_36dp"/>
 
+    <ImageView
+        android:id="@+id/img_vnote_header_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:src="@drawable/cl_action_add"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,7 +33,7 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
+        <TextView
             android:id="@+id/txt_vnote_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

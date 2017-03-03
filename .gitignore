@@ -12,6 +12,6 @@ facebook/
 .DS_Store
 /build
 /captures
-.idea/*
 AndTinder
 *.iml
+.idea

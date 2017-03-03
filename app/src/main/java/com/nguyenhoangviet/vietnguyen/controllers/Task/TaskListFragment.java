@@ -9,14 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import android.app.DatePickerDialog;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.TextView;
-
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.core.views.widgets.DatePickerFragment;
@@ -24,6 +16,13 @@ import com.nguyenhoangviet.vietnguyen.models.MyModel;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.TaskListAdapter;
+
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 public class TaskListFragment extends MyFragmentWithList{
 
@@ -44,8 +43,33 @@ public class TaskListFragment extends MyFragmentWithList{
 	protected void buildLayout(){
 		super.buildLayout();
 		buildTargetDate();
-		buildAddBtn();
 		buildSearchFunction();
+	}
+
+	@Override
+	protected int getRightImageId(){
+		return R.drawable.nav_btn_search_inactive;
+	}
+
+	@Override
+	protected String getHeaderTitle(){
+		return getString(R.string.fragment_task_list_title);
+	}
+
+	@Override
+	public int getLeftImageId(){
+		return R.drawable.cl_action_add;
+	}
+
+	@Override
+	public void onRightImgClicked(){
+		activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchConditions);
+	}
+
+	@Override
+	public void onLeftImgClicked(){
+		TaskAddFragment frg = new TaskAddFragment();
+		activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
 	}
 
 	@Override
@@ -56,7 +80,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	private void buildTargetDate(){
 		targetDate = getUpdatedDate(KEY_TARGET_DATE, new Date());
 		if(!MU.isSameDay(targetDate, new Date())){
-			setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
+			setTextFor(R.id.txt_vnote_header_title, MU.getDateForDisplaying(targetDate));
 		}
 		buildCalendarPicker();
 	}
@@ -64,21 +88,14 @@ public class TaskListFragment extends MyFragmentWithList{
 	private void buildSearchFunction(){
 		searchConditions = (Map<String, Object>)getUpdatedData(TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, new HashMap<String, Object>());
 		if(searchConditions.size() > 0){
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_active);
-			goneView(R.id.txt_fragment_task_list_date);
+			setImageResourceFor(R.id.img_vnote_header_right, R.drawable.nav_btn_search_active);
+			goneView(R.id.txt_vnote_header_title);
 			models = AbstractTaskFragment.searchWithConditions(searchConditions);
 			showTasks();
 		}else{
-			setImageResourceFor(R.id.img_fragment_task_list_search, R.drawable.nav_btn_search_inactive);
+			setImageResourceFor(R.id.img_vnote_header_right, R.drawable.nav_btn_search_inactive);
 			reloadDailyTasks();
 		}
-		setOnClickFor(R.id.img_fragment_task_list_search, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				activity.addFragment(new TaskSearchFragment(), TaskSearchFragment.KEY_TASK_SEARCH_CONDITION, searchConditions);
-			}
-		});
 	}
 
 	private void loadTasksFromLocal(){
@@ -86,7 +103,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void buildCalendarPicker(){
-		setOnClickFor(R.id.txt_fragment_task_list_date, new View.OnClickListener() {
+		setOnClickFor(R.id.txt_vnote_header_title, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -98,24 +115,11 @@ public class TaskListFragment extends MyFragmentWithList{
 						Calendar c = Calendar.getInstance();
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
-						setTextFor(R.id.txt_fragment_task_list_date, MU.getDateForDisplaying(targetDate));
+						setTextFor(R.id.txt_vnote_header_title, MU.getDateForDisplaying(targetDate));
 						reloadDailyTasks();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");
-			}
-		});
-	}
-
-	private void buildAddBtn(){
-		TextView txtAdd = getTextView(R.id.txt_fragment_task_list_add);
-		txtAdd.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-
-				TaskAddFragment frg = new TaskAddFragment();
-				activity.addFragment(frg, AbstractTaskFragment.TARGET_DATE, targetDate);
 			}
 		});
 	}

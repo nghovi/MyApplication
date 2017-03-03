@@ -383,7 +383,7 @@ public class MyFragment extends Fragment{
 	}
 
 	public void loadAds(){
-
+		mAdFrameLayout.setVisibility(View.GONE);
 		if(mAdView != null){
 			mAdFrameLayout.removeView(mAdView);
 			mAdView.destroy();
@@ -391,36 +391,41 @@ public class MyFragment extends Fragment{
 
 		mAdView = new AdView(getActivity());
 		mAdView.setAdListener(new AdListener() {
-			private void showToast(String message) {
+
+			private void showToast(String message){
 				View view = getView();
-				if (view != null) {
-//					Toast.makeText(getView().getContext(), message, Toast.LENGTH_SHORT).show();
+				if(view != null){
+					Toast.makeText(getView().getContext(), message, Toast.LENGTH_SHORT).show();
 				}
 			}
 
 			@Override
-			public void onAdLoaded() {
-				showToast("Ad loaded.");
+			public void onAdLoaded(){
+				mAdFrameLayout.setVisibility(View.VISIBLE);
 			}
 
 			@Override
-			public void onAdFailedToLoad(int errorCode) {
-				showToast(String.format("Ad failed to load with error code %d.", errorCode));
+			public void onAdFailedToLoad(int errorCode){
+				// showToast(String.format("Ad failed to load with error code %d.", errorCode));
+				mAdFrameLayout.setVisibility(View.GONE);
 			}
 
 			@Override
-			public void onAdOpened() {
-				showToast("Ad opened.");
+			public void onAdOpened(){
+				// showToast("Ad opened.");
+				mAdFrameLayout.setVisibility(View.VISIBLE);
 			}
 
 			@Override
-			public void onAdClosed() {
-				showToast("Ad closed.");
+			public void onAdClosed(){
+				// showToast("Ad closed.");
+				mAdFrameLayout.setVisibility(View.GONE);
 			}
 
 			@Override
-			public void onAdLeftApplication() {
-				showToast("Ad left application.");
+			public void onAdLeftApplication(){
+				// showToast("Ad left application.");
+				mAdFrameLayout.setVisibility(View.GONE);
 			}
 		});
 

@@ -1,13 +1,5 @@
 package com.nguyenhoangviet.vietnguyen.controllers;
 
-import android.app.FragmentManager;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Toast;
-
 import com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Note.NoteListFragment;
 import com.nguyenhoangviet.vietnguyen.controllers.Task.TaskListFragment;
@@ -17,6 +9,14 @@ import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.models.Notice;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 import com.nguyenhoangviet.vietnguyen.utils.GcmUtil;
+
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Toast;
 //import com.facebook.AccessToken;
 //import com.facebook.AccessTokenTracker;
 //import com.facebook.CallbackManager;
@@ -69,7 +69,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 		// setAccessToken(accessToken);
 		// gotoTaskListFragment();
 		// }
-		gotoTaskListFragment();
+		onClickFooterItem2();
 		bg = new Background(this);
 		bg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -82,7 +82,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 			String noticeString = extra.getString(GcmUtil.BUNDLE_KEY_NOTICE);
 			if(!MU.isEmpty(noticeString)){
 				Notice notice = MU.convertToModel(noticeString, Notice.class);
-				onClickFooterItem4();
+				// onClickFooterItem4();
 			}
 		}
 	}
@@ -101,7 +101,6 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 	private void onCreateFooter(){
 		this.footer = new Footer(this);
 		footer.setOnItemsClickListener(this);
-		footer.checkFooterItem(3);
 	}
 
 	// private void setUpFacebookCallbacks(){
@@ -214,6 +213,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem1(){
 		MU.log("Footer item 1 onClicked");
+		footer.checkFooterItem(0);
 		gotoSettingFragment();
 	}
 
@@ -225,6 +225,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem2(){
 		MU.log("Footer item 2 onClicked");
+		footer.checkFooterItem(1);
 		gotoNoteListdFragment();
 	}
 
@@ -235,6 +236,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem3(){
 		MU.log("Footer item 3 onClicked");
+		footer.checkFooterItem(2);
 		gotoBookListFragment();
 	}
 
@@ -246,6 +248,7 @@ public class MainActivity extends MyActivity implements View.OnClickListener{
 
 	public void onClickFooterItem4(){
 		MU.log("Footer item 4 onClicked");
+		footer.checkFooterItem(3);
 		gotoTaskListFragment();
 	}
 

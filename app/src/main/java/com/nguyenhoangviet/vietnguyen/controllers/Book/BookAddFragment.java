@@ -2,16 +2,16 @@ package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
 import java.util.List;
 
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.models.Book;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.models.Book;
-import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 public class BookAddFragment extends AbstractBookFragment{
 
@@ -35,8 +35,22 @@ public class BookAddFragment extends AbstractBookFragment{
 	}
 
 	@Override
-	protected void buildBookInfo() {
-		setOnClickFor(R.id.txt_fba_done, this);
+	protected int getRightImageId(){
+		return R.drawable.ic_done_white_36dp;
+	}
+
+	@Override
+	protected String getHeaderTitle(){
+		return getString(R.string.fragment_book_add_title);
+	}
+
+	@Override
+	public void onRightImgClicked(){
+		onDoneClicked();
+	}
+
+	@Override
+	protected void buildBookInfo(){
 		setTextFor(R.id.edt_sbe_link, book.link);
 		setTextFor(R.id.edt_sbe_icon_url, book.iconUrl);
 	}
@@ -128,31 +142,31 @@ public class BookAddFragment extends AbstractBookFragment{
 		}
 	}
 
-//	public void addBookToServer(){
-//		if(book.isReadyToSave()){
-//			book.save();
-//			showShortToast("Successfully saved new book");
-//			activity.backOneFragment();
-//			JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
-//			postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
-//
-//				@Override
-//				public void onApiResponse(JSONObject response){
-//					showShortToast("Successfully saved new book");
-//					book.id = response.optString("data");
-//					book.isRemoteSaved = true;
-//					book.save();
-//					activity.backOneFragment();
-//				}
-//
-//				@Override
-//				public void onApiError(String errorMsg){
-//					book.save();
-//				}
-//			});
-//		}else{
-//			showLongToast("Please fullfill information");
-//		}
-//
-//	}
+	// public void addBookToServer(){
+	// if(book.isReadyToSave()){
+	// book.save();
+	// showShortToast("Successfully saved new book");
+	// activity.backOneFragment();
+	// JSONObject params = MU.buildJsonObj(Arrays.<String>asList("book", book.toString()));
+	// postApi(Const.ADD_BOOK, params, new Api.OnCallApiListener() {
+	//
+	// @Override
+	// public void onApiResponse(JSONObject response){
+	// showShortToast("Successfully saved new book");
+	// book.id = response.optString("data");
+	// book.isRemoteSaved = true;
+	// book.save();
+	// activity.backOneFragment();
+	// }
+	//
+	// @Override
+	// public void onApiError(String errorMsg){
+	// book.save();
+	// }
+	// });
+	// }else{
+	// showLongToast("Please fullfill information");
+	// }
+	//
+	// }
 }

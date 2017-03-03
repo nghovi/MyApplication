@@ -1,26 +1,23 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.View;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vietnguyen.models.Book;
 import com.nguyenhoangviet.vietnguyen.models.MyModel;
-import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
-import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters.adapters.BookListAdapter;
+import com.nguyenhoangviet.vietnguyen.views.widgets.notifications.adapters
+		.adapters.BookListAdapter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class BookListFragment extends MyFragmentWithList{
 
@@ -34,8 +31,33 @@ public class BookListFragment extends MyFragmentWithList{
 	@Override
 	protected void buildLayout(){
 		super.buildLayout();
-		buildAddBookFunction();
 		buildSearchFunction();
+		loadAds();
+	}
+
+	@Override
+	protected int getRightImageId(){
+		return R.drawable.nav_btn_search_inactive;
+	}
+
+	@Override
+	protected String getHeaderTitle(){
+		return getString(R.string.fragment_book_list_title);
+	}
+
+	@Override
+	public void onRightImgClicked(){
+		onClickSearchIcon(searchConditions);
+	}
+
+	@Override
+	public void onLeftImgClicked(){
+		activity.addFragment(new BookAddFragment());
+	}
+
+	@Override
+	public int getLeftImageId(){
+		return R.drawable.cl_action_add;
 	}
 
 	@Override
@@ -43,34 +65,16 @@ public class BookListFragment extends MyFragmentWithList{
 		gotoBookDetail((Book)model);
 	}
 
-	private void buildAddBookFunction(){
-		setOnClickFor(R.id.txt_fragment_book_list_add, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				activity.addFragment(new BookAddFragment());
-			}
-		});
-	}
-
 	private void buildSearchFunction(){
 		searchConditions = (Map<String, Object>)getUpdatedData(BookSearchFragment.KEY_BOOK_SEARCH_CONDITION, new HashMap<String, Object>());
 		if(searchConditions.size() > 0){
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_active);
+			setImageResourceFor(R.id.img_vnote_header_right, R.drawable.nav_btn_search_active);
 			models = AbstractBookFragment.searchWithConditions(searchConditions);
 			showBooks();
 		}else{
-			setImageResourceFor(R.id.img_fragment_book_list_search, R.drawable.nav_btn_search_inactive);
+			setImageResourceFor(R.id.img_vnote_header_right, R.drawable.nav_btn_search_inactive);
 			reloadBook();
 		}
-		setOnClickFor(R.id.img_fragment_book_list_search, new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view){
-				onClickSearchIcon(searchConditions);
-			}
-		});
-
 	}
 
 	private void onClickSearchIcon(Map<String, Object> searchCondition){
