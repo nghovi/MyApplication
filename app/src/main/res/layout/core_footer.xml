@@ -22,7 +22,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.CheckableImageView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.CheckableImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.CheckableImageView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.CheckableImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,7 +69,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.CheckableImageView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.CheckableImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,7 +93,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.CheckableImageView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.CheckableImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

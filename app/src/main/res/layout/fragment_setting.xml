@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nguyenhoangviet.vietnguyen.controllers.Book.BookListFragment"
+    tools:context="com.nguyenhoangviet.vpcorp.controllers.Book.BookListFragment"
     android:background="@color/core_white">
 
     <!-- TODO: Update blank fragment layout -->
@@ -89,6 +89,7 @@
                     <SeekBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/core_baby_blue"
                         android:id="@+id/seek_bar_fragment_setting"
                         android:layout_weight="1" />
 

@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="8dp" />
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_name"
@@ -47,7 +47,7 @@
                 android:layout_marginRight="10dp"
                 android:textStyle="bold" />
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 custom:jsonKey="age"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout" >
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_motto"
@@ -69,7 +69,7 @@
                 android:id="@+id/textView4"
                 android:layout_marginRight="10dp" />
 
-            <com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mock_sex"

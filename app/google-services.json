@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "929319693725",
-    "firebase_url": "https://ecard-1133.firebaseio.com",
-    "project_id": "ecard-1133",
-    "storage_bucket": "ecard-1133.appspot.com"
+    "project_number": "418757464827",
+    "firebase_url": "https://v-note-admob.firebaseio.com",
+    "project_id": "v-note-admob",
+    "storage_bucket": "v-note-admob.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:929319693725:android:e770edee6af9585f",
+        "mobilesdk_app_id": "1:418757464827:android:e770edee6af9585f",
         "android_client_info": {
           "package_name": "com.nguyenhoangviet.vietnguyen.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "929319693725-f3lr1gebi60o9e8953imrgfh1jnl7i53.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nguyenhoangviet.vietnguyen.myapplication",
-            "certificate_hash": "c4a7ac891b1ea3e69857d6c2c347e9a7f2887bdd"
-          }
-        },
-        {
-          "client_id": "929319693725-9vqlovmcasihe7degcoijdrllo1ippi8.apps.googleusercontent.com",
+          "client_id": "418757464827-ah6tpb1roqjabd6gqqhu7n2dohoum2ef.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAeTBXY6fFZo09Tcse7RxHsME0erJXMNjw"
+          "current_key": "AIzaSyCsaPV3rP_80-M4e3mtw19hQQbDWFg9uwY"
         }
       ],
       "services": {
@@ -37,13 +29,39 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "929319693725-9vqlovmcasihe7degcoijdrllo1ippi8.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418757464827:android:7dce6fc8cc8dc894",
+        "android_client_info": {
+          "package_name": "com.nguyenhoangviet.vpcorp.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418757464827-ah6tpb1roqjabd6gqqhu7n2dohoum2ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsaPV3rP_80-M4e3mtw19hQQbDWFg9uwY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
