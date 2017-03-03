@@ -4,6 +4,7 @@
 /facebook/build
 /facebook/
 /facebook
+app/build
 facebook/
 /local.properties
 /.idea/workspace.xml
@@ -11,3 +12,6 @@ facebook/
 .DS_Store
 /build
 /captures
+.idea/*
+AndTinder
+*.iml
