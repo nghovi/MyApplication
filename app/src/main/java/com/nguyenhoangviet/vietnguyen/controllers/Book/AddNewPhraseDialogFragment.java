@@ -1,18 +1,13 @@
 package com.nguyenhoangviet.vietnguyen.controllers.Book;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyDialogFragment;
@@ -57,8 +52,8 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 		edt.setMinLines(1);
 		edt.setMaxLines(9);
 
-		TextView txtDone = (TextView)view.findViewById(R.id.txt_dialog_with_edt_done);
-		txtDone.setOnClickListener(new View.OnClickListener() {
+		Button btnDone = (Button) view.findViewById(R.id.btn_dialog_with_edt_done);
+		btnDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -67,8 +62,8 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 			}
 		});
 
-		TextView txtCancel = (TextView)view.findViewById(R.id.txt_dialog_with_edt_cancel);
-		txtCancel.setOnClickListener(new View.OnClickListener() {
+		Button btnCancel = (Button) view.findViewById(R.id.btn_dialog_with_edt_cancel);
+		btnCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -76,7 +71,7 @@ public class AddNewPhraseDialogFragment extends MyDialogFragment{
 			}
 		});
 
-		TextView txtContinue = (TextView)view.findViewById(R.id.txt_dialog_with_edt_continue);
+		Button txtContinue = (Button) view.findViewById(R.id.btn_dialog_with_edt_continue);
 		txtContinue.setOnClickListener(new View.OnClickListener() {
 
 			@Override

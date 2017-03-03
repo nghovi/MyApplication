@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/img_back"
+            android:id="@+id/img_vnote_header_back"
             android:src="@drawable/ic_arrow_back_white_36dp" />
 
         <LinearLayout

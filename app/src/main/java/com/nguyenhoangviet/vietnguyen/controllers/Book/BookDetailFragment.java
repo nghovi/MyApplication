@@ -6,8 +6,11 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.content.DialogInterface;
-import android.os.Build;
+import com.nguyenhoangviet.vietnguyen.core.controller.MyFragmentWithHeaderFooter;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.models.Book;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
@@ -15,12 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.nguyenhoangviet.vietnguyen.core.controller.MyFragment;
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.models.Book;
-import com.nguyenhoangviet.vietnguyen.myapplication.R;
-
-public class BookDetailFragment extends MyFragment{
+public class BookDetailFragment extends MyFragmentWithHeaderFooter{
 
 	public static final String			WORD_SPEED_INTERVAL				= "WORD_SPEED_INTERVAL";
 	public static final int				DEFAULT_WORD_SPEED_INTERVAL_MS	= 0;						// fastest
@@ -33,7 +31,6 @@ public class BookDetailFragment extends MyFragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
@@ -42,15 +39,25 @@ public class BookDetailFragment extends MyFragment{
 	}
 
 	@Override
-	protected void buildLayout(){
-		book = (Book)getUpdatedData(AbstractBookFragment.KEY_UPDATED_BOOK, book);
-		setOnClickFor(R.id.img_back, new View.OnClickListener() {
+	protected boolean hasBackButton() {
+		return true;
+	}
 
-			@Override
-			public void onClick(View view){
-				activity.backOneFragment();
-			}
-		});
+	@Override
+	public void onBackImgClicked() {
+		onClickBackBtn();
+	}
+
+	@Override
+	protected String getHeaderTitle() {
+		return getString(R.string.fragment_abstract_book_book_detail);
+	}
+
+
+	@Override
+	protected void buildLayout(){
+		super.buildLayout();
+		book = (Book)getUpdatedData(AbstractBookFragment.KEY_UPDATED_BOOK, book);
 		LinearLayout lnrContent = (LinearLayout)getView().findViewById(R.id.lnr_book_detail_main_content);
 		JSONObject jsonObject = MU.buildJsonObjFromModel(book);
 		MU.interpolate(lnrContent, jsonObject);
@@ -64,15 +71,15 @@ public class BookDetailFragment extends MyFragment{
 				onDeleteIconClicked();
 			}
 		});
-		setOnClickFor(R.id.img_book_detail_edit, new View.OnClickListener() {
 
-			@Override
-			public void onClick(View view){
-				gotoBookEditFragment();
-			}
-		});
 		buildWords();
 		buildTts();
+		loadAds();
+	}
+
+	@Override
+	public void onRightImgClicked(){
+		gotoBookEditFragment();
 	}
 
 	private void buildCover(){

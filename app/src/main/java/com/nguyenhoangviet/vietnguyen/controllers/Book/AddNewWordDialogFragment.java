@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nguyenhoangviet.vietnguyen.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vietnguyen.core.controller.MyDialogFragment;
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
 import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 /**
@@ -49,8 +49,8 @@ public class AddNewWordDialogFragment extends MyDialogFragment{
 		final EditText edt2 = (EditText)view.findViewById(R.id.edt_dialog_with_2edt_phrase);
 		edt2.setHint(getArguments().getString(WORD_HINT2));
 
-		TextView txtDone = (TextView)view.findViewById(R.id.txt_dialog_with_2edt_done);
-		txtDone.setOnClickListener(new View.OnClickListener() {
+		Button btnDone = (Button)view.findViewById(R.id.btn_dialog_with_2edt_done);
+		btnDone.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -59,8 +59,8 @@ public class AddNewWordDialogFragment extends MyDialogFragment{
 			}
 		});
 
-		TextView txtCancel = (TextView)view.findViewById(R.id.txt_dialog_with_2edt_cancel);
-		txtCancel.setOnClickListener(new View.OnClickListener() {
+		Button btnCancel = (Button)view.findViewById(R.id.btn_dialog_with_2edt_cancel);
+		btnCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -68,8 +68,8 @@ public class AddNewWordDialogFragment extends MyDialogFragment{
 			}
 		});
 
-		TextView txtNextWord = (TextView)view.findViewById(R.id.txt_dialog_with_2edt_next_word);
-		txtNextWord.setOnClickListener(new View.OnClickListener() {
+		Button btnNextWord = (Button)view.findViewById(R.id.btn_dialog_with_2edt_next_word);
+		btnNextWord.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -79,8 +79,8 @@ public class AddNewWordDialogFragment extends MyDialogFragment{
 			}
 		});
 
-		TextView txtNextPhrase = (TextView)view.findViewById(R.id.dialog_width_2edt_next_phrase);
-		txtNextPhrase.setOnClickListener(new View.OnClickListener() {
+		Button btnNextPhrase = (Button)view.findViewById(R.id.btn_dialog_width_2edt_next_phrase);
+		btnNextPhrase.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){

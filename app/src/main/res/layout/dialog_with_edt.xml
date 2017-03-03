@@ -10,21 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:id="@+id/txt_dialog_with_edt_cancel"
+            android:id="@+id/btn_dialog_with_edt_cancel"
             android:textColor="@color/core_blue"
             android:layout_weight="1" />
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_width_2edt_next_phrase"
-        android:id="@+id/txt_dialog_with_edt_continue"
+        android:id="@+id/btn_dialog_with_edt_continue"
         android:textColor="@color/core_blue"
         android:layout_gravity="right"
         android:textSize="10sp"
@@ -40,11 +40,11 @@
         android:minLines="2"
         style="@style/core_edit_text" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:id="@+id/txt_dialog_with_edt_done"
+        android:id="@+id/btn_dialog_with_edt_done"
         android:layout_gravity="right"
         android:textColor="@color/core_blue"
         android:layout_marginTop="10dp" />

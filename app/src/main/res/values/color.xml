@@ -103,7 +103,7 @@
     <color name="task_priority_highest_bg_color">@color/core_red</color>
 
 
-    <color name="bg_reading">#FAFAC8</color>
+    <color name="bg_reading">#FFFFFF</color>
     <color name="label">#C0C0C0</color>
     <color name="bg_selected_panel">#dfe3ee</color>
 </resources>

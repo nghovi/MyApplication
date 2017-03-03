@@ -1,10 +1,13 @@
 package com.nguyenhoangviet.vietnguyen.controllers;
 
-import android.app.Dialog;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.json.JSONObject;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -19,14 +22,11 @@ import com.nguyenhoangviet.vietnguyen.models.Notice;
 import com.nguyenhoangviet.vietnguyen.models.Task;
 import com.nguyenhoangviet.vietnguyen.utils.GcmUtil;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import android.app.Dialog;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 
 /**
  * Created by viet on 10/26/2015.
@@ -40,8 +40,10 @@ public class Background extends AsyncTask<Integer, String, String>{
 	public TimerTask			timerTaskShowGoodSay;
 	// public static TimerTask timerTaskRemindTask;
 
-	public static final long	SHOW_GOOD_SAY_PERIOD_MS	= 10 * 60 * 1000;	// 10 minute
-	public static final long	REMIND_TASK_PERIOD_MS	= 5 * 60 * 1000;	// 5 minute
+	public static final long	SHOW_GOOD_SAY_PERIOD_MS	= 10 * 60 * 1000;	//
+	// 10 minute
+	public static final long	REMIND_TASK_PERIOD_MS	= 5 * 60 * 1000;	// 5
+	// minute
 	public static final int		CMD_SHOW_GOOD_SAY		= 1001;
 	// public static final int CMD_REMIND_TASK = 1002;
 
@@ -64,7 +66,8 @@ public class Background extends AsyncTask<Integer, String, String>{
 
 	@Override
 	protected void onPostExecute(String result){
-		// ShowWorkActualAsyncTask mShowTask = new ShowWorkActualAsyncTask(mActivity, mFragment, ShowWorkActualAsyncTask.WORK_ACTUAL_Z2);
+		// ShowWorkActualAsyncTask mShowTask = new ShowWorkActualAsyncTask
+		// (mActivity, mFragment, ShowWorkActualAsyncTask.WORK_ACTUAL_Z2);
 		// mShowTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		// return;
 	}
@@ -76,10 +79,10 @@ public class Background extends AsyncTask<Integer, String, String>{
 		// deleteTaskToLocal();// for another Device
 		// saveUnsavedBookToServer();
 		// saveUnsavedBookToLocal();// for new Device
-		deleteOverdueNotices();
+		 deleteOverdueNotices();
 		// saveUnsavedNoticeToServer();
 		// saveUnsavedNoticeToLocal();
-		setupAlarm();
+		 setupAlarm();
 	}
 
 	public void startScheduledTasks(){
@@ -133,7 +136,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 					task.isRemoteSaved = true;
 					task.id = response.optString("data");
 					task.save();
-					MU.log("Background sync task, saved task successfully for" + task.getId());
+					MU.log("Background sync task, saved task successfully " + "for" + task.getId());
 				}
 
 				@Override
@@ -152,7 +155,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 			public void onApiResponse(JSONObject response){
 				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
 				for(Task t : tasksFromServer){
-					Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
+					Task local = new Select().from(Task.class).where("id = " + "?", t.id).executeSingle();
 					if(local == null){
 						t.isRemoteSaved = true;
 						t.save();
@@ -177,7 +180,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 			public void onApiResponse(JSONObject response){
 				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
 				for(Task t : tasksFromServer){
-					Task local = new Select().from(Task.class).where("id = ?", t.id).executeSingle();
+					Task local = new Select().from(Task.class).where("id = " + "?", t.id).executeSingle();
 					if(local != null){
 						MU.log("Delete task at Local " + local.id);
 						local.delete();
@@ -203,7 +206,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 					book.isRemoteSaved = true;
 					book.id = response.optString("data");
 					book.save();
-					MU.log("Background sync book, saved book successfully for" + book.getId());
+					MU.log("Background sync book, saved book successfully " + "for" + book.getId());
 				}
 
 				@Override
@@ -222,7 +225,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 			public void onApiResponse(JSONObject response){
 				List<Book> booksFromServer = MU.convertToModelList(response.optString("data"), Book.class);
 				for(Book t : booksFromServer){
-					Book local = new Select().from(Book.class).where("id = ?", t.id).executeSingle();
+					Book local = new Select().from(Book.class).where("id = " + "?", t.id).executeSingle();
 					if(local == null){
 						t.isRemoteSaved = true;
 						t.save();
@@ -253,12 +256,12 @@ public class Background extends AsyncTask<Integer, String, String>{
 					notice.isRemoteSaved = true;
 					notice.id = response.optString("data");
 					notice.save();
-					MU.log("Background sync notice to server, saved notice successfully for" + notice.getId());
+					MU.log("Background sync notice to server, saved notice " + "successfully for" + notice.getId());
 				}
 
 				@Override
 				public void onApiError(String errorMsg){
-					MU.log("Background sync notice to server, saved notice FAILED for" + notice.getId());
+					MU.log("Background sync notice to server, saved notice " + "FAILED for" + notice.getId());
 				}
 			});
 		}
@@ -272,11 +275,11 @@ public class Background extends AsyncTask<Integer, String, String>{
 			public void onApiResponse(JSONObject response){
 				List<Notice> noticesFromServer = MU.convertToModelList(response.optString("data"), Notice.class);
 				for(Notice notice : noticesFromServer){
-					Notice local = new Select().from(Notice.class).where("id = ?", notice.id).executeSingle();
+					Notice local = new Select().from(Notice.class).where("id " + "= ?", notice.id).executeSingle();
 					if(local == null){
 						notice.isRemoteSaved = true;
 						notice.save();
-						MU.log("Save Notice " + notice.id + " into local database");
+						MU.log("Save Notice " + notice.id + " into local " + "database");
 					}
 				}
 			}
@@ -332,14 +335,16 @@ public class Background extends AsyncTask<Integer, String, String>{
 	//
 	// @Override
 	// public void run(){
-	// Message message = mHandler.obtainMessage(CMD_REMIND_TASK, "Do your task");
+	// Message message = mHandler.obtainMessage(CMD_REMIND_TASK, "Do your
+	// task");
 	// message.sendToTarget();
 	// }
 	// };
 	// }
 	// }
 
-	// //////////////////////////////////////////////////// GOOOD SAY //////////////////////////////////////////////////
+	// //////////////////////////////////////////////////// GOOOD SAY
+	// ////////////////////////////////////////////////
 
 	private String chooseRandomGoodSay(){
 		mottos = new Select().from(Motto.class).execute();
@@ -372,14 +377,17 @@ public class Background extends AsyncTask<Integer, String, String>{
 		}
 	}
 
-	// ////////////////////////////////////////////////// Task //////////////////////////////////////////////////
+	// ////////////////////////////////////////////////// Task
+	// ////////////////////////////////////////////////
 	// private void showRemindTask(Message message){
 	// loadUnFinishedTasksByDate(new Date());
 	// }
 
 	// private void loadUnFinishedTasksByDate(Date date){
-	// JSONObject params = MU.buildJsonObj(Arrays.<String>asList("targetDate", date.toString()));
-	// activity.getApi(Const.GET_UNFINISHED_TASKS, params, new Api.OnCallApiListener() {
+	// JSONObject params = MU.buildJsonObj(Arrays.<String>asList
+	// ("targetDate", date.toString()));
+	// activity.getApi(Const.GET_UNFINISHED_TASKS, params, new Api
+	// .OnCallApiListener() {
 	//
 	// @Override
 	// public void onApiResponse(JSONObject response){
@@ -394,7 +402,8 @@ public class Background extends AsyncTask<Integer, String, String>{
 	// }
 
 	// private void onSuccessLoadTasksFromServer(JSONObject response){
-	// List<Task> tasks = MU.convertToModelList(response.optString("data"), Task.class);
+	// List<Task> tasks = MU.convertToModelList(response.optString("data"),
+	// Task.class);
 	// showRandomUnfinishedTask(tasks);
 	// }
 
@@ -403,7 +412,8 @@ public class Background extends AsyncTask<Integer, String, String>{
 	// int randomIdx = (int)(Math.random() * tasks.size());
 	// Task randomTask = tasks.get(randomIdx);
 	// if(!dialogNotice.isShowing()){
-	// dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying(randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD_MS / 2000);
+	// dlgBuilder.updateDialogNotice(dialogNotice, MU.getDateForDisplaying
+	// (randomTask.date), randomTask.name, (int)REMIND_TASK_PERIOD_MS / 2000);
 	// }
 	// }
 	// }

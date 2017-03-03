@@ -47,7 +47,8 @@
     <string name="mock_birth">12/03/90</string>
     <string name="mock_phone">01253546364</string>
     <string name="mock_site">vietnh90@gmail.com</string>
-    <string name="mock_book_name">Percy Jackson an the last Olympyan ahahah</string>
+    <string name="mock_book_name">Percy Jackson an the last Olympyan ahahah
+    </string>
     <string name="mock_book_author">Corthy Doctorow</string>
 
 
@@ -65,7 +66,9 @@
     <string name="take_photo">Take Photo</string>
     <string name="take_video">Take Video</string>
     <string name="preview">Preview</string>
-    <string name="remind">You must take a photo, then enter the Title and the Description</string>
+    <string name="remind">You must take a photo, then enter the Title and the
+        Description
+    </string>
     <string name="title_activity_splash_screen">V Note</string>
     <string name="title_activity_main">Main</string>
     <string name="hello_world">Hello world!</string>
@@ -76,62 +79,109 @@
     <string name="title_activity_activity_with_frg">ActivityWithFrg</string>
     <string name="title_activity_my">MyActivity</string>
     <string name="title_activity_sign_up_in">SignUpInActivity</string>
-    <string name="main_activity_back_btn_guide">Click back again to exit</string>
+    <string name="main_activity_back_btn_guide">Click back again to exit
+    </string>
 
     <string name="fragment_book_list_title">Books</string>
     <string name="fragment_book_list_add">Add</string>
     <string name="fragment_book_list_empty">Enjoy Reading</string>
 
-    <string name="fragment_abstract_book_add_new_phrase">Added new phrase for \"%1$s\" at \"%2$s\"</string>
-    <string name="fragment_abstract_book_existing_word">Found word \"%1$s\" at \"%2$s\"</string>
-    <string name="fragment_abstract_book_dlg_existing_word_msg">Word Existed!</string>
+    <string name="fragment_abstract_book_add_new_phrase">Added new phrase for
+        \"%1$s\" at \"%2$s\"
+    </string>
+    <string name="fragment_abstract_book_existing_word">Found word \"%1$s\" at
+        \"%2$s\"
+    </string>
+    <string name="fragment_abstract_book_dlg_existing_word_msg">Word Existed!
+    </string>
     <string name="fragment_abstract_book_dlg_existing_word_btn1">View</string>
-    <string name="fragment_abstract_book_dlg_enter_new_phrase_msg">Enter new phrase for \"%1$s\"</string>
-    <string name="fragment_abstract_book_dlg_enter_new_word_msg1">Enter new word</string>
-    <string name="fragment_abstract_book_dlg_enter_new_word_msg2">Enter new phrase</string>
+    <string name="fragment_abstract_book_dlg_enter_new_phrase_msg">Enter new
+        phrase for \"%1$s\"
+    </string>
+    <string name="fragment_abstract_book_dlg_enter_new_word_msg1">Enter new
+        word
+    </string>
+    <string name="fragment_abstract_book_dlg_enter_new_word_msg2">Enter new
+        phrase
+    </string>
     <string name="fragment_abstract_book_default_link"></string>
-    <string name="fragment_abstract_book_default_icon_url">https://en.wikipedia.org/wiki/Book</string>
+    <string name="fragment_abstract_book_default_icon_url">
+        https://en.wikipedia.org/wiki/Book
+    </string>
     <string name="share_book_edit_motto_hint">Eg: Be yourself!</string>
     <string name="share_book_edit_cover_image">Cover Image</string>
     <string name="share_book_edit_book_msg">The Message</string>
-    <string name="share_book_edit_cover_link">Eg: https://book_site/book_cover.jpg</string>
+    <string name="share_book_edit_cover_link">Eg:
+        https://book_site/book_cover.jpg
+    </string>
 
 
-    <string name="fragment_note_list_empty">Write down your stunning ideas!</string>
+    <string name="fragment_note_list_empty">Write down your stunning ideas!
+    </string>
     <string name="fragment_note_detail_today">Today</string>
     <string name="fragment_note_detail_hint">Your text here</string>
 
 
     <string name="fragment_setting_title">Setting</string>
     <string name="fragment_setting_push">Task Reminder</string>
-    <string name="fragment_setting_task_reminder_explain">Turn on/off task reminder</string>
+    <string name="fragment_setting_task_reminder_explain">Turn on/off task
+        reminder
+    </string>
     <string name="fragment_setting_show_mottos">Show mottos</string>
     <string name="fragment_setting_contact">Contact me at</string>
-    <string name="fragment_setting_email"><u>vietnh90@gmail.com</u></string>
-    <string name="fragment_setting_email_cc"><u>vietnh1990@gmail.com</u></string>
+    <string name="fragment_setting_email">
+        <u>vietnh90@gmail.com</u>
+    </string>
+    <string name="fragment_setting_email_cc">
+        <u>vietnh1990@gmail.com</u>
+    </string>
     <string name="fragment_setting_email_subject">About your V Note</string>
     <string name="fragment_setting_email_choose_sender">Choose sender:</string>
-    <string name="fragment_setting_graph_title">Daily Task Stats (%1$s/%2$s)</string>
+    <string name="fragment_setting_graph_title">Daily Task Stats (%1$s/%2$s)
+    </string>
     <string name="fragment_setting_graph_finished_task_title">Finished</string>
-    <string name="fragment_setting_graph_unfinished_task_title">Unfinished</string>
+    <string name="fragment_setting_graph_unfinished_task_title">Unfinished
+    </string>
 
     <!--<string name="fragment_setting_thank_you">Thank you for contacting me</string>-->
 
 
-    <string name="fragment_abstract_task_remind_time_select">Select remind time</string>
+    <string name="fragment_abstract_task_remind_time_select">Select remind
+        time
+    </string>
     <string name="fragment_task_list_empty">You are free today. Relax!</string>
-    <string name="fragment_task_list_dlg_choose_priority_title">Set task priority</string>
-    <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished</string>
-    <string name="fragment_task_mark_tas_status_finished">Mark as finished</string>
+    <string name="fragment_task_list_dlg_choose_priority_title">Set task
+        priority
+    </string>
+    <string name="fragment_task_mark_tas_status_unfinished">Mark as unfinished
+    </string>
+    <string name="fragment_task_mark_tas_status_finished">Mark as finished
+    </string>
     <string name="fragment_task_update_notice_time">Update remind time</string>
-    <string name="fragment_setting_vocabulary_reading_speed">Vocabulary Reading Speed</string>
-    <string name="fragment_task_detail_name_label"><u>Name:</u></string>
-    <string name="fragment_task_detail_comment_label"><u>Commment:</u></string>
-    <string name="fragment_task_detail_description_label"><u>Description:</u></string>
-    <string name="fragment_task_detail_remind_label"><u>Remind at:</u></string>
-    <string name="fragment_task_detail_date_label"><u>Date:</u></string>
-    <string name="fragment_task_detail_priority_label"><u>Priority:</u></string>
-    <string name="fragment_task_detail_status_label"><u>Status:</u></string>
+    <string name="fragment_setting_vocabulary_reading_speed">Vocabulary Reading
+        Speed
+    </string>
+    <string name="fragment_task_detail_name_label">
+        <u>Name:</u>
+    </string>
+    <string name="fragment_task_detail_comment_label">
+        <u>Commment:</u>
+    </string>
+    <string name="fragment_task_detail_description_label">
+        <u>Description:</u>
+    </string>
+    <string name="fragment_task_detail_remind_label">
+        <u>Remind at:</u>
+    </string>
+    <string name="fragment_task_detail_date_label">
+        <u>Date:</u>
+    </string>
+    <string name="fragment_task_detail_priority_label">
+        <u>Priority:</u>
+    </string>
+    <string name="fragment_task_detail_status_label">
+        <u>Status:</u>
+    </string>
 
     <string name="dialog_width_2edt_word_hint">Enter new word</string>
     <string name="dialog_width_2edt_next_phrase">Next Phrase</string>
@@ -144,10 +194,15 @@
     <string name="fragment_book_search_author">Author</string>
     <string name="fragment_book_search_comment">My Comment</string>
     <string name="fragment_book_search_word_hint">E.g. avalanche</string>
-    <string name="fragment_book_search_phrase_hint">E.g. avalance of rock</string>
-    <string name="fragment_book_search_book_name_hint">E.g. Percy Jackson</string>
+    <string name="fragment_book_search_phrase_hint">E.g. avalance of rock
+    </string>
+    <string name="fragment_book_search_book_name_hint">E.g. Percy Jackson
+    </string>
     <string name="fragment_book_search_author_hint">E.g. Rich</string>
     <string name="fragment_book_search_comment_hint">E.g. adventures</string>
-
-
+    <string name="fragment_abstract_book_book_detail">Book Detail</string>
+    <string name="admob_banner_ad_unit_id">
+        ca-app-pub-4354101127297995/4978000262
+    </string>
+    <string name="admob_app_id">ca-app-pub-4354101127297995~3501267062</string>
 </resources>

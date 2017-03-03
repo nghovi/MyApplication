@@ -6,6 +6,11 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import com.nguyenhoangviet.vietnguyen.controllers.Background;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -14,11 +19,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-
-import com.nguyenhoangviet.vietnguyen.controllers.Background;
-import com.nguyenhoangviet.vietnguyen.core.network.Api;
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 //import com.facebook.AccessToken;
 
@@ -163,6 +163,7 @@ public class MyActivity extends Activity implements FragmentManager.OnBackStackC
 		mFragmentManager = getFragmentManager();
 		mFragmentManager.addOnBackStackChangedListener(this);
 		api = new Api();
+		// MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
 		// setContentView(R.layout.activity_my);
 	}
 

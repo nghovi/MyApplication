@@ -1,6 +1,20 @@
 package com.nguyenhoangviet.vietnguyen.core.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONObject;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.nguyenhoangviet.vietnguyen.core.network.Api;
+import com.nguyenhoangviet.vietnguyen.core.utils.MU;
+import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
+import com.nguyenhoangviet.vietnguyen.myapplication.R;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,22 +31,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.nguyenhoangviet.vietnguyen.core.network.Api;
-import com.nguyenhoangviet.vietnguyen.core.utils.MU;
-import com.nguyenhoangviet.vietnguyen.core.views.widgets.MyTextView;
-import com.nguyenhoangviet.vietnguyen.myapplication.R;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by viet on 8/11/2015.
@@ -46,6 +51,8 @@ public class MyFragment extends Fragment{
 	protected MyActivity			activity;
 	protected DialogBuilder			dlgBuilder;
 	protected Map<String, Object>	updatedData;
+	public FrameLayout				mAdFrameLayout;
+	private AdView					mAdView;
 
 	public MyFragment(){
 		super();
@@ -375,6 +382,55 @@ public class MyFragment extends Fragment{
 		public void buildItemLayout(View itemRoot, Object itemData);
 	}
 
+	public void loadAds(){
+
+		if(mAdView != null){
+			mAdFrameLayout.removeView(mAdView);
+			mAdView.destroy();
+		}
+
+		mAdView = new AdView(getActivity());
+		mAdView.setAdListener(new AdListener() {
+			private void showToast(String message) {
+				View view = getView();
+				if (view != null) {
+//					Toast.makeText(getView().getContext(), message, Toast.LENGTH_SHORT).show();
+				}
+			}
+
+			@Override
+			public void onAdLoaded() {
+				showToast("Ad loaded.");
+			}
+
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				showToast(String.format("Ad failed to load with error code %d.", errorCode));
+			}
+
+			@Override
+			public void onAdOpened() {
+				showToast("Ad opened.");
+			}
+
+			@Override
+			public void onAdClosed() {
+				showToast("Ad closed.");
+			}
+
+			@Override
+			public void onAdLeftApplication() {
+				showToast("Ad left application.");
+			}
+		});
+
+		mAdView.setAdUnitId(getString(R.string.admob_banner_ad_unit_id));
+		mAdFrameLayout.addView(mAdView);
+		mAdView.setAdSize(AdSize.SMART_BANNER);
+		AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+		mAdView.loadAd(adRequest);
+	}
+
 	/*
 	 * It's not good now buy not using removeFromVirtualListFunction
 	 * But it's acceptable by rebuilding the list since its small.
@@ -399,7 +455,7 @@ public class MyFragment extends Fragment{
 	}
 
 	protected void setBackBtnOnClick(){
-		setOnClickFor(R.id.img_back, new View.OnClickListener() {
+		setOnClickFor(R.id.img_vnote_header_back, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
@@ -451,6 +507,7 @@ public class MyFragment extends Fragment{
 	public void onActivityCreated(Bundle savedInstanceState){
 		MU.log("Fragment onActivityCreated: " + this.getClass().toString());
 		super.onActivityCreated(savedInstanceState);
+		mAdFrameLayout = (FrameLayout)getView(R.id.bannersizes_fl_adframe);
 		buildLayout();
 	}
 

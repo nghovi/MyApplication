@@ -11,22 +11,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:id="@+id/txt_dialog_with_2edt_cancel"
+            android:id="@+id/btn_dialog_with_2edt_cancel"
             android:textColor="@color/core_blue"
             android:layout_weight="1"
             android:layout_marginBottom="10dp" />
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_width_2edt_next_word"
-        android:id="@+id/txt_dialog_with_2edt_next_word"
+        android:id="@+id/btn_dialog_with_2edt_next_word"
         android:textColor="@color/core_blue"
         android:layout_gravity="right"
         android:textSize="10sp"
@@ -48,12 +48,12 @@
         android:layout_height="wrap_content"
         android:gravity="right">
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/core_blue"
             android:text="@string/dialog_width_2edt_next_phrase"
-            android:id="@+id/dialog_width_2edt_next_phrase"
+            android:id="@+id/btn_dialog_width_2edt_next_phrase"
             android:gravity="right"
             android:textSize="10sp"
             android:paddingBottom="4dp"
@@ -71,11 +71,11 @@
         android:minLines="2"
         android:gravity="left|top" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:id="@+id/txt_dialog_with_2edt_done"
+        android:id="@+id/btn_dialog_with_2edt_done"
         android:textColor="@color/core_blue"
         android:layout_gravity="right" />
 

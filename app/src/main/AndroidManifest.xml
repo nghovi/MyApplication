@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nguyenhoangviet.vietnguyen.myapplication">
+<manifest package="com.nguyenhoangviet.vietnguyen.myapplication"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
     <!--<uses-permission android:name="android.permission.CAMERA" />-->
     <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />-->
@@ -16,14 +16,14 @@
     <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
 
     <!-- Keeps the processor from sleeping when a message is received. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
         android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
+        android:protectionLevel="signature"/>
 
-    <uses-permission android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE"/>
 
     <!-- This app has permission to register and receive data message. -->
     <!--<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />-->
@@ -32,7 +32,7 @@
     <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
 
     <!-- Permission to vibrate -->
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application
@@ -43,21 +43,32 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="ecard.db" />
+            android:value="ecard.db"/>
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="3"/>
         <meta-data
             android:name="AA_SERIALIZERS"
-            android:value="com.nguyenhoangviet.vietnguyen.models.UtilDateSerializer" />
+            android:value="com.nguyenhoangviet.vietnguyen.models.UtilDateSerializer"/>
+
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.nguyenhoangviet.vietnguyen.models.MyModel,
+             com.nguyenhoangviet.vietnguyen.models.Book,
+             com.nguyenhoangviet.vietnguyen.models.Motto,
+             com.nguyenhoangviet.vietnguyen.models.Note,
+             com.nguyenhoangviet.vietnguyen.models.Notice,
+             com.nguyenhoangviet.vietnguyen.models.TaskNotice,
+             com.nguyenhoangviet.vietnguyen.models.Task
+              "/>
 
         <activity
 
             android:name="com.nguyenhoangviet.vietnguyen.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -84,8 +95,8 @@
 
         <receiver android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver">
             <intent-filter>
-                <action android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <!--<receiver-->
@@ -103,7 +114,7 @@
         <!--</receiver>-->
         <service
             android:name="com.nguyenhoangviet.vietnguyen.controllers.NotificationService"
-            android:enabled="true" />
+            android:enabled="true"/>
     </application>
 
 </manifest>
