@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.nguyenhoangviet.vpcorp.myapplication"
+<manifest package="com.nguyenhoangviet.vpcorp_purchase.myapplication"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -20,7 +20,7 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.nguyenhoangviet.vpcorp.myapplication.permission.C2D_MESSAGE"
+        android:name="com.nguyenhoangviet.vpcorp_purchase.myapplication.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
 
     <uses-permission android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE"/>
@@ -36,7 +36,7 @@
 
 
     <application
-        android:name="com.nguyenhoangviet.vpcorp.core.controller.MyApplication"
+        android:name="com.nguyenhoangviet.vpcorp_purchase.core.controller.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ico_note_32_on"
         android:label="@string/app_name"
@@ -64,7 +64,7 @@
 
         <activity
 
-            android:name="com.nguyenhoangviet.vpcorp.controllers.SplashActivity"
+            android:name="com.nguyenhoangviet.vpcorp_purchase.controllers.SplashActivity"
             android:label="@string/title_activity_splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nguyenhoangviet.vpcorp.controllers.MainActivity"
+            android:name="com.nguyenhoangviet.vpcorp_purchase.controllers.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"></activity>
@@ -89,11 +89,11 @@
         <!--android:value="@string/app_name" />-->
 
         <activity
-            android:name="com.nguyenhoangviet.vpcorp.core.controller.MyActivity"
+            android:name="com.nguyenhoangviet.vpcorp_purchase.core.controller.MyActivity"
             android:label="@string/title_activity_my"></activity>
 
 
-        <receiver android:name="com.nguyenhoangviet.vpcorp.controllers.LocalBroadcastReceiver">
+        <receiver android:name="com.nguyenhoangviet.vpcorp_purchase.controllers.LocalBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.nguyenhoangviet.vietnguyen.controllers.LocalBroadcastReceiver"/>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -109,11 +109,11 @@
         <!--&lt;!&ndash; Receives the registration id. &ndash;&gt;-->
         <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
 
-        <!--<category android:name="com.example.vpcorp.myapplication" />-->
+        <!--<category android:name="com.example.vpcorp_purchase.myapplication" />-->
         <!--</intent-filter>-->
         <!--</receiver>-->
         <service
-            android:name="com.nguyenhoangviet.vpcorp.controllers.NotificationService"
+            android:name="com.nguyenhoangviet.vpcorp_purchase.controllers.NotificationService"
             android:enabled="true"/>
     </application>
 

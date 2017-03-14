@@ -1,4 +1,4 @@
-<com.nguyenhoangviet.vpcorp.core.views.widgets.HeaderView
+<com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.HeaderView
     android:id="@+id/view_vnote_header"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         android:paddingLeft="10dp"
         android:src="@drawable/ic_mode_edit_white_36dp"/>
 
-</com.nguyenhoangviet.vpcorp.core.views.widgets.HeaderView>
+</com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.HeaderView>
 
 
 

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nguyenhoangviet.vpcorp.controllers.Book.BookListFragment"
+    tools:context="com.nguyenhoangviet.vpcorp_purchase.controllers.Book.BookListFragment"
     android:background="@color/core_white">
 
     <!-- TODO: Update blank fragment layout -->
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal">
 
-            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
+            <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.MyTextView
                 android:id="@+id/txt_fragment_task_search_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                         style="@style/core_label_text"
                         android:layout_marginRight="10dp" />
 
-                    <com.nguyenhoangviet.vpcorp.core.views.widgets.CoreSpinner
+                    <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.CoreSpinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spn_fragment_task_search_priority" />
@@ -135,7 +135,7 @@
                         android:layout_marginRight="10dp"
                         style="@style/core_label_text" />
 
-                    <com.nguyenhoangviet.vpcorp.core.views.widgets.CoreSpinner
+                    <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.CoreSpinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spn_fragment_task_search_status" />

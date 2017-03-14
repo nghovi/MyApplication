@@ -1,58 +1,27 @@
 {
   "project_info": {
-    "project_number": "418757464827",
-    "firebase_url": "https://v-note-admob.firebaseio.com",
-    "project_id": "v-note-admob",
-    "storage_bucket": "v-note-admob.appspot.com"
+    "project_number": "702628154482",
+    "firebase_url": "https://v-note-purchase.firebaseio.com",
+    "project_id": "v-note-purchase",
+    "storage_bucket": "v-note-purchase.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:418757464827:android:e770edee6af9585f",
+        "mobilesdk_app_id": "1:702628154482:android:d82c9b61e9e8b251",
         "android_client_info": {
-          "package_name": "com.nguyenhoangviet.vietnguyen.myapplication"
+          "package_name": "com.nguyenhoangviet.vpcorp_purchase.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "418757464827-ah6tpb1roqjabd6gqqhu7n2dohoum2ef.apps.googleusercontent.com",
+          "client_id": "702628154482-k2rh8bltjqq7uo7cjb55b7f0mqknq2kd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCsaPV3rP_80-M4e3mtw19hQQbDWFg9uwY"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:418757464827:android:7dce6fc8cc8dc894",
-        "android_client_info": {
-          "package_name": "com.nguyenhoangviet.vpcorp.myapplication"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "418757464827-ah6tpb1roqjabd6gqqhu7n2dohoum2ef.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCsaPV3rP_80-M4e3mtw19hQQbDWFg9uwY"
+          "current_key": "AIzaSyArQKoM4Y1Sl67nC1PoIO2FlwZkkQbYr2Y"
         }
       ],
       "services": {

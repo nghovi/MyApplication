@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.nguyenhoangviet.vpcorp.controllers.Book.BookListFragment">
+              tools:context="com.nguyenhoangviet.vpcorp_purchase.controllers.Book.BookListFragment">
 
     <include layout="@layout/vnote_header"/>
 
@@ -51,7 +51,7 @@
                         android:orientation="vertical"
                         android:paddingLeft="6dp">
 
-                        <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -61,7 +61,7 @@
                             android:textStyle="bold"
                             custom:jsonKey="name"/>
 
-                        <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.MyTextView
                             android:id="@+id/txt_book_link"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                                 android:layout_marginRight="6dp"
                                 android:text="By"/>
 
-                            <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
+                            <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.MyTextView
                                 android:id="@+id/txt_fbd_author"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView
+                        <com.nguyenhoangviet.vpcorp_purchase.core.views.widgets.MyTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="&quot;Ongoing great book&quot;"

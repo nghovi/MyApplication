@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.nguyenhoangviet.vpcorp.myapplication"
+        applicationId "com.nguyenhoangviet.vpcorp_purchase.myapplication"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 16
