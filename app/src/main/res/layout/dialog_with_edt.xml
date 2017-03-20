@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal|left"
-    android:padding="16dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_dialog"
+              android:gravity="center_horizontal|left"
+              android:orientation="vertical"
+              android:padding="16dp">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_dialog_with_edt_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/cancel"
-            android:id="@+id/btn_dialog_with_edt_cancel"
-            android:textColor="@color/core_blue"
-            android:layout_weight="1" />
+            android:textColor="@color/core_blue"/>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_dialog_with_edt_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_width_2edt_next_phrase"
-        android:id="@+id/btn_dialog_with_edt_continue"
-        android:textColor="@color/core_blue"
         android:layout_gravity="right"
-        android:textSize="10sp"
-        android:paddingLeft="40dp"
-        android:paddingBottom="4dp" />
+        android:text="@string/dialog_width_2edt_next_phrase"
+        android:textColor="@color/core_blue"/>
 
     <EditText
+        android:id="@+id/edt_dialog_with_edt"
+        style="@style/core_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edt_dialog_with_edt"
-        android:inputType="textMultiLine"
         android:gravity="left|top"
-        android:minLines="2"
-        style="@style/core_edit_text" />
+        android:inputType="textMultiLine"
+        android:minLines="2"/>
 
     <Button
+        android:id="@+id/btn_dialog_with_edt_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        android:id="@+id/btn_dialog_with_edt_done"
         android:layout_gravity="right"
-        android:textColor="@color/core_blue"
-        android:layout_marginTop="10dp" />
-
+        android:layout_marginTop="10dp"
+        android:text="@string/done"
+        android:textColor="@color/core_blue"/>
 
 
 </LinearLayout>

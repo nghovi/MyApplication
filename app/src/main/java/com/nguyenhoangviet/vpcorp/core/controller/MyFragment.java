@@ -115,6 +115,14 @@ public class MyFragment extends Fragment{
 		getImageView(imgId).setImageResource(resId);
 	}
 
+	public void setTagFor(int viewId, int value){
+		getView(viewId).setTag(value);
+	}
+
+	public Object getTagFor(int viewId, int tagKey){
+		return getView(viewId).getTag(tagKey);
+	}
+
 	public void setImageResourceFor(View parent, int imgId, int resId){
 		getImageView(parent, imgId).setImageResource(resId);
 	}

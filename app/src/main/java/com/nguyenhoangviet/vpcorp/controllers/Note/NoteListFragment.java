@@ -17,11 +17,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
-	private boolean	isSearching	= false;
+	private static final int	BTN_ADD_ID_ADD	= 1;
+	private static final int	BTN_ADD_ID_DEL	= 2;
+	private static final int	BTN_EDIT_START	= 3;
+	private static final int	BTN_EDIT_DONE	= 4;
+
+	private boolean				isSearching		= false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -50,13 +54,14 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void buildEditNoteFunction(){
-		setOnClickFor(R.id.txt_fragment_note_list_edit, new View.OnClickListener() {
+		setTagFor(R.id.img_fragment_note_list_edit, BTN_EDIT_START);
+		setOnClickFor(R.id.img_fragment_note_list_edit, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals(getString(R.string.edit))){
+				if(view.getTag().equals(BTN_EDIT_START)){
 					onClickTextEdit();
-				}else if(((TextView)view).getText().toString().equals(getString(R.string.done))){
+				}else if(view.getTag().equals(BTN_EDIT_DONE)){
 					onClickTextDone();
 				}
 			}
@@ -66,8 +71,8 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void onClickTextEdit(){
 		adapter.setMode(MyArrayAdapter.MODE_EDITING);
 		adapter.notifyDataSetChanged();
-		setTextFor(R.id.txt_fragment_note_list_edit, getString(R.string.done));
-		setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete_all));
+		setImageResourceFor(R.id.img_fragment_note_list_edit, R.drawable.ic_done_white_36dp);
+		setImageResourceFor(R.id.img_fragment_note_list_add, R.drawable.ic_delete_white_36dp);
 		goneView(R.id.img_fragment_note_list_search);
 	}
 
@@ -75,20 +80,23 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	private void onClickTextDone(){
 		adapter.setMode(MyArrayAdapter.MODE_NORMAL);
 		adapter.notifyDataSetChanged();
-		setTextFor(R.id.txt_fragment_note_list_edit, "Edit");
-		setTextFor(R.id.txt_fragment_note_list_add, "Add");
+		setImageResourceFor(R.id.img_fragment_note_list_edit, R.drawable.ic_mode_edit_white_36dp);
+		setTagFor(R.id.img_fragment_note_list_edit, BTN_EDIT_START);
+		setImageResourceFor(R.id.img_fragment_note_list_add, R.drawable.cl_action_add);
+		setTagFor(R.id.img_fragment_note_list_add, BTN_ADD_ID_ADD);
 		visibleView(R.id.img_fragment_note_list_search);
 		reloadNotes();
 	}
 
 	private void buildAddNoteFunction(){
-		setOnClickFor(R.id.txt_fragment_note_list_add, new View.OnClickListener() {
+		setTagFor(R.id.img_fragment_note_list_add, BTN_ADD_ID_ADD);
+		setOnClickFor(R.id.img_fragment_note_list_add, new View.OnClickListener() {
 
 			@Override
 			public void onClick(View view){
-				if(((TextView)view).getText().toString().equals(getString(R.string.add))){
+				if(view.getTag().equals(BTN_ADD_ID_ADD)){
 					onClickTextAdd();
-				}else if(((TextView)view).getText().toString().contains(getString(R.string.delete))){
+				}else if(view.getTag().equals(BTN_ADD_ID_DEL)){
 					onClickTextDelete();
 				}
 			}
@@ -110,12 +118,11 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	}
 
 	private void confirmDeleteNotes(){
-		boolean isDeleteAll = getTextView(R.id.txt_fragment_note_list_add).getText().toString().equals(getString(R.string.delete_all));
 		for(int i = 0; i < models.size(); i++){
 			View viewNote = listView.getChildAt(i);
 			if(viewNote != null){
 				CheckBox checkBox = (CheckBox)viewNote.findViewById(R.id.item_note_checkbox);
-				if(checkBox.isChecked() || isDeleteAll){
+				if(checkBox.isChecked()){
 					Note note = (Note)models.get(i);
 					note.delete();
 				}
@@ -168,7 +175,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		}else{
 			isSearching = true;
 			getMainActivity().footer.hide();
-			goneView(R.id.txt_fragment_note_list_edit);
+			goneView(R.id.img_fragment_note_list_edit);
 			goneView(R.id.lnr_fragment_note_list_add);
 			visibleView(R.id.edt_fragment_note_list_search);
 			getEditText(R.id.edt_fragment_note_list_search).requestFocus();
@@ -179,7 +186,7 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 
 	private void cancelSearching(){
 		isSearching = false;
-		visibleView(R.id.txt_fragment_note_list_edit);
+		visibleView(R.id.img_fragment_note_list_edit);
 		visibleView(R.id.lnr_fragment_note_list_add);
 		goneView(R.id.edt_fragment_note_list_search);
 		setImageResourceFor(R.id.img_fragment_note_list_search, R.drawable.nav_btn_search_inactive);
@@ -222,9 +229,11 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 	@Override
 	public void onChecked(Note checkedNote, int numItemChecked){
 		if(numItemChecked > 0){
-			setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete));
+			visibleView(R.id.img_fragment_note_list_add);
+			setImageResourceFor(R.id.img_fragment_note_list_add, R.drawable.ic_delete_white_36dp);
+			setTagFor(R.id.img_fragment_note_list_add, BTN_ADD_ID_DEL);
 		}else{
-			setTextFor(R.id.txt_fragment_note_list_add, getString(R.string.delete_all));
+			goneView(R.id.img_fragment_note_list_add);
 		}
 	}
 

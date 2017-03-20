@@ -31,12 +31,19 @@
 
     <!-- TopDown Dialog -->
     <style name="dialog_animation_top_down">
-        <item name="android:windowEnterAnimation">@layout/core_slide_top_down_dialog</item>
-        <item name="android:windowExitAnimation">@layout/core_slide_up_top_dialog</item>
+        <item name="android:windowEnterAnimation">
+            @layout/core_slide_top_down_dialog
+        </item>
+        <item name="android:windowExitAnimation">
+            @layout/core_slide_up_top_dialog
+        </item>
     </style>
 
-    <style name="dialog_slide_anim_top_down" parent="@android:style/Theme.Dialog">
-        <item name="android:windowAnimationStyle">@style/dialog_animation_top_down</item>
+    <style name="dialog_slide_anim_top_down"
+           parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">
+            @style/dialog_animation_top_down
+        </item>
     </style>
 
 
@@ -62,7 +69,11 @@
         <item name="android:textSize">12dp</item>
     </style>
 
-    <style name="core_header_action_text">
+    <style name="core_header_title_text">
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/core_white</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>

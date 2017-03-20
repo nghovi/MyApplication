@@ -104,6 +104,7 @@
 
 
     <color name="bg_reading">#FFFFFF</color>
+    <color name="bg_dialog">#FFFFFF</color>
     <color name="label">#C0C0C0</color>
     <color name="bg_selected_panel">#dfe3ee</color>
 </resources>

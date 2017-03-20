@@ -1,103 +1,100 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.nguyenhoangviet.vpcorp.controllers.Book.BookListFragment"
-    android:background="@color/core_white">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/core_white"
+              android:orientation="vertical"
+              tools:context="com.nguyenhoangviet.vpcorp.controllers.Book.BookListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/core_gray"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@color/core_gray">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment_setting_title"
             android:id="@+id/fragment_setting_header_title"
-            android:textColor="@color/core_white"
-            android:layout_marginRight="10dp"
-            style="@style/core_header_action_text" />
+            style="@style/core_header_title_text"
+            android:text="@string/fragment_setting_title"/>
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView8"
         android:background="@color/bg_reading">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/bg_reading"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="16dp"
-                android:background="@color/bg_reading">
+                android:padding="16dp">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="@string/fragment_setting_push"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/fragment_setting_push"/>
 
                 <Switch
+                    android:id="@+id/switch_fragment_setting_push_notification"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/switch_fragment_setting_push_notification" />
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
             <View style="@style/core_line_divider"/>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/bg_reading">
+                android:background="@color/bg_reading"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fragment_setting_vocabulary_reading_speed"
-                    android:id="@+id/textView17"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/fragment_setting_vocabulary_reading_speed"/>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|center_horizontal">
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/slow"
-                        android:id="@+id/textView18" />
+                        android:text="@string/slow"/>
 
                     <SeekBar
+                        android:id="@+id/seek_bar_fragment_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/core_baby_blue"
-                        android:id="@+id/seek_bar_fragment_setting"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:filterTouchesWhenObscured="true"/>
 
                     <TextView
+                        android:id="@+id/textView19"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fast"
-                        android:id="@+id/textView19" />
+                        android:text="@string/fast"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -105,39 +102,41 @@
             <View style="@style/core_line_divider"/>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/bg_reading"
                 android:gravity="center_horizontal"
-                android:background="@color/bg_reading">
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/bg_reading"
                     android:layout_marginBottom="30dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/bg_reading">
                     <com.jjoe64.graphview.GraphView
+                        android:id="@+id/graph"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:id="@+id/graph" />
+                        android:layout_height="200dp"/>
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fragment_setting_contact"
-                    android:id="@+id/textView20"
                     android:autoLink="email|web"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/fragment_setting_contact"/>
 
                 <TextView
+                    android:id="@+id/txt_fragment_setting_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_setting_email"
-                    android:id="@+id/txt_fragment_setting_email"
                     android:textColor="@color/core_blue"
                     android:textColorLink="@color/core_red"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"/>
             </LinearLayout>
 
 

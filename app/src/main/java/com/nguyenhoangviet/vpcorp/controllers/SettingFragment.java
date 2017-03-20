@@ -1,14 +1,13 @@
 package com.nguyenhoangviet.vpcorp.controllers;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.SeekBar;
-import android.widget.Switch;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.activeandroid.query.Select;
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -21,14 +20,17 @@ import com.nguyenhoangviet.vpcorp.core.controller.MyFragment;
 import com.nguyenhoangviet.vpcorp.models.Task;
 import com.nguyenhoangviet.vpcorp.myapplication.R;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.Switch;
 
 public class SettingFragment extends MyFragment{
 
@@ -72,6 +74,8 @@ public class SettingFragment extends MyFragment{
 
 	private void buildSeekBar(){
 		SeekBar seekBar = (SeekBar)getView(R.id.seek_bar_fragment_setting);
+		//http://stackoverflow.com/questions/16163215/android-styling-seek-bar
+		seekBar.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY));
 		seekBar.setMax(BookDetailFragment.SLOWEST_WORD_SPEED_INTERVAL_MS);
 		int savedProgress = activity.getIntPreference(BookDetailFragment.WORD_SPEED_INTERVAL, BookDetailFragment.DEFAULT_WORD_SPEED_INTERVAL_MS);
 		seekBar.setProgress(BookDetailFragment.SLOWEST_WORD_SPEED_INTERVAL_MS - savedProgress);
