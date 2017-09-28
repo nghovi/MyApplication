@@ -115,7 +115,7 @@ public class BookDetailFragment extends MyFragmentWithHeaderFooter{
 			@Override
 			public void onClick(View view){
 				// sendDeleteTask();
-				book.delete();
+//				book.delete();
 				onClickBackBtn();
 			}
 		}).show();

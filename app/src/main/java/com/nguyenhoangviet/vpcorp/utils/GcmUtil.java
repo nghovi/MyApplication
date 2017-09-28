@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.controllers.LocalBroadcastReceiver;
 import com.nguyenhoangviet.vpcorp.controllers.MainActivity;
 import com.nguyenhoangviet.vpcorp.core.controller.MyActivity;
@@ -43,7 +42,7 @@ public class GcmUtil{
 			return null;
 		}
 
-		Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).executeSingle();
+		Notice notice = new Notice();
 		if(notice != null && notice.isDeleted == false){
 			Intent intent = new Intent(context, MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -66,12 +65,12 @@ public class GcmUtil{
 	}
 
 	private static String getNotificationText(Notice notice){
-		if(Notice.NOTICE_TYPE_TASK.equals(notice.type)){
-			Task task = new Select().from(Task.class).where("otherId=?", notice.value).executeSingle();
-			if(task != null){
-				return task.name;
-			}
-		}
+//		if(Notice.NOTICE_TYPE_TASK.equals(notice.type)){
+//			Task task = new Select().from(Task.class).where("otherId=?", notice.value).executeSingle();
+//			if(task != null){
+//				return task.name;
+//			}
+//		}
 		return notice.title;
 	}
 
@@ -87,9 +86,9 @@ public class GcmUtil{
 			Intent intent = new Intent(LocalBroadcastReceiver.ALARM_PACKAGE);
 			// set data for intent
 			Bundle bundle = new Bundle(); // will be past to Service -> call gcm util make Notification...
-			bundle.putString(BUNDLE_KEY_NOTICE_ID, notice.getId().toString());
+			bundle.putString(BUNDLE_KEY_NOTICE_ID, "xxxx");
 			intent.putExtras(bundle);
-			PendingIntent pi = PendingIntent.getBroadcast(context, notice.getId().intValue(), intent, 0);
+			PendingIntent pi = PendingIntent.getBroadcast(context, 223, intent, 0);
 			AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.set(AlarmManager.RTC_WAKEUP, notice.noticeDate.getTime(), pi);
 			intentArray.add(pi);

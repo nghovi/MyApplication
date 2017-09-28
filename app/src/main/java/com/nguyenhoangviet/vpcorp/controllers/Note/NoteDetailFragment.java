@@ -68,10 +68,10 @@ public class NoteDetailFragment extends FragmentOfMainActivity{
 		hideSofeKeyboard();
 		note.message = getEditText(R.id.edt_fragment_note_detail).getText().toString();
 		if(MU.isEmpty(note.message)){
-			note.delete();
+//			note.delete();
 		}else{
 			note.date = new Date();
-			note.save();
+//			note.save();
 		}
 		activity.backOneFragment();
 	}

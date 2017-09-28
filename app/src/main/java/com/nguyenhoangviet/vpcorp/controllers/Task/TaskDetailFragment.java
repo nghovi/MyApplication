@@ -100,7 +100,7 @@ public class TaskDetailFragment extends MyFragment{
 			@Override
 			public void onClick(View view){
 				// sendDeleteTask();
-				task.delete();
+//				task.delete();
 				onClickBackBtn();
 			}
 		}).show();
@@ -127,7 +127,7 @@ public class TaskDetailFragment extends MyFragment{
 		this.task.setStatus(status);
 		setTextFor(R.id.txt_fragment_task_detail_status, Task.STATUS[task.status]);
 		task.isRemoteSaved = false;
-		task.save();
+//		task.save();
 		// onClickBackBtn();
 
 		// JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));

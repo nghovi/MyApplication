@@ -137,7 +137,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 		task.status = status;
 		task.date = targetDate;
 		task.lastupdated = targetDate;
-		task.save();
+//		task.save();
 		makeAlarmForNotice();
 	}
 
@@ -158,7 +158,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 						c.set(i, i2, i3);
 						targetDate = c.getTime();
 						txtDate.setText(MU.getDateForDisplaying(targetDate));
-						task.save();
+//						task.save();
 					}
 				});
 				datePicker.show(activity.getFragmentManager(), "");
@@ -210,9 +210,9 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 
 	private void addNotice(Calendar c){
 		Notice newNotice = new Notice(Notice.NOTICE_TYPE_TASK, task.name, task.description, task.id, c.getTime());
-		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
+//		newNotice.save(); // todo can create redundant notices in database if user cancel adding task.
 		savedNotices.add(newNotice);
-		task.addNoticeIdWithoutSave(newNotice.getId().toString());
+//		task.addNoticeIdWithoutSave(newNotice.getId().toString());
 		addToVirtualList(R.id.lst_share_task_edit_remind, R.layout.item_notice, newNotice, this);
 		final ScrollView scrollView = getScrollView(R.id.scrollview_share_task_edit);
 		scrollView.post(new Runnable() {
@@ -227,7 +227,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	private void updateNotice(Calendar c, Notice notice){
 		notice.noticeDate = c.getTime();
 		notice.isRemoteSaved = false;
-		notice.save();
+//		notice.save();
 		buildNoticeLayouts();
 	}
 
@@ -271,9 +271,9 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 	protected void makeAlarmForNotice(){
 		for(Notice notice : savedNotices){
 			notice.title = task.name;
-			notice.value = task.getId().toString();
+//			notice.value = task.getId().toString();
 			notice.message = task.name;
-			notice.save();
+//			notice.save();
 			GcmUtil.makeLocalAlarm(activity, notice);
 		}
 		savedNotices = new ArrayList<Notice>();
@@ -284,7 +284,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 		String priority = (String)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_PRIORITY);
 		int taskStatus = (int)conditions.get(TaskSearchFragment.KEY_TASK_SEARCH_STATUS);
 
-		List<MyModel> tasks = Task.getAllUndeleted(Task.class);
+		List<MyModel> tasks = new ArrayList<>();
 		Iterator<MyModel> ib = tasks.iterator();
 		while(ib.hasNext()){
 			Task task = (Task)ib.next();
@@ -326,7 +326,7 @@ public class AbstractTaskFragment extends FragmentOfMainActivity implements MyFr
 				if(savedNotices.contains(notice)){
 					savedNotices.remove(notice);
 				}
-				notice.delete();
+//				notice.delete();
 				buildNoticeLayouts();
 			}
 		});

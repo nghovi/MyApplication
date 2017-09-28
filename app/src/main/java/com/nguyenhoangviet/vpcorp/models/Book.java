@@ -1,7 +1,5 @@
 package com.nguyenhoangviet.vpcorp.models;
 
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.google.gson.annotations.Expose;
 
@@ -19,7 +17,6 @@ import java.util.TreeSet;
  * Created by viet on 9/3/2015.
  */
 
-@Table(name = "book", id = "otherId")
 public class Book extends MyModel{
 
 	public static final String	WORD_DELIMITER		= "@@@@";
@@ -218,31 +215,16 @@ public class Book extends MyModel{
 	// return true;
 	// }
 
-	@Column(name = "icon_url")
-	@Expose
 	public String	iconUrl;
 
-	@Column(name = "author")
-	@Expose
 	public String	author;
 
-	@Column(name = "name")
-	@Expose
 	public String	name;
-
-	@Column(name = "comment")
-	@Expose
 	public String	comment;
 
-	@Column(name = "vocabulary")
-	@Expose
 	private String	vocabulary;
 
-	@Column(name = "link")
-	@Expose
 	public String	link;
 
-	@Column(name = "mood")
-	@Expose
 	public String	mood;
 }

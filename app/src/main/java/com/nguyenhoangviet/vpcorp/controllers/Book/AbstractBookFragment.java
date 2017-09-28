@@ -1,6 +1,7 @@
 package com.nguyenhoangviet.vpcorp.controllers.Book;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -262,7 +263,7 @@ public abstract class AbstractBookFragment extends MyFragmentWithHeaderFooter im
 		book.mood = getEditText(R.id.edt_sbe_mood).getText().toString();
 		book.iconUrl = getEditText(R.id.edt_sbe_icon_url).getText().toString();
 		book.link = getEditText(R.id.edt_sbe_link).getText().toString();
-		book.save();
+//		book.save();
 		hideSofeKeyboard();
 	}
 
@@ -271,7 +272,7 @@ public abstract class AbstractBookFragment extends MyFragmentWithHeaderFooter im
 	}
 
 	public static String getBookImageFileName(Book book){
-		return BOOK_COVER_PREFIX + String.valueOf(book.getId());
+		return BOOK_COVER_PREFIX + "ss";
 	}
 
 	public void setBook(Book book){
@@ -285,7 +286,7 @@ public abstract class AbstractBookFragment extends MyFragmentWithHeaderFooter im
 		String author = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_AUTHOR);
 		String comment = (String)conditions.get(BookSearchFragment.KEY_BOOK_SEARCH_COMMENT);
 
-		List<MyModel> books = Book.getAllUndeleted(Book.class);
+		List<MyModel> books = new ArrayList<>();
 		Iterator<MyModel> ib = books.iterator();
 		while(ib.hasNext()){
 			Book book = (Book)ib.next();

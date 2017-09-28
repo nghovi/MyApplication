@@ -1,7 +1,5 @@
 package com.nguyenhoangviet.vpcorp.models;
 
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 //import com.facebook.share.widget.ShareDialog;
 import com.google.gson.annotations.Expose;
@@ -14,7 +12,6 @@ import java.util.List;
 /**
  * Created by viet on 9/3/2015.
  */
-@Table(name = "task", id = "otherId")
 public class Task extends MyModel{
 
 	public static final String		NOTICE_ID_DELIMITER			= ",";
@@ -76,35 +73,14 @@ public class Task extends MyModel{
 		}
 	}
 
-	@Column(name = "description")
-	@Expose
 	public String	description;
-
-	@Column(name = "date")
-	@Expose
 	public Date		date;
-
-	@Column(name = "lastupdated")
-	@Expose
 	public Date		lastupdated;
-
-	@Column(name = "name")
-	@Expose
 	public String	name;
 
-	@Column(name = "comment")
-	@Expose
 	public String	comment;
-
-	@Column(name = "priority")
-	@Expose
 	public int		priority;
-
-	@Column(name = "status")
-	@Expose
 	public int		status;
 
-	@Column(name = "noticeId")
-	@Expose
 	public String	noticeId;
 }

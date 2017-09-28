@@ -9,8 +9,6 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
-import com.activeandroid.query.Delete;
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.Const;
 import com.nguyenhoangviet.vpcorp.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vpcorp.core.controller.MyActivity;
@@ -126,7 +124,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	private void saveUnsavedTaskToServer(){
-		List<Task> unsavedToRemoteTasks = Task.getUnSavedToRemote(Task.class);
+		List<Task> unsavedToRemoteTasks = new ArrayList<>();
 		for(final Task task : unsavedToRemoteTasks){
 			JSONObject param = MU.buildJsonObj(Arrays.asList("task", task.toString()));
 			activity.postApi(Const.EDIT_TASK, param, new Api.OnCallApiListener() {
@@ -135,161 +133,27 @@ public class Background extends AsyncTask<Integer, String, String>{
 				public void onApiResponse(JSONObject response){
 					task.isRemoteSaved = true;
 					task.id = response.optString("data");
-					task.save();
-					MU.log("Background sync task, saved task successfully " + "for" + task.getId());
+					//task.save();
+//					MU.log("Background sync task, saved task successfully " + "for" + task.getId());
 				}
 
 				@Override
 				public void onApiError(String errorMsg){
-					MU.log("Background sync task, saved task FAILED for" + task.getId());
+					//MU.log("Background sync task, saved task FAILED for" + task.getId());
 				}
 			});
 		}
 	}
 
-	private void saveUnsavedTaskToLocal(){
-		JSONObject params = new JSONObject();
-		activity.getApi(Const.GET_TASKS, params, new Api.OnCallApiListener() {
 
-			@Override
-			public void onApiResponse(JSONObject response){
-				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
-				for(Task t : tasksFromServer){
-					Task local = new Select().from(Task.class).where("id = " + "?", t.id).executeSingle();
-					if(local == null){
-						t.isRemoteSaved = true;
-						t.save();
-						MU.log("Save task " + t.id + " into local database");
-					}
-				}
-			}
 
-			@Override
-			public void onApiError(String errorMsg){
-				MU.log("saveUnsavedTaskToLocal Failed");
-			}
-		});
-	}
 
-	// For new device but same account + save memory
-	private void deleteTaskToLocal(){
-		JSONObject params = new JSONObject();
-		activity.getApi(Const.GET_DELETED_TASKS, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				List<Task> tasksFromServer = MU.convertToModelList(response.optString("data"), Task.class);
-				for(Task t : tasksFromServer){
-					Task local = new Select().from(Task.class).where("id = " + "?", t.id).executeSingle();
-					if(local != null){
-						MU.log("Delete task at Local " + local.id);
-						local.delete();
-					}
-				}
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				MU.log("deleteTaskToLocal Failed");
-			}
-		});
-	}
-
-	private void saveUnsavedBookToServer(){
-		List<Book> unsavedToRemoteBooks = Book.getAllUndeleted(Book.class);
-		for(final Book book : unsavedToRemoteBooks){
-			JSONObject param = MU.buildJsonObj(Arrays.asList("book", book.toString()));
-			activity.postApi(Const.EDIT_BOOK, param, new Api.OnCallApiListener() {
-
-				@Override
-				public void onApiResponse(JSONObject response){
-					book.isRemoteSaved = true;
-					book.id = response.optString("data");
-					book.save();
-					MU.log("Background sync book, saved book successfully " + "for" + book.getId());
-				}
-
-				@Override
-				public void onApiError(String errorMsg){
-					MU.log("Background sync book, saved book FAILED for" + book.getId());
-				}
-			});
-		}
-	}
-
-	private void saveUnsavedBookToLocal(){
-		JSONObject params = new JSONObject();
-		activity.getApi(Const.GET_BOOKS, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				List<Book> booksFromServer = MU.convertToModelList(response.optString("data"), Book.class);
-				for(Book t : booksFromServer){
-					Book local = new Select().from(Book.class).where("id = " + "?", t.id).executeSingle();
-					if(local == null){
-						t.isRemoteSaved = true;
-						t.save();
-						MU.log("Save Book " + t.id + " into local database");
-					}
-				}
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				MU.log("saveUnsavedBookToLocal Failed");
-			}
-		});
-	}
 
 	private void deleteOverdueNotices(){
 		Notice.deleteOverdueNotices();
 	}
 
-	private void saveUnsavedNoticeToServer(){
-		List<Notice> unsavedToRemoteNotices = Notice.getUnSavedToRemote();
-		for(final Notice notice : unsavedToRemoteNotices){
-			JSONObject param = MU.buildJsonObj(Arrays.asList("notice", notice.toString()));
-			activity.postApi(Const.EDIT_NOTICE, param, new Api.OnCallApiListener() {
 
-				@Override
-				public void onApiResponse(JSONObject response){
-					notice.isRemoteSaved = true;
-					notice.id = response.optString("data");
-					notice.save();
-					MU.log("Background sync notice to server, saved notice " + "successfully for" + notice.getId());
-				}
-
-				@Override
-				public void onApiError(String errorMsg){
-					MU.log("Background sync notice to server, saved notice " + "FAILED for" + notice.getId());
-				}
-			});
-		}
-	}
-
-	private void saveUnsavedNoticeToLocal(){
-		JSONObject params = new JSONObject();
-		activity.getApi(Const.GET_NOTICES, params, new Api.OnCallApiListener() {
-
-			@Override
-			public void onApiResponse(JSONObject response){
-				List<Notice> noticesFromServer = MU.convertToModelList(response.optString("data"), Notice.class);
-				for(Notice notice : noticesFromServer){
-					Notice local = new Select().from(Notice.class).where("id " + "= ?", notice.id).executeSingle();
-					if(local == null){
-						notice.isRemoteSaved = true;
-						notice.save();
-						MU.log("Save Notice " + notice.id + " into local " + "database");
-					}
-				}
-			}
-
-			@Override
-			public void onApiError(String errorMsg){
-				MU.log("saveUnsavedNoticeToLocal Failed");
-			}
-		});
-	}
 
 	private void createHandler(){
 		if(mHandler == null){
@@ -347,7 +211,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	// ////////////////////////////////////////////////
 
 	private String chooseRandomGoodSay(){
-		mottos = new Select().from(Motto.class).execute();
+		mottos = new ArrayList<>();
 		if(mottos.size() > 0){
 			int randomIdx = (int)(Math.random() * mottos.size());
 			MU.log("*******Show random motto " + randomIdx + " of total " + mottos.size());
@@ -371,10 +235,7 @@ public class Background extends AsyncTask<Integer, String, String>{
 	}
 
 	private void saveToLocal(List<Motto> mottos){
-		new Delete().from(Motto.class).execute();
-		for(Motto m : mottos){
-			m.save();
-		}
+
 	}
 
 	// ////////////////////////////////////////////////// Task

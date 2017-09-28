@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vpcorp.models.Book;
 import com.nguyenhoangviet.vpcorp.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -95,15 +95,15 @@ public class BookSearchFragment extends FragmentOfMainActivity{
 	}
 
 	public static List<Book> searchWord(String word){
-		List<Book> books = new Select().from(Book.class).execute();
-		Iterator<Book> ib = books.iterator();
-		while(ib.hasNext()){
-			Book book = ib.next();
-			if(!MU.isEmpty(word) && !book.hasWord(word)){
-				ib.remove();
-			}
-		}
-		return books;
+//		List<Book> books = new Select().from(Book.class).execute();
+//		Iterator<Book> ib = books.iterator();
+//		while(ib.hasNext()){
+//			Book book = ib.next();
+//			if(!MU.isEmpty(word) && !book.hasWord(word)){
+//				ib.remove();
+//			}
+//		}
+		return new ArrayList<>();
 	}
 
 	// too many duplicate code, I should think about it before coding!!!

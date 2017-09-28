@@ -1,12 +1,12 @@
 package com.nguyenhoangviet.vpcorp.controllers.Book;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vpcorp.models.Book;
 import com.nguyenhoangviet.vpcorp.models.MyModel;
@@ -91,7 +91,7 @@ public class BookListFragment extends MyFragmentWithList{
 	}
 
 	private void reloadBook(){
-		models = new Select().from(Book.class).execute();
+		models = new ArrayList<>();
 		sortByName();
 		adapter.updateDataWith(models);
 	}

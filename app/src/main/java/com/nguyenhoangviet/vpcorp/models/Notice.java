@@ -1,8 +1,5 @@
 package com.nguyenhoangviet.vpcorp.models;
 
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.google.gson.annotations.Expose;
 
@@ -14,8 +11,6 @@ import java.util.List;
  * Created by viet on 9/3/2015.
  * This model is used for saving future notification for task, motto, etc...
  */
-
-@Table(name = "notice", id = "otherId")
 public class Notice extends MyModel{
 
 	public static final String	NOTICE_TYPE_TASK	= "0";
@@ -41,47 +36,41 @@ public class Notice extends MyModel{
 	}
 
 	public static void deleteOverdueNotices(){
-		List<Notice> notices = new Select().from(Notice.class).where("isDeleted = ?", false).execute();
-		for(Notice notice : notices){
-			if(MU.isInThePast(notice.noticeDate)){
-				notice.isDeleted = true;
-				notice.save();
-			}
-		}
+
 	}
 
 	public static ArrayList<Notice> getNoticesForTask(Task task){
 		ArrayList<Notice> notices = new ArrayList<Notice>();
-		List<String> noticeIds = task.getNoticeIdList();
-		for(String noticeId : noticeIds){
-			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
-			if(notice != null){
-				notices.add(notice);
-			}
-		}
+//		List<String> noticeIds = task.getNoticeIdList();
+//		for(String noticeId : noticeIds){
+//			Notice notice = new Select().from(Notice.class).where("id = ?", noticeId).executeSingle();
+//			if(notice != null){
+//				notices.add(notice);
+//			}
+//		}
 		return notices;
 	}
 
 	public static ArrayList<Notice> getOnGoingNoticesForTask(Task task){
 		ArrayList<Notice> notices = new ArrayList<Notice>();
-		List<String> noticeIds = task.getNoticeIdList();
-		for(String noticeId : noticeIds){
-			Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).where("isDeleted = ?", false).executeSingle();
-			if(notice != null && !MU.isInThePast(notice.noticeDate)){
-				notices.add(notice);
-			}
-		}
+//		List<String> noticeIds = task.getNoticeIdList();
+//		for(String noticeId : noticeIds){
+//			Notice notice = new Select().from(Notice.class).where("otherId = ?", noticeId).where("isDeleted = ?", false).executeSingle();
+//			if(notice != null && !MU.isInThePast(notice.noticeDate)){
+//				notices.add(notice);
+//			}
+//		}
 		return notices;
 	}
 
 	public static ArrayList<Notice> getOnGoingNotices(){
 		ArrayList<Notice> notices = new ArrayList<Notice>();
-		List<Notice> allNotices = new Select().from(Notice.class).where("isDeleted = ?", false).execute();
-		for(Notice notice : allNotices){
-			if(!MU.isInThePast(notice.noticeDate)){
-				notices.add(notice);
-			}
-		}
+//		List<Notice> allNotices = new Select().from(Notice.class).where("isDeleted = ?", false).execute();
+//		for(Notice notice : allNotices){
+//			if(!MU.isInThePast(notice.noticeDate)){
+//				notices.add(notice);
+//			}
+//		}
 		return notices;
 	}
 
@@ -95,28 +84,11 @@ public class Notice extends MyModel{
 		}
 		return result;
 	}
-
-	@Column(name = "type")
-	@Expose
 	public String	type;
 
-	@Column(name = "title")
-	@Expose
 	public String	title;
-
-	@Column(name = "value")
-	@Expose
 	public String	value;
-
-	@Column(name = "noticeDate")
-	@Expose
 	public Date		noticeDate;
-
-	@Column(name = "message")
-	@Expose
 	public String	message;
-
-	@Column(name = "noticeType")
-	@Expose
 	public String	noticeType;
 }

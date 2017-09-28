@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.activeandroid.query.Select;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -126,7 +125,7 @@ public class SettingFragment extends MyFragment{
 		});
 		graph.getLegendRenderer().setVisible(true);
 		graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskFinishedNum + taskUnfinishedNum));
+//		graph.setTitle(getString(R.string.fragment_setting_graph_title, taskFinishedNum, taskFinishedNum + taskUnfinishedNum));
 	}
 
 	private BarGraphSeries<DataPoint> makeUnfinishedTasksSeries(int dayBefore, int dayAfter){
@@ -238,12 +237,12 @@ public class SettingFragment extends MyFragment{
 		Calendar cAfter = Calendar.getInstance();
 		cAfter.add(Calendar.DATE, dayAfter);
 
-		List<Task> allTasks = new Select().from(Task.class).execute();
-		for(Task task : allTasks){
-			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
-				result.add(task);
-			}
-		}
+//		List<Task> allTasks = new Select().from(Task.class).execute();
+//		for(Task task : allTasks){
+//			if(task.status == taskStatus && task.date.compareTo(Before.getTime()) > 0 && task.date.compareTo(cAfter.getTime()) < 0){
+//				result.add(task);
+//			}
+//		}
 		return result;
 	}
 

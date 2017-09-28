@@ -99,7 +99,7 @@ public class TaskListFragment extends MyFragmentWithList{
 	}
 
 	private void loadTasksFromLocal(){
-		models = Task.getAllUndeleted(Task.class);
+		// models = Task.getAllUndeleted(Task.class);
 	}
 
 	private void buildCalendarPicker(){
@@ -137,7 +137,7 @@ public class TaskListFragment extends MyFragmentWithList{
 
 	private void mapTasksToDate(){
 		map = new HashMap<String, ArrayList<Task>>();
-		for(MyModel model : models){
+		if(models != null) for(MyModel model : models){
 			Task task = (Task)model;
 			String mapKey = buildKey(task.date);
 			if(map.containsKey(mapKey)){
