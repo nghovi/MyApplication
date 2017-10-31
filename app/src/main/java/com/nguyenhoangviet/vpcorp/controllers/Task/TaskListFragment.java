@@ -14,7 +14,7 @@ import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.DatePickerFragment;
 import com.nguyenhoangviet.vpcorp.models.MyModel;
 import com.nguyenhoangviet.vpcorp.models.Task;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 import com.nguyenhoangviet.vpcorp.views.widgets.notifications.adapters.adapters.TaskListAdapter;
 
 import android.app.DatePickerDialog;

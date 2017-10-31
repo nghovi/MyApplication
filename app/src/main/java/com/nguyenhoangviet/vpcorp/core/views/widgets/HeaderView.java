@@ -1,6 +1,6 @@
 package com.nguyenhoangviet.vpcorp.core.views.widgets;
 
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

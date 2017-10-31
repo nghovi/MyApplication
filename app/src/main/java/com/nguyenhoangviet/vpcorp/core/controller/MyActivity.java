@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.nguyenhoangviet.vpcorp.controllers.Background;
 import com.nguyenhoangviet.vpcorp.core.network.Api;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.app.Activity;
 import android.app.FragmentManager;

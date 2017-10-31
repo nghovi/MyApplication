@@ -18,7 +18,7 @@ import com.nguyenhoangviet.vpcorp.core.views.widgets.DatePickerFragment;
 import com.nguyenhoangviet.vpcorp.models.MyModel;
 import com.nguyenhoangviet.vpcorp.models.Notice;
 import com.nguyenhoangviet.vpcorp.models.Task;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 import com.nguyenhoangviet.vpcorp.utils.GcmUtil;
 
 import java.util.ArrayList;

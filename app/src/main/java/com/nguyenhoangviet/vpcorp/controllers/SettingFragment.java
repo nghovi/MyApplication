@@ -18,7 +18,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.nguyenhoangviet.vpcorp.controllers.Book.BookDetailFragment;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragment;
 import com.nguyenhoangviet.vpcorp.models.Task;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.content.Intent;
 import android.graphics.Color;

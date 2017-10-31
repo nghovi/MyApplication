@@ -16,7 +16,7 @@ import com.nguyenhoangviet.vpcorp.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vpcorp.core.model.SpinnerItemModel;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.CoreSpinner;
 import com.nguyenhoangviet.vpcorp.models.Task;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 public class TaskSearchFragment extends FragmentOfMainActivity{
 

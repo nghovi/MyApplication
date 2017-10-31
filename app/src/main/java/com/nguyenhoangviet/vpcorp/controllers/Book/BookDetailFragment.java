@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragmentWithHeaderFooter;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.models.Book;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;

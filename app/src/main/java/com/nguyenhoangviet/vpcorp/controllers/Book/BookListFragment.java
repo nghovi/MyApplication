@@ -10,7 +10,7 @@ import com.activeandroid.query.Select;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragmentWithList;
 import com.nguyenhoangviet.vpcorp.models.Book;
 import com.nguyenhoangviet.vpcorp.models.MyModel;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 import com.nguyenhoangviet.vpcorp.views.widgets.notifications.adapters
 		.adapters.BookListAdapter;
 

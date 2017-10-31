@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.nguyenhoangviet.vpcorp.controllers.Book.AddNewPhraseDialogFragment;
 import com.nguyenhoangviet.vpcorp.controllers.Book.AddNewWordDialogFragment;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

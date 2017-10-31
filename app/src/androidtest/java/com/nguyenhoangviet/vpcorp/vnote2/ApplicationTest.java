@@ -1,4 +1,4 @@
-package com.nguyenhoangviet.vpcorp.myapplication;
+package com.nguyenhoangviet.vpcorp.vnote2;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

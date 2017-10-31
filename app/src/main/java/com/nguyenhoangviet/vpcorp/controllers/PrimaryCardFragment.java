@@ -15,7 +15,7 @@ import android.widget.ListView;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragment;
 import com.nguyenhoangviet.vpcorp.core.database.DBHelper;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 public class PrimaryCardFragment extends MyFragment{
 

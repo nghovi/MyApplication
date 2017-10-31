@@ -2,7 +2,7 @@ package com.nguyenhoangviet.vpcorp.core.controller;
 
 import com.nguyenhoangviet.vpcorp.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.HeaderView;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 /**
  * Created by viet on 8/11/2015.

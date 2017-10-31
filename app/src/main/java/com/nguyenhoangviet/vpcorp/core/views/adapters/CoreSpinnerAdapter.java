@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.nguyenhoangviet.vpcorp.core.model.SpinnerItemModel;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 /**
  * Created by TrungND on 10/23/2014.

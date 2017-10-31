@@ -11,7 +11,7 @@ import com.nguyenhoangviet.vpcorp.controllers.Book.AbstractBookFragment;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vpcorp.models.Book;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 /**
  * Created by viet on 8/13/2015.

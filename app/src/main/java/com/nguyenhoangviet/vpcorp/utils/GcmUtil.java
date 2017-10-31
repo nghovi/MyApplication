@@ -17,7 +17,7 @@ import com.nguyenhoangviet.vpcorp.core.controller.MyActivity;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.models.Notice;
 import com.nguyenhoangviet.vpcorp.models.Task;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 /**
  * GcmUtil

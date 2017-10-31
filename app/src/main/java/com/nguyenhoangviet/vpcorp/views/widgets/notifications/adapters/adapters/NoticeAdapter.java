@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vpcorp.models.Notice;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import java.util.ArrayList;
 

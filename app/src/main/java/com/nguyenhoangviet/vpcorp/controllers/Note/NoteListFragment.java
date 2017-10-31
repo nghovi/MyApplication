@@ -9,14 +9,21 @@ import com.nguyenhoangviet.vpcorp.core.views.adapters.MyArrayAdapter;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vpcorp.models.MyModel;
 import com.nguyenhoangviet.vpcorp.models.Note;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
 import com.nguyenhoangviet.vpcorp.views.widgets.notifications.adapters.adapters.NoteListAdapter;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
 public class NoteListFragment extends MyFragmentWithList implements NoteListAdapter.OnCheckItemListener{
 
@@ -40,6 +47,39 @@ public class NoteListFragment extends MyFragmentWithList implements NoteListAdap
 		buildSearchFunction();
 		reloadNotes();
 		loadAds();
+
+		OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer("PSfuSSCFSFOBqq6vvhp54lEVRODRa1xncBOPIJem", "96whKextYlWcF80ZszqPUGug32pfhHqrb3BZUsUU");
+		consumer.setTokenWithSecret("vietnh90@gmail.com", "hsbc!!123");
+
+		final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new SigningInterceptor(consumer)).build();
+
+		final Request request = new Request.Builder().url("https://api.500px.com/v1/photos?feature=fresh_today&sort=created_at&image_size=1&include_store=store_download&include_states=voted").build();
+
+		AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
+
+			@Override
+			protected String doInBackground(Void...params){
+				try{
+					Response response = client.newCall(request).execute();
+					if(!response.isSuccessful()){
+						return null;
+					}
+					return response.body().string();
+				}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(String s){
+				super.onPostExecute(s);
+				String t = s;
+			}
+		};
+
+		asyncTask.execute();
+
 	}
 
 	@Override

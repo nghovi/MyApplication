@@ -13,7 +13,7 @@ import com.nguyenhoangviet.vpcorp.Const;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragment;
 import com.nguyenhoangviet.vpcorp.core.network.Api;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 //import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;

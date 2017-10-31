@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.nguyenhoangviet.vpcorp.core.controller.DialogBuilder;
 import com.nguyenhoangviet.vpcorp.core.controller.MyDialogFragment;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 /**
  * Created by viet on 1/18/2016.

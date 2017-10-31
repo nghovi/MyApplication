@@ -7,14 +7,10 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 import com.nguyenhoangviet.vpcorp.core.network.Api;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -52,7 +48,6 @@ public class MyFragment extends Fragment{
 	protected DialogBuilder			dlgBuilder;
 	protected Map<String, Object>	updatedData;
 	public FrameLayout				mAdFrameLayout;
-	private AdView					mAdView;
 
 	public MyFragment(){
 		super();
@@ -391,57 +386,7 @@ public class MyFragment extends Fragment{
 	}
 
 	public void loadAds(){
-		mAdFrameLayout.setVisibility(View.GONE);
-		if(mAdView != null){
-			mAdFrameLayout.removeView(mAdView);
-			mAdView.destroy();
-		}
 
-		mAdView = new AdView(getActivity());
-		mAdView.setAdListener(new AdListener() {
-
-			private void showToast(String message){
-				View view = getView();
-				if(view != null){
-					Toast.makeText(getView().getContext(), message, Toast.LENGTH_SHORT).show();
-				}
-			}
-
-			@Override
-			public void onAdLoaded(){
-				mAdFrameLayout.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAdFailedToLoad(int errorCode){
-				// showToast(String.format("Ad failed to load with error code %d.", errorCode));
-				mAdFrameLayout.setVisibility(View.GONE);
-			}
-
-			@Override
-			public void onAdOpened(){
-				// showToast("Ad opened.");
-				mAdFrameLayout.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAdClosed(){
-				// showToast("Ad closed.");
-				mAdFrameLayout.setVisibility(View.GONE);
-			}
-
-			@Override
-			public void onAdLeftApplication(){
-				// showToast("Ad left application.");
-				mAdFrameLayout.setVisibility(View.GONE);
-			}
-		});
-
-		mAdView.setAdUnitId(getString(R.string.admob_banner_ad_unit_id));
-		mAdFrameLayout.addView(mAdView);
-		mAdView.setAdSize(AdSize.SMART_BANNER);
-		AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-		mAdView.loadAd(adRequest);
 	}
 
 	/*

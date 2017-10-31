@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.nguyenhoangviet.vpcorp.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.models.Note;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 public class NoteDetailFragment extends FragmentOfMainActivity{
 

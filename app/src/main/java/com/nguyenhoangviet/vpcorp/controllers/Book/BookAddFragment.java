@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.models.Book;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -11,7 +11,7 @@ import com.nguyenhoangviet.vpcorp.controllers.FragmentOfMainActivity;
 import com.nguyenhoangviet.vpcorp.core.utils.MU;
 import com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vpcorp.models.Book;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 
 import java.util.HashMap;
 import java.util.Iterator;

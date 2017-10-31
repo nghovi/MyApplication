@@ -31,7 +31,7 @@ import com.nguyenhoangviet.vpcorp.core.views.widgets.MyTextView;
 import com.nguyenhoangviet.vpcorp.models.GsonModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nguyenhoangviet.vpcorp.myapplication.BuildConfig;
+import com.nguyenhoangviet.vpcorp.vnote2.BuildConfig;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

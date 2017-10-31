@@ -5,11 +5,11 @@ android {
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        applicationId "com.nguyenhoangviet.vpcorp.myapplication"
+        applicationId "com.nguyenhoangviet.vpcorp.vnote2"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 16
-        versionName "1.0"
+        versionCode 17
+        versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
@@ -41,12 +41,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.jjoe64:graphview:4.0.1'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
-    compile 'com.google.firebase:firebase-ads:10.2.0'
-    compile 'com.google.firebase:firebase-core:10.2.0'
-
-//    compile 'com.google.android.gms:play-services:6.5.+'
-//    compile project(':facebook')
-//    compile project(':AndTinder')
+    compile 'se.akerfeldt:okhttp-signpost:1.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
 }
-
-apply plugin: 'com.google.gms.google-services'

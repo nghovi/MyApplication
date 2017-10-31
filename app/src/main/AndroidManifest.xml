@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.nguyenhoangviet.vpcorp.myapplication"
+<manifest package="com.nguyenhoangviet.vpcorp.vnote2"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -20,7 +20,7 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.nguyenhoangviet.vpcorp.myapplication.permission.C2D_MESSAGE"
+        android:name="com.nguyenhoangviet.vpcorp.vnote2.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
 
     <uses-permission android:name="com.nguyenhoangviet.vietnguyen.myapplication.permission.C2D_MESSAGE"/>

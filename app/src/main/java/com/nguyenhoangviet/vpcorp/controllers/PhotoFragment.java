@@ -25,7 +25,7 @@ import android.widget.Toast;
 //import com.andtinder.view.CardContainer;
 import com.nguyenhoangviet.vpcorp.core.database.DBHelper;
 import com.nguyenhoangviet.vpcorp.core.controller.MyFragment;
-import com.nguyenhoangviet.vpcorp.myapplication.R;
+import com.nguyenhoangviet.vpcorp.vnote2.R;
 //import com.example.vpcorp.views.widgets.notifications.adapters.adapters.MyCardStackAdapter;
 //import com.facebook.GraphRequest;
 //import com.facebook.GraphResponse;
